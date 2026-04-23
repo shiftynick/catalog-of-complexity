@@ -29,7 +29,7 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 ## Preconditions
 
 - `system_id` and every `metric_id` already exist in the registry.
-- Every `src-*` id in `source_refs` already has `source.yaml` and raw/parsed content on disk. If a source is a DOI that isn't yet registered, emit a source-acquisition follow-up task and block.
+- Every `src-*` id in `source_refs` already has `source.yaml` and raw/parsed content on disk. If any entry uses a prefixed form (`doi:`, `arxiv:`, `url:`) that isn't yet registered, **block** the task with reason `source-not-acquired`. `plan-backlog` Tier 0.75 owns acquisition — it will queue an `acquire-source` task on the next run. Do not fabricate a `src-*` id and do not attempt to fetch inline.
 
 ## Procedure
 
@@ -59,6 +59,13 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 - Numeric values require a unit conversion where the source unit is ambiguous (e.g. "count" with no denominator) — block.
 - The metric's applicability forbids the system (e.g. a cycle-based metric on a strictly acyclic system) — record an `undefined` observation with rationale, do not block.
 - Zero sources supply usable data for a requested pair — record an `undefined` observation with rationale.
+- Any `source_refs` entry uses a prefixed form (`doi:`, `arxiv:`, `url:`)
+  with no matching `registry/sources/src-*/` — block with reason
+  `source-not-acquired`. plan-backlog Tier 0.75 owns acquisition.
+- The source registered but its `registry/sources/<src>/parsed/` is empty
+  and the task requires citing specific passages — block with reason
+  `source-not-parsed`. A future `parse-source` skill will populate
+  `parsed/`; metadata-only sources cannot ground observations.
 
 ## References
 

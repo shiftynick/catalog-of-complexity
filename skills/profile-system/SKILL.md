@@ -33,6 +33,13 @@ Do **not** use this skill to add observations — that is `extract-observations`
 - `domain_slug` and every `class_slug` resolve in `taxonomy/source/*.yaml`.
 - No existing system record uses the same `slug`: `ls registry/systems | grep -i <slug>`.
 - At least one source is either already in `registry/sources/` or listed in the task manifest for acquisition.
+- All `source_refs` entries that use prefixed forms (`doi:`, `arxiv:`, `url:`)
+  resolve to an existing `registry/sources/src-*/source.yaml` (match by doi
+  / arxiv id / url). If any prefixed ref is unregistered, **block** the task
+  with reason `source-not-acquired` — `plan-backlog` Tier 0.75 will queue
+  an `acquire-source` task on the next run and the blocked profile-system
+  task can be unblocked after acquisition completes. Do not fabricate a
+  `src-*` id and do not attempt to fetch the source inline.
 
 ## Procedure
 
@@ -63,6 +70,10 @@ Do **not** use this skill to add observations — that is `extract-observations`
 - Only one authoritative source exists — block and request `scout-systems` to surface more.
 - Two or more `system-class` slugs fit equally well and the choice is non-obvious — propose a multi-class entry or block for reviewer judgement.
 - An existing `sys-*` record covers the same boundary — block; propose a merge task.
+- Any `source_refs` entry uses a prefixed form (`doi:`, `arxiv:`, `url:`) with
+  no matching `registry/sources/src-*/` — block with reason
+  `source-not-acquired`. plan-backlog Tier 0.75 owns acquisition; this skill
+  is a consumer, not an acquirer.
 
 ## References
 
