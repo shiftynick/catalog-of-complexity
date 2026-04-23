@@ -16,7 +16,7 @@ You are executing **exactly one** task in the Catalog of Complexity. You must:
 4. Produce the outputs declared in `output_targets`. Do not write files outside that list.
 5. Validate every structured file you wrote: `uv run coc validate <path>`.
 6. Write a `run.json` to `ops/runs/YYYY/MM/DD/<run_id>/run.json` conforming to [schemas/run.schema.json](../schemas/run.schema.json).
-7. Call `uv run coc complete {{TASK_ID}} --state <terminal> --outputs '<json>'` where `<terminal>` is one of `done`, `review`, `blocked`, `failed`.
+7. Call `uv run coc complete {{TASK_ID}} --state <terminal> --outputs '<json>'` where `<terminal>` is one of `done`, `review`, `blocked`, `failed`. Default to `done` when the skill's `stop_conditions` are met — the autonomous policy treats webUI prune as the review mechanism. Use `review` only when you have a specific reason to park the task for human eyes (e.g. the skill itself instructs escalation, or the record lands in a known-ill-defined area). Use `blocked` / `failed` per the skill's "Block or fail when" clauses.
 
 ---
 

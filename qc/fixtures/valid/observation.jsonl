@@ -1,1 +1,2 @@
 {"observation_id":"obs-ffffffff","system_id":"sys-999999--fixture-system","metric_id":"mtr-999999--fixture-metric","value":0.42,"value_kind":"derived","confidence":0.5,"source_refs":["src-999999--fixture-source"],"evidence_refs":["evi-ffffffff"],"review_state":"proposed"}
+{"observation_id":"obs-fffffffe","system_id":"sys-999999--fixture-system","metric_id":"mtr-999999--fixture-metric","value":0.51,"value_kind":"derived","confidence":0.6,"source_refs":["src-999999--fixture-source"],"evidence_refs":["evi-ffffffff"],"review_state":"auto-validated"}

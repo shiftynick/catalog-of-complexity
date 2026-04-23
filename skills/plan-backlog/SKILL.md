@@ -60,7 +60,10 @@ scope and covered by `review-records` and by human gatekeeping.
       tiers take over.
    1. **Review debt** — any record with `review_state: proposed` older than
       14 days → emit one `review-records` task per distinct reviewer target
-      (system, metric, or observation batch).
+      (system, metric, or observation batch). `auto-validated` records do
+      **not** trigger this tier on their own; they're considered usable
+      until the webUI prune tool flags them or a separate sweep of
+      auto-validated batches is scheduled.
    2. **Observation debt** — any `validated` system with zero observations
       against its declared metrics → emit one `extract-observations` task
       per (system, metric-family) pair, cap 5 per run.

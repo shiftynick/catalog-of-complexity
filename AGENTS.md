@@ -95,6 +95,28 @@ Retro cadence is "every run" by default and narrows to
 `blocked`/`failed`-only once ≥10 consecutive retros report
 `actionable: false`. The transition is itself a reviewable change.
 
+### Autonomy policy (what promotes without human review)
+
+`uv run coc advance` auto-promotes these task types from `inbox/` to
+`ready/` (per-type cap 3): `scout-systems`, `profile-system`,
+`define-metrics`, `extract-observations`, `review-records`, `apply-retros`,
+`analyze-archetypes`.
+
+The following types stay in `inbox/` until a human promotes them:
+`materialize-warehouse`, `build-release`, and anything authored under
+`taxonomy/` or `schemas/`. These affect published artifacts or controlled
+vocabularies that a webUI prune can't easily undo.
+
+Records produced by agents default to `review_state: auto-validated`
+(observations) — usable downstream immediately. A human or a
+`review-records` pass promotes them to `validated`. The planned webUI
+exploration/prune tool is the post-hoc review mechanism. Use
+`review_state: proposed` only when the authoring agent wants human eyes
+before the record is counted as usable.
+
+Task terminal state defaults to `done`. Use `review` only for explicit
+escalations.
+
 ## Skill roster
 
 - `setup-repo` — bootstrap or repair repository scaffolding.

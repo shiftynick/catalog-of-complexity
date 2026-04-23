@@ -83,7 +83,8 @@
     },
     "review_state": {
       "type": "string",
-      "enum": ["proposed", "validated", "superseded", "rejected"]
+      "enum": ["proposed", "auto-validated", "validated", "superseded", "rejected"],
+      "description": "Lifecycle state of this observation. 'proposed' is the cautious entry state (agent is unsure, wants human eyes). 'auto-validated' is the default agent-written state: the agent judges the record acceptable for downstream use but has not received explicit human sign-off. 'validated' requires human or review-records agent sign-off. 'superseded' means replaced by a later observation. 'rejected' means disqualified with rationale."
     },
     "observed_at": { "type": "string", "format": "date-time" }
   }

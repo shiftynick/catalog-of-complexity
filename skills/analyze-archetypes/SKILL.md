@@ -23,8 +23,8 @@ This skill is scaffolded to reserve its slot in the skill roster, but it must no
 
 Flip `status: active` in this frontmatter only when **all** of the following hold:
 
-1. `SELECT COUNT(*) FROM observations WHERE review_state = 'validated'` >= `min_observations` (default 200).
-2. `SELECT COUNT(DISTINCT system_class) FROM ...` (joining systems and classes) shows at least `min_system_classes` classes each with >=3 validated observations.
+1. `SELECT COUNT(*) FROM observations WHERE review_state IN ('validated', 'auto-validated')` >= `min_observations` (default 200). Both states count because auto-validated records are the default usable state under the current autonomous policy; strict human-only counts use `review_state = 'validated'`.
+2. `SELECT COUNT(DISTINCT system_class) FROM ...` (joining systems and classes) shows at least `min_system_classes` classes each with >=3 usable (validated or auto-validated) observations.
 3. At least one `metric-family:*` has coverage across 3+ distinct `system-domain:*` slugs.
 4. A separate `setup-repo` task has landed the analysis dependencies (e.g. `scikit-learn`, `networkx`, `igraph`) in `pyproject.toml`. These are **not** bootstrap dependencies — adding them before this skill is enabled is premature.
 

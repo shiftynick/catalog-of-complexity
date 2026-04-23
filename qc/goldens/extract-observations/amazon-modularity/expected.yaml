@@ -8,4 +8,4 @@ assertions:
   - "new_observation.value_kind in ('direct', 'derived', 'proxy', 'simulation', 'expert_estimate')"
   - "len(new_observation.evidence_refs) >= 1"
   - "resolve_evidence(new_observation.evidence_refs[0]) is not None"
-  - "new_observation.review_state in ('proposed', 'validated')"
+  - "new_observation.review_state in ('proposed', 'auto-validated', 'validated')"

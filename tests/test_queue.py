@@ -244,14 +244,35 @@ def test_advance_queue_promotes_eligible_types(fake_ops):
     assert kinds.count("task.promote") == 3
 
 
-def test_advance_queue_skips_human_review_types(fake_ops):
+def test_advance_queue_promotes_expanded_research_types(fake_ops):
+    # Types added to the autonomy policy: profile-system, define-metrics,
+    # apply-retros, analyze-archetypes. They now auto-promote.
     _make_inbox_task(fake_ops, "tsk-20260422-777010", "profile-system")
     _make_inbox_task(fake_ops, "tsk-20260422-777011", "define-metrics")
     _make_inbox_task(fake_ops, "tsk-20260422-777012", "apply-retros")
+    _make_inbox_task(fake_ops, "tsk-20260422-777013", "analyze-archetypes")
+
+    promoted = q.advance_queue()
+    assert set(promoted) == {
+        "tsk-20260422-777010",
+        "tsk-20260422-777011",
+        "tsk-20260422-777012",
+        "tsk-20260422-777013",
+    }
+    for tid in promoted:
+        assert (fake_ops / "tasks" / "ready" / f"{tid}.yaml").exists()
+        assert not (fake_ops / "tasks" / "inbox" / f"{tid}.yaml").exists()
+
+
+def test_advance_queue_skips_warehouse_and_release_types(fake_ops):
+    # materialize-warehouse and build-release stay gated — their artifacts
+    # (warehouse/, releases/) are hard to undo from the planned webUI prune.
+    _make_inbox_task(fake_ops, "tsk-20260422-777014", "materialize-warehouse")
+    _make_inbox_task(fake_ops, "tsk-20260422-777015", "build-release")
 
     promoted = q.advance_queue()
     assert promoted == []
-    for tid in ("tsk-20260422-777010", "tsk-20260422-777011", "tsk-20260422-777012"):
+    for tid in ("tsk-20260422-777014", "tsk-20260422-777015"):
         assert (fake_ops / "tasks" / "inbox" / f"{tid}.yaml").exists()
 
 

@@ -40,12 +40,15 @@ Before picking a branch, confirm environment health and advance the queue:
   previous run, abort with `run.aborted` and note the dirty state — a human
   must resolve before another autonomous run is safe.
 - `uv run coc advance` — auto-promote any eligible `inbox/` tasks to
-  `ready/`. Eligible types: `scout-systems`, `extract-observations`,
-  `review-records`. The command enforces a per-type cap (3 of any one type
-  in `ready/`) so runaway seeding is bounded. Types that stay in `inbox/`
-  awaiting human review: `profile-system`, `define-metrics`, `apply-retros`,
-  `materialize-warehouse`, `build-release`, `analyze-archetypes`, and
-  anything touching `taxonomy/` or `schemas/`.
+  `ready/`. Eligible types: `scout-systems`, `profile-system`,
+  `define-metrics`, `extract-observations`, `review-records`,
+  `apply-retros`, `analyze-archetypes`. The command enforces a per-type cap
+  (3 of any one type in `ready/`) so runaway seeding is bounded. Types
+  that stay in `inbox/` awaiting human review: `materialize-warehouse`,
+  `build-release`, and anything touching `taxonomy/` or `schemas/` — these
+  affect published artifacts or controlled vocabularies that can't be
+  undone by a webUI prune. The autonomous policy treats the webUI prune
+  workflow as the post-hoc review mechanism for everything else.
 
 Record all three checks, and the list of promoted task ids from `coc
 advance`, as part of the run report `notes`.
@@ -81,8 +84,10 @@ runs have productive work.
    [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md).
 2. Its outputs: zero or more new task manifests written to
    `ops/tasks/inbox/`. Promotion to `ready/` is not part of this branch —
-   `inbox → ready` transitions require human or `review-records` review per
-   AGENTS.md "Sensitive actions".
+   the **next** run's preflight `coc advance` step picks up auto-eligible
+   manifests. Types outside `AUTO_PROMOTE_TYPES` (e.g.
+   `materialize-warehouse`, `build-release`) stay in `inbox/` until a
+   human promotes them.
 3. Write a `run.json` with `task_id: null` (Branch B runs have no owning
    task), `status: success`, and `outputs` listing any new manifests.
 4. Proceed to §Retrospective with `task_id: null` and `skill: plan-backlog`.

@@ -34,15 +34,15 @@ Do **not** hand-edit anything under `warehouse/`. Do **not** commit `warehouse/p
 1. Run `uv run coc validate` as a pre-flight. If it fails, block the task — do not materialize over invalid records.
 2. Run `uv run coc materialize`. The CLI prints per-table row counts.
 3. Run post-checks against the new `warehouse/duckdb/coc.duckdb`:
-   - `SELECT systems_total, metrics_total, observations_total, validated_coverage FROM v_coverage_summary;`
+   - `SELECT systems_total, metrics_total, observations_total, usable_coverage, human_validated_coverage FROM v_coverage_summary;`
    - `SELECT COUNT(*) FROM v_system_metric_matrix WHERE value_numeric IS NOT NULL OR value_text IS NOT NULL;`
-   - `SELECT metric_family, systems_with_observation, observations_validated FROM v_coverage_by_family ORDER BY observations_validated DESC;`
-4. If any post-check returns an unexpected shape (e.g. validated_coverage = 0.0 when the registry has validated observations), block the task and investigate.
+   - `SELECT metric_family, systems_with_observation, observations_validated, observations_auto_validated FROM v_coverage_by_family ORDER BY observations_validated DESC;`
+4. If any post-check returns an unexpected shape (e.g. usable_coverage = 0.0 when the registry has validated or auto-validated observations), block the task and investigate.
 5. Append a run report: per-table row counts, post-check results, any anomalies.
 
 ## Output shape
 
-- `warehouse/parquet/*.parquet` — one file per logical table. Row counts match the registry's validated-or-proposed records.
+- `warehouse/parquet/*.parquet` — one file per logical table. Row counts match the registry's records across all `review_state` values.
 - `warehouse/duckdb/coc.duckdb` — DuckDB file readable via `duckdb warehouse/duckdb/coc.duckdb` or via `coc.warehouse.query()`.
 
 ## Block or fail when

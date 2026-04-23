@@ -6,7 +6,7 @@ inputs:
   - 'system_id — `sys-NNNNNN--<slug>`; must exist with status active.'
   - 'metric_ids — list of `mtr-NNNNNN--<slug>`; each must exist with status active.'
   - 'source_refs — list of `src-NNNNNN--<slug>` or DOIs; at least one per intended observation.'
-  - 'review_state — initial state for new observations (`proposed` by default; `validated` only for manual review tasks).'
+  - 'review_state — initial state for new observations (`auto-validated` by default: agent judges the record acceptable and webUI prune is the review mechanism). Use `proposed` only when the agent explicitly wants human eyes before the record is treated as usable; `validated` is reserved for human or `review-records` sign-off.'
 outputs:
   - 'Appended rows in `registry/observations/<system>/<topic>.jsonl` (one line per observation).'
   - 'Appended rows in `registry/sources/<src>/evidence.jsonl` (one line per evidence citation).'
@@ -43,13 +43,14 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 4. Append an evidence entry per citation to `registry/sources/<src>/evidence.jsonl`:
    - `evidence_id: evi-<8-hex>`, `source_id`, `locator` (page, section, line, or DOI fragment), `excerpt` (verbatim quote or paraphrase with citation).
 5. Append an observation entry to `registry/observations/<system>/<topic>.jsonl` (create a new topic file if needed — use the metric family as the topic name):
-   - `observation_id: obs-<8-hex>`, `system_id`, `metric_id`, value fields, `value_kind`, `unit`, `confidence`, `evidence_refs: [evi-*, ...]`, `review_state: proposed`, `observed_at` (date the source reports the value, not the date you extracted it).
+   - `observation_id: obs-<8-hex>`, `system_id`, `metric_id`, value fields, `value_kind`, `unit`, `confidence`, `evidence_refs: [evi-*, ...]`, `review_state: auto-validated` (default — use `proposed` only if you specifically want a human pass before the record counts), `observed_at` (date the source reports the value, not the date you extracted it).
 6. Run `uv run coc validate registry/observations/<system>/` and `uv run coc validate registry/sources/<src>/`.
 7. Append a run report listing: (system, metric, value, confidence, evidence_refs) tuples and any pairs skipped with rationale.
 
 ## Output shape
 
 - Observations are append-only JSONL. One JSON object per line. Never rewrite a line in place — if a prior observation needs correction, append a new one with `supersedes: obs-<prev-id>` and set the prior observation's `review_state: superseded` via a separate `review-records` task.
+- The default `review_state: auto-validated` means the record is usable downstream immediately. A human (or a `review-records` pass) can later promote it to `validated` or append a supersede to reject it. The webUI prune workflow substitutes for pre-merge human review.
 - Evidence rows are append-only JSONL.
 
 ## Block or fail when

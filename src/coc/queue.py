@@ -32,8 +32,12 @@ PRIORITY_ORDER = {"urgent": 0, "high": 1, "normal": 2, "low": 3}
 AUTO_PROMOTE_TYPES = frozenset(
     {
         "scout-systems",
+        "profile-system",
+        "define-metrics",
         "extract-observations",
         "review-records",
+        "apply-retros",
+        "analyze-archetypes",
     }
 )
 PER_TYPE_READY_CAP = 3

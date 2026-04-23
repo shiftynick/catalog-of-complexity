@@ -1,6 +1,6 @@
 ---
 name: review-records
-description: QC sweep over proposed records. Validates schema conformance, citation grounding, applicability respect, and methodological soundness. Advances `review_state` from `proposed` to `validated` or returns records for revision.
+description: QC sweep over auto-validated or proposed records. Validates schema conformance, citation grounding, applicability respect, and methodological soundness. Advances `review_state` from `auto-validated` or `proposed` to `validated` (human/agent sign-off) or returns records for revision. Also the dispatch target of the `apply-retros` improvement pipeline.
 status: active
 inputs:
   - 'record_scope — one of `system:<sys-id>`, `metric:<mtr-id>`, `source:<src-id>`, or `observations:<sys-id>[,<sys-id>...]`.'
@@ -16,11 +16,12 @@ stop_conditions:
 
 ## When to use
 
-Use this skill to close the review loop before records are considered canonical. Trigger:
+Use this skill to close the review loop on records that need a second pass. Trigger:
 
-- An `extract-observations` or `profile-system` task has completed into `review/` state.
-- A scheduled QC sweep checks a system or source's full record set.
+- An `extract-observations` or `profile-system` task has completed into `review/` state (rare under the autonomous policy — skills default to `done`, so `review` parking is an explicit escalation).
+- A scheduled QC sweep checks a system or source's full record set — typically auto-validated records the webUI flagged or that accumulated past a coverage threshold.
 - A reviewer has flagged a specific metric or system as suspect.
+- An `apply-retros` pass clustered retrospective improvements against this target path and emitted this task.
 
 Do **not** use this skill to create records or to edit canonical values in place — revision is always a new append or a new task.
 
@@ -45,8 +46,8 @@ Do **not** use this skill to create records or to edit canonical values in place
    - Check applicability: does the metric's `required_system_properties` hold for this system?
    - Check consistency: does this observation contradict a prior validated observation for the same (system, metric)? If so, flag for adjudication.
 5. Assign verdict to each record:
-   - `validated`: update `review_state`. For observations, this means appending a new line with the updated state (JSONL is append-only) and marking the prior `proposed` line as superseded. For systems/metrics, edit `system.yaml` / `metric.yaml` in place with new `review_state` and `updated_at`.
-   - `needs-revision`: keep `review_state: proposed`, emit a task in `ops/tasks/inbox/` with specific revision requests.
+   - `validated`: update `review_state`. For observations, this means appending a new line with the updated state (JSONL is append-only) and marking the prior `auto-validated` or `proposed` line as superseded. For systems/metrics, edit `system.yaml` / `metric.yaml` in place with new `review_state` and `updated_at`. Promoting `auto-validated` → `validated` is the common case; promoting `proposed` → `validated` happens only when a prior agent explicitly asked for a human pass.
+   - `needs-revision`: keep the current `review_state` (likely `auto-validated`; do not demote to `proposed` unless the record is genuinely suspect). Emit a task in `ops/tasks/inbox/` with specific revision requests.
    - `rejected`: append an observation with `review_state: rejected` and rationale. For systems/metrics, set `status: deprecated` and add a `notes.md` entry.
 6. Write the review report with one section per record: identifier, verdict, rationale, follow-up task id if any.
 
