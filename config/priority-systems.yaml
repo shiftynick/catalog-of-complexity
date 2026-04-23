@@ -1,0 +1,139 @@
+# Priority seed list for the catalog.
+#
+# plan-backlog Tier 0.5 consumes entries top-down, emitting one
+# scout-systems task per unfulfilled entry (bounded by the auto-promote
+# per-type cap on scout-systems). Entries are "fulfilled" when a
+# matching record exists at registry/systems/sys-*--<slug>/ or an
+# in-flight task carries `notes: "Priority seed: <slug>. ..."`.
+#
+# Ordering follows Boulding's Hierarchy of Systems Complexity (see
+# taxonomy/source/system-classes.yaml), ascending in abstraction — edit
+# order to change scouting priority.
+#
+# Entry shape:
+#   name:    human-readable name. Passed to scout-systems as `topic`.
+#   slug:    kebab-case idempotency key (matches registry slug tail).
+#   domain:  system-domain taxonomy slug (see
+#            taxonomy/source/system-domains.yaml).
+#   notes:   optional string — extra scoping context forwarded to scout.
+
+- name: Atomic systems
+  slug: atomic-system
+  domain: physical
+- name: Molecular systems
+  slug: molecular-system
+  domain: physical
+- name: Chemical reaction networks
+  slug: chemical-reaction-network
+  domain: physical
+- name: Autocatalytic chemical systems
+  slug: autocatalytic-chemical-system
+  domain: physical
+- name: Metabolic networks
+  slug: metabolic-network
+  domain: biological
+- name: Prokaryotic cells
+  slug: prokaryotic-cell
+  domain: biological
+- name: Eukaryotic cells
+  slug: eukaryotic-cell
+  domain: biological
+- name: Gene regulatory networks
+  slug: gene-regulatory-network
+  domain: biological
+- name: Protein interaction networks
+  slug: protein-interaction-network
+  domain: biological
+- name: Multicellular organisms
+  slug: multicellular-organism
+  domain: biological
+- name: Developmental (morphogenetic) systems
+  slug: developmental-system
+  domain: biological
+- name: Immune systems
+  slug: immune-system
+  domain: biological
+- name: Nervous systems
+  slug: nervous-system
+  domain: biological
+- name: Brains
+  slug: brain
+  domain: biological
+- name: Cognitive systems
+  slug: cognitive-system
+  domain: cognitive
+- name: Conscious systems
+  slug: conscious-system
+  domain: cognitive
+- name: Animal social systems
+  slug: animal-social-system
+  domain: biological
+- name: Human social systems
+  slug: human-social-system
+  domain: social
+- name: Language systems
+  slug: language-system
+  domain: cognitive
+- name: Cultural systems
+  slug: cultural-system
+  domain: social
+- name: Economic systems
+  slug: economic-system
+  domain: economic
+- name: Market systems
+  slug: market-system
+  domain: economic
+- name: Financial systems
+  slug: financial-system
+  domain: economic
+- name: Political systems
+  slug: political-system
+  domain: social
+- name: Legal systems
+  slug: legal-system
+  domain: social
+- name: Urban systems (cities)
+  slug: urban-system
+  domain: social
+- name: Transportation systems
+  slug: transportation-system
+  domain: technological
+- name: Communication networks
+  slug: communication-network
+  domain: technological
+- name: The Internet
+  slug: the-internet
+  domain: technological
+- name: Software ecosystems
+  slug: software-ecosystem
+  domain: technological
+- name: Artificial intelligence systems
+  slug: artificial-intelligence-system
+  domain: computational
+- name: Scientific knowledge systems
+  slug: scientific-knowledge-system
+  domain: cognitive
+- name: Technological systems
+  slug: technological-system
+  domain: technological
+- name: Industrial systems
+  slug: industrial-system
+  domain: technological
+- name: Energy systems (power grids)
+  slug: energy-system
+  domain: technological
+- name: Ecological systems (ecosystems)
+  slug: ecosystem
+  domain: ecological
+- name: Food webs
+  slug: food-web
+  domain: ecological
+- name: Evolutionary systems
+  slug: evolutionary-system
+  domain: biological
+- name: Climate systems
+  slug: climate-system
+  domain: physical
+- name: Earth system (biosphere–geosphere coupling)
+  slug: earth-system
+  domain: ecological

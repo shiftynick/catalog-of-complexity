@@ -59,6 +59,22 @@ scope and covered by `review-records` and by human gatekeeping.
       in `notes` (see Domain rotation below). Tier 0 fires only during
       true cold-start; once the registry has any system, later tiers
       take over.
+   0.5. **Priority seed** — consume unfulfilled entries from
+      [config/priority-systems.yaml](../../config/priority-systems.yaml)
+      top-down. An entry is *fulfilled* when either
+      `registry/systems/sys-*--<slug>/` exists or any task manifest under
+      `ops/tasks/` carries `notes` beginning with
+      `"Priority seed: <slug>."`. For the next up to 3 unfulfilled
+      entries, emit a `scout-systems` task with `topic: <entry.name>`,
+      `domain_hint: <entry.domain>`, and
+      `notes: "Priority seed: <slug>. Target system-domain:<domain>.
+      Budget: 1 candidate system."`. Cap of 3 matches the auto-promote
+      per-type ready cap on `scout-systems`. This tier fires regardless
+      of registry size (not just at cold-start) and takes priority over
+      Tier 3's profile debt so curated picks complete before organic
+      expansion; it yields to Tier 1's review debt because reviewer
+      backlog is time-sensitive. See Priority seed file below for the
+      entry schema.
    1. **Review debt** — any record with `review_state: proposed` older than
       14 days → emit one `review-records` task per distinct reviewer target
       (system, metric, or observation batch). `auto-validated` records do
@@ -131,6 +147,39 @@ This yields an *interleaved* rotation: a single plan-backlog run seeds
 scouts across multiple thin domains simultaneously, so the subsequent
 profile-system drain alternates between domains rather than burning
 through one domain's candidates for several iterations before jumping.
+
+## Priority seed file
+
+[config/priority-systems.yaml](../../config/priority-systems.yaml) is a
+hand-curated, ordered list of systems the maintainer wants profiled
+before organic coverage expansion. It's the taste-injection point for
+the catalog: edit the file to change what scouts run next.
+
+**Entry shape** (root-level YAML list):
+
+```yaml
+- name: Human social systems        # passed to scout-systems as topic
+  slug: human-social-system         # idempotency key vs. registry slug tail
+  domain: social                    # resolves against taxonomy/source/system-domains.yaml
+  notes: optional extra scoping context
+```
+
+**Fulfillment check** (Tier 0.5 skip logic): an entry is considered
+done when any of the following holds —
+
+- `registry/systems/sys-*--<slug>/` directory exists, or
+- any `ops/tasks/**/*.yaml` has `notes` starting with
+  `"Priority seed: <slug>."` (covers in-flight scout/profile tasks
+  seeded from this list; prevents double-emission across runs).
+
+Re-ordering entries reprioritizes; deleting an entry stops future
+re-emission; re-adding a deleted entry after its system has been
+removed from `registry/systems/` re-queues it.
+
+**Validation**: the domain slug must resolve against
+`taxonomy/source/system-domains.yaml`. Entries that fail resolution are
+skipped (logged in the plan-report's **Skipped** section) rather than
+blocking the run — the rest of the list should still make progress.
 
 ## Block or fail when
 
