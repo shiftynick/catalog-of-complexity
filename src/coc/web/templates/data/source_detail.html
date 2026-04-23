@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ source.title or source.id }} — {{ site_title }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ request.url_for('data_sources_list') }}">← Sources</a></p>
+<h1>{{ source.title or source.id }}</h1>
+<p class="mono dim">{{ source.id }}{% if source.kind %} &middot; <span class="badge">{{ source.kind }}</span>{% endif %}</p>
+
+<div class="panel">
+  <dl class="kv">
+    {% if source.authors %}<dt>Authors</dt><dd>{{ source.authors | join('; ') }}</dd>{% endif %}
+    {% if source.year %}<dt>Year</dt><dd class="mono">{{ source.year }}</dd>{% endif %}
+    {% if source.doi %}<dt>DOI</dt><dd class="mono"><a href="https://doi.org/{{ source.doi }}" target="_blank" rel="noopener">{{ source.doi }}</a></dd>{% endif %}
+    {% if source.url %}<dt>URL</dt><dd class="mono"><a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.url }}</a></dd>{% endif %}
+    {% if source.license %}<dt>License</dt><dd>{{ source.license }}</dd>{% endif %}
+    {% if source.retrieved_at %}<dt>Retrieved</dt><dd class="mono">{{ source.retrieved_at }}</dd>{% endif %}
+    {% if source.hash %}<dt>Hash</dt><dd class="mono truncate">{{ source.hash }}</dd>{% endif %}
+  </dl>
+  {% if source.citation %}<h3>Citation</h3><pre>{{ source.citation }}</pre>{% endif %}
+</div>
+
+<h2>Observations citing this source ({{ citing|length }})</h2>
+{% if citing %}
+<table>
+  <thead><tr><th>Observation</th><th>System</th><th>Metric</th><th>Value</th><th>Review</th><th>Observed</th></tr></thead>
+  <tbody>
+    {% for o in citing %}
+    <tr>
+      <td class="mono truncate">{{ o.observation_id }}</td>
+      <td><a href="{{ request.url_for('data_system_detail', system_id=o.system_id) }}">{{ o.system_id }}</a></td>
+      <td><a href="{{ request.url_for('data_metric_detail', metric_id=o.metric_id) }}">{{ o.metric_id }}</a></td>
+      <td class="mono">{{ o.value_numeric if o.value_numeric is not none else o.value_text }}{% if o.unit %} <span class="dim">{{ o.unit }}</span>{% endif %}</td>
+      <td>{% if o.review_state %}<span class="badge">{{ o.review_state }}</span>{% endif %}</td>
+      <td class="mono">{{ o.observed_at or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="dim">No observations currently cite this source.</p>
+{% endif %}
+{% endblock %}

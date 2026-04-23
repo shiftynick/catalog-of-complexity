@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Queue — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Task queue</h1>
+
+<div class="facets">
+  <a class="badge {% if not selected_state %}badge-ready{% endif %}" href="{{ request.url_for('ops_queue') }}">all</a>
+  {% for st in states %}
+    <a class="badge badge-{{ st }}" href="{{ request.url_for('ops_queue') }}?state={{ st }}">{{ st }} ({{ groups[st]|length if groups[st] is defined else '' }})</a>
+  {% endfor %}
+</div>
+
+{% for state, tasks in groups.items() %}
+  {% if tasks %}
+  <h2><span class="badge badge-{{ state }}">{{ state }}</span> <span class="dim">({{ tasks|length }})</span></h2>
+  <table>
+    <thead><tr><th>ID</th><th>Type</th><th>Skill</th><th>Priority</th><th>Created</th><th>Notes</th></tr></thead>
+    <tbody>
+      {% for t in tasks %}
+      <tr>
+        <td class="mono"><a href="{{ request.url_for('ops_task_detail', task_id=t.id) }}">{{ t.id }}</a></td>
+        <td>{% if t.type %}<span class="badge">{{ t.type }}</span>{% endif %}</td>
+        <td>{{ t.skill or '' }}</td>
+        <td><span class="badge">{{ t.priority or 'normal' }}</span></td>
+        <td class="mono">{{ t.created_at or '' }}</td>
+        <td class="truncate">{{ t.notes or '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+{% endfor %}
+
+{% if groups and not groups.values()|select|list %}
+<p class="dim">No tasks in the selected state.</p>
+{% endif %}
+{% endblock %}

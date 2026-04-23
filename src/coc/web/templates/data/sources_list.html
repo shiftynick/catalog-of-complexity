@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Sources — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Sources</h1>
+<p class="muted">{{ rows|length }} source(s)</p>
+<table>
+  <thead><tr><th>ID</th><th>Title</th><th>Kind</th><th>Year</th><th>DOI / URL</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono"><a href="{{ request.url_for('data_source_detail', source_id=r.id) }}">{{ r.id }}</a></td>
+      <td>{{ r.title }}</td>
+      <td>{% if r.kind %}<span class="badge">{{ r.kind }}</span>{% endif %}</td>
+      <td class="mono">{{ r.year or '' }}</td>
+      <td class="mono truncate">
+        {% if r.doi %}<a href="https://doi.org/{{ r.doi }}" target="_blank" rel="noopener">{{ r.doi }}</a>
+        {% elif r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.url }}</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Retrospectives — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Retrospectives</h1>
+<p class="muted">{{ rows|length }} retro(s)</p>
+{% if rows %}
+<table>
+  <thead><tr><th>Path</th><th>Task</th><th>Run</th><th>Actionable</th><th>Summary</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono truncate">{{ r._path }}</td>
+      <td class="mono">{% if r.task_id %}<a href="{{ request.url_for('ops_task_detail', task_id=r.task_id) }}">{{ r.task_id }}</a>{% endif %}</td>
+      <td class="mono">{% if r.run_id %}<a href="{{ request.url_for('ops_run_detail', run_id=r.run_id) }}">{{ r.run_id }}</a>{% endif %}</td>
+      <td>{% if r.actionable is defined %}<span class="badge">{{ r.actionable }}</span>{% endif %}</td>
+      <td class="truncate">{{ r.summary or r.notes or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="dim">No retrospectives recorded yet.</p>{% endif %}
+{% endblock %}

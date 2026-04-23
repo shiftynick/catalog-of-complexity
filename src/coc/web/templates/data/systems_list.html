@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Systems — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Systems</h1>
+
+<div class="facets">
+  <form method="get" action="{{ request.url_for('data_systems_list') }}">
+    <input type="search" name="q" value="{{ q }}" placeholder="search name or slug">
+    <select name="domain">
+      <option value="">all domains</option>
+      {% for d in ['ecological','biological','technological','social','physical','computational','economic','cognitive'] %}
+        <option value="{{ d }}" {% if domain == d %}selected{% endif %}>{{ d }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">filter</button>
+    {% if q or domain %}<a class="muted" href="{{ request.url_for('data_systems_list') }}">clear</a>{% endif %}
+  </form>
+</div>
+
+<p class="muted">{{ rows|length }} system(s)</p>
+
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Taxonomy</th><th>Summary</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono"><a href="{{ request.url_for('data_system_detail', system_id=r.id) }}">{{ r.id }}</a></td>
+      <td>{{ r.name }}</td>
+      <td>{% if r.status %}<span class="badge">{{ r.status }}</span>{% endif %}</td>
+      <td>
+        <ul class="chips">
+          {% for t in r.taxonomy_refs or [] %}<li>{{ t }}</li>{% endfor %}
+        </ul>
+      </td>
+      <td class="truncate">{{ r.summary or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

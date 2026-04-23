@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ task.id }} — {{ site_title }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ request.url_for('ops_queue') }}">← Queue</a></p>
+<h1 class="mono">{{ task.id }}</h1>
+<p>
+  <span class="badge badge-{{ state }}">{{ state }}</span>
+  {% if task.type %}<span class="badge">{{ task.type }}</span>{% endif %}
+  {% if task.priority %}<span class="badge">{{ task.priority }}</span>{% endif %}
+  {% if task.skill %}<span class="dim">skill:</span> <span class="mono">{{ task.skill }}</span>{% endif %}
+</p>
+
+<div class="panel">
+  <dl class="kv">
+    <dt>Path</dt><dd class="mono truncate">{{ path }}</dd>
+    {% if task.created_at %}<dt>Created</dt><dd class="mono">{{ task.created_at }}</dd>{% endif %}
+    {% if task.lease %}
+      {% if task.lease.leased_by %}<dt>Leased by</dt><dd class="mono">{{ task.lease.leased_by }}</dd>{% endif %}
+      {% if task.lease.leased_at %}<dt>Leased at</dt><dd class="mono">{{ task.lease.leased_at }}</dd>{% endif %}
+      {% if task.lease.last_heartbeat %}<dt>Heartbeat</dt><dd class="mono">{{ task.lease.last_heartbeat }}</dd>{% endif %}
+      {% if task.lease.ttl_minutes %}<dt>TTL (min)</dt><dd class="mono">{{ task.lease.ttl_minutes }}</dd>{% endif %}
+      {% if task.lease.attempts is defined %}<dt>Attempts</dt><dd class="mono">{{ task.lease.attempts }}</dd>{% endif %}
+    {% endif %}
+    {% if task.system_id %}<dt>System</dt><dd class="mono">{{ task.system_id }}</dd>{% endif %}
+    {% if task.source_refs %}
+    <dt>Source refs</dt>
+    <dd><ul class="chips">{% for s in task.source_refs %}<li>{{ s }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if task.output_targets %}
+    <dt>Output targets</dt>
+    <dd><ul class="chips">{% for s in task.output_targets %}<li>{{ s }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+  </dl>
+</div>
+
+{% if task.notes %}
+<h2>Notes</h2>
+<div class="panel"><p>{{ task.notes }}</p></div>
+{% endif %}
+
+{% if task.acceptance_tests %}
+<h2>Acceptance tests</h2>
+<ol>
+  {% for t in task.acceptance_tests %}<li>{{ t }}</li>{% endfor %}
+</ol>
+{% endif %}
+
+<h2>Events ({{ events|length }})</h2>
+{% if events %}
+<table>
+  <thead><tr><th>When</th><th>Kind</th><th>Actor</th><th>Payload</th></tr></thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td class="mono">{{ e.timestamp }}</td>
+      <td class="mono">{{ e.kind }}</td>
+      <td class="mono truncate">{{ e.actor or '' }}</td>
+      <td class="mono truncate">{{ e.payload | tojson }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="dim">No events for this task.</p>{% endif %}
+{% endblock %}

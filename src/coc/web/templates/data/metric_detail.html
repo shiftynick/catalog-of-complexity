@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ metric.name }} — {{ site_title }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ request.url_for('data_metrics_list') }}">← Metrics</a></p>
+<h1>{{ metric.name }}</h1>
+<p class="mono dim">{{ metric.id }}
+  {% if metric.family %} &middot; <span class="badge">{{ metric.family }}</span>{% endif %}
+  {% if metric.status %} &middot; <span class="badge">{{ metric.status }}</span>{% endif %}
+</p>
+
+{% if metric.description %}<p>{{ metric.description }}</p>{% endif %}
+
+<div class="panel">
+  <dl class="kv">
+    <dt>Slug</dt><dd class="mono">{{ metric.slug }}</dd>
+    <dt>Value type</dt><dd>{{ metric.value_type or '' }}</dd>
+    <dt>Unit</dt><dd class="mono">{{ metric.unit or '' }}</dd>
+    <dt>Directionality</dt><dd>{{ metric.directionality or '' }}</dd>
+    {% if metric.requires %}
+    <dt>Requires</dt>
+    <dd><ul class="chips">{% for r in metric.requires %}<li>{{ r }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if metric.excludes %}
+    <dt>Excludes</dt>
+    <dd><ul class="chips">{% for r in metric.excludes %}<li>{{ r }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if metric.estimation_methods %}
+    <dt>Methods</dt>
+    <dd><ul class="chips">{% for m in metric.estimation_methods %}<li>{{ m }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if metric.normalization_strategy %}
+    <dt>Normalization</dt><dd>{{ metric.normalization_strategy }}</dd>
+    {% endif %}
+    {% if metric.minimum_source_count is not none %}
+    <dt>Min sources</dt><dd class="mono">{{ metric.minimum_source_count }}</dd>
+    {% endif %}
+    {% if metric.review_required is not none %}
+    <dt>Review required</dt><dd class="mono">{{ metric.review_required }}</dd>
+    {% endif %}
+  </dl>
+</div>
+
+<h2>Observations ({{ observations|length }})</h2>
+{% if observations %}
+<table>
+  <thead><tr><th>Observation</th><th>System</th><th>Value</th><th>Kind</th><th>Conf.</th><th>Review</th><th>Observed</th></tr></thead>
+  <tbody>
+    {% for o in observations %}
+    <tr>
+      <td class="mono truncate">{{ o.observation_id }}</td>
+      <td><a href="{{ request.url_for('data_system_detail', system_id=o.system_id) }}">{{ o.system_id }}</a></td>
+      <td class="mono">{{ o.value_numeric if o.value_numeric is not none else o.value_text }}{% if o.unit %} <span class="dim">{{ o.unit }}</span>{% endif %}</td>
+      <td>{{ o.value_kind or '' }}</td>
+      <td class="mono">{{ o.confidence }}</td>
+      <td>{% if o.review_state %}<span class="badge">{{ o.review_state }}</span>{% endif %}</td>
+      <td class="mono">{{ o.observed_at or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="dim">No observations recorded for this metric.</p>
+{% endif %}
+{% endblock %}

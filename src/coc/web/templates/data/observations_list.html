@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Observations — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Observations</h1>
+
+<div class="facets">
+  <form method="get" action="{{ request.url_for('data_observations_list') }}">
+    <input type="text" name="system_id" value="{{ system_id }}" placeholder="system_id">
+    <input type="text" name="metric_id" value="{{ metric_id }}" placeholder="metric_id">
+    <select name="review_state">
+      <option value="">any review state</option>
+      {% for s in review_states %}
+        <option value="{{ s }}" {% if review_state == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">filter</button>
+    {% if system_id or metric_id or review_state %}
+      <a class="muted" href="{{ request.url_for('data_observations_list') }}">clear</a>
+    {% endif %}
+  </form>
+</div>
+
+<p class="muted">{{ rows|length }} observation(s){% if rows|length == 500 %} (capped){% endif %}</p>
+
+<table>
+  <thead>
+    <tr><th>Observation</th><th>System</th><th>Metric</th><th>Value</th><th>Kind</th><th>Conf.</th><th>Review</th><th>Observed</th></tr>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono truncate">{{ r.observation_id }}</td>
+      <td><a href="{{ request.url_for('data_system_detail', system_id=r.system_id) }}">{{ r.system_id }}</a></td>
+      <td><a href="{{ request.url_for('data_metric_detail', metric_id=r.metric_id) }}">{{ r.metric_id }}</a></td>
+      <td class="mono">{{ r.value_numeric if r.value_numeric is not none else r.value_text }}{% if r.unit %} <span class="dim">{{ r.unit }}</span>{% endif %}</td>
+      <td>{{ r.value_kind or '' }}</td>
+      <td class="mono">{{ r.confidence }}</td>
+      <td>{% if r.review_state %}<span class="badge">{{ r.review_state }}</span>{% endif %}</td>
+      <td class="mono">{{ r.observed_at or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

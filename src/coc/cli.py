@@ -137,5 +137,41 @@ def eval(skill: str | None) -> None:  # noqa: A001
     raise SystemExit(0 if ok else 1)
 
 
+@main.command()
+@click.option("--host", default="127.0.0.1", show_default=True)
+@click.option("--port", default=8000, show_default=True, type=int)
+@click.option(
+    "--mode",
+    type=click.Choice(["internal", "public"]),
+    default="internal",
+    show_default=True,
+    help="internal mounts /ops; public exposes only /data and /taxonomy.",
+)
+@click.option("--reload/--no-reload", default=False, help="Autoreload on code changes (dev).")
+def serve(host: str, port: int, mode: str, reload: bool) -> None:
+    """Run the web UI (requires `coc[web]` extra)."""
+    import os
+
+    try:
+        import uvicorn
+    except ImportError as exc:
+        raise SystemExit(
+            "coc[web] is not installed. Install with:\n"
+            "  uv pip install -e '.[web]'"
+        ) from exc
+
+    os.environ["COC_WEB_MODE"] = mode
+    console.print(
+        f"[green]coc serve[/green] mode=[bold]{mode}[/bold] on http://{host}:{port}"
+    )
+    uvicorn.run(
+        "coc.web.app:app",
+        host=host,
+        port=port,
+        reload=reload,
+        log_level="info",
+    )
+
+
 if __name__ == "__main__":
     main()

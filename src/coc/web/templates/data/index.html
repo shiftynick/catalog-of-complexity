@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Data — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Data</h1>
+<p class="dim">Browse the canonical catalog: systems, metrics, observations, sources.</p>
+
+<div class="grid">
+  <a class="metric-tile" href="{{ request.url_for('data_systems_list') }}">
+    <div class="n">{{ counts.systems or 0 }}</div><div class="label">Systems</div>
+  </a>
+  <a class="metric-tile" href="{{ request.url_for('data_metrics_list') }}">
+    <div class="n">{{ counts.metrics or 0 }}</div><div class="label">Metrics</div>
+  </a>
+  <a class="metric-tile" href="{{ request.url_for('data_observations_list') }}">
+    <div class="n">{{ counts.observations or 0 }}</div><div class="label">Observations</div>
+  </a>
+  <a class="metric-tile" href="{{ request.url_for('data_sources_list') }}">
+    <div class="n">{{ counts.sources or 0 }}</div><div class="label">Sources</div>
+  </a>
+</div>
+
+<h2>Systems by domain</h2>
+<table>
+  <thead><tr><th>Domain</th><th class="right">Count</th></tr></thead>
+  <tbody>
+    {% for r in by_domain %}
+    <tr>
+      <td>
+        {% if r.domain != 'unclassified' %}
+        <a href="{{ request.url_for('data_systems_list') }}?domain={{ r.domain }}">{{ r.domain }}</a>
+        {% else %}{{ r.domain }}{% endif %}
+      </td>
+      <td class="right mono">{{ r.n }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Latest observations</h2>
+{% if latest %}
+<table>
+  <thead>
+    <tr><th>Observation</th><th>System</th><th>Metric</th><th>Value</th><th>Conf.</th><th>Review</th><th>Observed</th></tr>
+  </thead>
+  <tbody>
+    {% for r in latest %}
+    <tr>
+      <td class="mono truncate">{{ r.observation_id }}</td>
+      <td><a href="{{ request.url_for('data_system_detail', system_id=r.system_id) }}">{{ r.system_id }}</a></td>
+      <td><a href="{{ request.url_for('data_metric_detail', metric_id=r.metric_id) }}">{{ r.metric_id }}</a></td>
+      <td class="mono">{{ r.value_numeric if r.value_numeric is not none else r.value_text }}{% if r.unit %} <span class="dim">{{ r.unit }}</span>{% endif %}</td>
+      <td class="mono">{{ r.confidence }}</td>
+      <td>{% if r.review_state %}<span class="badge">{{ r.review_state }}</span>{% endif %}</td>
+      <td class="mono">{{ r.observed_at or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="dim">No observations yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Skills — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Skill roster</h1>
+<p class="muted">{{ rows|length }} skill(s)</p>
+<table>
+  <thead><tr><th>Name</th><th>Status</th><th>Description</th><th>Path</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono">{{ r.name }}</td>
+      <td>{% if r.status %}<span class="badge">{{ r.status }}</span>{% endif %}</td>
+      <td>{{ r.description }}</td>
+      <td class="mono truncate">{{ r.path }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

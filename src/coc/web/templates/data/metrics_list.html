@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Metrics — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Metrics</h1>
+
+<div class="facets">
+  <form method="get" action="{{ request.url_for('data_metrics_list') }}">
+    <select name="family">
+      <option value="">all families</option>
+      {% for f in families %}
+        <option value="{{ f }}" {% if family == f %}selected{% endif %}>{{ f }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">filter</button>
+    {% if family %}<a class="muted" href="{{ request.url_for('data_metrics_list') }}">clear</a>{% endif %}
+  </form>
+</div>
+
+<p class="muted">{{ rows|length }} metric(s)</p>
+
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Family</th><th>Status</th><th>Type</th><th>Unit</th><th>Direction</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono"><a href="{{ request.url_for('data_metric_detail', metric_id=r.id) }}">{{ r.id }}</a></td>
+      <td>{{ r.name }}</td>
+      <td>{% if r.family %}<span class="badge">{{ r.family }}</span>{% endif %}</td>
+      <td>{% if r.status %}<span class="badge">{{ r.status }}</span>{% endif %}</td>
+      <td>{{ r.value_type or '' }}</td>
+      <td class="mono">{{ r.unit or '' }}</td>
+      <td>{{ r.directionality or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

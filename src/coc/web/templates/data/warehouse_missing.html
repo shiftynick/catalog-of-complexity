@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Warehouse missing — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Warehouse not materialized</h1>
+<p class="dim">The DuckDB warehouse at <code>{{ settings.duckdb_path }}</code> does not exist.</p>
+<p>Run <code>uv run coc materialize</code> to build it from the registry, then reload this page.</p>
+{% endblock %}

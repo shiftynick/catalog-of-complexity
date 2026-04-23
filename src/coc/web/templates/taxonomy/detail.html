@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ tax.name or name }} — Taxonomy — {{ site_title }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ request.url_for('taxonomy_index') }}">← Taxonomy</a></p>
+<h1>{{ tax.name or name }}</h1>
+{% if tax.version %}<p class="mono dim">version {{ tax.version }}</p>{% endif %}
+{% if tax.description %}<p>{{ tax.description }}</p>{% endif %}
+
+<table>
+  <thead><tr><th>Slug</th><th>Label</th><th>Description</th></tr></thead>
+  <tbody>
+    {% for item in tax['items'] or [] %}
+    <tr>
+      <td class="mono">{{ item.slug }}</td>
+      <td>{{ item.label or '' }}</td>
+      <td>{{ item.description or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

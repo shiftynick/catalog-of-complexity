@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Events — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Events</h1>
+
+<div class="facets">
+  <form method="get" action="{{ request.url_for('ops_events') }}">
+    <select name="stream">
+      {% for s in streams %}
+        <option value="{{ s }}" {% if stream == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+    <input type="number" name="limit" value="{{ limit }}" min="10" max="2000" step="10">
+    <button type="submit">view</button>
+  </form>
+</div>
+
+<p class="muted">{{ rows|length }} event(s) &middot; <span class="mono">{{ stream }}.jsonl</span></p>
+
+<table>
+  <thead><tr><th>When</th><th>Kind</th><th>Subject</th><th>Actor</th><th>Payload</th></tr></thead>
+  <tbody>
+    {% for e in rows %}
+    <tr>
+      <td class="mono">{{ e.timestamp }}</td>
+      <td class="mono">{{ e.kind }}</td>
+      <td class="mono">{{ e.subject or '' }}</td>
+      <td class="mono truncate">{{ e.actor or '' }}</td>
+      <td class="mono truncate">{{ e.payload | tojson if e.payload is defined else '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

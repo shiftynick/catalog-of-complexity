@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site_title }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ request.url_for('static', path='app.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ request.url_for('data_index') }}">{{ site_title }}</a>
+      <nav class="main-nav">
+        <a href="{{ request.url_for('data_index') }}">Data</a>
+        <a href="{{ request.url_for('data_systems_list') }}">Systems</a>
+        <a href="{{ request.url_for('data_metrics_list') }}">Metrics</a>
+        <a href="{{ request.url_for('data_observations_list') }}">Observations</a>
+        <a href="{{ request.url_for('data_sources_list') }}">Sources</a>
+        <a href="{{ request.url_for('taxonomy_index') }}">Taxonomy</a>
+        {% if not is_public %}
+          <span class="sep">|</span>
+          <a href="{{ request.url_for('ops_index') }}">Ops</a>
+          <a href="{{ request.url_for('ops_queue') }}">Queue</a>
+          <a href="{{ request.url_for('ops_runs') }}">Runs</a>
+          <a href="{{ request.url_for('ops_events') }}">Events</a>
+          <a href="{{ request.url_for('ops_retros') }}">Retros</a>
+          <a href="{{ request.url_for('ops_skills') }}">Skills</a>
+        {% endif %}
+      </nav>
+      <span class="mode-badge mode-{{ settings.mode }}">{{ settings.mode }}</span>
+    </div>
+  </header>
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Catalog of Complexity</span>
+      <span class="dim">filesystem as source of truth</span>
+    </div>
+  </footer>
+</body>
+</html>

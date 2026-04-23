@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Taxonomy — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Taxonomy</h1>
+<p class="dim">Controlled vocabularies used throughout the catalog.</p>
+<table>
+  <thead><tr><th>Vocabulary</th><th>Description</th><th class="right">Items</th></tr></thead>
+  <tbody>
+    {% for s in summaries %}
+    <tr>
+      <td class="mono"><a href="{{ request.url_for('taxonomy_detail', name=s.name) }}">{{ s.name }}</a></td>
+      <td>{{ s.description }}</td>
+      <td class="right mono">{{ s.count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

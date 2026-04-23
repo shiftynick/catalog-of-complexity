@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ system.name }} — {{ site_title }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ request.url_for('data_systems_list') }}">← Systems</a></p>
+<h1>{{ system.name }}</h1>
+<p class="mono dim">{{ system.id }}{% if system.status %} &middot; <span class="badge">{{ system.status }}</span>{% endif %}</p>
+
+{% if system.summary %}<p>{{ system.summary }}</p>{% endif %}
+
+<div class="panel">
+  <dl class="kv">
+    <dt>Slug</dt><dd class="mono">{{ system.slug }}</dd>
+    {% if system.aliases %}<dt>Aliases</dt><dd>{{ system.aliases | join(', ') }}</dd>{% endif %}
+    {% if system.taxonomy_refs %}
+    <dt>Taxonomy</dt>
+    <dd><ul class="chips">{% for t in system.taxonomy_refs %}<li>{{ t }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    <dt>Boundary</dt>
+    <dd>
+      {% if system.boundary_type %}<span class="badge">{{ system.boundary_type }}</span>{% endif %}
+      {% if system.boundary_description %}<div class="muted">{{ system.boundary_description }}</div>{% endif %}
+    </dd>
+    {% if system.components %}
+    <dt>Components</dt>
+    <dd><ul class="chips">{% for c in system.components %}<li>{{ c }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.interaction_types %}
+    <dt>Interactions</dt>
+    <dd><ul class="chips">{% for c in system.interaction_types %}<li>{{ c }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.scales_spatial %}
+    <dt>Scales (spatial)</dt>
+    <dd><ul class="chips">{% for s in system.scales_spatial %}<li>{{ s }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.scales_temporal %}
+    <dt>Scales (temporal)</dt>
+    <dd><ul class="chips">{% for s in system.scales_temporal %}<li>{{ s }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.source_refs %}
+    <dt>Sources</dt>
+    <dd>
+      <ul class="chips">
+        {% for s in system.source_refs %}
+          <li><a href="{{ request.url_for('data_source_detail', source_id=s) }}">{{ s }}</a></li>
+        {% endfor %}
+      </ul>
+    </dd>
+    {% endif %}
+    {% if system.created_at %}<dt>Created</dt><dd class="mono">{{ system.created_at }}</dd>{% endif %}
+    {% if system.updated_at %}<dt>Updated</dt><dd class="mono">{{ system.updated_at }}</dd>{% endif %}
+  </dl>
+</div>
+
+<h2>Observations ({{ observations|length }})</h2>
+{% if observations %}
+<table>
+  <thead><tr><th>Observation</th><th>Metric</th><th>Value</th><th>Kind</th><th>Conf.</th><th>Review</th><th>Observed</th></tr></thead>
+  <tbody>
+    {% for o in observations %}
+    <tr>
+      <td class="mono truncate">{{ o.observation_id }}</td>
+      <td><a href="{{ request.url_for('data_metric_detail', metric_id=o.metric_id) }}">{{ o.metric_id }}</a></td>
+      <td class="mono">{{ o.value_numeric if o.value_numeric is not none else o.value_text }}{% if o.unit %} <span class="dim">{{ o.unit }}</span>{% endif %}</td>
+      <td>{{ o.value_kind or '' }}</td>
+      <td class="mono">{{ o.confidence }}</td>
+      <td>{% if o.review_state %}<span class="badge">{{ o.review_state }}</span>{% endif %}</td>
+      <td class="mono">{{ o.observed_at or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="dim">No observations recorded for this system.</p>
+{% endif %}
+{% endblock %}

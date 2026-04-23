@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Runs — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Runs</h1>
+
+<div class="facets">
+  <a class="badge" href="{{ request.url_for('ops_runs') }}">all</a>
+  {% for s in statuses %}
+    <a class="badge badge-{{ s }}" href="{{ request.url_for('ops_runs') }}?status={{ s }}">{{ s }}</a>
+  {% endfor %}
+</div>
+
+<p class="muted">{{ rows|length }} run(s){% if selected_status %} &middot; filter: <span class="badge">{{ selected_status }}</span>{% endif %}</p>
+
+<table>
+  <thead><tr><th>Run</th><th>Task</th><th>Agent</th><th>Started</th><th>Ended</th><th>Status</th><th>Elapsed</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td class="mono truncate"><a href="{{ request.url_for('ops_run_detail', run_id=r.run_id) }}">{{ r.run_id }}</a></td>
+      <td class="mono">{% if r.task_id %}<a href="{{ request.url_for('ops_task_detail', task_id=r.task_id) }}">{{ r.task_id }}</a>{% else %}<span class="dim">—</span>{% endif %}</td>
+      <td class="mono">{{ (r.agent or {}).runtime or '' }}/{{ (r.agent or {}).model or '' }}</td>
+      <td class="mono">{{ r.started_at or '' }}</td>
+      <td class="mono">{{ r.ended_at or '' }}</td>
+      <td>{% if r.status %}<span class="badge badge-{{ r.status }}">{{ r.status }}</span>{% endif %}</td>
+      <td class="mono">{{ (r.budget or {}).minutes_elapsed }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

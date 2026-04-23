@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Ops — {{ site_title }}{% endblock %}
+{% block content %}
+<h1>Ops dashboard</h1>
+
+<h2>Queue</h2>
+<div class="grid">
+  {% for state in states %}
+  <a class="metric-tile" href="{{ request.url_for('ops_queue') }}?state={{ state }}">
+    <div class="n">{{ counts[state] }}</div>
+    <div class="label"><span class="badge badge-{{ state }}">{{ state }}</span></div>
+  </a>
+  {% endfor %}
+</div>
+
+<h2>Recent runs</h2>
+{% if runs %}
+<table>
+  <thead><tr><th>Run</th><th>Task</th><th>Started</th><th>Status</th><th>Elapsed</th></tr></thead>
+  <tbody>
+    {% for r in runs %}
+    <tr>
+      <td class="mono truncate"><a href="{{ request.url_for('ops_run_detail', run_id=r.run_id) }}">{{ r.run_id }}</a></td>
+      <td class="mono">{% if r.task_id %}<a href="{{ request.url_for('ops_task_detail', task_id=r.task_id) }}">{{ r.task_id }}</a>{% else %}<span class="dim">—</span>{% endif %}</td>
+      <td class="mono">{{ r.started_at or '' }}</td>
+      <td>{% if r.status %}<span class="badge badge-{{ r.status }}">{{ r.status }}</span>{% endif %}</td>
+      <td class="mono">{{ r.budget.minutes_elapsed if r.budget else '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="dim">No runs recorded yet.</p>{% endif %}
+
+<h2>Recent task events</h2>
+{% if events %}
+<table>
+  <thead><tr><th>When</th><th>Kind</th><th>Task</th><th>Actor</th></tr></thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td class="mono">{{ e.timestamp }}</td>
+      <td class="mono">{{ e.kind }}</td>
+      <td class="mono">{% if e.subject %}<a href="{{ request.url_for('ops_task_detail', task_id=e.subject) }}">{{ e.subject }}</a>{% endif %}</td>
+      <td class="mono truncate">{{ e.actor or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="dim">No events yet.</p>{% endif %}
+{% endblock %}
