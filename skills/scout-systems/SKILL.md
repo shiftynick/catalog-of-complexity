@@ -4,7 +4,7 @@ description: Discover candidate complex systems worth cataloging and the metrics
 status: active
 inputs:
   - 'topic — free-text scope seed (e.g. "gut microbiome", "high-voltage power grids", "stock market microstructure").'
-  - 'budget — integer. Maximum number of candidate systems to surface in this run (default 5).'
+  - 'budget — integer. Maximum number of candidate systems to surface in this run (default 3). Keep this small: each candidate becomes a profile-system task, and a 5-candidate scout monopolizes downstream runs with a single domain for ~5 iterations before cross-domain rotation can resume. plan-backlog overrides to 2 when fanning out across multiple under-covered domains.'
   - 'domain_hint — optional taxonomy slug (`system-domain:ecological`, etc.) to constrain the search.'
 outputs:
   - 'One `ops/tasks/inbox/tsk-YYYYMMDD-NNNNNN.yaml` per candidate system (type `profile-system`).'
@@ -28,7 +28,7 @@ Do **not** use this skill to finalize system definitions or extract measurements
 
 ## Preconditions
 
-- The task manifest supplies `topic` (required) and `budget` (optional, default 5).
+- The task manifest supplies `topic` (required) and `budget` (optional, default 3). Read the manifest's `notes` field for an explicit budget override (e.g. "Budget: 2 candidate systems").
 - Taxonomy exports are current — if `taxonomy/exports/labels.json` is missing or stale, run `uv run coc export-taxonomy` first.
 
 ## Procedure

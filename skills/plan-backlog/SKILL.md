@@ -54,10 +54,11 @@ scope and covered by `review-records` and by human gatekeeping.
    that produces at least one proposal:
    0. **Bootstrap** — if `registry/systems/` has zero entries *and* there
       are fewer than 2 `scout-systems` tasks across `inbox/ + ready/`,
-      emit one `scout-systems` task targeting the least-covered
-      `system-domain` slug (see Domain rotation below). Tier 0 fires only
-      during true cold-start; once the registry has any system, later
-      tiers take over.
+      emit **one `scout-systems` task per zero-count `system-domain`** up
+      to `max_scouts_per_run: 3`, each with `Budget: 2 candidate systems`
+      in `notes` (see Domain rotation below). Tier 0 fires only during
+      true cold-start; once the registry has any system, later tiers
+      take over.
    1. **Review debt** — any record with `review_state: proposed` older than
       14 days → emit one `review-records` task per distinct reviewer target
       (system, metric, or observation batch). `auto-validated` records do
@@ -72,9 +73,14 @@ scope and covered by `review-records` and by human gatekeeping.
       emit one `profile-system` task per system, cap 3 per run.
    4. **Metric debt** — any `candidate` metric without a rubric file → emit
       one `define-metrics` task per metric, cap 3 per run.
-   5. **Coverage expansion** — if the top tiers are all empty, emit one
-      `scout-systems` task targeting the least-populated `system-domain`
-      slug (tie-break on slug order).
+   5. **Coverage expansion** — if the top tiers are all empty, emit
+      `scout-systems` tasks for the under-covered `system-domain` slugs:
+      one per slug in the bottom half of the coverage histogram, capped
+      at `max_scouts_per_run: 3`, each with `Budget: 2 candidate systems`
+      in `notes`. Fanning across multiple domains avoids the lock-in
+      where one scout's 5-candidate budget dominates several subsequent
+      autoruns with a single domain before rotation can resume. If only
+      one domain is under-covered, emit a single scout with `Budget: 3`.
 4. For each proposal, generate a task manifest with:
    - `id` — `tsk-YYYYMMDD-NNNNNN` where the `NNNNNN` suffix is the next
      unused number for that date across all `ops/tasks/` subdirectories.
@@ -104,21 +110,27 @@ scope and covered by `review-records` and by human gatekeeping.
 
 ## Domain rotation
 
-Tier 0 (bootstrap) and Tier 5 (coverage expansion) both need to pick a
-`system-domain` slug to scout. Use this rule:
+Tier 0 (bootstrap) and Tier 5 (coverage expansion) both need to pick one
+or more `system-domain` slugs to scout. Use this rule:
 
 1. For each slug listed in
    [taxonomy/source/system-domains.yaml](../../taxonomy/source/system-domains.yaml),
    count matching `taxonomy_refs: [system-domain:<slug>]` entries across
-   `registry/systems/*/system.yaml`.
-2. Select the slug with the lowest count. Tie-break on slug order (the
-   order they appear in `system-domains.yaml`).
-3. The selected slug becomes the scout task's `notes` hint, e.g.
-   `notes: "Bootstrap seed — scout the system-domain:ecological slug."`
+   `registry/systems/*/system.yaml`. Call this the coverage histogram.
+2. Select the under-covered slugs: all zero-count slugs for Tier 0, or
+   the bottom half of the histogram for Tier 5 (slugs whose count is at
+   or below the median). Order them ascending by count; tie-break on
+   slug order (the order they appear in `system-domains.yaml`).
+3. Emit one scout task per selected slug, capped at `max_scouts_per_run`
+   (default 3) to stay within the auto-promote per-type cap on
+   `scout-systems`. Each scout's `notes` hint names its target slug and
+   the budget override, e.g. `notes: "Coverage-expansion Tier 5. Target
+   system-domain:technological. Budget: 2 candidate systems."`.
 
-This yields a deterministic rotation: the first bootstrap picks the first
-domain, the second bootstrap (after that domain has gained a system) picks
-the next-thinnest domain, and so on.
+This yields an *interleaved* rotation: a single plan-backlog run seeds
+scouts across multiple thin domains simultaneously, so the subsequent
+profile-system drain alternates between domains rather than burning
+through one domain's candidates for several iterations before jumping.
 
 ## Block or fail when
 
