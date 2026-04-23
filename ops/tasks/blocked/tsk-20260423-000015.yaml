@@ -10,6 +10,10 @@ acceptance_tests:
 created_at: '2026-04-23T18:54:28Z'
 id: tsk-20260423-000015
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T19:38:52Z'
+  leased_at: '2026-04-23T19:37:30Z'
+  leased_by: Shiftor/14756
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Priority seed: chemical-reaction-network. Target system-domain:physical. Budget:
@@ -21,5 +25,5 @@ output_targets:
   - ops/runs/*/scout-report.md
 priority: normal
 skill: scout-systems
-state: ready
+state: blocked
 type: scout-systems
