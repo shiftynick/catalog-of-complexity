@@ -1,0 +1,23 @@
+sources:
+  - doi: 10.1093/genetics/77.1.71
+    citation: >
+      Brenner S. The genetics of Caenorhabditis elegans. Genetics
+      77(1):71-94 (1974).
+  - doi: 10.1098/rstb.1986.0056
+    citation: >
+      White JG, Southgate E, Thomson JN, Brenner S. The structure of the
+      nervous system of the nematode Caenorhabditis elegans. Philosophical
+      Transactions of the Royal Society of London B 314(1165):1-340 (1986).
+related_systems:
+  - sys-000002--human-gut-microbiome
+  - sys-000003--vertebrate-adaptive-immune-system
+datasets:
+  - name: WormBase
+    url: https://wormbase.org/
+    license: CC BY 4.0
+  - name: OpenWorm (whole-organism simulation and data)
+    url: https://openworm.org/
+    license: MIT / CC BY 4.0 (project-dependent)
+  - name: WormAtlas (anatomy and neuronal connectivity)
+    url: https://www.wormatlas.org/
+    license: see site terms; academic use

@@ -10,6 +10,10 @@ acceptance_tests:
 created_at: '2026-04-23T14:20:20Z'
 id: tsk-20260423-000004
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T16:32:30Z'
+  leased_at: '2026-04-23T16:32:30Z'
+  leased_by: Shiftor/110676
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: Caenorhabditis elegans (model multicellular organism). Proposed
@@ -28,6 +32,6 @@ skill: profile-system
 source_refs:
   - doi:10.1093/genetics/77.1.71
   - doi:10.1098/rstb.1986.0056
-state: ready
+state: done
 system_id: null
 type: profile-system

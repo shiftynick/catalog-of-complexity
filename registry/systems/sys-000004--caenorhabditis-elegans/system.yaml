@@ -1,0 +1,68 @@
+id: sys-000004--caenorhabditis-elegans
+slug: caenorhabditis-elegans
+name: Caenorhabditis elegans (model multicellular organism)
+aliases:
+  - C. elegans
+  - Nematode C. elegans
+status: profiled
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:multicellular-organism
+summary: >
+  A free-living soil nematode (~1 mm long) whose adult hermaphrodite is built
+  from exactly 959 somatic cells with a fully mapped invariant cell lineage and
+  a 302-neuron connectome. Its small, fully sequenced genome, short ~3-day life
+  cycle, and experimental tractability make it the most structurally resolved
+  multicellular animal and a canonical model system for development, neural
+  circuits, aging, and cell-fate decisions.
+boundary:
+  type: functional
+  description: >
+    Includes the individual C. elegans organism from zygote through adult and
+    senescence: all somatic cells and their invariant lineage, the germline, the
+    nervous system (302 neurons in the adult hermaphrodite, 381 in the male),
+    muscle, hypodermis, intestine, gonad, and the cuticle that defines the
+    organism's outer boundary. Includes the intra-organismal signaling,
+    electrical, and mechanical interactions that coordinate these cells, and
+    the developmental program that produces them. Excludes the external
+    environment (soil, bacterial food, conspecifics) and population-level or
+    evolutionary dynamics except as inputs that perturb the individual. The
+    defining membership criterion is being part of the single cellular lineage
+    descended from one zygote and bounded by the cuticle.
+components:
+  - zygote and early embryonic blastomeres with invariant fates
+  - 959 somatic cells of the adult hermaphrodite (1031 generated, 131 eliminated by programmed cell death)
+  - germline syncytium and gametes
+  - 302 adult hermaphrodite neurons (383 including pharyngeal; 381 in the adult male) with stereotyped chemical and electrical synapses
+  - 95 body-wall muscle cells plus pharyngeal, vulval, anal, and sex muscles
+  - intestinal cells, hypodermal syncytia, seam cells, and excretory system
+  - gonad (distal tip cell, sheath, spermatheca, uterus) and reproductive tract
+  - collagenous cuticle and stage-specific molts
+  - ~20,000 protein-coding genes organized on six chromosomes (five autosomes plus X)
+  - small-RNA regulatory pathways (microRNA, piRNA, endo-siRNA) and RNAi machinery
+interaction_types:
+  - invariant cell-lineage divisions with asymmetric fate determinants
+  - intercellular signaling (Wnt, Notch/LIN-12, EGF/LET-23, TGF-beta, insulin/IGF-1-like DAF-2)
+  - chemical and electrical synaptic transmission across the wired connectome
+  - neuromuscular control of locomotion, pharyngeal pumping, and egg-laying
+  - programmed cell death (apoptosis) during development
+  - transcriptional and small-RNA gene regulation
+  - mechanical coupling of muscle, cuticle, and hydrostatic skeleton
+  - sensory transduction (chemosensation, thermosensation, mechanosensation, osmosensation)
+  - germline-to-soma signaling regulating lifespan and reproduction
+scales:
+  spatial:
+    - nanometer-scale synaptic vesicles, receptor complexes, and chromatin organization
+    - micrometer-scale individual cells, nuclei, and axonal processes
+    - hundred-micrometer-scale tissues, ganglia, and gonad arms
+    - ~1 mm whole-organism length (adult hermaphrodite); ~50 micrometer diameter
+  temporal:
+    - millisecond-scale neural and synaptic dynamics
+    - second-scale locomotor gaits, pharyngeal pumping, and behavioral bouts
+    - minute-to-hour-scale embryonic cell divisions and early cleavage program
+    - ~3-day egg-to-adult life cycle at 20 degrees Celsius (four larval stages L1-L4 with stage-specific molts)
+    - 2-3 week adult lifespan under standard laboratory conditions
+    - dauer diapause extending survival for weeks to months under stress
+source_refs: []
+created_at: '2026-04-23T16:33:13Z'
+updated_at: '2026-04-23T16:33:13Z'

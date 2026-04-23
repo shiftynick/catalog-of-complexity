@@ -1,0 +1,36 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--rhizosphere-microbiome/system.yaml validates 
+    against schemas/system.schema.json with status active and taxonomy_refs 
+    containing system-domain:biological and system-class:microbiome.
+  - links.yaml cites >=2 authoritative sources (Philippot et al. 2013 
+    rhizosphere ecology review and Berendsen et al. 2012 plant-health review are
+    the scouted anchors).
+  - boundary, components, interaction_types, and scales are populated with 
+    specifics covering the root-soil interface, microbial consortia, and 
+    plant-microbe exchange of exudates and signals.
+created_at: '2026-04-23T14:20:40Z'
+id: tsk-20260423-000006
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Candidate: rhizosphere microbiome — the root-associated microbial community
+  surrounding plant roots. Proposed slug: rhizosphere-microbiome. Proposed taxonomy:
+  system-domain:biological, system-class:microbiome. Scouted by tsk-20260423-000001.
+  Deliberately distinct from the human-gut-microbiome candidate (tsk-20260423-000002):
+  different host, different selective pressures (root exudate gradients, rhizodeposition,
+  spatial soil heterogeneity), and different characteristic scales. A profiler should
+  draw the boundary at the millimetre-scale volume of soil under direct root influence,
+  not the bulk soil. Scales: µm (microbial cell) to mm (rhizosphere thickness) to
+  seasonal (plant life cycle). Anchor sources: Philippot L et al. (2013) Nat Rev Microbiol
+  11(11):789-799 — review of rhizosphere microbial ecology; Berendsen RL, Pieterse
+  CM, Bakker PA (2012) Trends Plant Sci 17(8):478-486 — plant-health perspective.'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - doi:10.1038/nrmicro3109
+  - doi:10.1016/j.tplants.2012.04.001
+state: ready
+system_id: null
+type: profile-system
