@@ -114,6 +114,11 @@
     "description": "Venue where dispersed participants transact, with prices emerging from their aggregate actions.\n",
     "label": "Market exchange"
   },
+  "system-class:metabolic-network": {
+    "aliases": [],
+    "description": "Intracellular graph of biochemical reactions \u2014 metabolites as nodes, enzyme-catalyzed conversions as edges \u2014 that collectively realize a cell's energy, biosynthesis, and regulatory functions. Distinct from `immune-system` (organism-level defense subsystem) and from `unicellular-organism` (the whole cell as a unit) by being a within-cell functional network rather than an organism or community.\n",
+    "label": "Metabolic network"
+  },
   "system-class:microbiome": {
     "aliases": [],
     "description": "Community of microorganisms occupying a defined environment or host.",
@@ -144,6 +149,11 @@
     "description": "Dendritic hydrological system draining a terrestrial area into a common outlet.",
     "label": "River network"
   },
+  "system-class:superorganism": {
+    "aliases": [],
+    "description": "Eusocial colony (e.g. social insects) or clonal colony whose members exhibit reproductive division of labor and are treated as the unit of selection. Distinct from `multicellular-organism` (differentiated cells rather than differentiated individuals) and from `microbiome` (diverse community without unified reproductive specialization).\n",
+    "label": "Superorganism"
+  },
   "system-class:supply-chain": {
     "aliases": [],
     "description": "Multi-organization network of suppliers, transforms, and distributors converting raw inputs to end-consumer goods.\n",
@@ -153,6 +163,11 @@
     "aliases": [],
     "description": "Infrastructure plus flow system moving people or goods between nodes.",
     "label": "Transportation network"
+  },
+  "system-class:unicellular-organism": {
+    "aliases": [],
+    "description": "Single-celled organism \u2014 prokaryote (bacteria, archaea) or single-celled eukaryote (yeast, protist) \u2014 whose complete life cycle is carried out by one cell. Distinct from `multicellular-organism` (differentiated cells with shared genome) and from `microbiome` (a community of many organisms occupying a niche).\n",
+    "label": "Unicellular organism"
   },
   "system-class:urban-metabolism": {
     "aliases": [],

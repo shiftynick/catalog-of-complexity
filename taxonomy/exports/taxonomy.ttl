@@ -155,6 +155,13 @@
     skos:notation "system-class:market-exchange" ;
     skos:prefLabel "Market exchange" .
 
+<https://catalog-of-complexity.org/taxonomy/system-class/metabolic-network> a skos:Concept ;
+    skos:definition """Intracellular graph of biochemical reactions — metabolites as nodes, enzyme-catalyzed conversions as edges — that collectively realize a cell's energy, biosynthesis, and regulatory functions. Distinct from `immune-system` (organism-level defense subsystem) and from `unicellular-organism` (the whole cell as a unit) by being a within-cell functional network rather than an organism or community.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:metabolic-network" ;
+    skos:prefLabel "Metabolic network" .
+
 <https://catalog-of-complexity.org/taxonomy/system-class/microbiome> a skos:Concept ;
     skos:definition "Community of microorganisms occupying a defined environment or host." ;
     skos:inScheme coc:scheme ;
@@ -192,6 +199,13 @@
     skos:notation "system-class:river-network" ;
     skos:prefLabel "River network" .
 
+<https://catalog-of-complexity.org/taxonomy/system-class/superorganism> a skos:Concept ;
+    skos:definition """Eusocial colony (e.g. social insects) or clonal colony whose members exhibit reproductive division of labor and are treated as the unit of selection. Distinct from `multicellular-organism` (differentiated cells rather than differentiated individuals) and from `microbiome` (diverse community without unified reproductive specialization).
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:superorganism" ;
+    skos:prefLabel "Superorganism" .
+
 <https://catalog-of-complexity.org/taxonomy/system-class/supply-chain> a skos:Concept ;
     skos:definition """Multi-organization network of suppliers, transforms, and distributors converting raw inputs to end-consumer goods.
 """ ;
@@ -204,6 +218,13 @@
     skos:inScheme coc:scheme ;
     skos:notation "system-class:transportation-network" ;
     skos:prefLabel "Transportation network" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/unicellular-organism> a skos:Concept ;
+    skos:definition """Single-celled organism — prokaryote (bacteria, archaea) or single-celled eukaryote (yeast, protist) — whose complete life cycle is carried out by one cell. Distinct from `multicellular-organism` (differentiated cells with shared genome) and from `microbiome` (a community of many organisms occupying a niche).
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:unicellular-organism" ;
+    skos:prefLabel "Unicellular organism" .
 
 <https://catalog-of-complexity.org/taxonomy/system-class/urban-metabolism> a skos:Concept ;
     skos:definition """A city treated as a system of material and energy flows, coupling human, technological, and ecological subsystems.
