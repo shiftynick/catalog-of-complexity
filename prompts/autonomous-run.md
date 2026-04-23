@@ -44,11 +44,12 @@ Before picking a branch, confirm environment health and advance the queue:
   `define-metrics`, `extract-observations`, `review-records`,
   `apply-retros`, `analyze-archetypes`. The command enforces a per-type cap
   (3 of any one type in `ready/`) so runaway seeding is bounded. Types
-  that stay in `inbox/` awaiting human review: `materialize-warehouse`,
-  `build-release`, and anything touching `taxonomy/` or `schemas/` — these
-  affect published artifacts or controlled vocabularies that can't be
-  undone by a webUI prune. The autonomous policy treats the webUI prune
-  workflow as the post-hoc review mechanism for everything else.
+  that stay in `inbox/` awaiting human review: `materialize-warehouse`
+  and `build-release` — these publish artifacts (`warehouse/`,
+  `releases/`) a webUI prune can't easily retract. Everything else —
+  including `review-records` tasks that edit `taxonomy/` or `schemas/` —
+  auto-promotes. The autonomous policy treats the webUI prune workflow
+  plus `coc validate` as the post-hoc review mechanism.
 
 Record all three checks, and the list of promoted task ids from `coc
 advance`, as part of the run report `notes`.

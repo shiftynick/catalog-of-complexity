@@ -103,9 +103,13 @@ Retro cadence is "every run" by default and narrows to
 `analyze-archetypes`.
 
 The following types stay in `inbox/` until a human promotes them:
-`materialize-warehouse`, `build-release`, and anything authored under
-`taxonomy/` or `schemas/`. These affect published artifacts or controlled
-vocabularies that a webUI prune can't easily undo.
+`materialize-warehouse` and `build-release`. These publish artifacts
+(`warehouse/`, `releases/`) that a webUI prune can't easily retract.
+Everything else — including `review-records` tasks that edit `taxonomy/`
+or `schemas/` — auto-promotes. The webUI prune workflow and
+`coc validate` together cover the post-hoc correctness story: a bad
+taxonomy slug or schema change surfaces as validation failures on
+dependent records, and the prune tool can roll edits back.
 
 Records produced by agents default to `review_state: auto-validated`
 (observations) — usable downstream immediately. A human or a
