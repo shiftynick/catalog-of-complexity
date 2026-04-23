@@ -27,3 +27,6 @@ priority: normal
 skill: scout-systems
 state: blocked
 type: scout-systems
+unblock:
+  kind: taxonomy-slug-exists
+  taxonomy_ref: system-class:atomic-system

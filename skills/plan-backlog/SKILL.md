@@ -50,7 +50,17 @@ scope and covered by `review-records` and by human gatekeeping.
 2. Compare against the saturation cap:
    - If `len(inbox) >= inbox_cap`, skip all proposal emission — write only
      the plan-report with `status: saturated`.
-3. Apply the gap heuristic, in priority order. Stop after the first tier
+3. Note the preflight unblock sweep: `coc advance` already called
+   `sweep_blocked()` before this skill ran. Tasks with an `unblock` field
+   whose condition is now satisfied (taxonomy slug present, upstream task
+   complete) have already been moved `blocked/` → `ready/` with attempts
+   reset. If the sweep produced any unblocks, Branch A would have fired
+   instead of this branch — so reaching plan-backlog means either no
+   blocked tasks had satisfied conditions, or there were none with an
+   `unblock` field. Do not re-invent the sweep here; blocked tasks
+   without an `unblock` field stay blocked until a human or a targeted
+   `review-records` task unsticks them.
+4. Apply the gap heuristic, in priority order. Stop after the first tier
    that produces at least one proposal:
    0. **Bootstrap** — if `registry/systems/` has zero entries *and* there
       are fewer than 2 `scout-systems` tasks across `inbox/ + ready/`,
@@ -108,7 +118,7 @@ scope and covered by `review-records` and by human gatekeeping.
       where one scout's 5-candidate budget dominates several subsequent
       autoruns with a single domain before rotation can resume. If only
       one domain is under-covered, emit a single scout with `Budget: 3`.
-4. For each proposal, generate a task manifest with:
+5. For each proposal, generate a task manifest with:
    - `id` — `tsk-YYYYMMDD-NNNNNN` where the `NNNNNN` suffix is the next
      unused number for that date across all `ops/tasks/` subdirectories.
    - `state: inbox`, `priority: normal`, `lease: {ttl_minutes: 90, max_attempts: 1}`.
@@ -117,13 +127,13 @@ scope and covered by `review-records` and by human gatekeeping.
    - `notes` — one sentence naming the gap this proposal fills, e.g.
      "Covers observation-debt gap: sys-000123 has zero observations against
      metric-family:dynamics."
-5. Write the plan-report to
+6. Write the plan-report to
    `ops/runs/YYYY/MM/DD/<run-id>/plan-report.md` with sections:
    - **Scoreboard** — counts from step 1 as a table.
    - **Gap selected** — which tier fired and why.
    - **Proposals emitted** — list of task ids + one-line rationale.
    - **Skipped** — lower-priority tiers that had gaps but were not acted on.
-6. Validate: `uv run coc validate ops/tasks/inbox/`. If any proposal fails
+7. Validate: `uv run coc validate ops/tasks/inbox/`. If any proposal fails
    validation, delete it, record the failure in the plan-report under
    **Errors**, and fall through to `status: blocked` for the run.
 

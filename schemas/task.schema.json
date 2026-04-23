@@ -104,6 +104,26 @@
       }
     },
     "notes": { "type": "string" },
+    "unblock": {
+      "description": "Auto-unblock condition checked during `coc advance`. When the named condition becomes true, the task moves blocked/ → ready/ with `lease.attempts` reset to 0 and a `task.unblock` event appended. Only meaningful on tasks in the `blocked` state; harmless elsewhere. `kind: taxonomy-slug-exists` fires when `taxonomy_ref` (e.g. `system-class:atomic-system`) resolves in `taxonomy/source/*.yaml`. `kind: task-complete` fires when the named `task_id` reaches `ops/tasks/done/`. Runtime rejects specs where the kind-required field is missing.",
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["taxonomy-slug-exists", "task-complete"]
+        },
+        "taxonomy_ref": {
+          "type": "string",
+          "pattern": "^[a-z-]+:[a-z0-9-]+$"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^tsk-[0-9]{8}-[0-9]{6}$"
+        }
+      }
+    },
     "created_at": { "type": "string", "format": "date-time" }
   }
 }

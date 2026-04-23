@@ -314,6 +314,96 @@ def advance_queue() -> list[str]:
     return promoted
 
 
+def _task_is_done(task_id: str) -> bool:
+    return (OPS_TASKS / "done" / f"{task_id}.yaml").exists()
+
+
+def _taxonomy_slug_exists(qualified: str) -> bool:
+    # Imported lazily so the queue module stays importable even if the
+    # taxonomy module's rdflib dep isn't installed in minimal contexts.
+    from coc.taxonomy import load_index
+
+    return load_index().has(qualified)
+
+
+def _unblock_condition_met(spec: Any) -> bool:
+    if not isinstance(spec, dict):
+        return False
+    kind = spec.get("kind")
+    if kind == "taxonomy-slug-exists":
+        ref = spec.get("taxonomy_ref")
+        if not isinstance(ref, str) or ":" not in ref:
+            return False
+        return _taxonomy_slug_exists(ref)
+    if kind == "task-complete":
+        tid = spec.get("task_id")
+        if not isinstance(tid, str):
+            return False
+        return _task_is_done(tid)
+    return False
+
+
+def unblock_task(task_id: str) -> Path:
+    """Move `task_id` from blocked/ back to ready/ and reset lease counters.
+
+    Raises if the task isn't in blocked/. The `unblock` field (if any) is
+    preserved on the task so a repeat block can reuse the same condition.
+    """
+    src = _task_path(task_id, "blocked")
+    if not src.exists():
+        raise QueueError(f"task not in blocked/: {task_id}")
+    data = load_yaml(src)
+    data["state"] = "ready"
+    lease = data.setdefault("lease", {"ttl_minutes": 90, "max_attempts": 1})
+    lease["attempts"] = 0
+    lease["leased_by"] = None
+    lease["leased_at"] = None
+    lease["last_heartbeat"] = None
+    dump_yaml(data, src)
+    dst = _task_path(task_id, "ready")
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    os.rename(src, dst)
+    append_event(
+        "task-events",
+        {
+            "event_id": _event_id(),
+            "timestamp": _now(),
+            "kind": "task.unblock",
+            "subject": task_id,
+            "actor": _agent_id(),
+            "payload": {
+                "from_state": "blocked",
+                "to_state": "ready",
+                "unblock": data.get("unblock"),
+            },
+        },
+    )
+    return dst
+
+
+def sweep_blocked() -> list[str]:
+    """Scan blocked/, unblock tasks whose `unblock` condition is satisfied.
+
+    Returns the list of unblocked task ids in scan order. Tasks without an
+    `unblock` field, or with a malformed spec, are left in place.
+    """
+    blocked = OPS_TASKS / "blocked"
+    if not blocked.exists():
+        return []
+    unblocked: list[str] = []
+    for path in sorted(blocked.glob("*.yaml")):
+        data: dict[str, Any] = load_yaml(path) or {}
+        spec = data.get("unblock")
+        if not spec:
+            continue
+        if not _unblock_condition_met(spec):
+            continue
+        task_id = str(data.get("id") or path.stem)
+        unblock_task(task_id)
+        unblocked.append(task_id)
+    return unblocked
+
+
 def requeue_stale() -> int:
     """Requeue tasks whose leases have expired. Returns number of tasks moved."""
     leased = OPS_TASKS / "leased"

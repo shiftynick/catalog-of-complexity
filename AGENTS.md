@@ -156,12 +156,13 @@ Use native file-editing and shell tools. For repo-aware operations prefer the
 `coc` CLI:
 
 - `uv run coc validate [path]` — validate structured files against schemas.
-- `uv run coc advance` — auto-promote eligible inbox tasks to ready (per-type cap applies).
+- `uv run coc advance` — sweep blocked/ for satisfied `unblock` conditions, then auto-promote eligible inbox tasks to ready (per-type cap applies).
+- `uv run coc unblock [<task-id>]` — move one blocked task back to ready (explicit), or sweep all satisfied `unblock` conditions when no id is given.
 - `uv run coc next [--lane <lane>]` — print the highest-priority ready task id.
 - `uv run coc requeue` — reap stale leases (watchdog).
 - `uv run coc lease <task-id>` — claim a task (ready → leased).
 - `uv run coc heartbeat <task-id>` — keep your lease alive.
-- `uv run coc complete <task-id> --outputs <json> [--state review|done|blocked|failed]`.
+- `uv run coc complete <task-id> --outputs <json> [--state review|done|blocked|failed] [--unblock-on-taxonomy <qualified-slug> | --unblock-on-task <tsk-id>]` — the `--unblock-on-*` flags apply only with `--state blocked` and record the auto-unblock condition that `coc advance` checks on subsequent runs.
 - `uv run coc materialize` — rebuild the warehouse from the registry.
 - `uv run coc release` — build a release snapshot.
 - `uv run coc export-taxonomy` — regenerate SKOS exports.

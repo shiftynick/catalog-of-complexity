@@ -19,6 +19,7 @@
         "task.fail",
         "task.requeue",
         "task.promote",
+        "task.unblock",
         "run.start",
         "run.end",
         "run.aborted",

@@ -443,3 +443,165 @@ def test_advance_queue_tight_cap_for_review_records(fake_ops):
     for waiting in ("tsk-20260422-777041", "tsk-20260422-777042"):
         assert (fake_ops / "tasks" / "inbox" / f"{waiting}.yaml").exists()
     assert (fake_ops / "tasks" / "ready" / "tsk-20260422-777043.yaml").exists()
+
+
+def _make_blocked_task(
+    tasks_root: Path,
+    task_id: str,
+    unblock: dict | None = None,
+) -> Path:
+    path = tasks_root / "tasks" / "blocked" / f"{task_id}.yaml"
+    data: dict = {
+        "id": task_id,
+        "type": "scout-systems",
+        "skill": "scout-systems",
+        "state": "blocked",
+        "priority": "normal",
+        "output_targets": ["ops/tasks/inbox/"],
+        "acceptance_tests": [],
+        "lease": {
+            "ttl_minutes": 90,
+            "max_attempts": 1,
+            "attempts": 1,
+            "leased_by": "prior-agent/1",
+            "leased_at": "2026-04-23T00:00:00Z",
+            "last_heartbeat": "2026-04-23T00:10:00Z",
+        },
+        "created_at": "2026-04-23T00:00:00Z",
+    }
+    if unblock is not None:
+        data["unblock"] = unblock
+    dump_yaml(data, path)
+    return path
+
+
+def _fake_taxonomy(monkeypatch, slugs_by_prefix: dict[str, set[str]]) -> None:
+    """Stub coc.taxonomy.load_index so queue's slug check doesn't hit disk."""
+    from coc import taxonomy as t
+
+    def _load() -> t.TaxonomyIndex:
+        return t.TaxonomyIndex(by_prefix=dict(slugs_by_prefix))
+
+    monkeypatch.setattr(t, "load_index", _load)
+
+
+def test_sweep_blocked_moves_when_taxonomy_slug_present(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {"system-class": {"atomic-system"}})
+    tid = "tsk-20260423-555001"
+    _make_blocked_task(
+        fake_ops,
+        tid,
+        unblock={
+            "kind": "taxonomy-slug-exists",
+            "taxonomy_ref": "system-class:atomic-system",
+        },
+    )
+
+    unblocked = q.sweep_blocked()
+    assert unblocked == [tid]
+
+    ready_path = fake_ops / "tasks" / "ready" / f"{tid}.yaml"
+    assert ready_path.exists()
+    assert not (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+    from coc.yamlio import load_yaml
+
+    data = load_yaml(ready_path)
+    assert data["state"] == "ready"
+    assert data["lease"]["attempts"] == 0
+    assert data["lease"]["leased_by"] is None
+    assert data["lease"]["leased_at"] is None
+    assert data["lease"]["last_heartbeat"] is None
+    # Unblock field is preserved so a repeat block can reuse the condition.
+    assert data["unblock"]["taxonomy_ref"] == "system-class:atomic-system"
+
+    kinds = _event_kinds(fake_ops)
+    assert kinds[-1] == "task.unblock"
+
+
+def test_sweep_blocked_leaves_tasks_when_slug_absent(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {"system-class": {"something-else"}})
+    tid = "tsk-20260423-555002"
+    _make_blocked_task(
+        fake_ops,
+        tid,
+        unblock={
+            "kind": "taxonomy-slug-exists",
+            "taxonomy_ref": "system-class:atomic-system",
+        },
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_ignores_tasks_without_unblock(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {"system-class": {"atomic-system"}})
+    tid = "tsk-20260423-555003"
+    _make_blocked_task(fake_ops, tid, unblock=None)
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_moves_when_named_task_is_done(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {})
+    upstream = "tsk-20260423-555010"
+    blocked_id = "tsk-20260423-555011"
+    # Upstream sitting in done/
+    done_path = fake_ops / "tasks" / "done" / f"{upstream}.yaml"
+    dump_yaml(
+        {
+            "id": upstream,
+            "type": "review-records",
+            "skill": "review-records",
+            "state": "done",
+            "priority": "normal",
+            "output_targets": ["taxonomy/source/system-classes.yaml"],
+            "acceptance_tests": [],
+            "lease": {"ttl_minutes": 30, "max_attempts": 1},
+            "created_at": "2026-04-23T00:00:00Z",
+        },
+        done_path,
+    )
+    _make_blocked_task(
+        fake_ops,
+        blocked_id,
+        unblock={"kind": "task-complete", "task_id": upstream},
+    )
+
+    assert q.sweep_blocked() == [blocked_id]
+    assert (fake_ops / "tasks" / "ready" / f"{blocked_id}.yaml").exists()
+
+
+def test_sweep_blocked_skips_task_complete_when_not_done(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {})
+    blocked_id = "tsk-20260423-555012"
+    # Named upstream does not exist anywhere
+    _make_blocked_task(
+        fake_ops,
+        blocked_id,
+        unblock={"kind": "task-complete", "task_id": "tsk-20260423-999999"},
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{blocked_id}.yaml").exists()
+
+
+def test_sweep_blocked_skips_malformed_spec(fake_ops, monkeypatch):
+    _fake_taxonomy(monkeypatch, {"system-class": {"atomic-system"}})
+    tid = "tsk-20260423-555013"
+    # Missing taxonomy_ref; kind alone is insufficient.
+    _make_blocked_task(
+        fake_ops, tid, unblock={"kind": "taxonomy-slug-exists"}
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_unblock_task_rejects_non_blocked(fake_ops):
+    tid = "tsk-20260423-555020"
+    _make_task(fake_ops, tid)  # lives in ready/
+    with pytest.raises(q.QueueError):
+        q.unblock_task(tid)

@@ -55,10 +55,62 @@ def heartbeat(task_id: str) -> None:
 @click.argument("task_id")
 @click.option("--outputs", default="{}", help="JSON describing declared outputs.")
 @click.option("--state", default="done", type=click.Choice(["review", "done", "blocked", "failed"]))
-def complete(task_id: str, outputs: str, state: str) -> None:
-    """Validate outputs, append event, and move task to its terminal state."""
-    from coc.queue import complete_task
+@click.option(
+    "--unblock-on-taxonomy",
+    default=None,
+    help="Set unblock condition: qualified slug (e.g. `system-class:atomic-system`). Auto-unblocks when the slug is added to taxonomy/source/. Only meaningful with --state blocked.",
+)
+@click.option(
+    "--unblock-on-task",
+    default=None,
+    help="Set unblock condition: `tsk-YYYYMMDD-NNNNNN`. Auto-unblocks when that task reaches done/. Only meaningful with --state blocked.",
+)
+def complete(
+    task_id: str,
+    outputs: str,
+    state: str,
+    unblock_on_taxonomy: str | None,
+    unblock_on_task: str | None,
+) -> None:
+    """Validate outputs, append event, and move task to its terminal state.
 
+    When --state blocked, optionally record an unblock condition so the task
+    moves back to ready/ automatically on the next `coc advance` once the
+    condition is satisfied.
+    """
+    from coc.queue import complete_task
+    from coc.yamlio import dump_yaml, load_yaml
+
+    if unblock_on_taxonomy and unblock_on_task:
+        raise click.UsageError(
+            "--unblock-on-taxonomy and --unblock-on-task are mutually exclusive"
+        )
+    if (unblock_on_taxonomy or unblock_on_task) and state != "blocked":
+        raise click.UsageError(
+            "--unblock-on-* only applies with --state blocked"
+        )
+    if unblock_on_taxonomy or unblock_on_task:
+        # Write unblock spec onto the leased task before the terminal move.
+        # complete_task preserves arbitrary top-level fields on rename.
+        from coc.paths import OPS_TASKS
+
+        leased = OPS_TASKS / "leased" / f"{task_id}.yaml"
+        running = OPS_TASKS / "running" / f"{task_id}.yaml"
+        src_path = leased if leased.exists() else running
+        if not src_path.exists():
+            raise click.UsageError(f"task not leased/running: {task_id}")
+        data = load_yaml(src_path)
+        if unblock_on_taxonomy:
+            data["unblock"] = {
+                "kind": "taxonomy-slug-exists",
+                "taxonomy_ref": unblock_on_taxonomy,
+            }
+        else:
+            data["unblock"] = {
+                "kind": "task-complete",
+                "task_id": unblock_on_task,
+            }
+        dump_yaml(data, src_path)
     complete_task(task_id, outputs_json=outputs, terminal_state=state)
     console.print(f"[green]{state}[/green] {task_id}")
 
@@ -86,14 +138,34 @@ def requeue() -> None:
 
 @main.command()
 def advance() -> None:
-    """Auto-promote eligible inbox/ tasks to ready/ (respects per-type cap)."""
-    from coc.queue import advance_queue
+    """Sweep blocked/ (unblock satisfied conditions), then auto-promote inbox/ → ready/."""
+    from coc.queue import advance_queue, sweep_blocked
 
+    unblocked = sweep_blocked()
+    for tid in unblocked:
+        console.print(f"[green]unblocked[/green] {tid}")
     promoted = advance_queue()
     for tid in promoted:
         console.print(f"[green]promoted[/green] {tid}")
-    if not promoted:
-        console.print("[dim]no auto-eligible tasks in inbox[/dim]")
+    if not unblocked and not promoted:
+        console.print("[dim]no auto-eligible tasks[/dim]")
+
+
+@main.command()
+@click.argument("task_id", required=False)
+def unblock(task_id: str | None) -> None:
+    """Move a blocked task back to ready/. With no arg, sweep all satisfied conditions."""
+    from coc.queue import sweep_blocked, unblock_task
+
+    if task_id:
+        unblock_task(task_id)
+        console.print(f"[green]unblocked[/green] {task_id}")
+        return
+    unblocked = sweep_blocked()
+    for tid in unblocked:
+        console.print(f"[green]unblocked[/green] {tid}")
+    if not unblocked:
+        console.print("[dim]no satisfied unblock conditions[/dim]")
 
 
 @main.command()

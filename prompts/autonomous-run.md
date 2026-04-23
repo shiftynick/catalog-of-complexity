@@ -39,8 +39,13 @@ Before picking a branch, confirm environment health and advance the queue:
 - `git status --porcelain` is clean. If there are uncommitted changes from a
   previous run, abort with `run.aborted` and note the dirty state — a human
   must resolve before another autonomous run is safe.
-- `uv run coc advance` — auto-promote any eligible `inbox/` tasks to
-  `ready/`. Eligible types: `scout-systems`, `profile-system`,
+- `uv run coc advance` — first sweep `blocked/` for any task whose
+  `unblock` condition is now satisfied (`taxonomy-slug-exists` — the
+  named qualified slug resolves in `taxonomy/source/*.yaml`;
+  `task-complete` — the named task is in `done/`). Satisfied tasks are
+  moved `blocked/` → `ready/` with `lease.attempts` reset to 0 and a
+  `task.unblock` event appended. Then auto-promote any eligible `inbox/`
+  tasks to `ready/`. Eligible types: `scout-systems`, `profile-system`,
   `define-metrics`, `extract-observations`, `review-records`,
   `apply-retros`, `analyze-archetypes`, `acquire-source`. The command
   enforces a per-type cap

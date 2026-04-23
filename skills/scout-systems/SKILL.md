@@ -81,6 +81,12 @@ skill actually writes.
 - Candidate volume exceeds `budget` × 3 — the topic is too broad; block with a narrower-topic proposal.
 - All candidates were rejected (no viable systems) — block with `state: blocked`, reason = no-candidates-found.
 - Any candidate's sources are exclusively behind paywalls we can't archive — note in the scout report but do not block (sources can be stubbed at `source-status: pending-acquisition`).
+- No taxonomy slug covers a candidate system. Emit a `review-records` task proposing the taxonomy addition, then block **with an auto-unblock condition** so the scout re-enters `ready/` automatically once the slug lands:
+  ```bash
+  uv run coc complete <self-task-id> --state blocked \
+    --unblock-on-taxonomy system-class:<proposed-slug>
+  ```
+  The next `coc advance` sweep (preflight of every autonomous run) checks `taxonomy/source/*.yaml`; when the slug resolves, the scout is moved back to `ready/` with `lease.attempts` reset to 0. Use `--unblock-on-task <tsk-id>` instead when the dependency is another task's completion rather than a taxonomy edit.
 
 ## References
 
