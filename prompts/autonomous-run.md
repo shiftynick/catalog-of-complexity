@@ -71,8 +71,11 @@ advance`, as part of the run report `notes`.
    from the leased task manifest and execute the envelope's procedure exactly
    as written. The envelope handles writing the task's outputs, `run.json`,
    and the terminal `coc complete` call.
-4. Heartbeat every 15 minutes of wall-clock work:
-   `uv run coc heartbeat <task-id>`. The lease TTL is 90 min.
+4. Heartbeat at least once per `lease.ttl_minutes / 3` of wall-clock work
+   (so every 30 minutes at the default 90-min TTL):
+   `uv run coc heartbeat <task-id>`. Runs that finish inside one cadence
+   window may legitimately emit zero heartbeats — `heartbeats: 0` in
+   `run.json` is expected for sub-cadence runs, not an anomaly.
 5. On `coc complete`, capture the terminal state for use in the
    retrospective.
 6. Proceed to §Retrospective.

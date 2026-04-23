@@ -7,6 +7,10 @@ acceptance_tests:
 created_at: '2026-04-23T14:45:00Z'
 id: tsk-20260423-000010
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T18:31:28Z'
+  leased_at: '2026-04-23T18:31:28Z'
+  leased_by: Shiftor/91532
   max_attempts: 1
   ttl_minutes: 90
 notes: "Cluster of 1 retro proposal against prompts/autonomous-run.md:\n\n- retro-01KPXBD1234567ABCDEFGHJKMN
@@ -22,5 +26,5 @@ output_targets:
   - prompts/autonomous-run.md
 priority: normal
 skill: review-records
-state: ready
+state: done
 type: review-records
