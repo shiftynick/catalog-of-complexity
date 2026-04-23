@@ -42,6 +42,18 @@ AUTO_PROMOTE_TYPES = frozenset(
 )
 PER_TYPE_READY_CAP = 3
 
+# Per-type overrides of PER_TYPE_READY_CAP. review-records is capped tighter
+# because the self-improvement loop (retro → cluster → review-records)
+# otherwise fills the ready queue and starves catalog-growth task types
+# (scout-systems, profile-system) of auto-promote slots.
+PER_TYPE_READY_CAP_OVERRIDES: dict[str, int] = {
+    "review-records": 1,
+}
+
+
+def _ready_cap_for(task_type: str) -> int:
+    return PER_TYPE_READY_CAP_OVERRIDES.get(task_type, PER_TYPE_READY_CAP)
+
 
 class QueueError(RuntimeError):
     """Raised for queue invariant violations (missing task, wrong state, etc.)."""
@@ -265,7 +277,7 @@ def advance_queue() -> list[str]:
         task_type = str(data.get("type") or "")
         if task_type not in AUTO_PROMOTE_TYPES:
             continue
-        if ready_counts.get(task_type, 0) >= PER_TYPE_READY_CAP:
+        if ready_counts.get(task_type, 0) >= _ready_cap_for(task_type):
             continue
         dst = ready / src.name
         os.rename(src, dst)

@@ -389,3 +389,37 @@ def test_advance_queue_respects_per_type_cap(fake_ops):
     assert promoted == ["tsk-20260422-777031"]
     assert (fake_ops / "tasks" / "inbox" / "tsk-20260422-777030.yaml").exists()
     assert (fake_ops / "tasks" / "ready" / "tsk-20260422-777031.yaml").exists()
+
+
+def test_advance_queue_tight_cap_for_review_records(fake_ops):
+    # review-records has a per-type override of 1 so the self-improvement
+    # loop can't starve catalog-growth task types.
+    assert q._ready_cap_for("review-records") == 1
+    assert q._ready_cap_for("scout-systems") == q.PER_TYPE_READY_CAP
+    # Seed ready/ with one review-records task.
+    tid_in_ready = "tsk-20260422-777040"
+    path = fake_ops / "tasks" / "ready" / f"{tid_in_ready}.yaml"
+    dump_yaml(
+        {
+            "id": tid_in_ready,
+            "type": "review-records",
+            "skill": "review-records",
+            "state": "ready",
+            "priority": "normal",
+            "output_targets": ["ops/runs/noop.json"],
+            "acceptance_tests": [],
+            "lease": {"ttl_minutes": 30, "max_attempts": 1},
+            "created_at": "2026-04-22T00:00:00Z",
+        },
+        path,
+    )
+    _make_inbox_task(fake_ops, "tsk-20260422-777041", "review-records")
+    _make_inbox_task(fake_ops, "tsk-20260422-777042", "review-records")
+    # scout-systems should still promote — different type, different cap.
+    _make_inbox_task(fake_ops, "tsk-20260422-777043", "scout-systems")
+
+    promoted = q.advance_queue()
+    assert promoted == ["tsk-20260422-777043"]
+    for waiting in ("tsk-20260422-777041", "tsk-20260422-777042"):
+        assert (fake_ops / "tasks" / "inbox" / f"{waiting}.yaml").exists()
+    assert (fake_ops / "tasks" / "ready" / "tsk-20260422-777043.yaml").exists()

@@ -98,9 +98,12 @@ Retro cadence is "every run" by default and narrows to
 ### Autonomy policy (what promotes without human review)
 
 `uv run coc advance` auto-promotes these task types from `inbox/` to
-`ready/` (per-type cap 3): `scout-systems`, `profile-system`,
-`define-metrics`, `extract-observations`, `review-records`, `apply-retros`,
-`analyze-archetypes`.
+`ready/` (default per-type cap 3, `review-records` overridden to 1):
+`scout-systems`, `profile-system`, `define-metrics`,
+`extract-observations`, `review-records`, `apply-retros`,
+`analyze-archetypes`. The tighter `review-records` cap keeps the
+retro → cluster → review self-improvement loop from starving
+catalog-growth types of promotion slots.
 
 The following types stay in `inbox/` until a human promotes them:
 `materialize-warehouse` and `build-release`. These publish artifacts

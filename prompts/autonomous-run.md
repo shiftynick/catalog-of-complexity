@@ -43,7 +43,9 @@ Before picking a branch, confirm environment health and advance the queue:
   `ready/`. Eligible types: `scout-systems`, `profile-system`,
   `define-metrics`, `extract-observations`, `review-records`,
   `apply-retros`, `analyze-archetypes`. The command enforces a per-type cap
-  (3 of any one type in `ready/`) so runaway seeding is bounded. Types
+  (3 of any one type in `ready/`, with `review-records` tightened to 1
+  so the self-improvement loop can't starve catalog-growth types) so
+  runaway seeding is bounded. Types
   that stay in `inbox/` awaiting human review: `materialize-warehouse`
   and `build-release` — these publish artifacts (`warehouse/`,
   `releases/`) a webUI prune can't easily retract. Everything else —
