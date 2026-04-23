@@ -1,0 +1,10 @@
+scenario: Full warehouse rebuild
+description: >
+  Rebuilds Parquet + DuckDB from the current registry and verifies coverage
+  views are queryable afterwards.
+assertions:
+  - result.status == 'success'
+  - "warehouse/parquet/systems.parquet exists and has >= 1 row"
+  - "v_coverage_summary.systems_total >= 1"
+  - "v_coverage_summary.metrics_total >= 1"
+  - "v_coverage_summary.observations_total >= 1"

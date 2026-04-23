@@ -1,0 +1,10 @@
+scenario: Profile Ethernet/TCP stack
+description: >
+  Produces a canonical system record for the Ethernet+TCP stack with explicit
+  boundary, components, interaction types, and scales populated with specifics.
+assertions:
+  - result.status == 'success'
+  - "system.yaml.taxonomy_refs contains system-domain:technological"
+  - "system.yaml.boundary.description mentions 'packet' or 'frame'"
+  - "system.yaml.scales has spatial and temporal lists populated"
+  - "links.yaml.sources has len >= 2"

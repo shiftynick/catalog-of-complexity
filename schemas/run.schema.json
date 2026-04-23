@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/run.schema.json",
+  "title": "Run",
+  "description": "A single execution of a task by an agent. Stored under ops/runs/YYYY/MM/DD/<run_id>/run.json.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "task_id",
+    "agent",
+    "started_at",
+    "ended_at",
+    "status",
+    "outputs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": { "type": "string" },
+    "task_id": {
+      "type": "string",
+      "pattern": "^tsk-[0-9]{8}-[0-9]{6}$"
+    },
+    "agent": {
+      "type": "object",
+      "required": ["runtime"],
+      "additionalProperties": false,
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "enum": ["claude-code", "codex", "other"]
+        },
+        "model": { "type": ["string", "null"] },
+        "version": { "type": ["string", "null"] }
+      }
+    },
+    "started_at": { "type": "string", "format": "date-time" },
+    "ended_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["success", "blocked", "failed"]
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "events_appended": { "type": "integer", "minimum": 0 },
+    "notes": { "type": "string" }
+  }
+}

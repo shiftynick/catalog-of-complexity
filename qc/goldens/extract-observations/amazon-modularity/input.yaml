@@ -1,0 +1,19 @@
+id: tsk-20260422-999005
+type: extract-observations
+skill: extract-observations
+state: ready
+system_id: sys-000001--amazon-rainforest
+metric_ids:
+  - mtr-000001--network-modularity
+source_refs:
+  - src-000001--example-review
+output_targets:
+  - registry/observations/sys-000001--amazon-rainforest/topology.jsonl
+  - registry/sources/src-000001--example-review/evidence.jsonl
+acceptance_tests:
+  - "each observation has value_kind, confidence, >=1 evidence_ref"
+  - "each evidence_ref resolves to an evidence row in the referenced source"
+lease:
+  ttl_minutes: 60
+  max_attempts: 2
+created_at: '2026-04-22T00:00:00Z'

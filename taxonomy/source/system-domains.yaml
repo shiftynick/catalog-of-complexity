@@ -1,0 +1,47 @@
+name: system-domains
+description: >
+  Top-level scientific domains. Used as the primary categorical axis for every
+  System entity. Extendable — add new items here and re-run `coc validate` to
+  confirm existing records still resolve.
+version: 0.1.0
+items:
+  - slug: ecological
+    label: Ecological
+    description: >
+      Systems composed of biotic communities interacting with their abiotic
+      environment — ecosystems, biomes, biogeochemical cycles.
+  - slug: biological
+    label: Biological
+    description: >
+      Organisms and sub-organism systems — cells, tissues, organs, organisms,
+      populations; metabolic, genetic, and physiological networks.
+  - slug: technological
+    label: Technological
+    description: >
+      Engineered artifacts and infrastructures — software systems, power grids,
+      supply chains, transportation networks, telecommunications.
+  - slug: social
+    label: Social
+    description: >
+      Human collectives and their interaction structures — organizations,
+      markets, cities, polities, movements, institutions.
+  - slug: physical
+    label: Physical
+    description: >
+      Inorganic material and energetic systems — atmospheric circulations,
+      mineral formations, solar systems, fluid dynamics.
+  - slug: computational
+    label: Computational
+    description: >
+      Abstract information-processing systems — algorithms, protocols,
+      automata, artificial neural networks, distributed consensus mechanisms.
+  - slug: economic
+    label: Economic
+    description: >
+      Systems organizing the production, distribution, and consumption of
+      resources — markets, supply chains, monetary systems, firms.
+  - slug: cognitive
+    label: Cognitive
+    description: >
+      Systems that perceive, represent, and reason — individual minds,
+      language communities, scientific disciplines, belief networks.

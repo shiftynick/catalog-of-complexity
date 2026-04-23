@@ -1,0 +1,22 @@
+id: sys-999999--fixture-system
+slug: fixture-system
+name: Fixture System
+status: profiled
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:forest-biome
+boundary:
+  type: spatial
+  description: Fixture bounded region used only for schema-validation tests.
+components:
+  - fixture-component-a
+  - fixture-component-b
+interaction_types:
+  - fixture-interaction
+scales:
+  spatial:
+    - local
+  temporal:
+    - annual
+created_at: '2026-04-22T00:00:00Z'
+updated_at: '2026-04-22T00:00:00Z'

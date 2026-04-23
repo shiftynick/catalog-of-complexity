@@ -1,0 +1,14 @@
+{
+  "run_id": "run-01KPV00000000000000000FIXT",
+  "task_id": "tsk-20260422-999999",
+  "agent": {
+    "runtime": "other",
+    "model": null,
+    "version": null
+  },
+  "started_at": "2026-04-22T00:00:00Z",
+  "ended_at": "2026-04-22T00:00:01Z",
+  "status": "success",
+  "outputs": [],
+  "events_appended": 0
+}

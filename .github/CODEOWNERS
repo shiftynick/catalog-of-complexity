@@ -1,0 +1,25 @@
+# CODEOWNERS — default reviewers for protected paths.
+#
+# Update the handles below to the real GitHub usernames of maintainers.
+# Order matters: the last matching pattern wins.
+
+# Default owner for everything.
+*                               @shiftynick
+
+# Canonical source-of-truth paths — require owner review.
+/registry/                      @shiftynick
+/taxonomy/source/               @shiftynick
+/schemas/                       @shiftynick
+
+# Operating model + agent configuration.
+/AGENTS.md                      @shiftynick
+/CLAUDE.md                      @shiftynick
+/.claude/                       @shiftynick
+/.codex/                        @shiftynick
+/skills/                        @shiftynick
+/prompts/                       @shiftynick
+
+# CI and release tooling.
+/.github/                       @shiftynick
+/pyproject.toml                 @shiftynick
+/uv.lock                        @shiftynick

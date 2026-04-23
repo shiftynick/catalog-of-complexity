@@ -1,0 +1,86 @@
+name: Propose a new metric
+description: Propose a new metric definition for the catalog.
+title: "[metric] "
+labels: ["type:metric", "status:proposed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to propose a metric. A reviewer will convert accepted
+        proposals into a `define-metrics` task manifest under
+        `ops/tasks/ready/`. Every metric must declare applicability
+        conditions — see the quality bar in [AGENTS.md](../blob/master/AGENTS.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Metric name
+      placeholder: Shannon entropy of component-type distribution
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Metric family (taxonomy slug)
+      description: Must resolve to `taxonomy/source/metric-families.yaml`. Propose new if needed.
+      placeholder: metric-family:information
+    validations:
+      required: true
+
+  - type: input
+    id: unit
+    attributes:
+      label: Unit
+      description: Use SI where possible. `dimensionless` is allowed.
+      placeholder: bits
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scale_of_measurement
+    attributes:
+      label: Scale of measurement
+      options:
+        - nominal
+        - ordinal
+        - interval
+        - ratio
+    validations:
+      required: true
+
+  - type: textarea
+    id: definition
+    attributes:
+      label: Operational definition
+      description: How is this metric computed? Reference a canonical formulation where possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: applicability
+    attributes:
+      label: Applicability conditions
+      description: Which systems is this defined for? What boundary conditions, scales, or component types does it assume?
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Canonical sources
+      description: DOIs or citations that anchor the definition.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: quality
+    attributes:
+      label: Quality bar
+      options:
+        - label: Applicability conditions are stated (not "all systems").
+          required: true
+        - label: Unit and scale of measurement are specified.
+          required: true
+        - label: At least one citable source anchors the definition.
+          required: true

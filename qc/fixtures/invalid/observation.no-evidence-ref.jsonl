@@ -1,0 +1,1 @@
+{"observation_id":"obs-eeeeeeee","system_id":"sys-999999--fixture-system","metric_id":"mtr-999999--fixture-metric","value":3.14,"value_kind":"direct","confidence":0.9,"source_refs":["src-999999--fixture-source"],"evidence_refs":[],"review_state":"proposed"}

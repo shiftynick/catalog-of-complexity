@@ -1,0 +1,53 @@
+name: metric-families
+description: >
+  Controlled vocabulary of metric families. Every Metric record declares
+  exactly one `family` slug referencing this list. Families define the
+  conceptual axis a metric lives on; specific metrics within a family may
+  still differ substantially in formulation and applicability.
+version: 0.1.0
+items:
+  - slug: boundary-scale
+    label: Boundary & scale
+    description: >
+      Characterizations of a system's extent — spatial, temporal,
+      organizational — and of where it ends. Examples: spatial extent,
+      temporal horizon, number of nested levels.
+  - slug: composition
+    label: Composition & heterogeneity
+    description: >
+      Inventory and diversity of a system's components. Examples: component
+      count, species richness, type entropy, heterogeneity indices.
+  - slug: topology
+    label: Interaction topology
+    description: >
+      Structural properties of the network of interactions among components.
+      Examples: degree distribution, clustering coefficient, modularity,
+      centrality, path length.
+  - slug: dynamics
+    label: Dynamics & stability
+    description: >
+      Temporal behavior. Examples: Lyapunov exponents, period, bifurcation
+      parameters, autocorrelation structure, variance.
+  - slug: information
+    label: Information & uncertainty
+    description: >
+      Measures drawn from information theory and algorithmic complexity.
+      Examples: Shannon entropy, mutual information, Lempel-Ziv complexity,
+      thermodynamic depth.
+  - slug: feedback-adaptation
+    label: Feedback, control & adaptation
+    description: >
+      Capacities for regulation, learning, and self-modification. Examples:
+      feedback loop count, homeostatic range, learning rate, adaptive
+      capacity indices.
+  - slug: throughput
+    label: Throughput & metabolism
+    description: >
+      Flows of matter, energy, or resource through the system. Examples:
+      mass flux, energy flux, productivity, transaction volume.
+  - slug: resilience
+    label: Resilience & recovery
+    description: >
+      Persistence under disturbance and recovery trajectories. Examples:
+      recovery time, critical slowing down indicators, basin-of-attraction
+      depth, functional redundancy.

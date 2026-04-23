@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Agent operating model
+    url: https://github.com/shiftynick/catalog-of-complexity/blob/master/AGENTS.md
+    about: Read AGENTS.md before filing — quality bar, lifecycle, and ID formats live there.
+  - name: Bootstrap plan
+    url: https://github.com/shiftynick/catalog-of-complexity/blob/master/BOOTSTRAP_PLAN.md
+    about: Current plan and open decisions.

@@ -1,0 +1,12 @@
+name: worked-examples
+description: Worked examples illustrating how to extract this metric from sources.
+items:
+  - example: >
+      A food-web paper reports Q = 0.41 using Louvain on a 312-species
+      directed interaction graph. Recorded as value=0.41, value_kind=derived,
+      method="Louvain on trophic interaction graph", confidence=0.75.
+  - example: >
+      A review describes a supply network as "strongly modular with four
+      regional clusters" but gives no numeric value. Recorded as value=null,
+      value_kind=proxy, method="qualitative description only",
+      confidence=0.3.

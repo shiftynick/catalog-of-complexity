@@ -1,0 +1,63 @@
+{
+  "name": "snapshot-2026-04-22",
+  "title": "Catalog of Complexity \u2014 snapshot-2026-04-22",
+  "description": "Release snapshot of the Catalog of Complexity registry, materialized to Parquet. Regenerable from the registry at the commit referenced in manifest.md.",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "title": "Creative Commons Attribution 4.0"
+    }
+  ],
+  "created": "2026-04-23T02:01:53Z",
+  "resources": [
+    {
+      "name": "applicability",
+      "path": "data/applicability.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:51d4d12577519308a4546984502259da61fef5543a90fbfab976227ef3cac243"
+    },
+    {
+      "name": "edges",
+      "path": "data/edges.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:1d32a8b42971073d37c9c1287d2a53851b496bfc301c4061fe27907e5648f36f"
+    },
+    {
+      "name": "evidence",
+      "path": "data/evidence.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:0e7f503ff835b5604396a72d2fa4d2efa152d95df1470299f2ee74e176153ca8"
+    },
+    {
+      "name": "metrics",
+      "path": "data/metrics.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:0eea25f0b4318ab69346f848f89739e1c67fcd5066e7c536d94cd878d0c80fd6"
+    },
+    {
+      "name": "observations",
+      "path": "data/observations.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:0fa97a0c1f8bcca26e691a2fcb49c6ab16739046f800a6e2941207416b8a541a"
+    },
+    {
+      "name": "sources",
+      "path": "data/sources.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:c4901b0095e11d042e8f616c4d38ce0a929fb77d2834f9d7fd5a1de1a79e2ee5"
+    },
+    {
+      "name": "systems",
+      "path": "data/systems.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "hash": "sha256:b3ee58bf8b8e8b358fddcf788b48e7cdae3faeb894b1282fc31445b0bdc722a9"
+    }
+  ]
+}

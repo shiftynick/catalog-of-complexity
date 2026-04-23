@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/event.schema.json",
+  "title": "Event",
+  "description": "A single append-only record in ops/events/*.jsonl.",
+  "type": "object",
+  "required": ["event_id", "timestamp", "kind", "subject"],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "task.lease",
+        "task.heartbeat",
+        "task.complete",
+        "task.block",
+        "task.fail",
+        "task.requeue",
+        "run.start",
+        "run.end",
+        "record.create",
+        "record.update",
+        "record.supersede"
+      ]
+    },
+    "subject": { "type": "string" },
+    "actor": { "type": ["string", "null"] },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,38 @@
+name: evidence-types
+description: >
+  Controlled vocabulary for the `value_kind` field on observations. Records
+  how a specific value was obtained, which governs downstream confidence
+  weighting and filters in the warehouse.
+version: 0.1.0
+items:
+  - slug: direct
+    label: Direct measurement
+    description: >
+      The value was measured directly on the system itself using an
+      instrument or procedure whose output is the metric of interest.
+  - slug: derived
+    label: Derived
+    description: >
+      The value was computed from more primitive measurements on the system
+      using a documented, deterministic procedure.
+  - slug: proxy
+    label: Proxy
+    description: >
+      The value substitutes for the target metric because the target is not
+      directly measurable; the proxy has a known, documented relationship to
+      it.
+  - slug: simulation
+    label: Simulation
+    description: >
+      The value is the output of a simulation or computational model of the
+      system, not an observation of the system itself.
+  - slug: expert_estimate
+    label: Expert estimate
+    description: >
+      The value is a qualitative or quantitative estimate from domain
+      experts, typically used when no direct or derived value is available.
+  - slug: unknown
+    label: Unknown
+    description: >
+      The value kind cannot be determined from the source. Should be used
+      sparingly and reviewed.

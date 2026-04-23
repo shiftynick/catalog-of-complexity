@@ -1,0 +1,46 @@
+id: sys-000001--amazon-rainforest
+slug: amazon-rainforest
+name: Amazon rainforest
+aliases:
+  - Amazon biome
+  - Amazon basin
+status: profiled
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:forest-biome
+summary: >
+  Continental-scale ecological system composed of interacting biotic,
+  hydrological, atmospheric, and human land-use subsystems across the Amazon
+  basin.
+boundary:
+  type: mixed
+  description: >
+    Commonly taken as the union of the Amazon biome and basin. Spatial extent
+    and system membership must be qualified in each observation against the
+    source-specific scope.
+components:
+  - vegetation communities
+  - fauna
+  - soils
+  - rivers
+  - atmospheric moisture flows
+  - human land-use actors
+interaction_types:
+  - trophic
+  - hydrological
+  - climatic feedback
+  - anthropogenic disturbance
+scales:
+  spatial:
+    - local
+    - watershed
+    - basin
+    - continental
+  temporal:
+    - seasonal
+    - annual
+    - decadal
+source_refs:
+  - src-000001--example-review
+created_at: 2026-04-22T00:00:00Z
+updated_at: 2026-04-22T00:00:00Z

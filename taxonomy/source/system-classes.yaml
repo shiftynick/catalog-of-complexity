@@ -1,0 +1,72 @@
+name: system-classes
+description: >
+  Sub-categories of systems spanning one or more domains. Classes are a
+  secondary classification axis: a single system may be tagged with multiple
+  classes. Keep the list small at first; expand when >5 systems cluster around
+  a concept not yet represented.
+version: 0.1.0
+items:
+  - slug: forest-biome
+    label: Forest biome
+    description: Large-scale terrestrial ecological system dominated by trees.
+  - slug: ocean-circulation-cell
+    label: Ocean circulation cell
+    description: Basin- or gyre-scale pattern of ocean currents driven by wind, temperature, and salinity.
+  - slug: urban-metabolism
+    label: Urban metabolism
+    description: >
+      A city treated as a system of material and energy flows, coupling human,
+      technological, and ecological subsystems.
+  - slug: distributed-software-system
+    label: Distributed software system
+    description: >
+      Network of computational processes coordinating over messages to
+      provide a service, subject to partial failures and consistency tradeoffs.
+  - slug: artificial-neural-network
+    label: Artificial neural network
+    description: Parameterized differentiable model trained via gradient descent.
+  - slug: central-nervous-system
+    label: Central nervous system
+    description: Neural tissue coordinating perception, cognition, and motor control in animals.
+  - slug: supply-chain
+    label: Supply chain
+    description: >
+      Multi-organization network of suppliers, transforms, and distributors
+      converting raw inputs to end-consumer goods.
+  - slug: market-exchange
+    label: Market exchange
+    description: >
+      Venue where dispersed participants transact, with prices emerging from
+      their aggregate actions.
+  - slug: bureaucratic-organization
+    label: Bureaucratic organization
+    description: Formal hierarchical structure with rule-based decision authority.
+  - slug: power-grid
+    label: Power grid
+    description: >
+      Synchronized electricity generation, transmission, and distribution
+      network with real-time supply-demand balance requirements.
+  - slug: river-network
+    label: River network
+    description: Dendritic hydrological system draining a terrestrial area into a common outlet.
+  - slug: immune-system
+    label: Immune system
+    description: Cellular and molecular subsystem that discriminates self from non-self and responds to threats.
+  - slug: multicellular-organism
+    label: Multicellular organism
+    description: Coordinated colony of differentiated cells with a shared genome.
+  - slug: microbiome
+    label: Microbiome
+    description: Community of microorganisms occupying a defined environment or host.
+  - slug: protocol-stack
+    label: Protocol stack
+    description: Layered set of communication protocols enabling interoperable data exchange.
+  - slug: language-community
+    label: Language community
+    description: Population of speakers sharing a linguistic code, with ongoing variation and change.
+  - slug: belief-network
+    label: Belief network
+    description: Structured collection of propositions held by a group, with inferential and social coupling.
+  - slug: transportation-network
+    label: Transportation network
+    description: Infrastructure plus flow system moving people or goods between nodes.

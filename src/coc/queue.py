@@ -1,0 +1,191 @@
+"""Directory-based task queue with atomic-move lease semantics.
+
+The state of a task is encoded in two places: the `state` field inside the
+task's YAML file, and the subdirectory it lives in under `ops/tasks/`. These
+must agree — the validator enforces it. Every transition here keeps them in
+sync.
+
+Claiming a task is an atomic `os.rename` from `ready/` to `leased/`. On the
+same filesystem this is atomic on both POSIX and Windows, so two agents
+racing to claim the same task see exactly one winner.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import platform
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+from ulid import ULID
+
+from coc.events import append_event
+from coc.paths import OPS_TASKS, TASK_STATES
+from coc.yamlio import dump_yaml, load_yaml
+
+VALID_TERMINAL_STATES = ("review", "done", "blocked", "failed")
+
+
+class QueueError(RuntimeError):
+    """Raised for queue invariant violations (missing task, wrong state, etc.)."""
+
+
+def _task_path(task_id: str, state: str) -> Path:
+    return OPS_TASKS / state / f"{task_id}.yaml"
+
+
+def _find_task(task_id: str) -> tuple[Path, str]:
+    for state in TASK_STATES:
+        p = _task_path(task_id, state)
+        if p.exists():
+            return p, state
+    raise QueueError(f"task not found: {task_id}")
+
+
+def _now() -> str:
+    return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def _agent_id() -> str:
+    return f"{platform.node()}/{os.getpid()}"
+
+
+def _event_id() -> str:
+    return f"ev-{ULID()}"
+
+
+def lease_task(task_id: str) -> Path:
+    """Atomically claim `task_id` (ready → leased). Raises on race loss or wrong state."""
+    src = _task_path(task_id, "ready")
+    dst = _task_path(task_id, "leased")
+    if not src.exists():
+        raise QueueError(f"task not in ready/: {task_id}")
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    os.rename(src, dst)  # atomic lock acquisition
+    data = load_yaml(dst)
+    data["state"] = "leased"
+    lease = data.setdefault("lease", {"ttl_minutes": 60, "max_attempts": 3})
+    lease["leased_by"] = _agent_id()
+    lease["leased_at"] = _now()
+    lease["last_heartbeat"] = _now()
+    lease["attempts"] = int(lease.get("attempts", 0)) + 1
+    dump_yaml(data, dst)
+    append_event(
+        "task-events",
+        {
+            "event_id": _event_id(),
+            "timestamp": _now(),
+            "kind": "task.lease",
+            "subject": task_id,
+            "actor": _agent_id(),
+            "payload": {"attempts": lease["attempts"]},
+        },
+    )
+    return dst
+
+
+def heartbeat_task(task_id: str) -> Path:
+    """Refresh the lease liveness timestamp. Must be leased or running."""
+    path, state = _find_task(task_id)
+    if state not in ("leased", "running"):
+        raise QueueError(f"task not leased/running: {task_id} (state={state})")
+    data = load_yaml(path)
+    data.setdefault("lease", {})["last_heartbeat"] = _now()
+    dump_yaml(data, path)
+    append_event(
+        "task-events",
+        {
+            "event_id": _event_id(),
+            "timestamp": _now(),
+            "kind": "task.heartbeat",
+            "subject": task_id,
+            "actor": _agent_id(),
+            "payload": {},
+        },
+    )
+    return path
+
+
+def complete_task(
+    task_id: str,
+    outputs_json: str = "{}",
+    terminal_state: str = "done",
+) -> Path:
+    """Move a leased/running task into its terminal state."""
+    if terminal_state not in VALID_TERMINAL_STATES:
+        raise QueueError(
+            f"invalid terminal state: {terminal_state!r} (want one of {VALID_TERMINAL_STATES})"
+        )
+    src_path, src_state = _find_task(task_id)
+    if src_state not in ("leased", "running"):
+        raise QueueError(f"task not leased/running: {task_id} (state={src_state})")
+    data = load_yaml(src_path)
+    data["state"] = terminal_state
+    dump_yaml(data, src_path)
+    dst = _task_path(task_id, terminal_state)
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    os.rename(src_path, dst)
+    outputs = json.loads(outputs_json) if outputs_json else {}
+    kind_map = {
+        "done": "task.complete",
+        "review": "task.complete",
+        "blocked": "task.block",
+        "failed": "task.fail",
+    }
+    append_event(
+        "task-events",
+        {
+            "event_id": _event_id(),
+            "timestamp": _now(),
+            "kind": kind_map[terminal_state],
+            "subject": task_id,
+            "actor": _agent_id(),
+            "payload": {"outputs": outputs, "terminal_state": terminal_state},
+        },
+    )
+    return dst
+
+
+def requeue_stale() -> int:
+    """Requeue tasks whose leases have expired. Returns number of tasks moved."""
+    leased = OPS_TASKS / "leased"
+    if not leased.exists():
+        return 0
+    moved = 0
+    now = datetime.now(UTC)
+    for path in sorted(leased.glob("*.yaml")):
+        data: dict[str, Any] = load_yaml(path)
+        lease = data.get("lease", {}) or {}
+        ttl_min = int(lease.get("ttl_minutes", 60))
+        last = lease.get("last_heartbeat") or lease.get("leased_at")
+        if not last:
+            continue
+        last_dt = datetime.fromisoformat(str(last).replace("Z", "+00:00"))
+        age_min = (now - last_dt).total_seconds() / 60.0
+        if age_min <= ttl_min:
+            continue
+        attempts = int(lease.get("attempts", 1))
+        max_attempts = int(lease.get("max_attempts", 3))
+        terminal = "failed" if attempts >= max_attempts else "ready"
+        data["state"] = terminal
+        lease["leased_by"] = None
+        lease["last_heartbeat"] = None
+        dump_yaml(data, path)
+        dst = _task_path(data["id"], terminal)
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        os.rename(path, dst)
+        append_event(
+            "task-events",
+            {
+                "event_id": _event_id(),
+                "timestamp": _now(),
+                "kind": "task.requeue" if terminal == "ready" else "task.fail",
+                "subject": str(data["id"]),
+                "actor": "janitor",
+                "payload": {"reason": "lease-expired", "age_minutes": age_min},
+            },
+        )
+        moved += 1
+    return moved

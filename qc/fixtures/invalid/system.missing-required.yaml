@@ -1,0 +1,9 @@
+id: sys-999998--bad-system
+slug: bad-system
+name: Missing required fields
+status: profiled
+taxonomy_refs:
+  - system-domain:ecological
+boundary:
+  type: spatial
+  description: Missing components, interaction_types, scales, created_at, updated_at.

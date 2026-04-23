@@ -1,0 +1,6 @@
+{"actor": "Shiftor/96020", "event_id": "ev-01KPVZ4M7PCVJ4GQRZ03H728JF", "kind": "task.lease", "payload": {"attempts": 1}, "subject": "tsk-20260422-000001", "timestamp": "2026-04-23T01:26:44Z"}
+{"actor": "Shiftor/16712", "event_id": "ev-01KPVZ4TDFY24HZSHQFRR8MQNK", "kind": "task.heartbeat", "payload": {}, "subject": "tsk-20260422-000001", "timestamp": "2026-04-23T01:26:50Z"}
+{"actor": "Shiftor/103712", "event_id": "ev-01KPVZ5B9PYP57WEHJRCRXPZV3", "kind": "task.complete", "payload": {"outputs": {"files": []}, "terminal_state": "done"}, "subject": "tsk-20260422-000001", "timestamp": "2026-04-23T01:27:07Z"}
+{"actor": "Shiftor/53800", "event_id": "ev-01KPW1477H97KJJ7M8SG11S588", "kind": "task.lease", "payload": {"attempts": 1}, "subject": "tsk-20260422-000002", "timestamp": "2026-04-23T02:01:28Z"}
+{"actor": "Shiftor/102216", "event_id": "ev-01KPW147HBVR80H0SN9G3628S1", "kind": "task.heartbeat", "payload": {}, "subject": "tsk-20260422-000002", "timestamp": "2026-04-23T02:01:28Z"}
+{"actor": "Shiftor/71752", "event_id": "ev-01KPW14JGTXTE08GWVXAJC3MDX", "kind": "task.complete", "payload": {"outputs": {"files": []}, "terminal_state": "review"}, "subject": "tsk-20260422-000002", "timestamp": "2026-04-23T02:01:39Z"}

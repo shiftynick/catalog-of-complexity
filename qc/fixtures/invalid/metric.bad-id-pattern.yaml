@@ -1,0 +1,15 @@
+id: metric-001-bad-id
+slug: bad-id
+name: Metric with malformed ID
+family: topology
+status: proposed
+value_type: continuous
+description: ID does not match mtr-NNNNNN--slug pattern.
+applicability:
+  requires: []
+  excludes: []
+estimation_methods:
+  - any
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true

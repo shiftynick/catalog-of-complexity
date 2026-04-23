@@ -1,0 +1,45 @@
+name: materialize
+
+on:
+  schedule:
+    # Every Monday 06:00 UTC — confirms the warehouse + release snapshot
+    # regenerate cleanly from the current registry.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync --extra dev
+
+      - name: Validate registry
+        run: uv run coc validate
+
+      - name: Materialize warehouse
+        run: uv run coc materialize
+
+      - name: Build release snapshot
+        run: uv run coc release
+
+      - name: Validate Data Package descriptor
+        run: |
+          snapshot=$(ls -d releases/snapshot-* | sort | tail -1)
+          echo "validating $snapshot/datapackage.json"
+          uv run frictionless validate "$snapshot/datapackage.json"
+
+      - name: Upload snapshot as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot
+          path: releases/snapshot-*/
+          if-no-files-found: error
+          retention-days: 14

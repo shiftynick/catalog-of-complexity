@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/source.schema.json",
+  "title": "Source",
+  "description": "A bibliographic or data source; evidence comes from these.",
+  "type": "object",
+  "required": ["id", "slug", "title", "kind", "retrieved_at"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^src-[0-9]{6}--[a-z0-9-]+$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "peer-reviewed",
+        "preprint",
+        "technical-report",
+        "book",
+        "web",
+        "dataset",
+        "model",
+        "unpublished"
+      ]
+    },
+    "year": { "type": ["integer", "null"] },
+    "doi": { "type": ["string", "null"] },
+    "url": { "type": ["string", "null"] },
+    "license": { "type": ["string", "null"] },
+    "retrieved_at": { "type": "string", "format": "date-time" },
+    "citation": { "type": ["string", "null"] },
+    "hash": {
+      "type": ["string", "null"],
+      "description": "Content hash of the raw source artifact."
+    },
+    "raw_path": { "type": ["string", "null"] },
+    "parsed_path": { "type": ["string", "null"] }
+  }
+}

@@ -1,0 +1,12 @@
+scenario: Bootstrap dry-run
+description: >
+  Exercises lease → heartbeat → complete against a bootstrap task. Proves the
+  queue machinery moves a task through its state directories and writes three
+  events to task-events.jsonl.
+assertions:
+  - result.status == 'success'
+  - events_appended >= 3
+  - task_ends_in: done
+notes: >
+  Structural golden. Actual execution happens via `coc lease` / `heartbeat` /
+  `complete`; expected events are the three task-event kinds listed above.

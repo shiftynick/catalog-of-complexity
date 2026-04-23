@@ -1,0 +1,7 @@
+name: external-links
+description: External references for this system; informal, not part of provenance.
+items:
+  - label: Wikipedia — Amazon rainforest
+    url: https://en.wikipedia.org/wiki/Amazon_rainforest
+  - label: RAISG (Amazon georeferenced data)
+    url: https://www.raisg.org/

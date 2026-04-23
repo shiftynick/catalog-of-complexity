@@ -1,0 +1,12 @@
+scenario: Define Shannon entropy
+description: >
+  Produces a canonical metric record for Shannon entropy spanning ecological,
+  informational, and computational domains in the rubric.
+assertions:
+  - result.status == 'success'
+  - "metric.yaml has family metric-family:information"
+  - "rubric.md contains the string 'worked example' at least 3 times"
+  - "examples.yaml has len(entries) >= 3"
+notes: >
+  Structural contract only. The actual choice of family or applicability
+  refinements is delegated to the skill at run time.

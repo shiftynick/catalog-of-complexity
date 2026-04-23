@@ -1,0 +1,11 @@
+scenario: Extract network modularity for Amazon rainforest
+description: >
+  Appends one observation row for (sys-000001, mtr-000001) citing at least one
+  evidence entry from src-000001. This mirrors the seeded observation that
+  Phase 4 produced; the golden asserts the append invariants hold.
+assertions:
+  - result.status == 'success'
+  - "new_observation.value_kind in ('direct', 'derived', 'proxy', 'simulation', 'expert_estimate')"
+  - "len(new_observation.evidence_refs) >= 1"
+  - "resolve_evidence(new_observation.evidence_refs[0]) is not None"
+  - "new_observation.review_state in ('proposed', 'validated')"

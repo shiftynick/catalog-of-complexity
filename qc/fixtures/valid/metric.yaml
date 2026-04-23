@@ -1,0 +1,18 @@
+id: mtr-999999--fixture-metric
+slug: fixture-metric
+name: Fixture Metric
+family: topology
+status: proposed
+value_type: continuous
+unit: unitless
+directionality: context-dependent
+description: Fixture metric used only for schema-validation tests.
+applicability:
+  requires:
+    - fixture_property
+  excludes: []
+estimation_methods:
+  - fixture-method
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true

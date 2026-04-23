@@ -1,0 +1,7 @@
+id: sys-999998--missing
+slug: missing
+name: Missing-required Fixture
+status: candidate
+# intentionally omits taxonomy_refs, boundary, components, etc.
+created_at: 2026-04-22T00:00:00Z
+updated_at: 2026-04-22T00:00:00Z

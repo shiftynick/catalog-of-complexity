@@ -1,0 +1,87 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.2/context",
+    "@graph": [
+        {
+            "@id": "./",
+            "@type": "Dataset",
+            "datePublished": "2026-04-23T02:01:53+00:00",
+            "description": "Catalog of Complexity snapshot. Bundles Parquet tables for systems, metrics, sources, observations, evidence, applicability, and edges.",
+            "hasPart": [
+                {
+                    "@id": "datapackage.json"
+                },
+                {
+                    "@id": "data/applicability.parquet"
+                },
+                {
+                    "@id": "data/edges.parquet"
+                },
+                {
+                    "@id": "data/evidence.parquet"
+                },
+                {
+                    "@id": "data/metrics.parquet"
+                },
+                {
+                    "@id": "data/observations.parquet"
+                },
+                {
+                    "@id": "data/sources.parquet"
+                },
+                {
+                    "@id": "data/systems.parquet"
+                }
+            ],
+            "name": "snapshot-2026-04-22"
+        },
+        {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            "about": {
+                "@id": "./"
+            },
+            "conformsTo": {
+                "@id": "https://w3id.org/ro/crate/1.2"
+            }
+        },
+        {
+            "@id": "datapackage.json",
+            "@type": "File"
+        },
+        {
+            "@id": "data/applicability.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/edges.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/evidence.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/metrics.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/observations.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/sources.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        },
+        {
+            "@id": "data/systems.parquet",
+            "@type": "File",
+            "encodingFormat": "application/vnd.apache.parquet"
+        }
+    ]
+}

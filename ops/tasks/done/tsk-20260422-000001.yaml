@@ -1,0 +1,19 @@
+acceptance_tests: []
+created_at: '2026-04-22T00:00:00Z'
+id: tsk-20260422-000001
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T01:26:50Z'
+  leased_at: '2026-04-23T01:26:44Z'
+  leased_by: Shiftor/96020
+  max_attempts: 1
+  ttl_minutes: 30
+notes: "Bootstrap dry-run task. Exercises the full lease -> heartbeat -> complete
+  cycle without producing canonical records. Used to verify the queue machinery works
+  end-to-end.\n"
+output_targets:
+  - ops/runs/_bootstrap-dryrun.json
+priority: normal
+skill: setup-repo
+state: done
+type: bootstrap

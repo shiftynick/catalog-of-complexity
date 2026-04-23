@@ -1,0 +1,8 @@
+scenario: Shallow review of Amazon observations
+description: >
+  Shallow review over all observations for sys-000001. Every observation ends
+  with review_state in {validated, superseded, rejected, needs-revision}.
+assertions:
+  - result.status == 'success'
+  - "every_observation_has_terminal_verdict(system_id='sys-000001--amazon-rainforest')"
+  - "review_report_exists(run_id=result.run_id)"

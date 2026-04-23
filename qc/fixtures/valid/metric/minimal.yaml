@@ -1,0 +1,19 @@
+id: mtr-999999--fixture
+slug: fixture
+name: Fixture Metric
+family: fixture-family
+status: proposed
+value_type: continuous
+unit: unitless
+directionality: context-dependent
+description: Minimal valid metric record used only for fixture validation.
+applicability:
+  requires:
+    - nothing
+estimation_methods:
+  - direct-computation
+normalization:
+  strategy: raw
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: false

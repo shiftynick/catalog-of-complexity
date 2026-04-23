@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Testing / linting
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+
+# Environment
+.env
+.env.local
+.envrc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Catalog-of-Complexity specific
+# Warehouse is fully regenerable from registry — do not commit.
+warehouse/parquet/*.parquet
+warehouse/duckdb/*.duckdb
+warehouse/duckdb/*.wal
+
+# Agent scratchpad — ephemeral.
+workspace/
+
+# Run reports and ephemeral ops state.
+ops/runs/
+
+# Release artifacts — regenerable, sometimes published out-of-band.
+releases/*/data/
+
+# Local agent caches
+.claude/cache/
+.codex/cache/

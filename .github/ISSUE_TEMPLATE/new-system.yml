@@ -1,0 +1,87 @@
+name: Propose a new system
+description: Propose a new complex system to be profiled in the registry.
+title: "[system] "
+labels: ["type:system", "status:proposed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to propose a candidate system. A reviewer will convert
+        accepted proposals into a `scout-systems` or `profile-system` task
+        manifest under `ops/tasks/ready/`. Read
+        [AGENTS.md](../blob/master/AGENTS.md) for the quality bar.
+
+  - type: input
+    id: name
+    attributes:
+      label: System name
+      description: Canonical human-readable name.
+      placeholder: Ethernet protocol stack
+    validations:
+      required: true
+
+  - type: input
+    id: domain
+    attributes:
+      label: Candidate domain (taxonomy slug)
+      description: Must resolve to `taxonomy/source/system-domains.yaml`. Propose a new slug if none fits.
+      placeholder: system-domain:technological
+    validations:
+      required: true
+
+  - type: input
+    id: class
+    attributes:
+      label: Candidate class (taxonomy slug)
+      description: From Boulding's hierarchy or equivalent. Propose new if needed.
+      placeholder: system-class:engineered-network
+    validations:
+      required: true
+
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Boundary
+      description: What is inside vs. outside the system?
+    validations:
+      required: true
+
+  - type: textarea
+    id: components
+    attributes:
+      label: Components
+      description: List key component types (one per line).
+    validations:
+      required: true
+
+  - type: textarea
+    id: scales
+    attributes:
+      label: Scales
+      description: Spatial and temporal scales of interest. Include units.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why profile this system?
+      description: What cross-domain comparisons does it enable? What metrics would be interesting?
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Candidate sources
+      description: Links, DOIs, or citations for literature we should draw from.
+
+  - type: checkboxes
+    id: quality
+    attributes:
+      label: Quality bar
+      options:
+        - label: Boundary, components, interaction types, and scales are specified or can be with research.
+          required: true
+        - label: At least one citable source exists (peer-reviewed, technical, or authoritative).
+          required: true

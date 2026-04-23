@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/system.schema.json",
+  "title": "System",
+  "description": "A complex system being cataloged. Canonical record; hand- or agent-edited YAML.",
+  "type": "object",
+  "required": [
+    "id",
+    "slug",
+    "name",
+    "status",
+    "taxonomy_refs",
+    "boundary",
+    "components",
+    "interaction_types",
+    "scales",
+    "created_at",
+    "updated_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^sys-[0-9]{6}--[a-z0-9-]+$",
+      "description": "Canonical identifier, e.g. sys-000001--amazon-rainforest."
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "status": {
+      "type": "string",
+      "enum": ["candidate", "profiling", "profiled", "deprecated"]
+    },
+    "taxonomy_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^(system-domain|system-class):[a-z0-9-]+$"
+      },
+      "description": "Qualified references into taxonomy/source/*.yaml."
+    },
+    "summary": { "type": "string" },
+    "boundary": {
+      "type": "object",
+      "required": ["type", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["spatial", "temporal", "functional", "mixed"]
+        },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "interaction_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "scales": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spatial": { "type": "array", "items": { "type": "string" } },
+        "temporal": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^src-[0-9]{6}--[a-z0-9-]+$"
+      },
+      "default": []
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

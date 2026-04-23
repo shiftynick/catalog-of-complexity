@@ -1,0 +1,61 @@
+name: Bug report
+description: Something in the registry, schemas, CLI, or workflows is broken.
+title: "[bug] "
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - registry (canonical records)
+        - taxonomy
+        - schemas
+        - coc CLI
+        - warehouse / materialize
+        - release / datapackage / ro-crate
+        - evals / goldens
+        - skills / prompts
+        - ops / task queue
+        - GitHub Actions / CI
+        - other
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands, inputs, or records involved. Include `coc` invocations.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include error messages, validation failures, or unexpected outputs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, uv version, relevant package versions.

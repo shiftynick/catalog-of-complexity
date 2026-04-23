@@ -1,0 +1,26 @@
+id: mtr-000001--network-modularity
+slug: network-modularity
+name: Network modularity
+family: topology
+status: canonical
+value_type: continuous
+unit: unitless
+directionality: context-dependent
+description: >
+  Degree to which a graph representation of a system partitions into
+  internally dense, externally sparse communities. Computed on a chosen
+  interaction graph (trophic, citation, transactional, etc.) per source's
+  definition.
+applicability:
+  requires:
+    - explicit_graph_representation
+  excludes:
+    - systems_without_interaction_model
+estimation_methods:
+  - direct-computation
+  - inferred-network
+normalization:
+  strategy: raw-and-zscore
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true

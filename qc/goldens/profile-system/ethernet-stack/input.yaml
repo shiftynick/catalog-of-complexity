@@ -1,0 +1,25 @@
+id: tsk-20260422-999004
+type: profile-system
+skill: profile-system
+state: ready
+output_targets:
+  - registry/systems/sys-NNNNNN--ethernet-tcp-stack/system.yaml
+  - registry/systems/sys-NNNNNN--ethernet-tcp-stack/notes.md
+  - registry/systems/sys-NNNNNN--ethernet-tcp-stack/links.yaml
+acceptance_tests:
+  - "system.yaml validates against schemas/system.schema.json"
+  - "boundary.description names the membership criterion explicitly"
+  - "links.yaml cites at least 2 sources"
+lease:
+  ttl_minutes: 60
+  max_attempts: 2
+created_at: '2026-04-22T00:00:00Z'
+notes: |
+  system_slug: ethernet-tcp-stack
+  domain_slug: system-domain:technological
+  class_slugs: [system-class:protocol-stack]
+  candidate_description: >
+    Layered packet-switching protocol stack from Ethernet (L2) through TCP
+    (L4). Bounded by the set of hosts that speak the stack and the links
+    between them.
+  prior_sources: []

@@ -1,0 +1,13 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Git LFS for large binary source artifacts
+registry/sources/**/raw/** filter=lfs diff=lfs merge=lfs -text
+registry/sources/**/parsed/*.pdf filter=lfs diff=lfs merge=lfs -text
+releases/**/*.parquet filter=lfs diff=lfs merge=lfs -text
+releases/**/*.zip filter=lfs diff=lfs merge=lfs -text
+
+# Never smudge these as text
+*.pdf binary
+*.parquet binary
+*.duckdb binary

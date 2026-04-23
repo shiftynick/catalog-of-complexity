@@ -1,0 +1,15 @@
+id: tsk-20260422-999001
+type: bootstrap
+skill: setup-repo
+state: ready
+output_targets:
+  - ops/runs/_golden-bootstrap.json
+acceptance_tests:
+  - "filesystem state matches BOOTSTRAP_PLAN.md phase gates"
+lease:
+  ttl_minutes: 30
+  max_attempts: 1
+created_at: '2026-04-22T00:00:00Z'
+notes: >
+  Golden for setup-repo. Mirrors the bootstrap dry-run task that exercised the
+  queue end-to-end in Phase 5. Re-runnable under a fresh task ID.

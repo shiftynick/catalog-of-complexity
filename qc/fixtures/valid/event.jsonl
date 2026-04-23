@@ -1,0 +1,1 @@
+{"event_id":"ev-fixture-0001","timestamp":"2026-04-22T00:00:00Z","kind":"task.complete","subject":"tsk-20260422-999999","actor":"fixture","payload":{"terminal_state":"done"}}

@@ -1,0 +1,15 @@
+name: no-uncited-numeric-claims
+description: >
+  Observations carrying a numeric value must have at least one resolvable
+  evidence_ref. This is stricter than the schema minItems requirement — it
+  additionally demands that the cited evidence actually exists on disk, so
+  numeric claims in the catalog are traceable end-to-end.
+scope: observations
+level: error
+checks:
+  - id: numeric-claim-has-evidence
+    description: If value is numeric, evidence_refs is non-empty.
+    assertion: "not isinstance(obs.get('value'), (int, float)) or len(obs['evidence_refs']) >= 1"
+  - id: numeric-claim-evidence-resolves
+    description: Every evidence_ref on a numeric observation resolves.
+    assertion: "not isinstance(obs.get('value'), (int, float)) or all(resolve_evidence(ref) is not None for ref in obs['evidence_refs'])"

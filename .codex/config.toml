@@ -1,0 +1,60 @@
+[project]
+name = "catalog-of-complexity"
+description = "Comparative research operating system for complex systems."
+
+# See AGENTS.md for the full operating model and the three-layer prompt stack.
+
+[approval]
+# Agents may auto-approve reads and writes under ephemeral paths.
+# Writes to registry/, warehouse/, releases/ require explicit approval.
+mode = "prompt_on_mutation"
+
+[[approval.write_paths]]
+path = "workspace/**"
+auto = true
+
+[[approval.write_paths]]
+path = "ops/**"
+auto = true
+
+[[approval.write_paths]]
+path = "qc/**"
+auto = true
+
+[[approval.write_paths]]
+path = "registry/**"
+auto = false
+
+[[approval.write_paths]]
+path = "warehouse/**"
+auto = false
+
+[[approval.write_paths]]
+path = "releases/**"
+auto = false
+
+[[approval.write_paths]]
+path = "taxonomy/source/**"
+auto = false
+
+[commands]
+# Safe read-only shell commands the agent may run without prompting.
+allow = [
+  "uv sync",
+  "uv run coc validate*",
+  "uv run coc materialize",
+  "uv run coc export-taxonomy",
+  "uv run coc eval*",
+  "uv run pytest*",
+  "git status*",
+  "git diff*",
+  "git log*",
+]
+
+# Commands that require approval every time.
+prompt = [
+  "git push*",
+  "git reset*",
+  "gh pr*",
+  "rm*",
+]

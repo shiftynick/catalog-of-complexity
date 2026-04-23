@@ -1,0 +1,202 @@
+{
+  "evidence-type:derived": {
+    "aliases": [],
+    "description": "The value was computed from more primitive measurements on the system using a documented, deterministic procedure.\n",
+    "label": "Derived"
+  },
+  "evidence-type:direct": {
+    "aliases": [],
+    "description": "The value was measured directly on the system itself using an instrument or procedure whose output is the metric of interest.\n",
+    "label": "Direct measurement"
+  },
+  "evidence-type:expert_estimate": {
+    "aliases": [],
+    "description": "The value is a qualitative or quantitative estimate from domain experts, typically used when no direct or derived value is available.\n",
+    "label": "Expert estimate"
+  },
+  "evidence-type:proxy": {
+    "aliases": [],
+    "description": "The value substitutes for the target metric because the target is not directly measurable; the proxy has a known, documented relationship to it.\n",
+    "label": "Proxy"
+  },
+  "evidence-type:simulation": {
+    "aliases": [],
+    "description": "The value is the output of a simulation or computational model of the system, not an observation of the system itself.\n",
+    "label": "Simulation"
+  },
+  "evidence-type:unknown": {
+    "aliases": [],
+    "description": "The value kind cannot be determined from the source. Should be used sparingly and reviewed.\n",
+    "label": "Unknown"
+  },
+  "metric-family:boundary-scale": {
+    "aliases": [],
+    "description": "Characterizations of a system's extent \u2014 spatial, temporal, organizational \u2014 and of where it ends. Examples: spatial extent, temporal horizon, number of nested levels.\n",
+    "label": "Boundary & scale"
+  },
+  "metric-family:composition": {
+    "aliases": [],
+    "description": "Inventory and diversity of a system's components. Examples: component count, species richness, type entropy, heterogeneity indices.\n",
+    "label": "Composition & heterogeneity"
+  },
+  "metric-family:dynamics": {
+    "aliases": [],
+    "description": "Temporal behavior. Examples: Lyapunov exponents, period, bifurcation parameters, autocorrelation structure, variance.\n",
+    "label": "Dynamics & stability"
+  },
+  "metric-family:feedback-adaptation": {
+    "aliases": [],
+    "description": "Capacities for regulation, learning, and self-modification. Examples: feedback loop count, homeostatic range, learning rate, adaptive capacity indices.\n",
+    "label": "Feedback, control & adaptation"
+  },
+  "metric-family:information": {
+    "aliases": [],
+    "description": "Measures drawn from information theory and algorithmic complexity. Examples: Shannon entropy, mutual information, Lempel-Ziv complexity, thermodynamic depth.\n",
+    "label": "Information & uncertainty"
+  },
+  "metric-family:resilience": {
+    "aliases": [],
+    "description": "Persistence under disturbance and recovery trajectories. Examples: recovery time, critical slowing down indicators, basin-of-attraction depth, functional redundancy.\n",
+    "label": "Resilience & recovery"
+  },
+  "metric-family:throughput": {
+    "aliases": [],
+    "description": "Flows of matter, energy, or resource through the system. Examples: mass flux, energy flux, productivity, transaction volume.\n",
+    "label": "Throughput & metabolism"
+  },
+  "metric-family:topology": {
+    "aliases": [],
+    "description": "Structural properties of the network of interactions among components. Examples: degree distribution, clustering coefficient, modularity, centrality, path length.\n",
+    "label": "Interaction topology"
+  },
+  "system-class:artificial-neural-network": {
+    "aliases": [],
+    "description": "Parameterized differentiable model trained via gradient descent.",
+    "label": "Artificial neural network"
+  },
+  "system-class:belief-network": {
+    "aliases": [],
+    "description": "Structured collection of propositions held by a group, with inferential and social coupling.",
+    "label": "Belief network"
+  },
+  "system-class:bureaucratic-organization": {
+    "aliases": [],
+    "description": "Formal hierarchical structure with rule-based decision authority.",
+    "label": "Bureaucratic organization"
+  },
+  "system-class:central-nervous-system": {
+    "aliases": [],
+    "description": "Neural tissue coordinating perception, cognition, and motor control in animals.",
+    "label": "Central nervous system"
+  },
+  "system-class:distributed-software-system": {
+    "aliases": [],
+    "description": "Network of computational processes coordinating over messages to provide a service, subject to partial failures and consistency tradeoffs.\n",
+    "label": "Distributed software system"
+  },
+  "system-class:forest-biome": {
+    "aliases": [],
+    "description": "Large-scale terrestrial ecological system dominated by trees.",
+    "label": "Forest biome"
+  },
+  "system-class:immune-system": {
+    "aliases": [],
+    "description": "Cellular and molecular subsystem that discriminates self from non-self and responds to threats.",
+    "label": "Immune system"
+  },
+  "system-class:language-community": {
+    "aliases": [],
+    "description": "Population of speakers sharing a linguistic code, with ongoing variation and change.",
+    "label": "Language community"
+  },
+  "system-class:market-exchange": {
+    "aliases": [],
+    "description": "Venue where dispersed participants transact, with prices emerging from their aggregate actions.\n",
+    "label": "Market exchange"
+  },
+  "system-class:microbiome": {
+    "aliases": [],
+    "description": "Community of microorganisms occupying a defined environment or host.",
+    "label": "Microbiome"
+  },
+  "system-class:multicellular-organism": {
+    "aliases": [],
+    "description": "Coordinated colony of differentiated cells with a shared genome.",
+    "label": "Multicellular organism"
+  },
+  "system-class:ocean-circulation-cell": {
+    "aliases": [],
+    "description": "Basin- or gyre-scale pattern of ocean currents driven by wind, temperature, and salinity.",
+    "label": "Ocean circulation cell"
+  },
+  "system-class:power-grid": {
+    "aliases": [],
+    "description": "Synchronized electricity generation, transmission, and distribution network with real-time supply-demand balance requirements.\n",
+    "label": "Power grid"
+  },
+  "system-class:protocol-stack": {
+    "aliases": [],
+    "description": "Layered set of communication protocols enabling interoperable data exchange.",
+    "label": "Protocol stack"
+  },
+  "system-class:river-network": {
+    "aliases": [],
+    "description": "Dendritic hydrological system draining a terrestrial area into a common outlet.",
+    "label": "River network"
+  },
+  "system-class:supply-chain": {
+    "aliases": [],
+    "description": "Multi-organization network of suppliers, transforms, and distributors converting raw inputs to end-consumer goods.\n",
+    "label": "Supply chain"
+  },
+  "system-class:transportation-network": {
+    "aliases": [],
+    "description": "Infrastructure plus flow system moving people or goods between nodes.",
+    "label": "Transportation network"
+  },
+  "system-class:urban-metabolism": {
+    "aliases": [],
+    "description": "A city treated as a system of material and energy flows, coupling human, technological, and ecological subsystems.\n",
+    "label": "Urban metabolism"
+  },
+  "system-domain:biological": {
+    "aliases": [],
+    "description": "Organisms and sub-organism systems \u2014 cells, tissues, organs, organisms, populations; metabolic, genetic, and physiological networks.\n",
+    "label": "Biological"
+  },
+  "system-domain:cognitive": {
+    "aliases": [],
+    "description": "Systems that perceive, represent, and reason \u2014 individual minds, language communities, scientific disciplines, belief networks.\n",
+    "label": "Cognitive"
+  },
+  "system-domain:computational": {
+    "aliases": [],
+    "description": "Abstract information-processing systems \u2014 algorithms, protocols, automata, artificial neural networks, distributed consensus mechanisms.\n",
+    "label": "Computational"
+  },
+  "system-domain:ecological": {
+    "aliases": [],
+    "description": "Systems composed of biotic communities interacting with their abiotic environment \u2014 ecosystems, biomes, biogeochemical cycles.\n",
+    "label": "Ecological"
+  },
+  "system-domain:economic": {
+    "aliases": [],
+    "description": "Systems organizing the production, distribution, and consumption of resources \u2014 markets, supply chains, monetary systems, firms.\n",
+    "label": "Economic"
+  },
+  "system-domain:physical": {
+    "aliases": [],
+    "description": "Inorganic material and energetic systems \u2014 atmospheric circulations, mineral formations, solar systems, fluid dynamics.\n",
+    "label": "Physical"
+  },
+  "system-domain:social": {
+    "aliases": [],
+    "description": "Human collectives and their interaction structures \u2014 organizations, markets, cities, polities, movements, institutions.\n",
+    "label": "Social"
+  },
+  "system-domain:technological": {
+    "aliases": [],
+    "description": "Engineered artifacts and infrastructures \u2014 software systems, power grids, supply chains, transportation networks, telecommunications.\n",
+    "label": "Technological"
+  }
+}

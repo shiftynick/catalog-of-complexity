@@ -1,0 +1,12 @@
+scenario: Minimal scout
+description: >
+  Produces up to 3 profile-system task proposals for the gut-microbiome topic,
+  cites at least one source per candidate, and writes a scout report.
+assertions:
+  - result.status in ('success', 'blocked')
+  - "count_inbox_tasks(type='profile-system') >= 1"
+  - "result.outputs contains a path matching 'scout-report.md'"
+notes: >
+  Expected number of candidates depends on live literature review; golden
+  checks only the structural contract. Blocked is acceptable if the registry
+  already covers gut-microbiome comprehensively.

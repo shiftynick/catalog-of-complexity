@@ -1,0 +1,273 @@
+@prefix coc: <https://catalog-of-complexity.org/taxonomy/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/derived> a skos:Concept ;
+    skos:definition """The value was computed from more primitive measurements on the system using a documented, deterministic procedure.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:derived" ;
+    skos:prefLabel "Derived" .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/direct> a skos:Concept ;
+    skos:definition """The value was measured directly on the system itself using an instrument or procedure whose output is the metric of interest.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:direct" ;
+    skos:prefLabel "Direct measurement" .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/expert_estimate> a skos:Concept ;
+    skos:definition """The value is a qualitative or quantitative estimate from domain experts, typically used when no direct or derived value is available.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:expert_estimate" ;
+    skos:prefLabel "Expert estimate" .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/proxy> a skos:Concept ;
+    skos:definition """The value substitutes for the target metric because the target is not directly measurable; the proxy has a known, documented relationship to it.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:proxy" ;
+    skos:prefLabel "Proxy" .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/simulation> a skos:Concept ;
+    skos:definition """The value is the output of a simulation or computational model of the system, not an observation of the system itself.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:simulation" ;
+    skos:prefLabel "Simulation" .
+
+<https://catalog-of-complexity.org/taxonomy/evidence-type/unknown> a skos:Concept ;
+    skos:definition """The value kind cannot be determined from the source. Should be used sparingly and reviewed.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "evidence-type:unknown" ;
+    skos:prefLabel "Unknown" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/boundary-scale> a skos:Concept ;
+    skos:definition """Characterizations of a system's extent — spatial, temporal, organizational — and of where it ends. Examples: spatial extent, temporal horizon, number of nested levels.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:boundary-scale" ;
+    skos:prefLabel "Boundary & scale" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/composition> a skos:Concept ;
+    skos:definition """Inventory and diversity of a system's components. Examples: component count, species richness, type entropy, heterogeneity indices.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:composition" ;
+    skos:prefLabel "Composition & heterogeneity" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/dynamics> a skos:Concept ;
+    skos:definition """Temporal behavior. Examples: Lyapunov exponents, period, bifurcation parameters, autocorrelation structure, variance.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:dynamics" ;
+    skos:prefLabel "Dynamics & stability" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/feedback-adaptation> a skos:Concept ;
+    skos:definition """Capacities for regulation, learning, and self-modification. Examples: feedback loop count, homeostatic range, learning rate, adaptive capacity indices.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:feedback-adaptation" ;
+    skos:prefLabel "Feedback, control & adaptation" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/information> a skos:Concept ;
+    skos:definition """Measures drawn from information theory and algorithmic complexity. Examples: Shannon entropy, mutual information, Lempel-Ziv complexity, thermodynamic depth.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:information" ;
+    skos:prefLabel "Information & uncertainty" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/resilience> a skos:Concept ;
+    skos:definition """Persistence under disturbance and recovery trajectories. Examples: recovery time, critical slowing down indicators, basin-of-attraction depth, functional redundancy.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:resilience" ;
+    skos:prefLabel "Resilience & recovery" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/throughput> a skos:Concept ;
+    skos:definition """Flows of matter, energy, or resource through the system. Examples: mass flux, energy flux, productivity, transaction volume.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:throughput" ;
+    skos:prefLabel "Throughput & metabolism" .
+
+<https://catalog-of-complexity.org/taxonomy/metric-family/topology> a skos:Concept ;
+    skos:definition """Structural properties of the network of interactions among components. Examples: degree distribution, clustering coefficient, modularity, centrality, path length.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "metric-family:topology" ;
+    skos:prefLabel "Interaction topology" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/artificial-neural-network> a skos:Concept ;
+    skos:definition "Parameterized differentiable model trained via gradient descent." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:artificial-neural-network" ;
+    skos:prefLabel "Artificial neural network" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/belief-network> a skos:Concept ;
+    skos:definition "Structured collection of propositions held by a group, with inferential and social coupling." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:belief-network" ;
+    skos:prefLabel "Belief network" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/bureaucratic-organization> a skos:Concept ;
+    skos:definition "Formal hierarchical structure with rule-based decision authority." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:bureaucratic-organization" ;
+    skos:prefLabel "Bureaucratic organization" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/central-nervous-system> a skos:Concept ;
+    skos:definition "Neural tissue coordinating perception, cognition, and motor control in animals." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:central-nervous-system" ;
+    skos:prefLabel "Central nervous system" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/distributed-software-system> a skos:Concept ;
+    skos:definition """Network of computational processes coordinating over messages to provide a service, subject to partial failures and consistency tradeoffs.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:distributed-software-system" ;
+    skos:prefLabel "Distributed software system" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/forest-biome> a skos:Concept ;
+    skos:definition "Large-scale terrestrial ecological system dominated by trees." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:forest-biome" ;
+    skos:prefLabel "Forest biome" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/immune-system> a skos:Concept ;
+    skos:definition "Cellular and molecular subsystem that discriminates self from non-self and responds to threats." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:immune-system" ;
+    skos:prefLabel "Immune system" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/language-community> a skos:Concept ;
+    skos:definition "Population of speakers sharing a linguistic code, with ongoing variation and change." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:language-community" ;
+    skos:prefLabel "Language community" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/market-exchange> a skos:Concept ;
+    skos:definition """Venue where dispersed participants transact, with prices emerging from their aggregate actions.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:market-exchange" ;
+    skos:prefLabel "Market exchange" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/microbiome> a skos:Concept ;
+    skos:definition "Community of microorganisms occupying a defined environment or host." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:microbiome" ;
+    skos:prefLabel "Microbiome" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/multicellular-organism> a skos:Concept ;
+    skos:definition "Coordinated colony of differentiated cells with a shared genome." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:multicellular-organism" ;
+    skos:prefLabel "Multicellular organism" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/ocean-circulation-cell> a skos:Concept ;
+    skos:definition "Basin- or gyre-scale pattern of ocean currents driven by wind, temperature, and salinity." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:ocean-circulation-cell" ;
+    skos:prefLabel "Ocean circulation cell" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/power-grid> a skos:Concept ;
+    skos:definition """Synchronized electricity generation, transmission, and distribution network with real-time supply-demand balance requirements.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:power-grid" ;
+    skos:prefLabel "Power grid" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/protocol-stack> a skos:Concept ;
+    skos:definition "Layered set of communication protocols enabling interoperable data exchange." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:protocol-stack" ;
+    skos:prefLabel "Protocol stack" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/river-network> a skos:Concept ;
+    skos:definition "Dendritic hydrological system draining a terrestrial area into a common outlet." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:river-network" ;
+    skos:prefLabel "River network" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/supply-chain> a skos:Concept ;
+    skos:definition """Multi-organization network of suppliers, transforms, and distributors converting raw inputs to end-consumer goods.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:supply-chain" ;
+    skos:prefLabel "Supply chain" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/transportation-network> a skos:Concept ;
+    skos:definition "Infrastructure plus flow system moving people or goods between nodes." ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:transportation-network" ;
+    skos:prefLabel "Transportation network" .
+
+<https://catalog-of-complexity.org/taxonomy/system-class/urban-metabolism> a skos:Concept ;
+    skos:definition """A city treated as a system of material and energy flows, coupling human, technological, and ecological subsystems.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:urban-metabolism" ;
+    skos:prefLabel "Urban metabolism" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/biological> a skos:Concept ;
+    skos:definition """Organisms and sub-organism systems — cells, tissues, organs, organisms, populations; metabolic, genetic, and physiological networks.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:biological" ;
+    skos:prefLabel "Biological" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/cognitive> a skos:Concept ;
+    skos:definition """Systems that perceive, represent, and reason — individual minds, language communities, scientific disciplines, belief networks.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:cognitive" ;
+    skos:prefLabel "Cognitive" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/computational> a skos:Concept ;
+    skos:definition """Abstract information-processing systems — algorithms, protocols, automata, artificial neural networks, distributed consensus mechanisms.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:computational" ;
+    skos:prefLabel "Computational" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/ecological> a skos:Concept ;
+    skos:definition """Systems composed of biotic communities interacting with their abiotic environment — ecosystems, biomes, biogeochemical cycles.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:ecological" ;
+    skos:prefLabel "Ecological" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/economic> a skos:Concept ;
+    skos:definition """Systems organizing the production, distribution, and consumption of resources — markets, supply chains, monetary systems, firms.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:economic" ;
+    skos:prefLabel "Economic" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/physical> a skos:Concept ;
+    skos:definition """Inorganic material and energetic systems — atmospheric circulations, mineral formations, solar systems, fluid dynamics.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:physical" ;
+    skos:prefLabel "Physical" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/social> a skos:Concept ;
+    skos:definition """Human collectives and their interaction structures — organizations, markets, cities, polities, movements, institutions.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:social" ;
+    skos:prefLabel "Social" .
+
+<https://catalog-of-complexity.org/taxonomy/system-domain/technological> a skos:Concept ;
+    skos:definition """Engineered artifacts and infrastructures — software systems, power grids, supply chains, transportation networks, telecommunications.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-domain:technological" ;
+    skos:prefLabel "Technological" .
+
+coc:scheme a skos:ConceptScheme ;
+    skos:prefLabel "Catalog of Complexity Taxonomy" .
+
