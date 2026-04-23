@@ -1,0 +1,28 @@
+id: tsk-20260423-000010
+type: review-records
+skill: review-records
+state: inbox
+priority: normal
+output_targets:
+  - prompts/autonomous-run.md
+acceptance_tests:
+  - '`uv run coc validate` exits 0 after the edit.'
+  - prompts/autonomous-run.md clarifies the heartbeat cadence for runs shorter than the 15-minute interval — either relaxing the "every 15 minutes" rule to match the watchdog's `ttl_minutes / 3` threshold, or adding a sentence noting that sub-cadence runs may omit heartbeats.
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: |-
+  Cluster of 1 retro proposal against prompts/autonomous-run.md:
+
+  - retro-01KPXBD1234567ABCDEFGHJKMN (severity minor) — the Branch A step
+    "Heartbeat every 15 minutes of wall-clock work" is tighter than the
+    watchdog contract (which ties heartbeats to `ttl_minutes / 3`, i.e.
+    30 min for the default 90-min TTL). The first Branch A run completed
+    in ~16 minutes and emitted zero heartbeats, which is consistent with a
+    strict reading but leaves `heartbeats: 0` in run.json looking anaemic.
+    No reliability impact today — purely a cadence-documentation
+    clarification.
+
+  Scope: minimal prose edit to prompts/autonomous-run.md. Do not change
+  watchdog behaviour or the `coc requeue` command.
+created_at: '2026-04-23T14:45:00Z'

@@ -1,0 +1,36 @@
+id: tsk-20260423-000009
+type: review-records
+skill: review-records
+state: inbox
+priority: normal
+output_targets:
+  - taxonomy/source/system-classes.yaml
+acceptance_tests:
+  - '`uv run coc validate` exits 0 after the edit.'
+  - '`uv run coc export-taxonomy` produces a consistent SKOS export.'
+  - 'taxonomy/source/system-classes.yaml gains three new class entries — `unicellular-organism`, `metabolic-network`, `superorganism` — each with a definition, at least one authoritative reference, and distinct scope versus existing classes (microbiome, immune-system, multicellular-organism, central-nervous-system).'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: |-
+  Cluster of 1 retro proposal against taxonomy/source/system-classes.yaml:
+
+  - retro-01KPXBD1234567ABCDEFGHJKMN (severity moderate) — the biological
+    domain is taxonomically rich; four existing classes left three of the
+    eight shortlisted candidates in the first Branch A scout un-slottable.
+    Adding `unicellular-organism` (prokaryotes and single-celled eukaryotes,
+    distinct from multicellular-organism), `metabolic-network` (biochemical
+    reaction graphs inside a single cell), and `superorganism` (eusocial
+    colonies and clonal colonies treated as the unit of selection) unblocks
+    future biological-domain scouts (e.g. E. coli, ant colonies).
+
+  Policy note: this task's `output_targets` points to taxonomy/. The new
+  AGENTS.md autonomy policy calls out taxonomy/ edits as a content-gated
+  area — the `review-records` type auto-promotes, but the *content* written
+  here warrants a closer human look than a typical review-records task.
+  If the reviewer promoting this task wants a stricter gate, demote
+  priority or require human sign-off before merging. Severity is moderate
+  (not major) because there's no blocked work today — the deferred
+  candidates from retro-01KPXBD* are noted in the scout report, not in
+  queued tasks.
+created_at: '2026-04-23T14:45:00Z'
