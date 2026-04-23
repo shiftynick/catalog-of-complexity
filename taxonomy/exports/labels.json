@@ -74,6 +74,11 @@
     "description": "Parameterized differentiable model trained via gradient descent.",
     "label": "Artificial neural network"
   },
+  "system-class:atomic-system": {
+    "aliases": [],
+    "description": "Bound system of one nucleus and its electrons (neutral atom or atomic ion), whose stationary states and transitions are governed by the electromagnetic interaction plus spin-orbit and relativistic corrections. The canonical unit of the periodic table and the smallest system exhibiting discrete quantum energy levels that realize chemical identity. Distinct from `molecular-system` (once added: nuclei bonded into a multi-atom structure via shared electronic states) and from `chemical-reaction-network` (once added: population-level kinetics across many molecular species). Also distinct from physical-domain classes like `ocean-circulation-cell` and `river-network`, which describe macroscale classical fluid/transport systems rather than bound few-body electromagnetic systems.\n",
+    "label": "Atomic system"
+  },
   "system-class:belief-network": {
     "aliases": [],
     "description": "Structured collection of propositions held by a group, with inferential and social coupling.",
