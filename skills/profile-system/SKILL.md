@@ -13,7 +13,7 @@ outputs:
   - '`registry/systems/sys-NNNNNN--<slug>/notes.md` — discursive context (history, controversies, open questions).'
   - '`registry/systems/sys-NNNNNN--<slug>/links.yaml` — structured cross-refs to sources, related systems, authoritative datasets.'
 stop_conditions:
-  - '`system.yaml` validates against `schemas/system.schema.json` with `status` active.'
+  - '`system.yaml` validates against `schemas/system.schema.json` with `status: profiled`.'
   - 'All taxonomy refs resolve.'
   - '`boundary`, `components`, `interaction_types`, `scales` are populated with specifics (not placeholders like "TBD").'
   - '`links.yaml` cites at least 2 authoritative sources.'
@@ -39,12 +39,12 @@ Do **not** use this skill to add observations — that is `extract-observations`
 1. Allocate the system ID: `sys-NNNNNN--<slug>`, N = next unused zero-padded 6-digit integer.
 2. Read 2-4 canonical sources. Focus on: boundary definitions, component taxonomy, known scales, dominant interaction modes.
 3. Draft `system.yaml` with every required field from [system.schema.json](../../schemas/system.schema.json):
-   - `id`, `slug`, `name`, `status: active`.
+   - `id`, `slug`, `name`, `status: profiled` (the schema enum is `candidate | profiling | profiled | deprecated` — use `profiled` for a completed canonical profile).
    - `taxonomy_refs` — exactly one `system-domain:*`, one or more `system-class:*`.
    - `boundary` — what is in/out of scope, and the criterion for membership.
    - `components` — list of kinds of constituent entities with cardinality hints.
    - `interaction_types` — list of dominant interaction modes (e.g. predation, signaling, electrical, informational).
-   - `scales` — object with `spatial`, `temporal`, `organizational` fields; each an ordered list of characteristic scales.
+   - `scales` — object with `spatial` and `temporal` fields (the schema sets `additionalProperties: false` and declares only these two); each an ordered list of characteristic scales. Organizational-scale content, when relevant, belongs in `notes.md` or `components` — extending `scales` requires a schema change, which is out of scope for this skill.
    - `created_at`, `updated_at`.
 4. Draft `notes.md` — prose sections: Overview, History, Controversies, Open Questions, Known-ill-defined aspects.
 5. Draft `links.yaml` — `sources:` list of `src-NNNNNN` IDs or DOIs; `related_systems:` list of `sys-NNNNNN` IDs; `datasets:` list of `{name, url, license}`.

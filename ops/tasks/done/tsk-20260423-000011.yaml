@@ -1,0 +1,53 @@
+acceptance_tests:
+  - '`uv run coc validate` exits 0 after the edit.'
+  - 'skills/profile-system/SKILL.md no longer instructs agents to produce records
+    with `status: active`; it names the schema-valid lifecycle value (`status: profiled`)
+    and matches what existing system records already use.'
+  - skills/profile-system/SKILL.md Procedure step 3 reconciles its `scales` 
+    description with `schemas/system.schema.json` — either the `organizational` 
+    axis is dropped from the skill prose, or a follow-up proposal/task is 
+    emitted to extend the schema. The skill and schema no longer disagree on 
+    what sub-fields `scales` permits.
+created_at: '2026-04-23T17:51:17Z'
+id: tsk-20260423-000011
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T18:36:55Z'
+  leased_at: '2026-04-23T18:36:55Z'
+  leased_by: Shiftor/20772
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Cluster of 7 moderate retro proposals against skills/profile-system/SKILL.md,\n\
+  drawn from 5 consecutive profile-system retros. Two recurring divergences\nbetween
+  the skill text and `schemas/system.schema.json`:\n\nTheme A — `status: active` vs
+  `status: profiled`:\n- retro-01KPXDCKSJDNZQQMETHJD02J8D (severity moderate) — skill
+  procedure\n  and stop_conditions say `status: active`, but the schema enum is\n\
+  \  `[\"candidate\",\"profiling\",\"profiled\",\"deprecated\"]`. Agent had to make\n\
+  \  the call on-run and picked `profiled` to match existing records.\n- retro-01KPXE59VNY48PC0CDNRR475B2
+  (severity moderate) — second\n  profile-system run confirming the recurrence; same
+  judgment call made\n  against the same mismatch.\n- retro-01KPXNK8WS4Y4PHXF5TD6MHEZ9
+  (severity moderate) — third run;\n  acceptance_tests on tsk-20260423-000005 again
+  said \"status active\"\n  which no existing system record has ever satisfied.\n\
+  - retro-01KPXNW5Z4F6EZ5TX00AK6KDSC (severity moderate) — fourth run;\n  tsk-20260423-000006's
+  acceptance_tests again restated \"status active\".\n- retro-7WT0NHAFNFMH7X96M2WW0HF3PM
+  (severity moderate) — fifth run;\n  same divergence described independently.\n\n\
+  Theme B — `scales.organizational` does not exist in the schema:\n- retro-01KPXNK8WS4Y4PHXF5TD6MHEZ9
+  (severity moderate) — skill step 3\n  lists `spatial, temporal, organizational`,
+  but the schema's `scales`\n  object sets `additionalProperties: false` and only
+  declares `spatial`\n  and `temporal`. Three consecutive profile runs (sys-000003..000005)\n\
+  \  silently dropped the organizational axis.\n- retro-01KPXNW5Z4F6EZ5TX00AK6KDSC
+  (severity moderate) — fourth\n  consecutive run silently dropping organizational;
+  flagged as signal\n  rather than noise.\n\nScope: documentation edit to skills/profile-system/SKILL.md
+  (plus, if\nthe reviewer chooses the \"codify profiled\" path, an aligned update
+  to\nthe profile-system task manifest template referenced from the skill).\nDo NOT
+  modify existing system records (they already use `profiled`).\nDo NOT modify `schemas/system.schema.json`
+  as part of this task — if\nthe reviewer prefers to extend the schema (add `active`
+  to the status\nenum, or add `organizational` to `scales`), emit a follow-up task\n\
+  targeting the schema instead of making the change here; those are\nsensitive-path
+  edits that belong in their own review-records cluster."
+output_targets:
+  - skills/profile-system/SKILL.md
+priority: normal
+skill: review-records
+state: done
+type: review-records
