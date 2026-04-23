@@ -101,7 +101,7 @@ Retro cadence is "every run" by default and narrows to
 `ready/` (default per-type cap 3, `review-records` overridden to 1):
 `scout-systems`, `profile-system`, `define-metrics`,
 `extract-observations`, `review-records`, `apply-retros`,
-`analyze-archetypes`. The tighter `review-records` cap keeps the
+`analyze-archetypes`, `acquire-source`. The tighter `review-records` cap keeps the
 retro → cluster → review self-improvement loop from starving
 catalog-growth types of promotion slots.
 
@@ -138,6 +138,10 @@ escalations.
 - `apply-retros` — consume unprocessed retrospectives, cluster
   `proposed_improvements` by target, and emit one `review-records` task per
   cluster. Queue-driven; closes the retrospective feedback loop.
+- `acquire-source` — fetch one prefixed source reference (`doi:`, `arxiv:`,
+  `url:`) and register it under `registry/sources/src-NNNNNN--<slug>/` with
+  immutable raw artifacts and a validated source.yaml. The only skill that
+  writes to `registry/sources/*/raw/`. plan-backlog Tier 0.75 feeds it.
 - `retrospective` *(status: postrun)* — post-task assessment invoked by
   `prompts/autonomous-run.md` after every task, not queue-driven.
 - `plan-backlog` *(status: postrun)* — empty-queue branch of the autonomous
@@ -162,6 +166,8 @@ Use native file-editing and shell tools. For repo-aware operations prefer the
 - `uv run coc release` — build a release snapshot.
 - `uv run coc export-taxonomy` — regenerate SKOS exports.
 - `uv run coc eval [skill]` — run QC evals.
+- `uv run coc acquire <ref>` — resolve a prefixed source ref (`doi:`,
+  `arxiv:`, `url:`) and register it under `registry/sources/`.
 
 ## Sensitive actions (require explicit approval)
 

@@ -138,6 +138,21 @@ def eval(skill: str | None) -> None:  # noqa: A001
 
 
 @main.command()
+@click.argument("ref")
+def acquire(ref: str) -> None:
+    """Resolve a prefixed ref (doi:/arxiv:/url:) and register it under registry/sources/."""
+    from coc.sources import ResolutionError
+    from coc.sources import acquire as _acquire
+
+    try:
+        path = _acquire(ref)
+    except ResolutionError as exc:
+        console.print(f"[red]FAIL[/red] {exc}")
+        raise SystemExit(1) from exc
+    console.print(f"[green]acquired[/green] {path}")
+
+
+@main.command()
 @click.option("--host", default="127.0.0.1", show_default=True)
 @click.option("--port", default=8000, show_default=True, type=int)
 @click.option(

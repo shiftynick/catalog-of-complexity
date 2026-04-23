@@ -1,0 +1,22 @@
+id: tsk-20260422-999020
+type: acquire-source
+skill: acquire-source
+state: ready
+source_refs:
+  - doi:10.1038/nrmicro3109
+output_targets:
+  - registry/sources/
+acceptance_tests:
+  - A registry/sources/src-*--<slug>/ directory exists for the ref
+    doi:10.1038/nrmicro3109, either newly written or an idempotent match.
+  - That directory contains source.yaml validating against
+    schemas/source.schema.json and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash.
+  - '`uv run coc validate` exits 0.'
+lease:
+  ttl_minutes: 30
+  max_attempts: 2
+created_at: '2026-04-22T00:00:00Z'
+notes: |
+  Source debt: doi:10.1038/nrmicro3109. Golden scenario — may be acquired
+  fresh or matched against an existing registered source.

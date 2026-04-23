@@ -75,6 +75,17 @@ scope and covered by `review-records` and by human gatekeeping.
       expansion; it yields to Tier 1's review debt because reviewer
       backlog is time-sensitive. See Priority seed file below for the
       entry schema.
+   0.75. **Source debt** — scan task manifests under `ops/tasks/{inbox,
+      ready,leased,running}/` for `source_refs` entries using prefixed
+      forms (`doi:`, `arxiv:`, `url:`). For each unique ref with no
+      matching `registry/sources/src-*/source.yaml` (by doi / arxiv id /
+      url), emit one `acquire-source` task with that single ref in
+      `source_refs` and `notes: "Source debt: <ref>. Referenced by
+      <tsk-id>."`. Cap at 3 per run (matches the auto-promote per-type
+      ready cap). Idempotency: skip a ref if any task under `ops/tasks/`
+      already has `notes` starting with `"Source debt: <ref>."`. This
+      tier fires before the catalog tiers below so downstream tasks find
+      their sources already registered when they run.
    1. **Review debt** — any record with `review_state: proposed` older than
       14 days → emit one `review-records` task per distinct reviewer target
       (system, metric, or observation batch). `auto-validated` records do

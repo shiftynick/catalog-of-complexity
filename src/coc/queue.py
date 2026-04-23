@@ -38,6 +38,7 @@ AUTO_PROMOTE_TYPES = frozenset(
         "review-records",
         "apply-retros",
         "analyze-archetypes",
+        "acquire-source",
     }
 )
 PER_TYPE_READY_CAP = 3

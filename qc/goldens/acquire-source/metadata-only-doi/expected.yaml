@@ -1,0 +1,13 @@
+scenario: DOI acquisition (metadata-only acceptable)
+description: >
+  Resolves one doi: ref and registers a src-NNNNNN--<slug>/ entry. Passes
+  whether OA full-text is fetched or only Crossref/Unpaywall metadata is
+  available — the skill contract accepts metadata-only sources as valid.
+assertions:
+  - result.status in ('success', 'blocked')
+  - "result.outputs contains a path matching 'registry/sources/src-'"
+notes: >
+  Blocked is acceptable if the upstream returns 404 or the fetcher is
+  offline in the eval environment. The structural contract we care about
+  is: on success, a src-* directory exists with a validated source.yaml
+  and a non-empty raw/.

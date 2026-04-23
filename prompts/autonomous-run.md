@@ -42,7 +42,8 @@ Before picking a branch, confirm environment health and advance the queue:
 - `uv run coc advance` — auto-promote any eligible `inbox/` tasks to
   `ready/`. Eligible types: `scout-systems`, `profile-system`,
   `define-metrics`, `extract-observations`, `review-records`,
-  `apply-retros`, `analyze-archetypes`. The command enforces a per-type cap
+  `apply-retros`, `analyze-archetypes`, `acquire-source`. The command
+  enforces a per-type cap
   (3 of any one type in `ready/`, with `review-records` tightened to 1
   so the self-improvement loop can't starve catalog-growth types) so
   runaway seeding is bounded. Types

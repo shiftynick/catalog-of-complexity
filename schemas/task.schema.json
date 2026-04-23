@@ -32,7 +32,8 @@
         "materialize-warehouse",
         "build-release",
         "analyze-archetypes",
-        "apply-retros"
+        "apply-retros",
+        "acquire-source"
       ]
     },
     "skill": { "type": "string" },
