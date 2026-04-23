@@ -123,6 +123,57 @@ def heartbeat_task(task_id: str) -> Path:
     return path
 
 
+def _writes_to_registry(output_targets: Any) -> bool:
+    """True if any declared output target is under ``registry/``."""
+    if not isinstance(output_targets, list):
+        return False
+    for t in output_targets:
+        s = str(t or "").lstrip("./").replace("\\", "/")
+        if s.startswith("registry/"):
+            return True
+    return False
+
+
+def _auto_materialize(task_id: str) -> None:
+    """Rebuild the warehouse after a registry-touching task completes.
+
+    Failures are logged as an event but do not raise — a successful task
+    completion must not be undone by a downstream derived-artifact rebuild.
+    Opt out by setting ``COC_SKIP_AUTO_MATERIALIZE=1`` in the environment.
+    """
+    if os.environ.get("COC_SKIP_AUTO_MATERIALIZE") == "1":
+        return
+    # Imported lazily: avoids pulling duckdb/pyarrow into `coc queue` imports
+    # and prevents any circular-import risk during test monkeypatching.
+    from coc.warehouse import materialize
+
+    try:
+        counts = materialize()
+        append_event(
+            "task-events",
+            {
+                "event_id": _event_id(),
+                "timestamp": _now(),
+                "kind": "warehouse.materialize",
+                "subject": task_id,
+                "actor": _agent_id(),
+                "payload": {"reason": "post-task-complete", "counts": counts},
+            },
+        )
+    except Exception as exc:  # noqa: BLE001 — event captures detail
+        append_event(
+            "task-events",
+            {
+                "event_id": _event_id(),
+                "timestamp": _now(),
+                "kind": "warehouse.materialize.error",
+                "subject": task_id,
+                "actor": _agent_id(),
+                "payload": {"reason": "post-task-complete", "error": str(exc)},
+            },
+        )
+
+
 def complete_task(
     task_id: str,
     outputs_json: str = "{}",
@@ -160,6 +211,8 @@ def complete_task(
             "payload": {"outputs": outputs, "terminal_state": terminal_state},
         },
     )
+    if _writes_to_registry(data.get("output_targets")):
+        _auto_materialize(task_id)
     return dst
 
 

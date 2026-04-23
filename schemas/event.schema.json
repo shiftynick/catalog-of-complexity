@@ -25,7 +25,9 @@
         "record.create",
         "record.update",
         "record.supersede",
-        "retro.consumed"
+        "retro.consumed",
+        "warehouse.materialize",
+        "warehouse.materialize.error"
       ]
     },
     "subject": { "type": "string" },

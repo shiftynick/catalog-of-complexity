@@ -87,6 +87,91 @@ def test_double_lease_fails(fake_ops):
         q.lease_task(tid)
 
 
+def test_complete_does_not_auto_materialize_for_ops_output(fake_ops, monkeypatch):
+    """The default test fixture declares ops/ outputs — hook must stay dormant."""
+    called: list[bool] = []
+
+    def _fake_mat() -> dict[str, int]:
+        called.append(True)
+        return {}
+
+    monkeypatch.setattr("coc.warehouse.materialize", _fake_mat)
+    tid = "tsk-20260422-999970"
+    _make_task(fake_ops, tid)
+    q.lease_task(tid)
+    q.complete_task(tid)
+
+    assert called == []
+
+
+def test_complete_auto_materializes_for_registry_output(fake_ops, monkeypatch):
+    """A task declaring registry/ outputs triggers a warehouse rebuild on complete."""
+    called: list[bool] = []
+
+    def _fake_mat() -> dict[str, int]:
+        called.append(True)
+        return {"systems": 1}
+
+    monkeypatch.setattr("coc.warehouse.materialize", _fake_mat)
+    tid = "tsk-20260422-999971"
+    path = fake_ops / "tasks" / "ready" / f"{tid}.yaml"
+    dump_yaml(
+        {
+            "id": tid,
+            "type": "profile-system",
+            "skill": "profile-system",
+            "state": "ready",
+            "priority": "normal",
+            "output_targets": ["registry/systems/"],
+            "acceptance_tests": [],
+            "lease": {"ttl_minutes": 30, "max_attempts": 1},
+            "created_at": "2026-04-22T00:00:00Z",
+        },
+        path,
+    )
+    q.lease_task(tid)
+    q.complete_task(tid)
+
+    assert called == [True]
+    kinds = _event_kinds(fake_ops)
+    assert kinds[-1] == "warehouse.materialize"
+
+
+def test_complete_auto_materialize_skipped_by_env(fake_ops, monkeypatch):
+    called: list[bool] = []
+    monkeypatch.setattr(
+        "coc.warehouse.materialize",
+        lambda: called.append(True) or {},
+    )
+    monkeypatch.setenv("COC_SKIP_AUTO_MATERIALIZE", "1")
+    tid = "tsk-20260422-999972"
+    path = fake_ops / "tasks" / "ready" / f"{tid}.yaml"
+    dump_yaml(
+        {
+            "id": tid,
+            "type": "profile-system",
+            "skill": "profile-system",
+            "state": "ready",
+            "priority": "normal",
+            "output_targets": ["registry/systems/"],
+            "acceptance_tests": [],
+            "lease": {"ttl_minutes": 30, "max_attempts": 1},
+            "created_at": "2026-04-22T00:00:00Z",
+        },
+        path,
+    )
+    q.lease_task(tid)
+    q.complete_task(tid)
+
+    assert called == []
+
+
+def _event_kinds(fake_ops: Path) -> list[str]:
+    log = fake_ops / "events" / "task-events.jsonl"
+    lines = log.read_text(encoding="utf-8").strip().splitlines()
+    return [line.split('"kind":')[1].split(",")[0].strip().strip('"') for line in lines]
+
+
 def test_complete_wrong_state_fails(fake_ops):
     tid = "tsk-20260422-999997"
     _make_task(fake_ops, tid)  # still in ready/
