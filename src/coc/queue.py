@@ -214,10 +214,10 @@ def advance_queue() -> list[str]:
             continue
         if ready_counts.get(task_type, 0) >= PER_TYPE_READY_CAP:
             continue
-        data["state"] = "ready"
-        dump_yaml(data, src)
         dst = ready / src.name
         os.rename(src, dst)
+        data["state"] = "ready"
+        dump_yaml(data, dst)
         ready_counts[task_type] = ready_counts.get(task_type, 0) + 1
         task_id = str(data.get("id") or src.stem)
         promoted.append(task_id)
