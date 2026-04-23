@@ -1,0 +1,37 @@
+id: tsk-20260423-000002
+type: profile-system
+skill: profile-system
+state: inbox
+priority: normal
+system_id: null
+source_refs:
+  - doi:10.1371/journal.pbio.1002533
+  - doi:10.1038/nature08821
+output_targets:
+  - registry/systems/
+acceptance_tests:
+  - >-
+    registry/systems/sys-NNNNNN--human-gut-microbiome/system.yaml validates
+    against schemas/system.schema.json with status active and taxonomy_refs
+    containing system-domain:biological and system-class:microbiome.
+  - >-
+    links.yaml cites >=2 authoritative sources (Sender et al. 2016 and Qin
+    et al. 2010 are the scouted anchors; substitute equivalents only with
+    rationale in notes.md).
+  - >-
+    boundary, components, interaction_types, and scales are populated with
+    specifics, not placeholders.
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: >-
+  Candidate: human gut microbiome. Proposed slug: human-gut-microbiome.
+  Proposed taxonomy: system-domain:biological, system-class:microbiome.
+  Scouted by tsk-20260423-000001 (Tier 5 coverage expansion; first
+  biological-domain candidate). Boundary cue: microbial taxa (bacteria,
+  archaea, fungi, viruses) resident in the human gastrointestinal lumen and
+  mucosa, plus their metabolite pools. Scales: cellular (µm) to organ (~m),
+  host-generational temporal. Anchor sources: Sender R, Fuchs S, Milo R
+  (2016) PLoS Biol 14(8):e1002533 — revised human/bacterial cell counts;
+  Qin J et al. (2010) Nature 464:59-65 — MetaHIT gene catalogue.
+created_at: '2026-04-23T14:20:00Z'

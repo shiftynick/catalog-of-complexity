@@ -1,0 +1,42 @@
+id: tsk-20260423-000004
+type: profile-system
+skill: profile-system
+state: inbox
+priority: normal
+system_id: null
+source_refs:
+  - doi:10.1093/genetics/77.1.71
+  - doi:10.1098/rstb.1986.0056
+output_targets:
+  - registry/systems/
+acceptance_tests:
+  - >-
+    registry/systems/sys-NNNNNN--caenorhabditis-elegans/system.yaml
+    validates against schemas/system.schema.json with status active and
+    taxonomy_refs containing system-domain:biological and
+    system-class:multicellular-organism.
+  - >-
+    links.yaml cites >=2 authoritative sources (Brenner 1974 genetics
+    founding paper and White et al. 1986 connectome monograph are the
+    scouted anchors).
+  - >-
+    boundary, components, interaction_types, and scales are populated with
+    specifics covering cell lineage (959 somatic cells in the adult
+    hermaphrodite), the 302-neuron connectome, and life-cycle temporal
+    scale.
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: >-
+  Candidate: Caenorhabditis elegans (model multicellular organism).
+  Proposed slug: caenorhabditis-elegans. Proposed taxonomy:
+  system-domain:biological, system-class:multicellular-organism. Scouted by
+  tsk-20260423-000001. C. elegans is the most fully-characterized
+  multicellular organism: invariant cell lineage, complete connectome,
+  fully sequenced genome, short (~3 day) life cycle. Scales: cellular (~µm)
+  to organismal (~1 mm); temporal from sub-second neural dynamics to days
+  of development. Anchor sources: Brenner S (1974) Genetics 77(1):71-94 —
+  founding genetic-tractability paper; White JG, Southgate E, Thomson JN,
+  Brenner S (1986) Philos Trans R Soc Lond B 314(1165):1-340 — complete
+  neural wiring diagram.
+created_at: '2026-04-23T14:20:20Z'
