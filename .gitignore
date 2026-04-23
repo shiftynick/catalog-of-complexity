@@ -55,3 +55,7 @@ releases/*/data/
 # Local agent caches
 .claude/cache/
 .codex/cache/
+
+# Machine-local IDE/tool state — not shared across agents or checkouts.
+.claude/settings.local.json
+.codex/settings.local.json
