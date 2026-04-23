@@ -51,6 +51,31 @@ Do **not** use this skill to finalize system definitions or extract measurements
 - `ops/tasks/inbox/tsk-*.yaml` — each valid against [task.schema.json](../../schemas/task.schema.json), `state: inbox`.
 - `ops/runs/.../scout-report.md` — markdown with sections: Accepted, Rejected, Taxonomy gaps, Sources consulted.
 
+## Acceptance tests (canonical)
+
+Copy these strings verbatim into the `acceptance_tests` field of any
+`scout-systems` task manifest (e.g. from `plan-backlog`). Do not rephrase;
+substitute only the bracketed `<domain>` token when a specific
+`system-domain` slug is being targeted. If no domain is targeted, drop the
+parenthetical.
+
+```yaml
+acceptance_tests:
+  - At least one profile-system task manifest is written to ops/tasks/inbox/
+    for a <domain>-domain candidate, each carrying >=1 source_ref and
+    naming a candidate system-domain / system-class slug pair that resolves
+    against taxonomy/source/.
+  - A scout-report.md is written under
+    ops/runs/YYYY/MM/DD/<run-id>/scout-report.md with sections Accepted,
+    Rejected, Taxonomy gaps, and Sources consulted.
+  - '`uv run coc validate ops/tasks/inbox/` exits 0 on the emitted manifests.'
+```
+
+Rationale: `stop_conditions` describes when the skill may halt; it is not
+phrased as pass/fail assertions a reviewer can check on the artifacts. The
+block above is the canonical assertion shape, grounded in the outputs the
+skill actually writes.
+
 ## Block or fail when
 
 - Candidate volume exceeds `budget` × 3 — the topic is too broad; block with a narrower-topic proposal.
