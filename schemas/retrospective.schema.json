@@ -25,8 +25,11 @@
       "type": ["string", "null"]
     },
     "task_id": {
-      "type": "string",
-      "pattern": "^tsk-[0-9]{8}-[0-9]{6}$"
+      "oneOf": [
+        { "type": "string", "pattern": "^tsk-[0-9]{8}-[0-9]{6}$" },
+        { "type": "null" }
+      ],
+      "description": "Task id this retro is about. null for Branch B (empty-queue / plan-backlog) runs that have no owning task."
     },
     "skill": {
       "type": "string"

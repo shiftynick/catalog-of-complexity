@@ -17,8 +17,11 @@
   "properties": {
     "run_id": { "type": "string" },
     "task_id": {
-      "type": "string",
-      "pattern": "^tsk-[0-9]{8}-[0-9]{6}$"
+      "oneOf": [
+        { "type": "string", "pattern": "^tsk-[0-9]{8}-[0-9]{6}$" },
+        { "type": "null" }
+      ],
+      "description": "Task id this run executed. null for Branch B (empty-queue / plan-backlog) runs that have no owning task."
     },
     "agent": {
       "type": "object",
