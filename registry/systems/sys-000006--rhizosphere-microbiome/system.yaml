@@ -1,0 +1,66 @@
+id: sys-000006--rhizosphere-microbiome
+slug: rhizosphere-microbiome
+name: Rhizosphere microbiome
+aliases:
+  - Root-associated microbiome
+  - Rhizosphere microbial community
+status: profiled
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:microbiome
+summary: >
+  Plant-root-associated microbial community inhabiting the thin zone of soil
+  under the direct chemical and physical influence of living roots. Shaped by
+  root exudate gradients, rhizodeposition, and soil heterogeneity, and
+  functionally coupled to plant growth, nutrient acquisition, and health.
+boundary:
+  type: mixed
+  description: >
+    The millimetre-scale soil volume immediately surrounding and under direct
+    chemical influence of living plant roots, distinct from bulk soil. Includes
+    bacteria, archaea, fungi (including mycorrhizal partners at the
+    rhizosphere-mycorrhizosphere interface), protists, viruses, and root-derived
+    carbon and signal molecules (exudates, mucilage, sloughed cells). Excludes
+    bulk soil communities beyond the exudate-influenced zone and excludes
+    endophytes once they pass the root epidermis into internal plant tissues
+    (those belong to the endosphere system). Membership is operationally defined
+    by attachment to root surfaces or residence within the exudate gradient,
+    typically sampled as root + adhering soil versus shaken-off bulk soil.
+components:
+  - rhizoplane-attached bacterial populations
+  - rhizosphere-soil bacterial populations
+  - archaeal populations (ammonia oxidizers, methanogens in flooded systems)
+  - saprotrophic and plant-associated fungi
+  - arbuscular and ectomycorrhizal fungal partners at the interface
+  - protistan predators (flagellates, amoebae, ciliates)
+  - bacteriophages and other soil viruses
+  - plant root exudates, mucilage, and rhizodeposited carbon pools
+  - soil mineral surfaces and aggregate microstructure within the exudate zone
+interaction_types:
+  - root exudation and rhizodeposition (plant-to-microbe carbon flux)
+  - competition for root-derived carbon and mineral nutrients
+  - trophic cross-feeding among microbial guilds
+  - protistan and nematode predation on bacteria
+  - bacteriophage predation and lysogeny
+  - plant immune signaling and microbe-associated molecular pattern recognition
+  - quorum sensing and interspecies signaling
+  - horizontal gene transfer
+  - mutualistic nutrient exchange (e.g. N fixation, P solubilization,
+    mycorrhizal P-for-C trade)
+  - antagonism and biocontrol (antibiotics, siderophore competition)
+scales:
+  spatial:
+    - micron-scale single-cell and root-hair surfaces (1e-6 m)
+    - sub-millimetre exudate diffusion gradients and soil pores (1e-4 m)
+    - millimetre-scale rhizosphere thickness around a root (1e-3 m)
+    - centimetre-to-decimetre root-system architecture (1e-2 m to 1e-1 m)
+    - metre-scale whole-plant rooting zone (1e0 m)
+  temporal:
+    - seconds-to-minutes exudate release and chemotactic response
+    - hours-to-days microbial growth and succession on new root segments
+    - days-to-weeks response to root development and stress events
+    - weeks-to-months seasonal plant phenology and community restructuring
+    - annual-to-multiannual plant life cycles and crop rotations
+source_refs: []
+created_at: '2026-04-23T17:21:57Z'
+updated_at: '2026-04-23T17:21:57Z'

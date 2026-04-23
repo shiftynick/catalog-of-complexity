@@ -1,0 +1,13 @@
+sources:
+  - doi: 10.1038/nrmicro3109
+    citation: >
+      Philippot L, Raaijmakers JM, Lemanceau P, van der Putten WH. Going back to
+      the roots: the microbial ecology of the rhizosphere. Nature Reviews
+      Microbiology 11(11):789-799 (2013).
+  - doi: 10.1016/j.tplants.2012.04.001
+    citation: >
+      Berendsen RL, Pieterse CMJ, Bakker PAHM. The rhizosphere microbiome and
+      plant health. Trends in Plant Science 17(8):478-486 (2012).
+related_systems:
+  - sys-000002--human-gut-microbiome
+datasets: []
