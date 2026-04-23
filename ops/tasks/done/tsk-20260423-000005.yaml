@@ -13,6 +13,10 @@ acceptance_tests:
 created_at: '2026-04-23T14:20:30Z'
 id: tsk-20260423-000005
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T17:15:47Z'
+  leased_at: '2026-04-23T17:15:47Z'
+  leased_by: Shiftor/117488
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: mammalian neocortical microcircuit. Proposed slug: mammalian-neocortical-microcircuit.
@@ -30,6 +34,6 @@ skill: profile-system
 source_refs:
   - doi:10.1016/j.cell.2015.09.029
   - doi:10.1093/brain/120.4.701
-state: ready
+state: done
 system_id: null
 type: profile-system

@@ -1,0 +1,94 @@
+id: sys-000005--mammalian-neocortical-microcircuit
+slug: mammalian-neocortical-microcircuit
+name: Mammalian neocortical microcircuit
+aliases:
+  - Cortical column
+  - Neocortical column
+  - Canonical cortical microcircuit
+status: profiled
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:central-nervous-system
+summary: >
+  A local six-layered patch of mammalian neocortex (~0.3-0.5 mm in tangential
+  extent, ~2 mm deep) comprising on the order of 10^4-10^5 neurons and their
+  supporting glia and vasculature, organized as a repeating canonical
+  microcircuit. Excitatory pyramidal cells and spiny stellates interact with a
+  diverse inventory of GABAergic interneurons (parvalbumin, somatostatin,
+  VIP/5HT3a, and others) through stereotyped laminar wiring motifs. The
+  microcircuit is the reference unit for modern digital reconstructions of
+  neocortex (Blue Brain/Markram 2015) and, since Mountcastle 1997, the
+  canonical candidate for a repeating cortical computation.
+boundary:
+  type: functional
+  description: >
+    Includes a local volume of neocortex: all six cortical layers (L1, L2/3,
+    L4, L5, L6) and their constituent excitatory and inhibitory neurons, local
+    axonal and dendritic arbors, chemical and electrical synapses, local
+    astrocytic and microglial populations, and the local microvasculature and
+    neuromodulatory terminals that innervate them. Includes the stereotyped
+    recurrent and feedforward wiring among these cells as reconstructed in
+    somatosensory-cortex digital reconstructions. Excludes long-range
+    cortico-cortical and cortico-thalamic projections beyond the local
+    patch, whole-brain dynamics, and behavioral readouts; these enter only as
+    boundary inputs or outputs. Membership criterion: neuronal somata or
+    processes whose axo-dendritic domains lie predominantly within the
+    ~0.3-0.5 mm tangential column and ~2 mm cortical depth centered on the
+    reference microcircuit.
+components:
+  - excitatory pyramidal neurons across L2/3, L5, and L6 (intratelencephalic,
+    pyramidal-tract, and corticothalamic subtypes)
+  - spiny stellate and star-pyramid excitatory neurons in L4 (granular layer)
+  - GABAergic interneurons (parvalbumin-expressing basket and chandelier
+    cells; somatostatin-expressing Martinotti and non-Martinotti cells;
+    VIP/5HT3a disinhibitory interneurons; neurogliaform cells in L1)
+  - local chemical synapses (glutamatergic AMPA/NMDA, GABAergic A/B)
+  - electrical synapses (gap junctions) among interneuron subclasses
+  - astrocytes tiling the neuropil and regulating extracellular K+ and
+    neurotransmitter uptake
+  - microglia and oligodendrocyte/NG2 populations
+  - local microvascular bed (penetrating arterioles, capillary plexus) and
+    pericytes coupled to neurovascular signaling
+  - axonal arrivals from thalamic (core and matrix), contralateral, and
+    long-range cortical sources terminating in layer-specific patterns
+  - neuromodulatory terminals (cholinergic, noradrenergic, serotonergic,
+    dopaminergic) arriving from subcortical nuclei
+interaction_types:
+  - glutamatergic excitation (AMPA- and NMDA-receptor-mediated) via
+    feedforward and recurrent cortical connections
+  - GABAergic inhibition (fast perisomatic, dendritic, and tonic) shaping
+    gain, timing, and selectivity
+  - electrical coupling among homotypic interneurons
+  - short-term synaptic plasticity (facilitation, depression)
+  - long-term synaptic plasticity (LTP, LTD, spike-timing-dependent
+    plasticity) underlying learning
+  - neuromodulation (acetylcholine, noradrenaline, serotonin, dopamine)
+    gating cortical state and plasticity
+  - neurovascular coupling linking neural activity to local blood flow
+  - glial K+ and glutamate buffering, tripartite synapse signaling
+  - dendritic nonlinearities (NMDA spikes, calcium plateaus) in pyramidal
+    apical tufts
+  - laminar feedforward-feedback information flow between thalamus and
+    cortex and between cortical areas
+scales:
+  spatial:
+    - nanometer-scale synaptic clefts, receptor complexes, and dendritic
+      spines
+    - micrometer-scale neurons, axonal boutons, and dendritic compartments
+    - ~2 mm cortical depth spanning layers L1-L6
+    - ~0.3-0.5 mm tangential extent of a local canonical microcircuit /
+      column (order 10^4-10^5 neurons)
+    - millimeter-to-centimeter-scale cortical areas comprising repeating
+      microcircuits as the immediate embedding context
+  temporal:
+    - sub-millisecond action-potential and synaptic-current kinetics
+    - millisecond-scale synaptic integration and spike timing
+    - tens-to-hundreds-of-milliseconds network oscillations (gamma 30-80 Hz,
+      beta, alpha) and sensory-response epochs
+    - seconds-scale perceptual and behavioral bouts shaped by cortical
+      dynamics
+    - minutes-to-hours plasticity (LTP/LTD induction and early maintenance)
+    - days-to-lifetime structural remodeling, myelination, and learning
+source_refs: []
+created_at: '2026-04-23T17:15:47Z'
+updated_at: '2026-04-23T17:15:47Z'

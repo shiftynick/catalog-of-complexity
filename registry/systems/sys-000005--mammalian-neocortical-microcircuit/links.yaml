@@ -1,0 +1,23 @@
+sources:
+  - doi: 10.1016/j.cell.2015.09.029
+    citation: >
+      Markram H, Muller E, Ramaswamy S, Reimann MW, Abdellah M, Sanchez CA,
+      et al. Reconstruction and simulation of neocortical microcircuitry.
+      Cell 163(2):456-492 (2015).
+  - doi: 10.1093/brain/120.4.701
+    citation: >
+      Mountcastle VB. The columnar organization of the neocortex. Brain
+      120(4):701-722 (1997).
+related_systems:
+  - sys-000003--vertebrate-adaptive-immune-system
+  - sys-000004--caenorhabditis-elegans
+datasets:
+  - name: Blue Brain Project Neocortical Microcircuit Collaboration Portal
+    url: https://bbp.epfl.ch/nmc-portal/
+    license: CC BY 4.0 (per portal terms)
+  - name: Allen Brain Atlas — Cell Types Database
+    url: https://celltypes.brain-map.org/
+    license: Allen Institute terms of use (permissive, attribution)
+  - name: MICrONS cortical EM reconstruction
+    url: https://www.microns-explorer.org/
+    license: CC BY 4.0
