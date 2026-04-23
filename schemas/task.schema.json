@@ -62,11 +62,16 @@
       "default": []
     },
     "source_refs": {
+      "description": "References to the source material backing this task. Each entry is either (a) a registered source id of the form `src-NNNNNN--slug` (matching `registry/sources/src-*/source.yaml`), or (b) an unregistered external reference using one of the canonical prefixes: `doi:<doi>` (bare DOI, no scheme/host — e.g. `doi:10.1038/nrmicro3109`), `isbn:<isbn>` (digits only, hyphens optional — e.g. `isbn:9780815345053`), `arxiv:<id>` (e.g. `arxiv:2401.12345`), or `url:<absolute-url>` for anything else. Prefer a registered `src-*` id once the source has been ingested; the prefixed forms are for tasks whose source has not yet entered `registry/sources/`. Do not use bare DOIs, raw URLs, or doi.org URLs — always qualify with a prefix.",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string",
+        "pattern": "^(src-[0-9]{6}--[a-z0-9-]+|doi:10\\.[0-9]{4,}(\\.[0-9]+)*/\\S+|isbn:[0-9Xx-]{10,17}|arxiv:[0-9]{4}\\.[0-9]{4,5}(v[0-9]+)?|arxiv:[a-z-]+(\\.[A-Z]{2})?/[0-9]{7}(v[0-9]+)?|url:https?://\\S+)$"
+      },
       "default": []
     },
     "output_targets": {
+      "description": "Files or directories this task is permitted to write. Three forms are acceptable: (1) a concrete file path (e.g. `schemas/task.schema.json`) — preferred whenever the path is known at dispatch time; (2) a directory path ending in `/` (e.g. `registry/systems/` or `ops/tasks/inbox/`) when the skill emits N files whose exact names are only knowable at execution time — in that case every file written must live under that directory; (3) a glob pattern (e.g. `ops/runs/*/scout-report.md`) when files land under a run-scoped path expanded at execution time. Concrete paths are strongly preferred; directory and glob forms are permitted only when the skill's procedure cannot enumerate outputs in advance. Entries are authorization boundaries — do not write outside them.",
       "type": "array",
       "minItems": 1,
       "items": { "type": "string" }

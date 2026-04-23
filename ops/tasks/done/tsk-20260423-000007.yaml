@@ -9,6 +9,10 @@ acceptance_tests:
 created_at: '2026-04-23T14:45:00Z'
 id: tsk-20260423-000007
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T17:46:07Z'
+  leased_at: '2026-04-23T17:46:07Z'
+  leased_by: Shiftor/20792
   max_attempts: 1
   ttl_minutes: 90
 notes: "Cluster of 2 retro proposals against schemas/task.schema.json:\n\n- retro-01KPX8MD4GHQRN9QEYA2NMCEEM
@@ -28,5 +32,5 @@ output_targets:
   - schemas/task.schema.json
 priority: normal
 skill: review-records
-state: ready
+state: done
 type: review-records
