@@ -1,0 +1,49 @@
+id: sys-000002--human-gut-microbiome
+slug: human-gut-microbiome
+name: Human gut microbiome
+aliases:
+  - Human gut microbiota
+  - Intestinal microbiome
+status: profiled
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:microbiome
+summary: >
+  Host-associated microbial community of the human gastrointestinal tract,
+  including lumen- and mucosa-associated microorganisms and their metabolite
+  pools, coupled to gut physiology and host signaling.
+boundary:
+  type: mixed
+  description: >
+    Includes bacteria, archaea, fungi, viruses, and microbial metabolite pools
+    resident in the human gastrointestinal lumen and mucus layer. Excludes host
+    tissues themselves except as environmental constraints and interaction
+    partners; operational measurements often use fecal samples as a proxy for
+    the predominantly colonic community.
+components:
+  - lumen-associated bacterial populations
+  - mucosa-associated bacterial populations
+  - archaeal populations
+  - fungal populations
+  - bacteriophages and other gut-associated viruses
+  - microbial metabolite pools
+interaction_types:
+  - trophic cross-feeding
+  - competition for substrates and niches
+  - bacteriophage predation
+  - host immune signaling
+  - host metabolic signaling
+  - horizontal gene transfer
+scales:
+  spatial:
+    - micron-scale cell surfaces and mucus interfaces
+    - millimeter-scale crypt, mucus, and diffusion gradients
+    - centimeter-scale intestinal segments
+    - host-scale gastrointestinal tract
+  temporal:
+    - minutes-to-hours nutrient, pH, and metabolite fluctuations
+    - daily stool-transit and compositional variation
+    - weeks-to-months community restructuring after perturbation
+    - years-to-decades life-course succession and host aging effects
+created_at: '2026-04-23T14:53:32Z'
+updated_at: '2026-04-23T14:53:32Z'

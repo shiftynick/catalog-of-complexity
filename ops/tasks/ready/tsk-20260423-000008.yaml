@@ -1,0 +1,29 @@
+acceptance_tests:
+  - '`uv run coc validate` exits 0 after the edit.'
+  - skills/scout-systems/SKILL.md exposes canonical `acceptance_tests` strings 
+    (either in frontmatter or in a labelled block) that plan-backlog can copy 
+    verbatim into emitted manifests instead of reformulating them from 
+    `stop_conditions`.
+  - '`uv run python scripts/lint_skills.py` passes on scout-systems.'
+created_at: '2026-04-23T14:45:00Z'
+id: tsk-20260423-000008
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Cluster of 1 retro proposal against skills/scout-systems/SKILL.md:\n\n- retro-01KPX8MD4GHQRN9QEYA2NMCEEM
+  (severity minor) — plan-backlog\n  instructs proposers to \"pull the canonical shape
+  from the target skill's\n  SKILL.md. Do not fabricate acceptance tests\", but scout-systems
+  only\n  exposes `stop_conditions`. That forced the first plan-backlog run to\n \
+  \ derive acceptance_tests text, which is mild fabrication by strict\n  reading.
+  Every future scout-systems proposal from plan-backlog will hit\n  the same gap until
+  the skill publishes canonical test strings.\n\nScope: add a canonical acceptance_tests
+  block (or equivalent structured\nreference) to the scout-systems skill. The same
+  pattern may need to\npropagate to other skills surfaced by plan-backlog (profile-system,\n\
+  define-metrics, extract-observations, review-records) — file follow-up\ntasks if
+  the review uncovers the same gap there, do not bulk-edit in this\ntask."
+output_targets:
+  - skills/scout-systems/SKILL.md
+priority: normal
+skill: review-records
+state: ready
+type: review-records

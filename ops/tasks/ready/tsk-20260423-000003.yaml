@@ -1,0 +1,35 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--vertebrate-adaptive-immune-system/system.yaml 
+    validates against schemas/system.schema.json with status active and 
+    taxonomy_refs containing system-domain:biological and 
+    system-class:immune-system.
+  - links.yaml cites >=2 authoritative sources (Chaplin 2010 review and 
+    Janeway's Immunobiology are the scouted anchors).
+  - boundary, components, interaction_types, and scales are populated with 
+    specifics covering B/T lymphocyte compartments, antigen recognition, clonal 
+    selection, and immunological memory.
+created_at: '2026-04-23T14:20:10Z'
+id: tsk-20260423-000003
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Candidate: vertebrate adaptive immune system. Proposed slug: vertebrate-adaptive-immune-system.
+  Proposed taxonomy: system-domain:biological, system-class:immune-system. Scouted
+  by tsk-20260423-000001. Boundary cue: the lymphocyte-mediated, clonally selective
+  arm of vertebrate immunity (B cells, T cells, MHC-restricted antigen presentation,
+  memory). Distinct from innate immunity — a profiler may choose to widen boundary,
+  but the scout's anchor literature treats adaptive immunity as a discrete subsystem.
+  Scales: molecular (receptor diversity ~10^9) to organismal. Anchor sources: Chaplin
+  DD (2010) J Allergy Clin Immunol 125(2 Suppl 2):S3-23 — overview review; Murphy
+  K, Weaver C, Janeway's Immunobiology 9th ed. (2017), Garland Science, ISBN 9780815345053
+  — canonical textbook."
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - doi:10.1016/j.jaci.2009.12.980
+  - isbn:9780815345053
+state: ready
+system_id: null
+type: profile-system

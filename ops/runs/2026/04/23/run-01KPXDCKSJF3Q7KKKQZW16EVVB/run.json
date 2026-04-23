@@ -1,0 +1,25 @@
+{
+  "run_id": "run-01KPXDCKSJF3Q7KKKQZW16EVVB",
+  "task_id": "tsk-20260423-000002",
+  "agent": {
+    "runtime": "codex",
+    "model": null,
+    "version": null
+  },
+  "started_at": "2026-04-23T14:50:45Z",
+  "ended_at": "2026-04-23T14:57:26Z",
+  "status": "success",
+  "outputs": [
+    "registry/systems/sys-000002--human-gut-microbiome/system.yaml",
+    "registry/systems/sys-000002--human-gut-microbiome/notes.md",
+    "registry/systems/sys-000002--human-gut-microbiome/links.yaml"
+  ],
+  "events_appended": 2,
+  "heartbeats": 0,
+  "budget": {
+    "minutes_allotted": 30,
+    "minutes_elapsed": 6.7,
+    "exceeded": false
+  },
+  "notes": "Branch A - primary profile-system task. Preflight clean: `coc validate` OK, `git status --porcelain` clean, `coc advance` promoted tsk-20260423-000002, tsk-20260423-000003, tsk-20260423-000004, tsk-20260423-000007, tsk-20260423-000008, and tsk-20260423-000009. Leased tsk-20260423-000002, read AGENTS.md, prompts/task-envelope.md, skills/profile-system/SKILL.md, schemas/system.schema.json, taxonomy/source/system-domains.yaml, taxonomy/source/system-classes.yaml, and only the cited source materials needed to profile the human gut microbiome. Wrote a new canonical system directory at registry/systems/sys-000002--human-gut-microbiome/ and validated it successfully with `uv run coc validate registry/systems/sys-000002--human-gut-microbiome/`. Acceptance-test wording says `status: active`, but the current schema and existing system records accept `status: profiled`; the record uses the schema-valid value and this mismatch should be corrected in task-generation guidance rather than forcing an invalid canonical record. `coc complete` also exposed a queue bug: the CLI moved the task to `done` before parsing the `--outputs` JSON and therefore raised a JSONDecodeError after the state transition; a manual `task.complete` event was appended to restore audit consistency."
+}

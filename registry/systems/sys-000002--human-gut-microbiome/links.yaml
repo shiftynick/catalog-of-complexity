@@ -1,0 +1,16 @@
+sources:
+  - doi: 10.1038/nature08821
+    citation: >
+      Qin J, Li R, Raes J, et al. A human gut microbial gene catalogue
+      established by metagenomic sequencing. Nature 464, 59-65 (2010).
+  - doi: 10.1371/journal.pbio.1002533
+    citation: >
+      Sender R, Fuchs S, Milo R. Revised Estimates for the Number of Human and
+      Bacteria Cells in the Body. PLOS Biology 14(8):e1002533 (2016).
+  - doi: 10.1038/s41564-024-01856-x
+    citation: >
+      Prochazkova N, Laursen MF, La Barbera G, et al. Gut physiology and
+      environment explain variations in human gut microbiome composition and
+      metabolism. Nature Microbiology 9, 3210-3225 (2024).
+related_systems: []
+datasets: []
