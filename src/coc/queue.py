@@ -199,13 +199,21 @@ def complete_task(
     src_path, src_state = _find_task(task_id)
     if src_state not in ("leased", "running"):
         raise QueueError(f"task not leased/running: {task_id} (state={src_state})")
+    # Parse and validate outputs_json BEFORE mutating any task state. A
+    # malformed argument must leave the task in `leased/` so the caller can
+    # retry without an orphan rename / missing `task.complete` event.
+    try:
+        outputs = json.loads(outputs_json) if outputs_json else {}
+    except json.JSONDecodeError as exc:
+        raise QueueError(
+            f"invalid outputs_json for {task_id}: {exc.msg} (line {exc.lineno} col {exc.colno})"
+        ) from exc
     data = load_yaml(src_path)
     data["state"] = terminal_state
     dump_yaml(data, src_path)
     dst = _task_path(task_id, terminal_state)
     dst.parent.mkdir(parents=True, exist_ok=True)
     os.rename(src_path, dst)
-    outputs = json.loads(outputs_json) if outputs_json else {}
     kind_map = {
         "done": "task.complete",
         "review": "task.complete",

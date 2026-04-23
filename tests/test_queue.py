@@ -172,6 +172,26 @@ def _event_kinds(fake_ops: Path) -> list[str]:
     return [line.split('"kind":')[1].split(",")[0].strip().strip('"') for line in lines]
 
 
+def test_complete_rejects_malformed_outputs_json_atomically(fake_ops):
+    """Malformed --outputs must leave the task in leased/ with no task.complete event."""
+    tid = "tsk-20260422-999960"
+    _make_task(fake_ops, tid)
+    q.lease_task(tid)
+    leased_path = fake_ops / "tasks" / "leased" / f"{tid}.yaml"
+    assert leased_path.exists()
+
+    with pytest.raises(q.QueueError):
+        q.complete_task(tid, outputs_json="{not json", terminal_state="done")
+
+    # Task must remain in leased/ — no orphan rename.
+    assert leased_path.exists()
+    assert not (fake_ops / "tasks" / "done" / f"{tid}.yaml").exists()
+    # And no task.complete event was appended.
+    kinds = _event_kinds(fake_ops)
+    assert "task.complete" not in kinds
+    assert kinds == ["task.lease"]
+
+
 def test_complete_wrong_state_fails(fake_ops):
     tid = "tsk-20260422-999997"
     _make_task(fake_ops, tid)  # still in ready/
