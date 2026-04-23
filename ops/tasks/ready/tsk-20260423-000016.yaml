@@ -1,0 +1,43 @@
+acceptance_tests:
+  - A new `atomic-system` item is appended to 
+    taxonomy/source/system-classes.yaml with label, description, and >=2 
+    references; the description explicitly contrasts it with the existing 
+    `molecular-system` (once added) and with physical-domain classes like 
+    `ocean-circulation-cell`.
+  - '`uv run coc export-taxonomy` regenerates taxonomy/exports/labels.json and taxonomy/exports/taxonomy.ttl
+    with the new slug, and `uv run coc validate` exits 0 on the repo.'
+  - The retrospective records this as a Tier-0.5 priority-seed taxonomy unblock 
+    so the blocked scout (tsk-20260423-000013) can be re-run.
+created_at: '2026-04-23T19:00:16Z'
+id: tsk-20260423-000016
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Taxonomy gap proposal emitted by scout-systems tsk-20260423-000013\n(Priority
+  seed: atomic-system, system-domain:physical). No existing\nsystem-class slug covers
+  an atom-scale physical system: the closest\nexisting physical-domain classes (`ocean-circulation-cell`,
+  `river-network`)\ndescribe macroscale fluid/transport systems, not bound few-body\n\
+  electromagnetic systems.\n\nProposed addition to taxonomy/source/system-classes.yaml:\n\
+  \n- slug: atomic-system\nlabel: Atomic system\ndescription: >\nBound system of one
+  nucleus and its electrons (neutral atom or\natomic ion), whose stationary states
+  and transitions are governed\nby the electromagnetic interaction plus spin-orbit
+  and relativistic\ncorrections. The canonical unit of the periodic table and the\n\
+  smallest system exhibiting discrete quantum energy levels that\nrealize chemical
+  identity. Distinct from `molecular-system`\n(nuclei bonded into a multi-atom structure)
+  and from\n`chemical-reaction-network` (population-level kinetics across many\nmolecular
+  species).\n    references:\n- Bransden, B.H. & Joachain, C.J. (2003) Physics of
+  Atoms and\nMolecules, 2nd ed. Pearson. ISBN 978-0582356924.\n- Foot, C.J. (2005)
+  Atomic Physics. Oxford University Press.\nISBN 978-0198506966.\n- NIST Atomic Spectra
+  Database (2024). DOI 10.18434/T4W30F.\n\nPolicy note: this task edits taxonomy/
+  (content-gated under AGENTS.md).\nType `review-records` auto-promotes, so a reviewer
+  may want to hold or\ndowngrade priority before merging. The block on tsk-20260423-000013\n\
+  names this task as its unblock dependency. Severity moderate — one\npriority-seed
+  scout is currently blocked; follow-on molecular-system\nand chemical-reaction-network
+  scouts will hit the same gap."
+output_targets:
+  - taxonomy/source/system-classes.yaml
+priority: normal
+skill: review-records
+state: ready
+type: review-records
