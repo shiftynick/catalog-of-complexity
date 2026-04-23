@@ -34,7 +34,17 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 ## Procedure
 
 1. Read `registry/systems/<system_id>/system.yaml` and `registry/metrics/<metric_id>/metric.yaml` for each metric. Check the metric's `applicability.required_system_properties` against the system. Skip pairs where the metric is undefined — record them explicitly (see step 5).
-2. Read the parsed content of each source under `registry/sources/<src>/parsed/`. Do not read raw/ unless parsed/ is empty.
+2. Read source content in this order:
+   - If `registry/sources/<src>/parsed/` has content, read it first — it's
+     cheapest and carries page/section locators directly usable in
+     `evidence.locator`.
+   - Otherwise read the raw artifact directly from
+     `registry/sources/<src>/raw/` via the agent's native Read tool
+     (Claude Code and Codex can both ingest PDFs). When citing from raw/,
+     approximate the locator (e.g. "pp. 4-5, §Methods") using page numbers
+     you observe in the PDF itself — the citation is still valid; it's
+     just less programmatically indexable than a parsed/ extract.
+   - Do not modify `raw/` — it's immutable.
 3. For each (system, metric) pair:
    - Locate the passage(s) in the source(s) that contain the value or let you derive one.
    - Determine `value_kind`: one of `measured`, `derived`, `estimated`, `undefined`.
@@ -62,10 +72,11 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 - Any `source_refs` entry uses a prefixed form (`doi:`, `arxiv:`, `url:`)
   with no matching `registry/sources/src-*/` — block with reason
   `source-not-acquired`. plan-backlog Tier 0.75 owns acquisition.
-- The source registered but its `registry/sources/<src>/parsed/` is empty
-  and the task requires citing specific passages — block with reason
-  `source-not-parsed`. A future `parse-source` skill will populate
-  `parsed/`; metadata-only sources cannot ground observations.
+- The source is registered but its `raw/` directory contains only
+  metadata (`metadata.json`, `unpaywall.json`) with no full-text artifact
+  — block with reason `source-metadata-only`. Metadata-only sources
+  cannot ground specific observations; either wait for an OA copy to
+  appear or route the request to a source with full-text access.
 
 ## References
 
