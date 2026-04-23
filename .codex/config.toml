@@ -45,10 +45,18 @@ allow = [
   "uv run coc materialize",
   "uv run coc export-taxonomy",
   "uv run coc eval*",
+  "uv run coc next*",
+  "uv run coc advance*",
+  "uv run coc requeue*",
+  "uv run coc lease*",
+  "uv run coc heartbeat*",
+  "uv run coc complete*",
   "uv run pytest*",
   "git status*",
   "git diff*",
   "git log*",
+  "git add*",
+  "git commit*",
 ]
 
 # Commands that require approval every time.

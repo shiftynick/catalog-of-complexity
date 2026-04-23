@@ -82,6 +82,19 @@ stale leases.
 Agents read all three in order before acting. The task manifest overrides
 skill defaults; the skill overrides AGENTS.md silence.
 
+## Autonomous runs
+
+Scheduled runs (driven by Claude Code and Codex desktop schedulers) start
+from [prompts/autonomous-run.md](prompts/autonomous-run.md). That prompt
+selects exactly one task via `coc next`, delegates execution to
+`prompts/task-envelope.md`, and then invokes the `retrospective` skill. One
+run = one task + one retro, then a local commit with `[auto]` suffix. Pushes
+remain human-driven — see "Sensitive actions".
+
+Retro cadence is "every run" by default and narrows to
+`blocked`/`failed`-only once ≥10 consecutive retros report
+`actionable: false`. The transition is itself a reviewable change.
+
 ## Skill roster
 
 - `setup-repo` — bootstrap or repair repository scaffolding.
@@ -93,6 +106,13 @@ skill defaults; the skill overrides AGENTS.md silence.
 - `materialize-warehouse` — rebuild Parquet, DuckDB, release snapshots.
 - `analyze-archetypes` — clustering, graph building, hypothesis generation
   (scaffolded; enabled once registry breadth warrants it).
+- `apply-retros` — consume unprocessed retrospectives, cluster
+  `proposed_improvements` by target, and emit one `review-records` task per
+  cluster. Queue-driven; closes the retrospective feedback loop.
+- `retrospective` *(status: postrun)* — post-task assessment invoked by
+  `prompts/autonomous-run.md` after every task, not queue-driven.
+- `plan-backlog` *(status: postrun)* — empty-queue branch of the autonomous
+  run; inspects registry coverage and proposes new inbox manifests.
 
 Each skill directory is self-contained. Read `skills/<name>/SKILL.md` before
 starting work of that type.
@@ -103,6 +123,9 @@ Use native file-editing and shell tools. For repo-aware operations prefer the
 `coc` CLI:
 
 - `uv run coc validate [path]` — validate structured files against schemas.
+- `uv run coc advance` — auto-promote eligible inbox tasks to ready (per-type cap applies).
+- `uv run coc next [--lane <lane>]` — print the highest-priority ready task id.
+- `uv run coc requeue` — reap stale leases (watchdog).
 - `uv run coc lease <task-id>` — claim a task (ready → leased).
 - `uv run coc heartbeat <task-id>` — keep your lease alive.
 - `uv run coc complete <task-id> --outputs <json> [--state review|done|blocked|failed]`.

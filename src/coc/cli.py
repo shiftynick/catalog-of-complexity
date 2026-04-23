@@ -63,6 +63,18 @@ def complete(task_id: str, outputs: str, state: str) -> None:
     console.print(f"[green]{state}[/green] {task_id}")
 
 
+@main.command("next")
+@click.option("--lane", default=None, help="Filter by lane (or task type).")
+def next_cmd(lane: str | None) -> None:
+    """Print the ID of the highest-priority ready task (exit 1 if queue empty)."""
+    from coc.queue import next_ready_task
+
+    tid = next_ready_task(lane=lane)
+    if tid is None:
+        raise SystemExit(1)
+    console.print(tid)
+
+
 @main.command()
 def requeue() -> None:
     """Requeue tasks whose leases have expired."""
@@ -70,6 +82,18 @@ def requeue() -> None:
 
     moved = requeue_stale()
     console.print(f"[green]requeued[/green] {moved} task(s)")
+
+
+@main.command()
+def advance() -> None:
+    """Auto-promote eligible inbox/ tasks to ready/ (respects per-type cap)."""
+    from coc.queue import advance_queue
+
+    promoted = advance_queue()
+    for tid in promoted:
+        console.print(f"[green]promoted[/green] {tid}")
+    if not promoted:
+        console.print("[dim]no auto-eligible tasks in inbox[/dim]")
 
 
 @main.command()

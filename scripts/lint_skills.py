@@ -20,7 +20,7 @@ from coc.paths import REPO_ROOT, SKILLS
 from coc.yamlio import load_yaml_text
 
 REQUIRED_FIELDS = ("name", "description", "status", "inputs", "outputs", "stop_conditions")
-VALID_STATUSES = {"active", "disabled"}
+VALID_STATUSES = {"active", "disabled", "postrun"}
 LIST_FIELDS = ("inputs", "outputs", "stop_conditions")
 
 

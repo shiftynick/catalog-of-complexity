@@ -1,0 +1,14 @@
+scenario: Empty retro window — no-op
+description: >
+  No unprocessed retrospectives lie in the window. The run should exit
+  cleanly with zero clusters, zero new inbox manifests, and a consumption
+  report whose "Clusters emitted" section is explicitly empty.
+assertions:
+  - result.status == 'success'
+  - clusters_emitted == 0
+  - inbox_manifests_created == 0
+  - consumption_report_written is True
+notes: >
+  Structural golden. The no-op path is the common-case outcome during steady
+  state and must stay cheap — it is the baseline against which regressions
+  in retro scanning would show up as spurious clusters.

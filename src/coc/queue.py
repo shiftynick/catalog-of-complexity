@@ -27,6 +27,17 @@ from coc.yamlio import dump_yaml, load_yaml
 
 VALID_TERMINAL_STATES = ("review", "done", "blocked", "failed")
 
+PRIORITY_ORDER = {"urgent": 0, "high": 1, "normal": 2, "low": 3}
+
+AUTO_PROMOTE_TYPES = frozenset(
+    {
+        "scout-systems",
+        "extract-observations",
+        "review-records",
+    }
+)
+PER_TYPE_READY_CAP = 3
+
 
 class QueueError(RuntimeError):
     """Raised for queue invariant violations (missing task, wrong state, etc.)."""
@@ -146,6 +157,83 @@ def complete_task(
         },
     )
     return dst
+
+
+def next_ready_task(lane: str | None = None) -> str | None:
+    """Return the highest-priority ready task ID, or None if the queue is empty.
+
+    Ordering: priority tier (urgent → low), then `created_at` ascending, then
+    task id. Optional `lane` filters against the task's `lane` field (reserved
+    for future lane-based parallelism) or its `type`.
+    """
+    ready = OPS_TASKS / "ready"
+    if not ready.exists():
+        return None
+    candidates: list[tuple[int, str, str]] = []
+    for path in sorted(ready.glob("*.yaml")):
+        data: dict[str, Any] = load_yaml(path) or {}
+        if lane and data.get("lane") != lane and data.get("type") != lane:
+            continue
+        prio = PRIORITY_ORDER.get(str(data.get("priority", "normal")), 2)
+        created = str(data.get("created_at") or "")
+        candidates.append((prio, created, str(data.get("id") or path.stem)))
+    if not candidates:
+        return None
+    candidates.sort()
+    return candidates[0][2]
+
+
+def advance_queue() -> list[str]:
+    """Auto-promote eligible inbox tasks to ready/.
+
+    A task is eligible iff its `type` is in AUTO_PROMOTE_TYPES and the
+    ready/ queue currently holds fewer than PER_TYPE_READY_CAP tasks of
+    that type. Returns the list of promoted task IDs in promotion order.
+    """
+    inbox = OPS_TASKS / "inbox"
+    ready = OPS_TASKS / "ready"
+    if not inbox.exists():
+        return []
+    ready.mkdir(parents=True, exist_ok=True)
+
+    ready_counts: dict[str, int] = {}
+    for p in ready.glob("*.yaml"):
+        data: dict[str, Any] = load_yaml(p) or {}
+        t = str(data.get("type") or "")
+        ready_counts[t] = ready_counts.get(t, 0) + 1
+
+    promoted: list[str] = []
+    for src in sorted(inbox.glob("*.yaml")):
+        data = load_yaml(src) or {}
+        task_type = str(data.get("type") or "")
+        if task_type not in AUTO_PROMOTE_TYPES:
+            continue
+        if ready_counts.get(task_type, 0) >= PER_TYPE_READY_CAP:
+            continue
+        data["state"] = "ready"
+        dump_yaml(data, src)
+        dst = ready / src.name
+        os.rename(src, dst)
+        ready_counts[task_type] = ready_counts.get(task_type, 0) + 1
+        task_id = str(data.get("id") or src.stem)
+        promoted.append(task_id)
+        append_event(
+            "task-events",
+            {
+                "event_id": _event_id(),
+                "timestamp": _now(),
+                "kind": "task.promote",
+                "subject": task_id,
+                "actor": _agent_id(),
+                "payload": {
+                    "from_state": "inbox",
+                    "to_state": "ready",
+                    "task_type": task_type,
+                    "reason": "auto-advance",
+                },
+            },
+        )
+    return promoted
 
 
 def requeue_stale() -> int:

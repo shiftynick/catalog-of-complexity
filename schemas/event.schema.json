@@ -18,11 +18,14 @@
         "task.block",
         "task.fail",
         "task.requeue",
+        "task.promote",
         "run.start",
         "run.end",
+        "run.aborted",
         "record.create",
         "record.update",
-        "record.supersede"
+        "record.supersede",
+        "retro.consumed"
       ]
     },
     "subject": { "type": "string" },

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from coc.paths import (
+    OPS_RETROS,
     OPS_TASKS,
     QC_FIXTURES,
     REG_METRICS,
@@ -17,7 +18,7 @@ from coc.paths import (
 )
 from coc.schemas import validate_instance
 from coc.taxonomy import load_index
-from coc.yamlio import load_yaml
+from coc.yamlio import load_yaml, load_yaml_text
 
 Problem = str
 
@@ -121,6 +122,34 @@ def _validate_tasks() -> list[Problem]:
     return problems
 
 
+def _parse_md_frontmatter(text: str) -> dict | None:
+    if not text.startswith("---\n"):
+        return None
+    end = text.find("\n---\n", 4)
+    if end == -1:
+        end = text.find("\n---", 4)
+        if end == -1:
+            return None
+    parsed = load_yaml_text(text[4:end])
+    return parsed if isinstance(parsed, dict) else None
+
+
+def _validate_retrospectives() -> list[Problem]:
+    problems: list[Problem] = []
+    if not OPS_RETROS.exists():
+        return problems
+    for md in sorted(OPS_RETROS.rglob("*.md")):
+        rel = md.relative_to(REPO_ROOT).as_posix()
+        text = md.read_text(encoding="utf-8")
+        fm = _parse_md_frontmatter(text)
+        if fm is None:
+            problems.append(f"{rel}: missing or malformed YAML frontmatter")
+            continue
+        for err in validate_instance("retrospective", fm):
+            problems.append(f"{rel}: {err}")
+    return problems
+
+
 def _validate_fixtures() -> list[Problem]:
     """Sanity-check qc/fixtures/{valid,invalid}/<schema>/*.(yaml|json)."""
     problems: list[Problem] = []
@@ -155,6 +184,7 @@ def validate_path(path: str = ".") -> tuple[bool, list[Problem]]:
     problems.extend(_validate_sources())
     problems.extend(_validate_observations())
     problems.extend(_validate_tasks())
+    problems.extend(_validate_retrospectives())
     problems.extend(_validate_fixtures())
     return (len(problems) == 0, problems)
 

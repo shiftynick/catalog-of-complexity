@@ -1,0 +1,17 @@
+id: tsk-20260422-999100
+type: apply-retros
+skill: apply-retros
+state: ready
+priority: normal
+output_targets:
+  - ops/runs/_golden-apply-retros.json
+acceptance_tests:
+  - "zero in-window retros yields zero clusters and an empty consumption report"
+lease:
+  ttl_minutes: 30
+  max_attempts: 1
+notes: >
+  Golden for apply-retros. Exercises the empty-retros path: when no
+  unprocessed retros exist in the window, the run emits zero review-records
+  tasks and writes a consumption report stating so.
+created_at: '2026-04-22T00:00:00Z'

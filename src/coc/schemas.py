@@ -19,6 +19,7 @@ SCHEMA_NAMES = (
     "task",
     "run",
     "event",
+    "retrospective",
 )
 
 

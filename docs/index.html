@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog of Complexity — Repository Explainer</title>
+<style>
+  :root {
+    --fg: #1a1a1a;
+    --fg-muted: #555;
+    --fg-soft: #777;
+    --bg: #fdfdfb;
+    --bg-soft: #f4f2ee;
+    --bg-code: #f1ede4;
+    --border: #d9d4c7;
+    --border-soft: #e8e3d6;
+    --accent: #7a3b12;
+    --accent-soft: #b0794a;
+    --ok: #2f6b2a;
+    --fail: #a13020;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #e6e4dc;
+      --fg-muted: #a8a69d;
+      --fg-soft: #7a7870;
+      --bg: #1a1816;
+      --bg-soft: #232019;
+      --bg-code: #26221b;
+      --border: #3a352c;
+      --border-soft: #2e2a22;
+      --accent: #e0a16a;
+      --accent-soft: #b47a48;
+      --ok: #8fbf7a;
+      --fail: #d17060;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 16px; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Iowan Old Style", "Charter", "Georgia", serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+  header.title {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  header.title h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  header.title .sub {
+    color: var(--fg-muted);
+    font-size: 1.05rem;
+    font-style: italic;
+  }
+  header.title .meta {
+    color: var(--fg-soft);
+    font-size: 0.85rem;
+    margin-top: 0.7rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  h2 {
+    font-size: 1.4rem;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border-soft);
+    letter-spacing: -0.005em;
+  }
+  h2 .num {
+    color: var(--accent-soft);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 2rem 0 0.6rem;
+    color: var(--fg);
+  }
+  p { margin: 0.9rem 0; }
+  ul, ol { padding-left: 1.3rem; margin: 0.7rem 0; }
+  li { margin: 0.3rem 0; }
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  a:hover { color: var(--accent-soft); }
+  code, pre, .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+  }
+  code {
+    background: var(--bg-code);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    padding: 0.05em 0.35em;
+  }
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    line-height: 1.45;
+    font-size: 0.82rem;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+  blockquote {
+    margin: 1rem 0;
+    padding: 0.1rem 1rem;
+    border-left: 3px solid var(--accent-soft);
+    color: var(--fg-muted);
+    background: var(--bg-soft);
+    border-radius: 0 4px 4px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-soft);
+    font-weight: 600;
+  }
+  tr:last-child td { border-bottom: none; }
+  td code { font-size: 0.85em; }
+  nav.toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    padding: 1rem 1.3rem;
+    font-size: 0.92rem;
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  nav.toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: toc;
+  }
+  nav.toc li {
+    counter-increment: toc;
+    break-inside: avoid;
+    padding: 0.15rem 0;
+  }
+  nav.toc li::before {
+    content: counter(toc, decimal-leading-zero) ".";
+    color: var(--accent-soft);
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.85em;
+  }
+  nav.toc a {
+    text-decoration: none;
+    color: var(--fg);
+  }
+  nav.toc a:hover { color: var(--accent); }
+  .pill {
+    display: inline-block;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.72rem;
+    padding: 0.1em 0.55em;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg-soft);
+    color: var(--fg-muted);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
+  }
+  .pill.ok { color: var(--ok); border-color: var(--ok); }
+  .pill.disabled { color: var(--fg-soft); }
+  .callout {
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--accent-soft);
+    padding: 0.7rem 1rem;
+    border-radius: 0 4px 4px 0;
+    margin: 1rem 0;
+    font-size: 0.95em;
+  }
+  .callout strong { color: var(--accent); }
+  .tree {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    background: var(--bg-code);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .tree .note { color: var(--fg-soft); }
+  .tree .dir { color: var(--accent); }
+  figure {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  figcaption {
+    color: var(--fg-soft);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  .lifecycle-svg {
+    max-width: 100%;
+    height: auto;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    padding: 1rem;
+  }
+  .lifecycle-svg text { fill: var(--fg); }
+  .lifecycle-svg .muted { fill: var(--fg-muted); }
+  .lifecycle-svg .node-rect {
+    fill: var(--bg);
+    stroke: var(--border);
+    stroke-width: 1.2;
+  }
+  .lifecycle-svg .node-rect.terminal { fill: var(--bg-code); }
+  .lifecycle-svg .edge { stroke: var(--accent-soft); fill: none; stroke-width: 1.2; }
+  .lifecycle-svg .edge.branch { stroke: var(--fg-soft); stroke-dasharray: 3 3; }
+  .lifecycle-svg .arrow { fill: var(--accent-soft); }
+  .lifecycle-svg .arrow.branch { fill: var(--fg-soft); }
+  .lifecycle-svg .label {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border-soft);
+    margin: 3rem 0;
+  }
+  footer {
+    color: var(--fg-soft);
+    font-size: 0.85rem;
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .kbd {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.85em;
+    padding: 0.1em 0.4em;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  @media (max-width: 600px) {
+    nav.toc { columns: 1; }
+    .wrap { padding: 2rem 1rem 4rem; }
+    h2 { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="title">
+  <h1>Catalog of Complexity</h1>
+  <div class="sub">A comparative research operating system for complex systems.</div>
+  <div class="meta">
+    repo: <a href="https://github.com/shiftynick/catalog-of-complexity">shiftynick/catalog-of-complexity</a>
+    &nbsp;·&nbsp; license: MIT code, CC&nbsp;BY&nbsp;4.0 data
+    &nbsp;·&nbsp; status: bootstrapped
+  </div>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <ol>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#architecture">Architecture in one paragraph</a></li>
+    <li><a href="#layout">Repository layout</a></li>
+    <li><a href="#schemas">Schemas and validation</a></li>
+    <li><a href="#taxonomy">Taxonomy</a></li>
+    <li><a href="#operating-model">Agent operating model</a></li>
+    <li><a href="#lifecycle">Task lifecycle</a></li>
+    <li><a href="#quality-bar">Quality bar</a></li>
+    <li><a href="#cli">The <code>coc</code> CLI</a></li>
+    <li><a href="#skills">Skill roster</a></li>
+    <li><a href="#qc">QC: fixtures, evals, goldens</a></li>
+    <li><a href="#release">Release packaging</a></li>
+    <li><a href="#ci">GitHub integration</a></li>
+    <li><a href="#getting-started">Getting started</a></li>
+    <li><a href="#roadmap">What's next</a></li>
+  </ol>
+</nav>
+
+<section id="mission">
+<h2><span class="num">01</span>Mission</h2>
+<p>
+  Build a canonical, provenance-rich catalog of complex systems, metrics, and
+  observations across scientific domains — biological, ecological,
+  technological, social, physical, computational, economic, cognitive — and
+  surface cross-domain structural and dynamical patterns.
+</p>
+<p>
+  The catalog is a shared substrate: every entry is a structured record with
+  citations, every claim resolves to evidence, and every derivation from the
+  registry is reproducible from a single git commit.
+</p>
+</section>
+
+<section id="architecture">
+<h2><span class="num">02</span>Architecture in one paragraph</h2>
+<p>
+  The filesystem is the source of truth. <code>registry/</code> holds canonical
+  entities (systems, metrics, sources, observations) as YAML and JSONL.
+  <code>taxonomy/</code> holds controlled vocabularies. <code>schemas/</code>
+  holds JSON&nbsp;Schema Draft&nbsp;2020-12 definitions that every canonical
+  record must validate against. <code>ops/</code> holds operational state for
+  agents: a directory-based task queue, run reports, and event logs.
+  <code>warehouse/</code> holds derived Parquet and DuckDB that are
+  <strong>never hand-edited</strong> — always regenerable from
+  <code>registry/</code>. <code>releases/</code> holds publishable snapshots
+  described by Data&nbsp;Package and RO-Crate metadata.
+</p>
+
+<div class="callout">
+  <strong>Three invariants.</strong>
+  (1) The filesystem is canonical; the warehouse is derived.
+  (2) Every canonical record validates against a JSON Schema.
+  (3) Every numeric claim has at least one resolvable evidence reference.
+</div>
+</section>
+
+<section id="layout">
+<h2><span class="num">03</span>Repository layout</h2>
+<div class="tree"><span class="dir">catalog-of-complexity/</span>
+├── <span class="dir">AGENTS.md</span>                  <span class="note"># canonical agent operating model</span>
+├── CLAUDE.md                  <span class="note"># one-line pointer to AGENTS.md</span>
+├── BOOTSTRAP_PLAN.md          <span class="note"># phased build plan (phases 0–12)</span>
+├── LICENSE / LICENSE-DATA     <span class="note"># MIT code, CC-BY-4.0 data</span>
+├── pyproject.toml / uv.lock   <span class="note"># Python 3.11+, uv-managed</span>
+│
+├── <span class="dir">schemas/</span>                   <span class="note"># JSON Schema Draft 2020-12</span>
+│   ├── system.schema.json
+│   ├── metric.schema.json
+│   ├── source.schema.json
+│   ├── observation.schema.json
+│   ├── task.schema.json
+│   ├── run.schema.json
+│   └── event.schema.json
+│
+├── <span class="dir">taxonomy/</span>
+│   ├── source/                <span class="note"># hand-edited controlled vocabularies</span>
+│   │   ├── system-domains.yaml
+│   │   ├── system-classes.yaml
+│   │   ├── metric-families.yaml
+│   │   └── evidence-types.yaml
+│   └── exports/               <span class="note"># SKOS Turtle + label JSON (regenerable)</span>
+│
+├── <span class="dir">registry/</span>                  <span class="note"># source of truth</span>
+│   ├── systems/sys-NNNNNN--slug/
+│   ├── metrics/mtr-NNNNNN--slug/
+│   ├── sources/src-NNNNNN--slug/   <span class="note"># raw/ is immutable</span>
+│   └── observations/&lt;partitioned&gt;/*.jsonl
+│
+├── <span class="dir">ops/</span>                       <span class="note"># agent runtime state</span>
+│   ├── tasks/{inbox,ready,leased,running,blocked,review,done,failed,archive}/
+│   ├── runs/YYYY/MM/DD/&lt;run-id&gt;/run.json
+│   └── events/*.jsonl
+│
+├── <span class="dir">warehouse/</span>                 <span class="note"># regenerable; never hand-edited</span>
+│   ├── parquet/*.parquet
+│   └── duckdb/*.duckdb
+│
+├── <span class="dir">releases/</span>                  <span class="note"># publishable snapshots</span>
+│   └── snapshot-YYYY-MM-DD/
+│       ├── datapackage.json   <span class="note"># Frictionless Data Package</span>
+│       ├── ro-crate-metadata.json
+│       ├── manifest.md
+│       └── data/*.parquet
+│
+├── <span class="dir">skills/</span>                    <span class="note"># reusable workflows (Claude Code + Codex)</span>
+│   ├── setup-repo/SKILL.md
+│   ├── scout-systems/SKILL.md
+│   ├── define-metrics/SKILL.md
+│   ├── profile-system/SKILL.md
+│   ├── extract-observations/SKILL.md
+│   ├── review-records/SKILL.md
+│   ├── materialize-warehouse/SKILL.md
+│   └── analyze-archetypes/SKILL.md
+│
+├── <span class="dir">prompts/</span>                   <span class="note"># role-specific prompt bodies</span>
+├── <span class="dir">qc/</span>                        <span class="note"># fixtures, evals, goldens, reports</span>
+├── <span class="dir">src/coc/</span>                   <span class="note"># Python package (click CLI, validators, etc.)</span>
+├── <span class="dir">tests/</span>                     <span class="note"># pytest suite (35 tests)</span>
+├── <span class="dir">scripts/</span>                   <span class="note"># thin CLI wrappers</span>
+├── <span class="dir">.github/</span>                   <span class="note"># CI, issue templates, CODEOWNERS</span>
+├── <span class="dir">.claude/</span>                   <span class="note"># slash commands + Claude Code settings</span>
+└── <span class="dir">.codex/</span>                    <span class="note"># Codex approval + command allowlists</span></div>
+</section>
+
+<section id="schemas">
+<h2><span class="num">04</span>Schemas and validation</h2>
+<p>
+  Seven JSON&nbsp;Schema Draft&nbsp;2020-12 files constrain every structured
+  record in the repo. The <code>coc validate</code> command runs a two-pass
+  check: <em>shape</em> (against the schema) and <em>taxonomy resolution</em>
+  (every <code>taxonomy_refs</code> entry and metric <code>family</code> must
+  resolve against <code>taxonomy/source/*.yaml</code>).
+</p>
+
+<table>
+  <thead><tr><th>Schema</th><th>Covers</th><th>ID format</th></tr></thead>
+  <tbody>
+    <tr><td><code>system</code></td><td>A complex system with boundary, components, interaction types, scales</td><td><code>sys-NNNNNN--slug</code></td></tr>
+    <tr><td><code>metric</code></td><td>A metric definition with unit, scale of measurement, applicability</td><td><code>mtr-NNNNNN--slug</code></td></tr>
+    <tr><td><code>source</code></td><td>A literature source (paper, book, dataset)</td><td><code>src-NNNNNN--slug</code></td></tr>
+    <tr><td><code>observation</code></td><td>A (system, metric) value with evidence and confidence</td><td><code>obs-&lt;8-hex&gt;</code></td></tr>
+    <tr><td><code>task</code></td><td>A unit of work in the directory-based queue</td><td><code>tsk-YYYYMMDD-NNNNNN</code></td></tr>
+    <tr><td><code>run</code></td><td>A run report (per-task execution summary)</td><td><code>run-&lt;ulid&gt;</code></td></tr>
+    <tr><td><code>event</code></td><td>An event-log entry (task lifecycle, provenance, runs)</td><td><code>ev-&lt;ulid&gt;</code></td></tr>
+  </tbody>
+</table>
+
+<p>
+  The same validator is invoked by the git pre-commit hook, by the
+  <code>validate</code> GitHub workflow, and by the <code>review-records</code>
+  skill. A record that fails validation cannot land in <code>registry/</code>.
+</p>
+</section>
+
+<section id="taxonomy">
+<h2><span class="num">05</span>Taxonomy</h2>
+<p>
+  Four hand-curated controlled vocabularies anchor the catalog. Every
+  canonical record must reference them by slug; ad-hoc strings fail validation.
+</p>
+
+<ul>
+  <li><code>system-domains</code> — <em>ecological, biological, technological, social, physical, computational, economic, cognitive</em>.</li>
+  <li><code>system-classes</code> — structural archetypes informed by Boulding's hierarchy (framework, clockwork, cybernetic, open, biological, social, symbolic, transcendent, plus engineered extensions).</li>
+  <li><code>metric-families</code> — <em>boundary-scale, composition, topology, dynamics, information, feedback-adaptation, throughput, resilience</em>.</li>
+  <li><code>evidence-types</code> — <em>direct, derived, proxy, simulation, expert_estimate</em>.</li>
+</ul>
+
+<p>
+  <code>coc export-taxonomy</code> emits a SKOS Turtle file and a flat JSON label
+  map under <code>taxonomy/exports/</code>. The current bootstrap graph has
+  <strong>202 triples</strong>.
+</p>
+</section>
+
+<section id="operating-model">
+<h2><span class="num">06</span>Agent operating model</h2>
+<p>
+  Two agent runtimes — Claude&nbsp;Code and OpenAI&nbsp;Codex — operate in this
+  repo under a single shared contract. The <a href="https://github.com/shiftynick/catalog-of-complexity/blob/master/AGENTS.md"><code>AGENTS.md</code></a> file
+  is the canonical operating model; <code>CLAUDE.md</code> and
+  <code>.codex/config.toml</code> are one-liner pointers.
+</p>
+
+<h3>Three-layer prompt stack</h3>
+<p>Every task execution reads three files, in order:</p>
+<ol>
+  <li><strong>Layer 1 — <code>AGENTS.md</code></strong>: durable rules, applies every time (quality bar, lifecycle, sensitive actions).</li>
+  <li><strong>Layer 2 — <code>skills/&lt;name&gt;/SKILL.md</code></strong>: workflow-specific preconditions, procedure, output shape, block conditions.</li>
+  <li><strong>Layer 3 — task manifest</strong>: the concrete job — inputs, <code>output_targets</code>, and acceptance tests for this single run.</li>
+</ol>
+<p>
+  The task manifest overrides skill defaults; the skill overrides
+  <code>AGENTS.md</code> silence. Each layer's violations block at a different
+  scope: manifest-level at task close, skill-level at review, AGENTS-level at
+  the pre-commit / CI boundary.
+</p>
+
+<h3>Operating loop</h3>
+<ol>
+  <li>Read the task manifest (<code>ops/tasks/leased/&lt;task-id&gt;.yaml</code>).</li>
+  <li>Read the active skill (<code>skills/&lt;skill&gt;/SKILL.md</code>).</li>
+  <li>Read the schemas referenced by the task's <code>acceptance_tests</code>.</li>
+  <li>Read <em>only</em> the source records the task references.</li>
+  <li>Produce the declared outputs.</li>
+  <li>Run <code>uv run coc validate</code> on anything structured.</li>
+  <li>Append a run report and event; call <code>uv run coc complete &lt;task-id&gt;</code>.</li>
+</ol>
+</section>
+
+<section id="lifecycle">
+<h2><span class="num">07</span>Task lifecycle</h2>
+<p>
+  The queue is a set of directories under <code>ops/tasks/</code>. The
+  <em>state</em> of a task lives in two places — the <code>state:</code> field
+  inside the YAML and the directory it sits in — and these must agree. Every
+  transition keeps them in sync. Atomic <code>os.rename</code> across
+  directories on the same filesystem is the lock: two agents racing to claim
+  the same task see exactly one winner.
+</p>
+
+<figure>
+<svg class="lifecycle-svg" viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Task lifecycle state machine">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" class="arrow"/>
+    </marker>
+    <marker id="arrow-branch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" class="arrow branch"/>
+    </marker>
+  </defs>
+
+  <!-- nodes: inbox ready leased running review done archive -->
+  <g class="label">
+    <rect x="10"  y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="45"  y="115" text-anchor="middle">inbox</text>
+
+    <rect x="105" y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="140" y="115" text-anchor="middle">ready</text>
+
+    <rect x="200" y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="235" y="115" text-anchor="middle">leased</text>
+
+    <rect x="295" y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="330" y="115" text-anchor="middle">running</text>
+
+    <rect x="390" y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="425" y="115" text-anchor="middle">review</text>
+
+    <rect x="485" y="90" width="70" height="40" rx="5" class="node-rect"/>
+    <text x="520" y="115" text-anchor="middle">done</text>
+
+    <rect x="580" y="90" width="70" height="40" rx="5" class="node-rect terminal"/>
+    <text x="615" y="115" text-anchor="middle">archive</text>
+
+    <!-- branches -->
+    <rect x="200" y="175" width="70" height="40" rx="5" class="node-rect terminal"/>
+    <text x="235" y="200" text-anchor="middle">blocked</text>
+
+    <rect x="295" y="175" width="70" height="40" rx="5" class="node-rect terminal"/>
+    <text x="330" y="200" text-anchor="middle">failed</text>
+  </g>
+
+  <!-- main-path edges -->
+  <g>
+    <line x1="80"  y1="110" x2="105" y2="110" class="edge" marker-end="url(#arrow)"/>
+    <line x1="175" y1="110" x2="200" y2="110" class="edge" marker-end="url(#arrow)"/>
+    <line x1="270" y1="110" x2="295" y2="110" class="edge" marker-end="url(#arrow)"/>
+    <line x1="365" y1="110" x2="390" y2="110" class="edge" marker-end="url(#arrow)"/>
+    <line x1="460" y1="110" x2="485" y2="110" class="edge" marker-end="url(#arrow)"/>
+    <line x1="555" y1="110" x2="580" y2="110" class="edge" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- branch edges -->
+  <g>
+    <path d="M 235 130 V 175" class="edge branch" marker-end="url(#arrow-branch)"/>
+    <path d="M 330 130 V 175" class="edge branch" marker-end="url(#arrow-branch)"/>
+  </g>
+
+  <!-- caption labels -->
+  <g class="label muted" font-size="10" font-weight="400">
+    <text x="90"  y="80" text-anchor="middle">gate</text>
+    <text x="187" y="80" text-anchor="middle">lease</text>
+    <text x="282" y="80" text-anchor="middle">start</text>
+    <text x="377" y="80" text-anchor="middle">complete</text>
+    <text x="472" y="80" text-anchor="middle">approve</text>
+    <text x="567" y="80" text-anchor="middle">archive</text>
+  </g>
+
+  <g class="label muted" font-size="10">
+    <text x="10" y="30" font-weight="400">Task lifecycle · atomic directory moves · <tspan font-style="italic">dashed = branch from leased/running</tspan></text>
+  </g>
+</svg>
+<figcaption>Each box is a directory under <code>ops/tasks/</code>. The validator enforces state/directory coherence.</figcaption>
+</figure>
+
+<p>
+  A lease carries a TTL (default 60–90 minutes). The <code>coc requeue</code>
+  janitor returns stale leases to <code>ready/</code> up to
+  <code>max_attempts</code>; beyond that they move to <code>failed/</code>.
+  Every transition appends a line to <code>ops/events/task-events.jsonl</code>.
+</p>
+</section>
+
+<section id="quality-bar">
+<h2><span class="num">08</span>Quality bar</h2>
+<p>
+  These rules are enforced by the validator, not by convention. A record that
+  breaks any of them cannot be committed.
+</p>
+<ul>
+  <li>No uncited numeric claims in canonical records.</li>
+  <li>Every observation includes <code>value_kind</code>, <code>confidence</code>, and at least one <code>evidence_ref</code> that resolves against <code>registry/sources/*/evidence.jsonl</code>.</li>
+  <li>Every metric declares applicability conditions.</li>
+  <li>Every system includes <code>boundary</code>, <code>components</code>, <code>interaction_types</code>, and <code>scales</code>.</li>
+  <li>All taxonomy references (<code>system-domain:*</code>, <code>system-class:*</code>, <code>metric-family:*</code>) resolve against <code>taxonomy/source/*.yaml</code>.</li>
+  <li>Nothing under <code>registry/sources/*/raw/</code> is ever edited.</li>
+  <li>Nothing under <code>warehouse/</code> is hand-edited.</li>
+</ul>
+
+<h3>Sensitive actions</h3>
+<p>Agents must request explicit approval before:</p>
+<ul>
+  <li>Deleting accepted records under <code>registry/</code>.</li>
+  <li>Overwriting canonical metric definitions.</li>
+  <li>Modifying anything under <code>registry/sources/*/raw/</code>.</li>
+  <li>Publishing to <code>releases/</code>.</li>
+  <li>Bulk edits spanning multiple systems.</li>
+  <li>Pushing to <code>git remote</code> or opening a PR.</li>
+</ul>
+</section>
+
+<section id="cli">
+<h2><span class="num">09</span>The <code>coc</code> CLI</h2>
+<p>
+  A single Click-based entrypoint (<code>src/coc/cli.py</code>, registered as
+  <code>coc</code> via <code>pyproject.toml</code>). All long-running work goes
+  through it so behaviour is identical between interactive sessions and CI.
+</p>
+
+<table>
+  <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>coc validate [path]</code></td><td>Schema shape + taxonomy resolution across the full repo.</td></tr>
+    <tr><td><code>coc lease &lt;task-id&gt;</code></td><td>Atomically move <code>ready/</code> → <code>leased/</code>.</td></tr>
+    <tr><td><code>coc heartbeat &lt;task-id&gt;</code></td><td>Refresh lease liveness.</td></tr>
+    <tr><td><code>coc complete &lt;task-id&gt; --state &lt;review|done|blocked|failed&gt;</code></td><td>Finalize a task and append a lifecycle event.</td></tr>
+    <tr><td><code>coc requeue</code></td><td>Janitor — return expired leases to <code>ready/</code>.</td></tr>
+    <tr><td><code>coc materialize</code></td><td>Rebuild <code>warehouse/parquet/*</code> and the DuckDB view from the registry.</td></tr>
+    <tr><td><code>coc release [--date YYYY-MM-DD]</code></td><td>Build a <code>releases/snapshot-*/</code> with Data Package + RO-Crate + manifest.</td></tr>
+    <tr><td><code>coc export-taxonomy</code></td><td>Regenerate SKOS Turtle and <code>labels.json</code>.</td></tr>
+    <tr><td><code>coc eval [skill]</code></td><td>Run QC evals over observations and goldens over each active skill.</td></tr>
+  </tbody>
+</table>
+
+<p>
+  Claude&nbsp;Code slash commands under <code>.claude/commands/</code> — such as
+  <code>/coc-validate</code>, <code>/coc-materialize</code>,
+  <code>/coc-release</code>, <code>/coc-new-task</code> — wrap the same
+  invocations.
+</p>
+</section>
+
+<section id="skills">
+<h2><span class="num">10</span>Skill roster</h2>
+<p>
+  Each skill is a self-contained directory with a <code>SKILL.md</code> manifest
+  (frontmatter + markdown body). Seven are active; one is scaffolded-but-disabled
+  until registry breadth warrants it.
+</p>
+
+<table>
+  <thead><tr><th>Skill</th><th>Purpose</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><code>setup-repo</code></td><td>Bootstrap or repair repository scaffolding.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>scout-systems</code></td><td>Discover candidate systems and candidate metrics.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>define-metrics</code></td><td>Curate metric definitions, rubrics, applicability rules.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>profile-system</code></td><td>Define a system's boundary, components, scales, taxonomy.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>extract-observations</code></td><td>Fill system–metric values with evidence and confidence.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>review-records</code></td><td>Schema, provenance, citation, methodological checks.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>materialize-warehouse</code></td><td>Rebuild Parquet + DuckDB + release snapshots.</td><td><span class="pill ok">active</span></td></tr>
+    <tr><td><code>analyze-archetypes</code></td><td>Clustering, graph building, hypothesis generation.</td><td><span class="pill disabled">disabled</span></td></tr>
+  </tbody>
+</table>
+
+<p>
+  <code>analyze-archetypes</code> unlocks once the registry contains
+  <strong>≥200</strong> validated observations spanning <strong>≥5</strong>
+  system classes with <strong>≥3</strong> observations each. The gate is
+  encoded in its SKILL.md preconditions.
+</p>
+</section>
+
+<section id="qc">
+<h2><span class="num">11</span>QC: fixtures, evals, goldens</h2>
+
+<h3>Fixtures</h3>
+<p>
+  Every schema has a matched pair of fixtures under
+  <code>qc/fixtures/{valid,invalid}/</code>. The validator is parametrized over
+  them: valid fixtures must pass, invalid fixtures must fail with the expected
+  reason. This catches regressions in the schema itself, not just in records.
+</p>
+
+<h3>Evals (declarative)</h3>
+<p>
+  YAML files under <code>qc/evals/</code> define checks as Python expressions
+  evaluated in a sandbox over the observation corpus. Two ship out of the box:
+</p>
+<ul>
+  <li><code>minimum-one-evidence-ref</code> — every observation has ≥1 evidence ref that resolves.</li>
+  <li><code>no-uncited-numeric-claims</code> — every numeric <code>value</code> is backed by at least one resolvable evidence reference.</li>
+</ul>
+
+<h3>Goldens (per skill)</h3>
+<p>
+  Each active skill owns at least one <code>qc/goldens/&lt;skill&gt;/&lt;scenario&gt;/</code>
+  directory containing an <code>input.yaml</code> (a schema-valid task
+  manifest) and <code>expected.yaml</code> (assertions). <code>coc eval</code>
+  enforces that every active skill has at least one passing golden; the
+  GitHub <em>validate</em> workflow fails the PR if this drops.
+</p>
+</section>
+
+<section id="release">
+<h2><span class="num">12</span>Release packaging</h2>
+<p>
+  <code>coc release</code> re-materializes the warehouse, copies the Parquet
+  tables into <code>releases/snapshot-YYYY-MM-DD/data/</code>, and emits three
+  metadata files:
+</p>
+<ul>
+  <li><code>datapackage.json</code> — Frictionless
+    <a href="https://specs.frictionlessdata.io/data-package/">Data&nbsp;Package</a>
+    descriptor with per-resource SHA-256 and CC-BY-4.0 license.</li>
+  <li><code>ro-crate-metadata.json</code> — <a href="https://www.researchobject.org/ro-crate/">RO-Crate</a> metadata for researcher-facing discovery.</li>
+  <li><code>manifest.md</code> — human-readable index with row counts and per-file hashes.</li>
+</ul>
+
+<p>
+  A snapshot is <em>regenerable</em> by definition: given the registry at the
+  referenced commit, <code>coc release</code> produces the same bytes modulo
+  timestamps. <code>frictionless validate releases/snapshot-*/datapackage.json</code>
+  currently reports <strong>7/7 tables VALID</strong>.
+</p>
+</section>
+
+<section id="ci">
+<h2><span class="num">13</span>GitHub integration</h2>
+
+<p>Three workflows, all in <code>.github/workflows/</code>:</p>
+<ul>
+  <li><strong><code>validate.yml</code></strong> — on every push and PR. Runs <code>coc validate</code>, <code>scripts/lint_skills.py</code>, and <code>coc eval</code>. The PR-level quality gate.</li>
+  <li><strong><code>ci.yml</code></strong> — ruff (check + format), mypy on <code>src/</code>, pytest matrix on Python 3.11 and 3.12.</li>
+  <li><strong><code>materialize.yml</code></strong> — weekly cron (Mondays 06:00&nbsp;UTC) plus manual dispatch. Rebuilds the warehouse, builds a release, validates the Data&nbsp;Package descriptor, and uploads the snapshot as a workflow artifact. Confirms the registry still regenerates cleanly.</li>
+</ul>
+
+<p>
+  Issue templates under <code>.github/ISSUE_TEMPLATE/</code>
+  (<code>new-system</code>, <code>new-metric</code>, <code>bug</code>) are GitHub
+  <em>forms</em> with fields that mirror the schema requirements — a proposer
+  can't submit a system without declaring boundary, components, and scales.
+  The PR template embeds the <code>AGENTS.md</code> quality-bar checklist.
+</p>
+
+<p>
+  <code>CODEOWNERS</code> protects <code>registry/</code>,
+  <code>taxonomy/source/</code>, <code>schemas/</code>, and the agent
+  operating-model files. Branch-protection rules are documented in
+  <code>.github/BRANCH_PROTECTION.md</code> with a copy-paste
+  <code>gh&nbsp;api</code> command to apply them.
+</p>
+</section>
+
+<section id="getting-started">
+<h2><span class="num">14</span>Getting started</h2>
+
+<p>Requires Python 3.11+ and <a href="https://docs.astral.sh/uv/"><code>uv</code></a>.</p>
+
+<pre><code>git clone https://github.com/shiftynick/catalog-of-complexity.git
+cd catalog-of-complexity
+uv sync --extra dev
+uv run coc --help
+
+# sanity-check: should all pass from a fresh clone
+uv run coc validate
+uv run pytest
+uv run coc eval
+
+# try the dry-run lifecycle
+uv run coc lease tsk-20260422-000001   # already in done/, just for shape
+uv run coc materialize
+uv run coc release</code></pre>
+
+<h3>Opening in an agent</h3>
+<ul>
+  <li><strong>Claude&nbsp;Code</strong>: opens the repo, reads <code>CLAUDE.md</code> (which points at <code>AGENTS.md</code>), loads slash commands from <code>.claude/commands/</code>, and respects permissions from <code>.claude/settings.json</code>.</li>
+  <li><strong>OpenAI&nbsp;Codex</strong>: loads <code>.codex/config.toml</code>, which declares approval policies for mutating writes and allowlists read-only commands.</li>
+</ul>
+
+<h3>Contributing a new system or metric</h3>
+<ol>
+  <li>Open a <em>Propose a new system</em> or <em>Propose a new metric</em> issue using the GitHub form.</li>
+  <li>A reviewer converts the issue into a task manifest under <code>ops/tasks/ready/</code> with the matching skill.</li>
+  <li>An agent leases the task, produces the canonical record, validates it, and moves the task to <code>review/</code>.</li>
+  <li>Reviewer approves; task moves to <code>done/</code>; warehouse re-materializes on the next <code>materialize.yml</code> run.</li>
+</ol>
+</section>
+
+<section id="roadmap">
+<h2><span class="num">15</span>What's next</h2>
+<p>
+  Bootstrap is complete (phases 0 through 12). Next, the catalog gets populated.
+  Near-term priorities:
+</p>
+<ul>
+  <li>Extend the taxonomy and metric-family coverage as real systems expose gaps.</li>
+  <li>Ingest a first batch of high-quality sources and generate observations for a representative system from each domain.</li>
+  <li>Once <code>analyze-archetypes</code> preconditions are met (≥200 validated observations across ≥5 system classes), enable it and start producing cross-domain pattern reports.</li>
+  <li>Publish the first tagged release snapshot under <code>releases/</code>.</li>
+</ul>
+
+<p>
+  Everything after bootstrap is routine catalog work: propose → task → skill
+  run → review → commit. The machinery is in place; the interesting science
+  starts now.
+</p>
+</section>
+
+<footer>
+  <p>
+    Built during the phased bootstrap documented in
+    <a href="https://github.com/shiftynick/catalog-of-complexity/blob/master/BOOTSTRAP_PLAN.md"><code>BOOTSTRAP_PLAN.md</code></a>.
+    Code licensed MIT; data and non-code content licensed CC&nbsp;BY&nbsp;4.0.
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -28,6 +28,7 @@ OPS = REPO_ROOT / "ops"
 OPS_TASKS = OPS / "tasks"
 OPS_RUNS = OPS / "runs"
 OPS_EVENTS = OPS / "events"
+OPS_RETROS = OPS / "retrospectives"
 
 WAREHOUSE = REPO_ROOT / "warehouse"
 WH_PARQUET = WAREHOUSE / "parquet"

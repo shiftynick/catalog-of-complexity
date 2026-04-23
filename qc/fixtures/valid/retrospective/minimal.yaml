@@ -1,0 +1,11 @@
+retro_id: retro-01HABCDEFGHJKMNPQRSTVWXYZ0
+task_id: tsk-20260422-000001
+run_id: null
+skill: setup-repo
+timestamp: 2026-04-22T00:00:00Z
+agent: claude-code/fixture/0
+actionable: false
+confidence: high
+what_worked: []
+blockers: []
+proposed_improvements: []

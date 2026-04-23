@@ -31,7 +31,8 @@
         "review-records",
         "materialize-warehouse",
         "build-release",
-        "analyze-archetypes"
+        "analyze-archetypes",
+        "apply-retros"
       ]
     },
     "skill": { "type": "string" },

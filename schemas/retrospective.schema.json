@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/retrospective.schema.json",
+  "title": "Retrospective",
+  "description": "A structured post-task assessment produced at the end of every autonomous run. Frontmatter of ops/retrospectives/YYYY/MM/DD/retro-<ulid>.md.",
+  "type": "object",
+  "required": [
+    "retro_id",
+    "task_id",
+    "skill",
+    "timestamp",
+    "agent",
+    "actionable",
+    "what_worked",
+    "blockers",
+    "proposed_improvements"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "retro_id": {
+      "type": "string",
+      "pattern": "^retro-[0-9A-HJ-NP-Z]{26}$"
+    },
+    "run_id": {
+      "type": ["string", "null"]
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^tsk-[0-9]{8}-[0-9]{6}$"
+    },
+    "skill": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agent": {
+      "type": "string",
+      "description": "Identifier of the agent that produced this retro (e.g. 'claude-code/host/pid' or 'codex/host/pid')."
+    },
+    "actionable": {
+      "type": "boolean",
+      "description": "True iff proposed_improvements is non-empty or blockers surface an unresolved process issue."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "what_worked": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "proposed_improvements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target", "change", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Repo-relative path that the improvement would edit (e.g. AGENTS.md, skills/scout-systems/SKILL.md, prompts/autonomous-run.md, schemas/observation.schema.json)."
+          },
+          "change": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["minor", "moderate", "major"]
+          }
+        }
+      },
+      "default": []
+    }
+  }
+}
