@@ -1,0 +1,63 @@
+id: sys-000003--vertebrate-adaptive-immune-system
+slug: vertebrate-adaptive-immune-system
+name: Vertebrate adaptive immune system
+aliases:
+  - Acquired immune system
+  - Lymphocyte-mediated immunity
+status: profiled
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:immune-system
+summary: >
+  The lymphocyte-mediated, clonally selective arm of jawed-vertebrate immunity.
+  It recognizes antigens through somatically diversified B- and T-cell receptors,
+  selects and expands rare antigen-specific clones, and maintains long-lived
+  memory that produces faster and stronger responses to re-encountered antigens.
+boundary:
+  type: functional
+  description: >
+    Includes B lymphocytes, T lymphocytes, their somatically rearranged antigen
+    receptors, MHC class I and II antigen presentation, antigen-presenting cells
+    in their adaptive-priming role, secondary lymphoid organs as the sites of
+    clonal selection, and the humoral and cellular effector arms (antibodies,
+    cytotoxic T cells, helper T-cell subsets) plus immunological memory.
+    Excludes germline-encoded innate immunity (complement, phagocytic killing,
+    pattern-recognition receptors, NK-cell missing-self) except where those
+    systems instruct or are instructed by adaptive responses. The defining
+    membership criterion is dependence on somatic receptor diversification and
+    clonal selection of lymphocytes.
+components:
+  - B lymphocytes (naive, germinal-center, plasma, memory)
+  - T lymphocytes (CD4+ helper subsets, CD4+ regulatory, CD8+ cytotoxic, memory)
+  - somatically rearranged B-cell and T-cell antigen receptors
+  - secreted immunoglobulins (IgM, IgD, IgG, IgA, IgE)
+  - MHC class I and class II molecules and their peptide cargo
+  - professional antigen-presenting cells (dendritic cells, macrophages, B cells) in their priming role
+  - secondary lymphoid organs (lymph nodes, spleen, mucosa-associated lymphoid tissue)
+  - cytokine and chemokine signaling milieu
+interaction_types:
+  - antigen recognition via receptor-ligand binding
+  - MHC-restricted antigen presentation
+  - clonal selection and proliferation
+  - somatic hypermutation and affinity maturation
+  - class-switch recombination
+  - cytokine signaling between helper T cells and effector cells
+  - cytotoxic killing of target cells
+  - negative selection and peripheral tolerance
+  - idiotypic and regulatory feedback
+scales:
+  spatial:
+    - nanometer-scale receptor-antigen binding interfaces
+    - micrometer-scale immunological synapses and lymphocyte-APC contacts
+    - millimeter-scale germinal centers and lymph-node follicles
+    - centimeter-scale secondary lymphoid organs
+    - organism-scale lymphatic and circulatory trafficking
+  temporal:
+    - millisecond-to-second receptor-ligand binding kinetics
+    - hours-to-days lymphocyte activation and initial clonal expansion
+    - days-to-weeks germinal-center reactions and affinity maturation
+    - months-to-years maintenance of memory B- and T-cell populations
+    - decade-scale life-course repertoire aging and immunosenescence
+source_refs: []
+created_at: '2026-04-23T15:06:46Z'
+updated_at: '2026-04-23T15:06:46Z'

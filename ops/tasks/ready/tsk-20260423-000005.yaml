@@ -1,0 +1,35 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--mammalian-neocortical-microcircuit/system.yaml 
+    validates against schemas/system.schema.json with status active and 
+    taxonomy_refs containing system-domain:biological and 
+    system-class:central-nervous-system.
+  - links.yaml cites >=2 authoritative sources (Markram et al. 2015 neocortical 
+    reconstruction and Mountcastle 1997 cortical-columns review are the scouted 
+    anchors).
+  - boundary, components, interaction_types, and scales are populated with 
+    specifics covering laminar organization (L1-L6), excitatory/inhibitory 
+    cell-type inventory, and temporal scales from synaptic (ms) to behavioral 
+    (s).
+created_at: '2026-04-23T14:20:30Z'
+id: tsk-20260423-000005
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Candidate: mammalian neocortical microcircuit. Proposed slug: mammalian-neocortical-microcircuit.
+  Proposed taxonomy: system-domain:biological, system-class:central-nervous-system.
+  Scouted by tsk-20260423-000001. Boundary cue: a functional column / local network
+  of ~10^4-10^5 neurons within the six-layered mammalian neocortex, as treated by
+  modern digital-reconstruction efforts; distinct from the whole CNS. Scales: synaptic
+  (~ms, nm) to columnar (~mm) to behavioral (~s). Anchor sources: Markram H et al.
+  (2015) Cell 163:456-492 — Blue Brain somatosensory-cortex reconstruction; Mountcastle
+  VB (1997) Brain 120:701-722 — columnar organization of neocortex.'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - doi:10.1016/j.cell.2015.09.029
+  - doi:10.1093/brain/120.4.701
+state: ready
+system_id: null
+type: profile-system

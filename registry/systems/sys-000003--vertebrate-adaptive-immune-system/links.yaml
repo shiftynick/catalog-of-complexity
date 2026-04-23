@@ -1,0 +1,18 @@
+sources:
+  - doi: 10.1016/j.jaci.2009.12.980
+    citation: >
+      Chaplin DD. Overview of the immune response. Journal of Allergy and
+      Clinical Immunology 125(2 Suppl 2):S3-23 (2010).
+  - isbn: '9780815345053'
+    citation: >
+      Murphy K, Weaver C. Janeway's Immunobiology, 9th edition. Garland Science
+      (2017).
+related_systems:
+  - sys-000002--human-gut-microbiome
+datasets:
+  - name: IMGT/GENE-DB
+    url: https://www.imgt.org/genedb/
+    license: academic use; see IMGT terms
+  - name: IEDB (Immune Epitope Database)
+    url: https://www.iedb.org/
+    license: CC BY 4.0

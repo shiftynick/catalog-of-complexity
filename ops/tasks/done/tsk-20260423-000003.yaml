@@ -11,6 +11,10 @@ acceptance_tests:
 created_at: '2026-04-23T14:20:10Z'
 id: tsk-20260423-000003
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-23T15:06:07Z'
+  leased_at: '2026-04-23T15:06:07Z'
+  leased_by: Shiftor/111528
   max_attempts: 1
   ttl_minutes: 90
 notes: "Candidate: vertebrate adaptive immune system. Proposed slug: vertebrate-adaptive-immune-system.
@@ -30,6 +34,6 @@ skill: profile-system
 source_refs:
   - doi:10.1016/j.jaci.2009.12.980
   - isbn:9780815345053
-state: ready
+state: done
 system_id: null
 type: profile-system
