@@ -1,0 +1,50 @@
+acceptance_tests:
+  - A new `molecular-system` item is appended to 
+    taxonomy/source/system-classes.yaml with label, description, and >=2 
+    references; the description explicitly contrasts it with the proposed 
+    `atomic-system` (single nucleus + electrons) and with 
+    `chemical-reaction-network` (population-level kinetics across species).
+  - '`uv run coc export-taxonomy` regenerates taxonomy/exports/labels.json and taxonomy/exports/taxonomy.ttl
+    with the new slug, and `uv run coc validate` exits 0 on the repo.'
+  - The retrospective records this as a Tier-0.5 priority-seed taxonomy unblock 
+    so the blocked scout (tsk-20260423-000014) can be re-run.
+created_at: '2026-04-23T19:29:48Z'
+id: tsk-20260423-000017
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Taxonomy gap proposal emitted by scout-systems tsk-20260423-000014\n(Priority
+  seed: molecular-system, system-domain:physical). No existing\nsystem-class slug
+  covers a bound multi-atom physical system: the closest\nexisting physical-domain
+  classes (`ocean-circulation-cell`, `river-network`)\ndescribe macroscale fluid/transport
+  systems, and the pending `atomic-system`\nproposal (tsk-20260423-000016) covers
+  single-nucleus bound systems only.\n\nProposed addition to taxonomy/source/system-classes.yaml:\n\
+  \n  - slug: molecular-system\n    label: Molecular system\n    description: >\n\
+  \      Bound assembly of two or more atoms held together by chemical bonds\n   \
+  \   (covalent, ionic, metallic, hydrogen, or van der Waals), whose\n      stationary
+  states are governed by the coupled electronic and nuclear\n      Schrödinger problem
+  (Born–Oppenheimer separation in most practical\n      treatments). Spans diatomics
+  (H2, N2), polyatomic small molecules\n      (H2O, CO2), and macromolecules (proteins,
+  polymers) when treated as\n      a single bound object rather than as a population
+  of species.\n      Distinct from `atomic-system` (single nucleus + electrons, no\n\
+  \      bonds), from `chemical-reaction-network` (population-level kinetics\n   \
+  \   across many molecular species), and from biological classes like\n      `multicellular-organism`
+  (where molecules are components, not the\n      system-of-interest).\n    references:\n\
+  \      - Atkins, P. & Friedman, R. (2011) Molecular Quantum Mechanics, 5th ed.\n\
+  \        Oxford University Press. ISBN 978-0199541423.\n      - McQuarrie, D.A.
+  (2007) Quantum Chemistry, 2nd ed. University Science\n        Books. ISBN 978-1891389504.\n\
+  \      - Szabo, A. & Ostlund, N.S. (1996) Modern Quantum Chemistry. Dover.\n   \
+  \     ISBN 978-0486691862.\n\nPolicy note: this task edits taxonomy/ (content-gated
+  under AGENTS.md).\nType `review-records` auto-promotes, so a reviewer may want to
+  hold or\ndowngrade priority before merging. The block on tsk-20260423-000014 names\n\
+  this task as its unblock dependency. The adjacent atomic-system proposal\n(tsk-20260423-000016)
+  and this one are independent taxonomy additions;\neither can merge first, and the
+  descriptions cross-reference accordingly.\nA follow-on scout for `chemical-reaction-network`
+  (tsk-20260423-000015)\nwill likely need a third, separate taxonomy-proposal task.\n"
+output_targets:
+  - taxonomy/source/system-classes.yaml
+priority: normal
+skill: review-records
+state: ready
+type: review-records
