@@ -123,3 +123,23 @@ items:
       - Bransden, B.H. & Joachain, C.J. (2003) Physics of Atoms and Molecules, 2nd ed. Pearson. ISBN 978-0582356924.
       - Foot, C.J. (2005) Atomic Physics. Oxford University Press. ISBN 978-0198506966.
       - NIST Atomic Spectra Database (2024). doi:10.18434/T4W30F.
+  - slug: molecular-system
+    label: Molecular system
+    description: >
+      Bound assembly of two or more atoms held together by chemical bonds
+      (covalent, ionic, metallic, hydrogen, or van der Waals), whose
+      stationary states are governed by the coupled electronic and nuclear
+      Schrödinger problem (Born–Oppenheimer separation in most practical
+      treatments). Spans diatomics (H2, N2), polyatomic small molecules
+      (H2O, CO2), and macromolecules (proteins, polymers) when treated as
+      a single bound object rather than as a population of species.
+      Distinct from `atomic-system` (single nucleus plus electrons, no
+      interatomic bonds) and from `chemical-reaction-network` (once added:
+      population-level kinetics across many molecular species rather than
+      a single bound assembly). Also distinct from biological classes like
+      `multicellular-organism`, where molecules are components rather than
+      the system-of-interest.
+    references:
+      - Atkins, P. & Friedman, R. (2011) Molecular Quantum Mechanics, 5th ed. Oxford University Press. ISBN 978-0199541423.
+      - McQuarrie, D.A. (2007) Quantum Chemistry, 2nd ed. University Science Books. ISBN 978-1891389504.
+      - Szabo, A. & Ostlund, N.S. (1996) Modern Quantum Chemistry. Dover. ISBN 978-0486691862.

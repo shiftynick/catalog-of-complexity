@@ -175,6 +175,13 @@
     skos:notation "system-class:microbiome" ;
     skos:prefLabel "Microbiome" .
 
+<https://catalog-of-complexity.org/taxonomy/system-class/molecular-system> a skos:Concept ;
+    skos:definition """Bound assembly of two or more atoms held together by chemical bonds (covalent, ionic, metallic, hydrogen, or van der Waals), whose stationary states are governed by the coupled electronic and nuclear Schrödinger problem (Born–Oppenheimer separation in most practical treatments). Spans diatomics (H2, N2), polyatomic small molecules (H2O, CO2), and macromolecules (proteins, polymers) when treated as a single bound object rather than as a population of species. Distinct from `atomic-system` (single nucleus plus electrons, no interatomic bonds) and from `chemical-reaction-network` (once added: population-level kinetics across many molecular species rather than a single bound assembly). Also distinct from biological classes like `multicellular-organism`, where molecules are components rather than the system-of-interest.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:molecular-system" ;
+    skos:prefLabel "Molecular system" .
+
 <https://catalog-of-complexity.org/taxonomy/system-class/multicellular-organism> a skos:Concept ;
     skos:definition "Coordinated colony of differentiated cells with a shared genome." ;
     skos:inScheme coc:scheme ;

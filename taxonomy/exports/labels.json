@@ -129,6 +129,11 @@
     "description": "Community of microorganisms occupying a defined environment or host.",
     "label": "Microbiome"
   },
+  "system-class:molecular-system": {
+    "aliases": [],
+    "description": "Bound assembly of two or more atoms held together by chemical bonds (covalent, ionic, metallic, hydrogen, or van der Waals), whose stationary states are governed by the coupled electronic and nuclear Schr\u00f6dinger problem (Born\u2013Oppenheimer separation in most practical treatments). Spans diatomics (H2, N2), polyatomic small molecules (H2O, CO2), and macromolecules (proteins, polymers) when treated as a single bound object rather than as a population of species. Distinct from `atomic-system` (single nucleus plus electrons, no interatomic bonds) and from `chemical-reaction-network` (once added: population-level kinetics across many molecular species rather than a single bound assembly). Also distinct from biological classes like `multicellular-organism`, where molecules are components rather than the system-of-interest.\n",
+    "label": "Molecular system"
+  },
   "system-class:multicellular-organism": {
     "aliases": [],
     "description": "Coordinated colony of differentiated cells with a shared genome.",
