@@ -11,9 +11,9 @@ created_at: '2026-04-23T18:54:28Z'
 id: tsk-20260423-000014
 lease:
   attempts: 1
-  last_heartbeat: '2026-04-23T19:29:38Z'
-  leased_at: '2026-04-23T19:28:40Z'
-  leased_by: Shiftor/114208
+  last_heartbeat: '2026-04-24T03:05:45Z'
+  leased_at: '2026-04-24T03:05:45Z'
+  leased_by: Shiftor/119644
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Priority seed: molecular-system. Target system-domain:physical. Budget: 1
@@ -25,7 +25,7 @@ output_targets:
   - ops/runs/*/scout-report.md
 priority: normal
 skill: scout-systems
-state: blocked
+state: done
 type: scout-systems
 unblock:
   kind: taxonomy-slug-exists

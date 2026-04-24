@@ -1,0 +1,58 @@
+acceptance_tests:
+  - A new `chemical-reaction-network` item is appended to 
+    taxonomy/source/system-classes.yaml with label, description, and >=2 
+    references; the description explicitly contrasts it with the proposed 
+    `atomic-system` (single nucleus + electrons), the proposed 
+    `molecular-system` (single bound multi-atom object), and `metabolic-network`
+    (intracellular, enzyme-catalyzed biochemical graph).
+  - '`uv run coc export-taxonomy` regenerates taxonomy/exports/labels.json and taxonomy/exports/taxonomy.ttl
+    with the new slug, and `uv run coc validate` exits 0 on the repo.'
+  - The retrospective records this as a Tier-0.5 priority-seed taxonomy unblock 
+    so the blocked scout (tsk-20260423-000015) can be re-run.
+created_at: '2026-04-23T19:38:00Z'
+id: tsk-20260423-000018
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Taxonomy gap proposal emitted by scout-systems tsk-20260423-000015\n(Priority
+  seed: chemical-reaction-network, system-domain:physical). No\nexisting system-class
+  slug covers population-level chemical kinetics: the\nclosest existing physical-domain
+  classes describe macroscale transport\n(`ocean-circulation-cell`, `river-network`);
+  the pending `atomic-system`\nproposal (tsk-20260423-000016) covers single-nucleus
+  bound systems and the\npending `molecular-system` proposal (tsk-20260423-000017)
+  covers single\nbound multi-atom objects. `metabolic-network` is biological-domain
+  and\nscoped to enzyme-catalyzed intracellular graphs. None cover the abstract\n\
+  reaction-kinetics object.\n\nProposed addition to taxonomy/source/system-classes.yaml:\n\
+  \n  - slug: chemical-reaction-network\n    label: Chemical reaction network\n  \
+  \  description: >\n      Population-level system of chemical species coupled by
+  elementary\n      reactions, described by a stoichiometric matrix and a rate law\n\
+  \      (mass-action, Michaelis–Menten, or other). Dynamics are typically\n     \
+  \ modeled as ODEs (deterministic limit) or continuous-time Markov\n      chains
+  (stochastic limit, chemical master equation / Gillespie).\n      Canonical examples:
+  the Belousov–Zhabotinsky oscillator, the\n      Brusselator, combustion kinetics,
+  atmospheric photochemistry, and\n      in-silico CRN models of gene regulation.
+  Distinct from\n      `atomic-system` (single nucleus + electrons), from\n      `molecular-system`
+  (a single bound multi-atom object treated as the\n      system-of-interest), and
+  from `metabolic-network` (intracellular,\n      enzyme-catalyzed biochemical graph
+  — a biological-domain special\n      case of a CRN with additional cellular context).\n\
+  \    references:\n      - Érdi, P. & Tóth, J. (1989) Mathematical Models of Chemical
+  Reactions.\n        Princeton University Press / Manchester University Press.\n\
+  \        ISBN 978-0691085326.\n      - Feinberg, M. (2019) Foundations of Chemical
+  Reaction Network Theory.\n        Springer Applied Mathematical Sciences vol. 202.\n\
+  \        ISBN 978-3030038571.\n      - Gillespie, D.T. (1977) Exact stochastic simulation
+  of coupled\n        chemical reactions. Journal of Physical Chemistry 81(25):2340-2361.\n\
+  \        doi:10.1021/j100540a008.\n\nPolicy note: this task edits taxonomy/ (content-gated
+  under AGENTS.md).\nType `review-records` auto-promotes, so a reviewer may want to
+  hold or\ndowngrade priority before merging. The block on tsk-20260423-000015 names\n\
+  this task as its unblock dependency. The adjacent atomic-system\n(tsk-20260423-000016)
+  and molecular-system (tsk-20260423-000017) proposals\nare independent taxonomy additions;
+  any subset can merge first, and the\ndescriptions cross-reference accordingly. With
+  this proposal, all three\nTier-0.5 priority-seed taxonomy gaps in the physical domain\n\
+  (atomic / molecular / CRN) are now captured as review-records tasks.\n"
+output_targets:
+  - taxonomy/source/system-classes.yaml
+priority: normal
+skill: review-records
+state: ready
+type: review-records
