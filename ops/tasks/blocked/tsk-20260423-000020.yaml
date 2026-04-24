@@ -13,7 +13,10 @@ acceptance_tests:
 created_at: '2026-04-24T03:08:00Z'
 id: tsk-20260423-000020
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-24T14:06:11Z'
+  leased_at: '2026-04-24T14:06:11Z'
+  leased_by: Shiftor/7368
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: dihydrogen molecule (H2). Proposed slug: dihydrogen-molecule. Proposed
@@ -46,6 +49,6 @@ source_refs:
   - isbn:9780486691862
   - isbn:9780199541423
   - doi:10.1063/1.1669836
-state: ready
+state: blocked
 system_id: null
 type: profile-system
