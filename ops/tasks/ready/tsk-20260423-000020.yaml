@@ -1,0 +1,51 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--dihydrogen-molecule/system.yaml validates 
+    against schemas/system.schema.json with status active and taxonomy_refs 
+    containing system-domain:physical and system-class:molecular-system.
+  - links.yaml cites >=2 authoritative sources (Szabo & Ostlund 1996 Modern 
+    Quantum Chemistry and Atkins & Friedman 2011 Molecular Quantum Mechanics are
+    the scouted anchors; substitute equivalents only with rationale in 
+    notes.md).
+  - boundary, components, interaction_types, and scales are populated with 
+    specifics (two-nucleus two-electron Coulombic bound system, Born-Oppenheimer
+    potential curve with equilibrium bond length ~0.741 Å and dissociation 
+    energy ~4.478 eV, vibrational and rotational scales), not placeholders.
+created_at: '2026-04-24T03:08:00Z'
+id: tsk-20260423-000020
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Candidate: dihydrogen molecule (H2). Proposed slug: dihydrogen-molecule. Proposed
+  taxonomy: system-domain:physical, system-class:molecular-system. Scouted by tsk-20260423-000014
+  (Tier 0.5 priority-seed `molecular-system`, physical domain). Boundary cue: two
+  protons plus two bound electrons, governed by the Coulombic electron-nuclear and
+  electron-electron interactions under the Born-Oppenheimer separation; the simplest
+  neutral molecule and the canonical entry point to chemical-bond theory (Heitler-London
+  1927 valence-bond treatment; Hartree-Fock, configuration-interaction, and full-CI
+  benchmarks). Scales: equilibrium bond length r_e ≈ 0.7414 Å, dissociation energy
+  D_e ≈ 4.478 eV (D_0 ≈ 4.478 - ZPE), vibrational quantum ħω_e ≈ 0.546 eV (4401 cm⁻¹),
+  rotational constant B_e ≈ 60.85 cm⁻¹, electronic ground state X¹Σ_g⁺. Preferred
+  over H2O / CO2 / benzene for the first molecular-system profile because H2 is the
+  minimal bound multi-nucleus quantum problem — it anchors the class the way the hydrogen
+  atom anchors atomic-system, making the electron-correlation structure and the Born-Oppenheimer
+  potential curve exhibitable analytically/benchmark-exactly. A future scout can add
+  H2O (hydrogen-bonding archetype) or a polyatomic like benzene (aromaticity / delocalization)
+  once H2 establishes the class baseline. Anchor sources: Szabo A. & Ostlund N.S.
+  (1996) Modern Quantum Chemistry, ISBN 978-0486691862 (ch. 3, H2 as the minimal example
+  of Hartree-Fock and correlation); Atkins P. & Friedman R. (2011) Molecular Quantum
+  Mechanics 5th ed., ISBN 978-0199541423 (H2 Born-Oppenheimer treatment and spectroscopic
+  constants); Kolos W. & Wolniewicz L. (1968) "Improved Theoretical Ground-State Energy
+  of the Hydrogen Molecule" J. Chem. Phys. 49, 404, doi:10.1063/1.1669836 (reference
+  benchmark energies).'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - isbn:9780486691862
+  - isbn:9780199541423
+  - doi:10.1063/1.1669836
+state: ready
+system_id: null
+type: profile-system

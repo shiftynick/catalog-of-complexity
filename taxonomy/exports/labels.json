@@ -94,6 +94,11 @@
     "description": "Neural tissue coordinating perception, cognition, and motor control in animals.",
     "label": "Central nervous system"
   },
+  "system-class:chemical-reaction-network": {
+    "aliases": [],
+    "description": "Population-level system of chemical species coupled by elementary reactions, described by a stoichiometric matrix and a rate law (mass-action, Michaelis-Menten, or other). Dynamics are typically modeled as ODEs in the deterministic limit or as continuous-time Markov chains in the stochastic limit (chemical master equation / Gillespie simulation). Canonical examples include the Belousov-Zhabotinsky oscillator, the Brusselator, combustion kinetics, atmospheric photochemistry, and in-silico CRN models of gene regulation. Distinct from `atomic-system` (single nucleus plus electrons, no interatomic bonds) and from `molecular-system` (a single bound multi-atom object treated as the system-of-interest rather than a population of species). Distinct from `metabolic-network`, which is a biological-domain special case of a CRN restricted to enzyme-catalyzed intracellular biochemistry with additional cellular context (compartments, regulation, cofactor pools).\n",
+    "label": "Chemical reaction network"
+  },
   "system-class:distributed-software-system": {
     "aliases": [],
     "description": "Network of computational processes coordinating over messages to provide a service, subject to partial failures and consistency tradeoffs.\n",

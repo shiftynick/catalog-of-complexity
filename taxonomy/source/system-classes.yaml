@@ -143,3 +143,26 @@ items:
       - Atkins, P. & Friedman, R. (2011) Molecular Quantum Mechanics, 5th ed. Oxford University Press. ISBN 978-0199541423.
       - McQuarrie, D.A. (2007) Quantum Chemistry, 2nd ed. University Science Books. ISBN 978-1891389504.
       - Szabo, A. & Ostlund, N.S. (1996) Modern Quantum Chemistry. Dover. ISBN 978-0486691862.
+  - slug: chemical-reaction-network
+    label: Chemical reaction network
+    description: >
+      Population-level system of chemical species coupled by elementary
+      reactions, described by a stoichiometric matrix and a rate law
+      (mass-action, Michaelis-Menten, or other). Dynamics are typically
+      modeled as ODEs in the deterministic limit or as continuous-time
+      Markov chains in the stochastic limit (chemical master equation /
+      Gillespie simulation). Canonical examples include the
+      Belousov-Zhabotinsky oscillator, the Brusselator, combustion
+      kinetics, atmospheric photochemistry, and in-silico CRN models of
+      gene regulation. Distinct from `atomic-system` (single nucleus plus
+      electrons, no interatomic bonds) and from `molecular-system` (a
+      single bound multi-atom object treated as the system-of-interest
+      rather than a population of species). Distinct from
+      `metabolic-network`, which is a biological-domain special case of a
+      CRN restricted to enzyme-catalyzed intracellular biochemistry with
+      additional cellular context (compartments, regulation, cofactor
+      pools).
+    references:
+      - Érdi, P. & Tóth, J. (1989) Mathematical Models of Chemical Reactions. Princeton University Press / Manchester University Press. ISBN 978-0691085326.
+      - Feinberg, M. (2019) Foundations of Chemical Reaction Network Theory. Springer Applied Mathematical Sciences vol. 202. ISBN 978-3030038571.
+      - Gillespie, D.T. (1977) Exact stochastic simulation of coupled chemical reactions. Journal of Physical Chemistry 81(25):2340-2361. doi:10.1021/j100540a008.

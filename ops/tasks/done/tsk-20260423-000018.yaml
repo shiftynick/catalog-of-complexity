@@ -12,7 +12,10 @@ acceptance_tests:
 created_at: '2026-04-23T19:38:00Z'
 id: tsk-20260423-000018
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-24T04:06:06Z'
+  leased_at: '2026-04-24T04:05:49Z'
+  leased_by: Shiftor/104224
   max_attempts: 1
   ttl_minutes: 90
 notes: "Taxonomy gap proposal emitted by scout-systems tsk-20260423-000015\n(Priority
@@ -54,5 +57,5 @@ output_targets:
   - taxonomy/source/system-classes.yaml
 priority: normal
 skill: review-records
-state: ready
+state: done
 type: review-records
