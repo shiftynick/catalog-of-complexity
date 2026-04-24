@@ -1,0 +1,73 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--belousov-zhabotinsky-reaction/system.yaml
+    validates against schemas/system.schema.json with status active and
+    taxonomy_refs containing system-domain:physical and
+    system-class:chemical-reaction-network.
+  - links.yaml cites >=2 authoritative sources (Epstein & Pojman 1998 An
+    Introduction to Nonlinear Chemical Dynamics and Field & Burger 1985
+    Oscillations and Traveling Waves in Chemical Systems are the scouted
+    anchors; substitute equivalents only with rationale in notes.md).
+  - boundary, components, interaction_types, and scales are populated with
+    specifics (acidic bromate + malonic-acid + metal-catalyst reacting
+    population with ~20-species FKN / Oregonator skeleton, mass-action
+    kinetics, oscillation periods of ~10^0-10^2 s and excitable-medium
+    wavelengths of ~10^-3-10^-2 m), not placeholders.
+created_at: '2026-04-24T12:07:00Z'
+id: tsk-20260424-000001
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Candidate: Belousov-Zhabotinsky (BZ) reaction. Proposed slug:
+  belousov-zhabotinsky-reaction. Proposed taxonomy: system-domain:physical,
+  system-class:chemical-reaction-network. Scouted by tsk-20260423-000015
+  (Tier 0.5 priority-seed `chemical-reaction-network`, physical domain).
+  Boundary cue: an acidic aqueous population of chemical species — bromate
+  (BrO3^-), bromide (Br^-), bromous/hypobromous acid (HBrO2, HOBr), malonic
+  acid (CH2(COOH)2) and its brominated derivatives, plus a one-electron
+  metal-ion catalyst couple (Ce^4+/Ce^3+ or ferroin/ferriin or
+  Mn^3+/Mn^2+) — coupled by elementary redox and bromination steps
+  described by mass-action kinetics. The canonical skeleton is the
+  Field-Körös-Noyes (FKN) mechanism, typically reduced to the 3-variable
+  Oregonator (Field & Noyes 1974) and exhibiting sustained limit-cycle
+  oscillations, excitable-medium target/spiral waves, and deterministic
+  chaos in CSTR settings. Scales: oscillation period ~1-100 s depending on
+  reagent ratios and temperature; reaction-diffusion wavelengths ~0.1-10
+  mm with propagation speeds of order mm/min; temperature 20-40 C; pH
+  ~0-1 (strongly acidic); concentrations ~1e-4 - 1 M. Preferred over the
+  Brusselator / Oregonator for the first chemical-reaction-network
+  profile because BZ is the canonical empirically realized oscillating
+  CRN — every reduced model (Oregonator, Brusselator-style) points back
+  to BZ as the physical referent, and it supplies observables for both
+  deterministic (limit-cycle frequency, wave speed) and stochastic
+  (fluctuation spectra near the Hopf bifurcation) characterizations.
+  Preferred over combustion kinetics (GRI-Mech etc.) because BZ is
+  archetypally out-of-equilibrium-by-construction at lab scales, not
+  conditioned on a high-enthalpy flame context, and over atmospheric
+  photochemistry because BZ is boundary-compact (a single reactor) rather
+  than a geographically distributed CRN that bleeds into
+  ocean-circulation-cell neighbors. Future scouts can add the
+  Oregonator/Brusselator as separate `chemical-reaction-network` profiles
+  for the model-only (no-referent-experiment) slice of the class, or
+  combustion/atmospheric CRNs to cover high-temperature / open-atmosphere
+  variants. Anchor sources: Epstein I.R. & Pojman J.A. (1998) An
+  Introduction to Nonlinear Chemical Dynamics: Oscillations, Waves,
+  Patterns, and Chaos, Oxford University Press, ISBN 978-0195096705 (chs.
+  3-5, canonical BZ treatment); Field R.J. & Burger M. eds. (1985)
+  Oscillations and Traveling Waves in Chemical Systems, Wiley, ISBN
+  978-0471893844 (comprehensive BZ reference volume); Field R.J., Körös
+  E. & Noyes R.M. (1972) "Oscillations in chemical systems. II.
+  Thorough analysis of temporal oscillation in the bromate-cerium-malonic
+  acid system" J. Am. Chem. Soc. 94(25):8649-8664,
+  doi:10.1021/ja00780a001 (FKN mechanism reference).'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - isbn:9780195096705
+  - isbn:9780471893844
+  - doi:10.1021/ja00780a001
+state: inbox
+system_id: null
+type: profile-system
