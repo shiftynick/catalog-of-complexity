@@ -14,6 +14,10 @@ acceptance_tests:
 created_at: '2026-04-25T14:13:00Z'
 id: tsk-20260425-000007
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T21:17:53Z'
+  leased_at: '2026-04-25T21:17:53Z'
+  leased_by: Shiftor/60512
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: Belousov-Zhabotinsky (BZ) reaction. Proposed slug: belousov-zhabotinsky-reaction.
@@ -53,6 +57,6 @@ source_refs:
   - doi:10.1021/ja00780a001
   - isbn:9780471893844
   - isbn:9780195096705
-state: ready
+state: failed
 system_id: null
 type: profile-system
