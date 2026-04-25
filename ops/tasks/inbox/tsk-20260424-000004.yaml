@@ -1,0 +1,27 @@
+acceptance_tests:
+  - At least one profile-system task manifest is written to ops/tasks/inbox/ for
+    a biological-domain candidate, each carrying >=1 source_ref and naming a
+    candidate system-domain / system-class slug pair that resolves against
+    taxonomy/source/.
+  - A scout-report.md is written under
+    ops/runs/YYYY/MM/DD/<run-id>/scout-report.md with sections Accepted,
+    Rejected, Taxonomy gaps, and Sources consulted.
+  - '`uv run coc validate ops/tasks/inbox/` exits 0 on the emitted manifests.'
+created_at: '2026-04-24T15:21:45Z'
+id: tsk-20260424-000004
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Priority seed: prokaryotic-cell. Target system-domain:biological. Budget:
+  1 candidate system. Tier 0.5 of plan-backlog (priority-systems.yaml consumption,
+  top-down). No same-named system-class slug resolves in taxonomy/source/system-classes.yaml
+  today; let scout-systems map to an existing class or queue a taxonomy review task
+  if needed. Do not invent system-class slugs - propose taxonomy additions as separate
+  tasks if needed.'
+output_targets:
+  - ops/tasks/inbox/
+  - ops/runs/*/scout-report.md
+priority: normal
+skill: scout-systems
+state: inbox
+type: scout-systems
