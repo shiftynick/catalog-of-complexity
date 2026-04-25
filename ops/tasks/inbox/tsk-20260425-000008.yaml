@@ -1,0 +1,74 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--escherichia-coli-k12-metabolic-network/system.yaml
+    validates against schemas/system.schema.json with status profiled and
+    taxonomy_refs containing system-domain:biological and
+    system-class:metabolic-network.
+  - links.yaml cites >=2 authoritative sources (Orth et al. 2011 doi:10.1038/msb.2011.65
+    and Palsson 2015 isbn:9781107038851 are the scouted anchors; substitute
+    equivalents only with rationale in notes.md).
+  - boundary, components, interaction_types, and scales are populated with
+    specifics (cytoplasm + periplasm of a single Escherichia coli K-12 MG1655
+    cell as the boundary; the iJO1366/iML1515 reconstructed set of metabolites
+    and enzyme-catalyzed reactions as components; mass-action enzymatic
+    catalysis with cofactor coupling and transcriptional/allosteric regulation
+    as interaction types; ~1-2 micron cell-scale spatial extent with ~10^-3
+    to ~10^3 s reaction timescales spanning catalytic turnover to
+    diauxic-shift remodelling), not placeholders.
+created_at: '2026-04-25T15:07:49Z'
+id: tsk-20260425-000008
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: 'Candidate: Escherichia coli K-12 MG1655 metabolic network. Proposed
+  slug: escherichia-coli-k12-metabolic-network. Proposed taxonomy:
+  system-domain:biological, system-class:metabolic-network. Scouted by
+  tsk-20260424-000003 (Tier 0.5 priority-seed `metabolic-network`, biological
+  domain). Boundary cue: the cytoplasm + periplasm of a single E. coli K-12
+  MG1655 cell (the gold-standard genome-scale metabolic reconstruction
+  organism), with substrate/product exchange across the inner and outer
+  membranes treated as boundary fluxes. Components: ~1300 unique metabolite
+  species and ~2700 enzyme-catalyzed reactions in the iJO1366 reconstruction
+  (Orth et al. 2011), updated to ~1900 metabolites and ~2700 reactions in
+  iML1515 (Monk et al. 2017), spanning central carbon metabolism (glycolysis,
+  TCA, pentose phosphate, oxidative phosphorylation), amino-acid and
+  nucleotide biosynthesis, lipid/peptidoglycan/cofactor synthesis, and
+  hundreds of transport reactions. Interaction types: enzyme-catalyzed
+  biochemical conversions (mass-action / Michaelis-Menten kinetics),
+  cofactor-pool coupling (NAD(P)H, ATP, CoA, etherification carriers),
+  reversible/irreversible reaction directionality from thermodynamic
+  feasibility, allosteric regulation, and transcriptional regulation that
+  reshapes which subnetwork is active under different growth conditions.
+  Scales: spatial - whole-cell volume ~1 fL with ~1-2 micron rod length
+  (compartments = cytoplasm + periplasm + inner/outer membrane interfaces);
+  temporal - elementary catalytic turnover ~10^-3 to ~10^-1 s (kcat),
+  metabolite pool turnover ~10^0 to ~10^2 s, transcriptional remodelling
+  ~10^2 to ~10^3 s (lac induction, diauxic shift). Preferred over yeast
+  (Yeast8) and human (Recon3D) reconstructions for the seed because E. coli
+  has the deepest experimental coverage of in-vivo flux (^13C-MFA) and the
+  longest constraint-based-modeling lineage; yeast and human will follow as
+  separate scout proposals once this anchor is profiled. Anchor sources:
+  Orth, J.D., Conrad, T.M., Na, J., Lerman, J.A., Nam, H., Feist, A.M.,
+  Palsson, B.O. (2011) "A comprehensive genome-scale reconstruction of
+  Escherichia coli metabolism—2011" Mol. Syst. Biol. 7:535,
+  doi:10.1038/msb.2011.65 (the iJO1366 reference reconstruction); Jeong,
+  H., Tombor, B., Albert, R., Oltvai, Z.N., Barabasi, A.-L. (2000) "The
+  large-scale organization of metabolic networks" Nature 407:651-654,
+  doi:10.1038/35036627 (the foundational scale-free analysis cited by the
+  taxonomy entry); Palsson, B.O. (2015) Systems Biology - Constraint-based
+  Reconstruction and Analysis, Cambridge University Press,
+  isbn:9781107038851 (canonical textbook). Optional secondary: Monk, J.M. et
+  al. (2017) "iML1515, a knowledgebase that computes Escherichia coli
+  traits" Nat. Biotechnol. 35:904-908, doi:10.1038/nbt.3956 (the updated
+  reconstruction; cite if iML1515 is adopted as the operational
+  components-list anchor).'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - doi:10.1038/msb.2011.65
+  - doi:10.1038/35036627
+  - isbn:9781107038851
+state: inbox
+system_id: null
+type: profile-system
