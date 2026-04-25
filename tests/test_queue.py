@@ -605,3 +605,163 @@ def test_unblock_task_rejects_non_blocked(fake_ops):
     _make_task(fake_ops, tid)  # lives in ready/
     with pytest.raises(q.QueueError):
         q.unblock_task(tid)
+
+
+def _make_blocked_task_with_sources(
+    tasks_root: Path,
+    task_id: str,
+    source_refs: list[str],
+    unblock: dict | None = None,
+) -> Path:
+    path = tasks_root / "tasks" / "blocked" / f"{task_id}.yaml"
+    data: dict = {
+        "id": task_id,
+        "type": "profile-system",
+        "skill": "profile-system",
+        "state": "blocked",
+        "priority": "normal",
+        "output_targets": ["registry/systems/"],
+        "acceptance_tests": [],
+        "lease": {"ttl_minutes": 90, "max_attempts": 1, "attempts": 1},
+        "source_refs": list(source_refs),
+        "created_at": "2026-04-25T00:00:00Z",
+    }
+    if unblock is not None:
+        data["unblock"] = unblock
+    dump_yaml(data, path)
+    return path
+
+
+def _fake_registered_source(reg_sources: Path, src_id: str, **fields: object) -> Path:
+    """Drop a minimal source.yaml under reg_sources for resolver tests."""
+    src_dir = reg_sources / src_id
+    (src_dir / "raw").mkdir(parents=True, exist_ok=True)
+    base: dict = {
+        "id": src_id,
+        "slug": src_id.split("--", 1)[1] if "--" in src_id else src_id,
+        "title": "Fake source",
+        "kind": "peer-reviewed",
+        "retrieved_at": "2026-04-25T00:00:00Z",
+        "doi": None,
+        "url": None,
+    }
+    base.update(fields)
+    dump_yaml(base, src_dir / "source.yaml")
+    return src_dir
+
+
+def test_sweep_blocked_unblocks_when_all_sources_resolved(fake_ops, monkeypatch, tmp_path):
+    reg = tmp_path / "registry-sources"
+    reg.mkdir(parents=True)
+    _fake_registered_source(reg, "src-000001--a", doi="10.1000/a")
+    _fake_registered_source(reg, "src-000002--b", url="https://example.com/b")
+    monkeypatch.setattr(q, "REG_SOURCES", reg)
+    _fake_taxonomy(monkeypatch, {})
+
+    tid = "tsk-20260425-666001"
+    _make_blocked_task_with_sources(
+        fake_ops,
+        tid,
+        source_refs=["doi:10.1000/a", "url:https://example.com/b"],
+        unblock={"kind": "sources-resolved"},
+    )
+
+    unblocked = q.sweep_blocked()
+    assert unblocked == [tid]
+    assert (fake_ops / "tasks" / "ready" / f"{tid}.yaml").exists()
+    assert not (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_skips_sources_resolved_when_any_ref_unresolved(
+    fake_ops, monkeypatch, tmp_path
+):
+    reg = tmp_path / "registry-sources"
+    reg.mkdir(parents=True)
+    _fake_registered_source(reg, "src-000001--a", doi="10.1000/a")
+    # Note: nothing registered for the second ref.
+    monkeypatch.setattr(q, "REG_SOURCES", reg)
+    _fake_taxonomy(monkeypatch, {})
+
+    tid = "tsk-20260425-666002"
+    _make_blocked_task_with_sources(
+        fake_ops,
+        tid,
+        source_refs=["doi:10.1000/a", "doi:10.1000/missing"],
+        unblock={"kind": "sources-resolved"},
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_resolves_mixed_src_id_and_prefixed_refs(
+    fake_ops, monkeypatch, tmp_path
+):
+    reg = tmp_path / "registry-sources"
+    reg.mkdir(parents=True)
+    _fake_registered_source(reg, "src-000001--a", doi="10.1000/a")
+    _fake_registered_source(reg, "src-000002--b")  # bare id, no doi/url
+    monkeypatch.setattr(q, "REG_SOURCES", reg)
+    _fake_taxonomy(monkeypatch, {})
+
+    tid = "tsk-20260425-666003"
+    _make_blocked_task_with_sources(
+        fake_ops,
+        tid,
+        # Mix the doi: prefixed form and the registered src-* id form.
+        source_refs=["doi:10.1000/a", "src-000002--b"],
+        unblock={"kind": "sources-resolved"},
+    )
+
+    assert q.sweep_blocked() == [tid]
+    assert (fake_ops / "tasks" / "ready" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_sources_resolved_empty_source_refs_is_explicit_guard(
+    fake_ops, monkeypatch, tmp_path
+):
+    """A task with sources-resolved unblock and no source_refs is misconfigured.
+
+    The unblock condition should never fire — empty refs are an explicit
+    guard, not vacuously true. Use task-complete or taxonomy-slug-exists for
+    non-source dependencies.
+    """
+    reg = tmp_path / "registry-sources"
+    reg.mkdir(parents=True)
+    monkeypatch.setattr(q, "REG_SOURCES", reg)
+    _fake_taxonomy(monkeypatch, {})
+
+    tid = "tsk-20260425-666004"
+    _make_blocked_task_with_sources(
+        fake_ops,
+        tid,
+        source_refs=[],
+        unblock={"kind": "sources-resolved"},
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()
+
+
+def test_sweep_blocked_sources_resolved_isbn_refs_never_resolve(
+    fake_ops, monkeypatch, tmp_path
+):
+    """isbn refs have no resolver today; sources-resolved must not fire on them."""
+    reg = tmp_path / "registry-sources"
+    reg.mkdir(parents=True)
+    # Even a registered src with the isbn-bearing slug shouldn't help —
+    # there's no isbn lookup yet, so the ref reads as unresolved.
+    _fake_registered_source(reg, "src-000001--isbn-paper")
+    monkeypatch.setattr(q, "REG_SOURCES", reg)
+    _fake_taxonomy(monkeypatch, {})
+
+    tid = "tsk-20260425-666005"
+    _make_blocked_task_with_sources(
+        fake_ops,
+        tid,
+        source_refs=["isbn:9780471893844"],
+        unblock={"kind": "sources-resolved"},
+    )
+
+    assert q.sweep_blocked() == []
+    assert (fake_ops / "tasks" / "blocked" / f"{tid}.yaml").exists()

@@ -105,14 +105,14 @@
     },
     "notes": { "type": "string" },
     "unblock": {
-      "description": "Auto-unblock condition checked during `coc advance`. When the named condition becomes true, the task moves blocked/ → ready/ with `lease.attempts` reset to 0 and a `task.unblock` event appended. Only meaningful on tasks in the `blocked` state; harmless elsewhere. `kind: taxonomy-slug-exists` fires when `taxonomy_ref` (e.g. `system-class:atomic-system`) resolves in `taxonomy/source/*.yaml`. `kind: task-complete` fires when the named `task_id` reaches `ops/tasks/done/`. Runtime rejects specs where the kind-required field is missing.",
+      "description": "Auto-unblock condition checked during `coc advance`. When the named condition becomes true, the task moves blocked/ → ready/ with `lease.attempts` reset to 0 and a `task.unblock` event appended. Only meaningful on tasks in the `blocked` state; harmless elsewhere. `kind: taxonomy-slug-exists` fires when `taxonomy_ref` (e.g. `system-class:atomic-system`) resolves in `taxonomy/source/*.yaml`. `kind: task-complete` fires when the named `task_id` reaches `ops/tasks/done/`. `kind: sources-resolved` fires when every entry in the task's own `source_refs` resolves to a registered `registry/sources/src-*/source.yaml` (matched by id-form for `src-*` refs, or by doi/arxiv/url for the prefixed forms); needs no extra subfield. An empty/missing `source_refs` is treated as misconfiguration and never satisfies sources-resolved (use task-complete or taxonomy-slug-exists for non-source dependencies). Runtime rejects specs where the kind-required field is missing.",
       "type": "object",
       "required": ["kind"],
       "additionalProperties": false,
       "properties": {
         "kind": {
           "type": "string",
-          "enum": ["taxonomy-slug-exists", "task-complete"]
+          "enum": ["taxonomy-slug-exists", "task-complete", "sources-resolved"]
         },
         "taxonomy_ref": {
           "type": "string",

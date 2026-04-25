@@ -22,7 +22,7 @@ from typing import Any
 from ulid import ULID
 
 from coc.events import append_event
-from coc.paths import OPS_TASKS, TASK_STATES
+from coc.paths import OPS_TASKS, REG_SOURCES, TASK_STATES
 from coc.yamlio import dump_yaml, load_yaml
 
 VALID_TERMINAL_STATES = ("review", "done", "blocked", "failed")
@@ -326,7 +326,57 @@ def _taxonomy_slug_exists(qualified: str) -> bool:
     return load_index().has(qualified)
 
 
-def _unblock_condition_met(spec: Any) -> bool:
+def _source_ref_resolves(ref: str, reg_sources: Path) -> bool:
+    """True if `ref` matches a registered source under `reg_sources/`.
+
+    Dispatch by prefix. Registered-id form (`src-NNNNNN--slug`) is checked
+    by directory existence. Prefixed forms (`doi:`, `arxiv:`, `url:`) are
+    checked via the `find_existing_by_*` helpers. `isbn:` has no resolver
+    today (acquire-source blocks on isbn), so isbn refs always read as
+    unresolved — this is intentional: a sources-resolved unblock on a
+    task with isbn refs will not fire until the isbn resolver lands.
+    """
+    if not isinstance(ref, str) or not ref:
+        return False
+    # Registered src id form.
+    if ref.startswith("src-"):
+        return (reg_sources / ref / "source.yaml").exists()
+    # Imported lazily — slug helpers don't need to load on every queue import.
+    from coc.sources.slugs import (
+        find_existing_by_arxiv,
+        find_existing_by_doi,
+        find_existing_by_url,
+    )
+
+    if ref.startswith("doi:"):
+        return find_existing_by_doi(ref[len("doi:"):], reg_sources) is not None
+    if ref.startswith("arxiv:"):
+        return find_existing_by_arxiv(ref[len("arxiv:"):], reg_sources) is not None
+    if ref.startswith("url:"):
+        return find_existing_by_url(ref[len("url:"):], reg_sources) is not None
+    if ref.startswith("isbn:"):
+        return False
+    return False
+
+
+def _all_sources_resolved(task_data: dict) -> bool:
+    """True iff every entry in `task_data['source_refs']` resolves to a registered source.
+
+    An empty or missing `source_refs` returns False — the new kind is for
+    waiting on source acquisitions, so a task with no refs and a
+    sources-resolved unblock is misconfigured. Use task-complete or
+    taxonomy-slug-exists for non-source dependencies.
+
+    Reads `REG_SOURCES` from the module namespace at call time so tests
+    can monkeypatch it without redefining the function.
+    """
+    refs = task_data.get("source_refs") if isinstance(task_data, dict) else None
+    if not isinstance(refs, list) or not refs:
+        return False
+    return all(_source_ref_resolves(r, REG_SOURCES) for r in refs)
+
+
+def _unblock_condition_met(spec: Any, task_data: dict | None = None) -> bool:
     if not isinstance(spec, dict):
         return False
     kind = spec.get("kind")
@@ -340,6 +390,10 @@ def _unblock_condition_met(spec: Any) -> bool:
         if not isinstance(tid, str):
             return False
         return _task_is_done(tid)
+    if kind == "sources-resolved":
+        if not isinstance(task_data, dict):
+            return False
+        return _all_sources_resolved(task_data)
     return False
 
 
@@ -396,7 +450,7 @@ def sweep_blocked() -> list[str]:
         spec = data.get("unblock")
         if not spec:
             continue
-        if not _unblock_condition_met(spec):
+        if not _unblock_condition_met(spec, data):
             continue
         task_id = str(data.get("id") or path.stem)
         unblock_task(task_id)
