@@ -1,0 +1,36 @@
+acceptance_tests:
+  - Reviewer confirms whether the proposed slug additions (atomic-system, 
+    molecular-system, chemical-reaction-network) are already present and either 
+    closes the task with a no-op rationale or applies any remaining edits.
+  - '`uv run coc validate` exits 0 after any edit.'
+  - '`uv run coc export-taxonomy` regenerates without errors.'
+created_at: '2026-04-25T03:25:40Z'
+id: tsk-20260425-000002
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Cluster of 2 proposals against taxonomy/source/system-classes.yaml\nsurfaced
+  by apply-retros run run-01KQ1AQPVFVD22VG1R9V4NS8SX:\n  - retro-01KPXX72HWVGHMXK8H3Z9CYEVT
+  (moderate): 'Accept the pending\n    atomic-system and molecular-system proposals\n\
+  \    (tsk-20260423-000016, tsk-20260423-000017) and the next one for\n    chemical-reaction-network
+  when it arrives, so the physical-domain\n    class axis covers its three foundational
+  scales (atom / bound\n    multi-atom / population kinetics) before any profile-system
+  tasks\n    are attempted in this domain.'\n  - retro-01KPXXM53WJH3KF8Y4NZ17HCGA
+  (moderate): 'Accept the three\n    pending physical-domain taxonomy proposals (tsk-20260423-000016\n\
+  \    atomic-system, tsk-20260423-000017 molecular-system,\n    tsk-20260423-000018
+  chemical-reaction-network) as a coherent batch.\n    They cover the three foundational
+  scales of the physical domain and\n    their descriptions are explicitly mutually-disambiguating,
+  so\n    reviewing them together is cheaper than reviewing them one at a\n    time.'\n\
+  \nSTATUS NOTE: A grep of the current taxonomy file shows\natomic-system, molecular-system,
+  and chemical-reaction-network are\nALREADY present (the three referenced upstream
+  review-records tasks\n-- 016/017/018 -- are in done/). This cluster is therefore
+  likely a\nno-op acknowledgment. Reviewer should verify the three slugs resolve\n\
+  in taxonomy/source/system-classes.yaml and close the task with that\nrationale unless
+  the retros' broader intent (e.g. a coordinating\nREADME convention or schema work)
+  suggests a follow-on edit.\n"
+output_targets:
+  - taxonomy/source/system-classes.yaml
+priority: normal
+skill: review-records
+state: ready
+type: review-records

@@ -1,0 +1,63 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--belousov-zhabotinsky-reaction/system.yaml
+    validates against schemas/system.schema.json with status profiled and
+    taxonomy_refs containing system-domain:physical and
+    system-class:chemical-reaction-network.
+  - links.yaml cites >=2 authoritative sources (Field, Körös & Noyes 1972
+    JACS doi:10.1021/ja00780a001 and Epstein & Pojman 1998 are the scouted
+    anchors; substitute equivalents only with rationale in notes.md).
+  - boundary, components, interaction_types, and scales are populated with
+    specifics (well-stirred or thin-layer aqueous solution of acidic bromate
+    + metal-ion catalyst + organic substrate, the FKN-mechanism intermediate
+    species set, autocatalytic HBrO2 self-amplification with redox catalysis,
+    and reaction-diffusion length/period scales), not placeholders.
+created_at: '2026-04-25T14:13:00Z'
+id: tsk-20260425-000007
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: 'Candidate: Belousov-Zhabotinsky (BZ) reaction. Proposed slug:
+  belousov-zhabotinsky-reaction. Proposed taxonomy: system-domain:physical,
+  system-class:chemical-reaction-network. Scouted by tsk-20260424-000002
+  (Tier 0.5 priority-seed `autocatalytic-chemical-system`, physical domain).
+  Boundary cue: a homogeneous (well-stirred CSTR) or thin-layer aqueous
+  reactor containing acidic bromate (BrO3-/H2SO4), a one-electron metal
+  catalyst (Ce(III)/Ce(IV) or ferroin Fe(II)/Fe(III)), and an organic
+  substrate (malonic acid CH2(COOH)2 or analogues), exhibiting sustained
+  oscillations in catalyst oxidation state through autocatalytic regeneration
+  of bromous acid HBrO2 (BrO3- + HBrO2 + H+ -> 2 HBrO2 + reduced metal -> 2
+  HBrO2 + oxidized metal). Components: ~10 active intermediate chemical
+  species (HBrO2, HOBr, Br-, Br2, BrO2., metal redox couple, brominated
+  malonic acid derivatives) coupled by ~20 elementary reactions in the FKN
+  mechanism. Interaction types: homogeneous chemical reactions, redox
+  catalysis, autocatalysis on HBrO2, and (in unstirred mode) reaction-diffusion
+  coupling that yields target/spiral waves. Scales: spatial - bulk reactor
+  cm-L for stirred mode, mm-cm wavefronts in thin-film mode (reaction-diffusion
+  length ~10^-5 to 10^-4 m); temporal - oscillation period ~1 s to ~10 min
+  depending on [BrO3-]/[malonic acid] ratio; sustained for hours in CSTR.
+  Preferred over Brusselator (theoretical model, not a real chemical system),
+  iodate-arsenous acid clock (simpler, less generative), Briggs-Rauscher
+  (derivative of BZ), and the formose autocatalytic network (origin-of-life
+  niche, less depth of mechanistic literature) because BZ is the canonical
+  laboratory autocatalytic chemical oscillator with the deepest review
+  literature and a mechanistic gold-standard (FKN).
+  Anchor sources: Field R.J., Koros E. & Noyes R.M. (1972) "Oscillations in
+  chemical systems. II. Thorough analysis of temporal oscillation in the
+  bromate-cerium-malonic acid system" J. Am. Chem. Soc. 94(25):8649-8664,
+  doi:10.1021/ja00780a001 (the FKN mechanism paper); Field R.J. & Burger M.
+  eds. (1985) Oscillations and Traveling Waves in Chemical Systems, Wiley,
+  ISBN 978-0471893844 (canonical handbook); Epstein I.R. & Pojman J.A.
+  (1998) An Introduction to Nonlinear Chemical Dynamics: Oscillations,
+  Waves, Patterns, and Chaos, Oxford University Press, ISBN 978-0195096705
+  (modern textbook treatment).'
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - doi:10.1021/ja00780a001
+  - isbn:9780471893844
+  - isbn:9780195096705
+state: inbox
+system_id: null
+type: profile-system
