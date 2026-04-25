@@ -69,3 +69,6 @@ source_refs:
 state: blocked
 system_id: null
 type: profile-system
+unblock:
+  kind: task-complete
+  task_id: tsk-20260425-000030

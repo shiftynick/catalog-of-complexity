@@ -68,3 +68,21 @@ sampled feces, lumen contents, biopsy material, or another proxy.
   environment explain variations in human gut microbiome composition and
   metabolism. Nature Microbiology 9, 3210-3225 (2024). DOI:
   10.1038/s41564-024-01856-x.
+
+## Deprecation
+
+Deprecated 2026-04-25 under tsk-20260425-000017 per the AGENTS.md "What
+counts as a system worth cataloging" inclusion criterion. The human gut
+microbiome is a host-specific, niche-specific *instance* of the
+microbiome class, not a type-level archetype. The replacement type
+slug is `microbiome` (resolved in
+[taxonomy/source/system-classes.yaml](../../../taxonomy/source/system-classes.yaml);
+queued in [config/priority-systems.yaml](../../../config/priority-systems.yaml)).
+
+The prose above — boundary cues, components, interaction types, scales,
+controversies, open questions — is preserved here so it can inform the
+`canonical_examples` of the eventual type-level `microbiome` system
+entry, alongside the rhizosphere microbiome (sys-000006, deprecated in
+companion task tsk-20260425-000020). Do not delete this directory: the
+material is the source for the host-associated branch of the eventual
+type-level entry's examples.

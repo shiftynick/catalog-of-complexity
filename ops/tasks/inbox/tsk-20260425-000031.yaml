@@ -1,0 +1,28 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    isbn:9781555810849, either newly written or an idempotent match reported by
+    `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-25T23:08:00Z'
+id: tsk-20260425-000031
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Source debt: isbn:9781555810849. Referenced by tsk-20260425-000009\n(blocked
+  profile-system E. coli K-12 prokaryotic cell, source-not-\nacquired). Neidhardt
+  F.C. ed. (1996) Escherichia coli and Salmonella:\nCellular and Molecular Biology,
+  2nd ed., ASM Press — canonical two-\nvolume cell-biology compendium for prokaryotic-cell
+  profile components,\ninteractions, and physiological scales. Emitted by plan-backlog
+  Tier\n0.75 preflight sweep.\n"
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - isbn:9781555810849
+state: inbox
+type: acquire-source

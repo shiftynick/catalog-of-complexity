@@ -1,0 +1,28 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    isbn:9781107038851, either newly written or an idempotent match reported by
+    `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-25T23:08:00Z'
+id: tsk-20260425-000030
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Source debt: isbn:9781107038851. Referenced by tsk-20260425-000008\n(blocked
+  profile-system E. coli K-12 prokaryotic cell, source-not-\nacquired). Palsson B.O.
+  (2015) Systems Biology: Constraint-based\nReconstruction and Analysis, Cambridge
+  University Press — canonical\ntextbook for genome-scale metabolic modelling backing
+  the E. coli\nprofile's components / interaction-types layer. Emitted by\nplan-backlog
+  Tier 0.75 preflight sweep.\n"
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - isbn:9781107038851
+state: inbox
+type: acquire-source

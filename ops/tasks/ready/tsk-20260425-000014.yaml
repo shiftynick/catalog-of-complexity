@@ -1,10 +1,10 @@
 acceptance_tests:
-  - A directory registry/sources/src-*--<slug>/ exists for the ref
-    isbn:9780195096705, either newly written or an idempotent match reported by
+  - A directory registry/sources/src-*--<slug>/ exists for the ref 
+    isbn:9780195096705, either newly written or an idempotent match reported by 
     `coc acquire`.
-  - That directory contains source.yaml (validating against
+  - That directory contains source.yaml (validating against 
     schemas/source.schema.json) and a non-empty raw/ subdirectory.
-  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact 
     bytes), and its kind is consistent with the resolver output.
   - '`uv run coc validate` exits 0.'
 created_at: '2026-04-25T20:07:53Z'
@@ -25,5 +25,5 @@ priority: normal
 skill: acquire-source
 source_refs:
   - isbn:9780195096705
-state: inbox
+state: ready
 type: acquire-source

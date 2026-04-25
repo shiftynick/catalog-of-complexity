@@ -4,7 +4,7 @@ name: Human gut microbiome
 aliases:
   - Human gut microbiota
   - Intestinal microbiome
-status: profiled
+status: deprecated
 taxonomy_refs:
   - system-domain:biological
   - system-class:microbiome
@@ -46,4 +46,4 @@ scales:
     - weeks-to-months community restructuring after perturbation
     - years-to-decades life-course succession and host aging effects
 created_at: '2026-04-23T14:53:32Z'
-updated_at: '2026-04-23T14:53:32Z'
+updated_at: '2026-04-25T23:08:00Z'
