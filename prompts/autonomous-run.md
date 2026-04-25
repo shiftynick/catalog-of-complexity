@@ -58,9 +58,27 @@ Before picking a branch, confirm environment health and advance the queue:
   including `review-records` tasks that edit `taxonomy/` or `schemas/` —
   auto-promotes. The autonomous policy treats the webUI prune workflow
   plus `coc validate` as the post-hoc review mechanism.
+- **Tier-0.75 source-debt sweep** — execute only the Tier 0.75
+  procedure of [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md):
+  scan `ops/tasks/{inbox,ready,leased,running,blocked}/` for prefixed
+  `source_refs` (`doi:`, `arxiv:`, `url:`, `isbn:`) with no matching
+  `registry/sources/src-*/source.yaml`, emit up to 3 `acquire-source`
+  tasks into `ops/tasks/inbox/` per the skill's idempotency rule
+  (`"Source debt: <ref>."` note prefix) and `unblock` wiring for
+  blocked tasks, then `uv run coc validate ops/tasks/inbox/`. Skip the
+  pass when `len(ops/tasks/inbox/) >= 20` (the skill's default
+  `inbox_cap`). Do not write the skill's per-pass `plan-report` —
+  this run's report carries the summary. A validation failure here
+  aborts the run with `run.aborted` (per the validate-failure rule
+  above); no lease is taken. Running this in preflight (rather than
+  only in Branch B) keeps source-debt remediation cadence independent
+  of queue depth, so blocked profile-system / extract-observations
+  tasks are not stranded while Branch A drains other ready work.
 
-Record all three checks, and the list of promoted task ids from `coc
-advance`, as part of the run report `notes`.
+Record all four preflight steps' outputs in the run report `notes`:
+the `coc validate` result, the `git status` cleanliness, the list of
+promoted task ids from `coc advance`, and the list of acquire-source
+task ids emitted by the Tier-0.75 sweep (or `none`).
 
 ---
 

@@ -1,0 +1,37 @@
+acceptance_tests:
+  - Edit prompts/autonomous-run.md to either (a) invoke a Tier-0.75-only 
+    plan-backlog pass in preflight (between coc advance and coc next), or (b) 
+    wire Branch A so that a leased task with unregistered prefixed source_refs 
+    emits acquire-source tasks inline before the skill Block fires; OR record 
+    (with rationale in the run report) why neither is the right shape and 
+    propose an alternative.
+  - '`uv run coc validate` exits 0 after the edit.'
+created_at: '2026-04-25T03:25:40Z'
+id: tsk-20260425-000003
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T18:06:02Z'
+  leased_at: '2026-04-25T18:06:02Z'
+  leased_by: Shiftor/4460
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Single major-severity proposal against prompts/autonomous-run.md\nsurfaced
+  by apply-retros run run-01KQ1AQPVFVD22VG1R9V4NS8SX:\n  - retro-01KPZX4T48DMS9B65PDQ2PEHHY
+  (major): 'Add a preflight step\n    between coc advance and coc next that invokes
+  a plan-backlog\n    --tier 0.75 (source-debt only) pass unconditionally - not gated
+  on\n    empty queue - capped at the existing 3-per-run acquire-source\n    emission.
+  Alternately: in Branch A, if the leased task has any\n    prefixed source_ref not
+  resolving to src-*, emit the\n    acquire-source tasks inline before the skill Block
+  fires, so a\n    source-not-acquired block always comes with a matching acquisition\n\
+  \    task in inbox/.'\n\nReviewer guidance: Coordinate with tsk-20260425-000001\n\
+  (skills/plan-backlog/SKILL.md cluster). Theme A of that cluster\n(Tier 0.75 must
+  scan blocked/) is the prerequisite for the preflight\nhook proposed here to be useful:
+  if Tier 0.75 still ignores blocked/\nwhen this preflight fires, the new step is
+  a no-op against the actual\nsource debt. Either land both edits together, or sequence
+  this one\nafter tsk-20260425-000001.\n"
+output_targets:
+  - prompts/autonomous-run.md
+priority: high
+skill: review-records
+state: done
+type: review-records
