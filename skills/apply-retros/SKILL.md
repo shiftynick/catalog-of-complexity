@@ -70,6 +70,27 @@ Do **not** use this skill to:
    descending then by severity max descending):
    - Verify the `target` path exists on disk. If it does not, skip this
      cluster and note "ghost-target" in the consumption report.
+   - **Already-satisfied skip** (narrow form, analogous to "ghost-target"):
+     when the target is `taxonomy/source/*.yaml` or
+     `schemas/*.schema.json` and *every* proposal in the cluster requests
+     adding a single named slug, key, or enum value that already resolves
+     in the target, skip the cluster and note "already-satisfied" in the
+     consumption report. Keep the satisfaction check deliberately narrow
+     to avoid false-positive skips on substantive content edits:
+     - YAML taxonomy: a proposal naming `<prefix>:<slug>` (e.g.
+       `system-class:atomic-system`) is satisfied iff an entry under the
+       file's top-level `items:` list has `slug: <slug>`.
+     - JSON Schema: a proposal naming a property or enum value at an
+       indicated path (e.g. "add `sources-resolved` to
+       `properties.unblock.properties.kind.enum`") is satisfied iff that
+       exact name already resolves at that path in the schema.
+     Any proposal in the cluster that does not match one of these narrow
+     forms — or that requests anything beyond a pure additive slug/key
+     check (e.g. wording revisions, reordering, behavioral changes in
+     adjacent code) — defeats the skip: emit the cluster's
+     review-records task and let the reviewer decide. The contributing
+     retros are still marked `retro.consumed` per step 6; only the
+     review-records emission is suppressed.
    - Compose a `review-records` task manifest with:
      - `type: review-records`, `skill: review-records`, `state: inbox`.
      - `priority` = `high` if any proposal in the cluster is
