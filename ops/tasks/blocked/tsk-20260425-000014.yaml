@@ -10,6 +10,10 @@ acceptance_tests:
 created_at: '2026-04-25T20:07:53Z'
 id: tsk-20260425-000014
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T23:17:02Z'
+  leased_at: '2026-04-25T23:17:02Z'
+  leased_by: Shiftor/49244
   max_attempts: 1
   ttl_minutes: 90
 notes: "Source debt: isbn:9780195096705. Referenced by tsk-20260425-000007\n(ready
@@ -25,5 +29,5 @@ priority: normal
 skill: acquire-source
 source_refs:
   - isbn:9780195096705
-state: ready
+state: blocked
 type: acquire-source
