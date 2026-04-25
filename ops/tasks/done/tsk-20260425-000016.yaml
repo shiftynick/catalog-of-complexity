@@ -1,0 +1,44 @@
+acceptance_tests:
+  - 'sys-000001 (Amazon rainforest) has `status: deprecated` set on its `system.yaml`,
+    `updated_at` bumped, and a "Deprecation" section appended to its `notes.md` explaining
+    the type-level reframing per AGENTS.md "What counts as a system worth cataloging"
+    — the Amazon is an *instance* of a forest-biome / ecosystem type, not a type-level
+    archetype.'
+  - The notes.md deprecation section names the replacement type slug(s) that 
+    supersede this entry — `ecosystem` (in config/priority-systems.yaml; class 
+    addition pending) and/or `forest-biome` (already in 
+    taxonomy/source/system-classes.yaml).
+  - '`uv run coc validate` exits 0 after the edit.'
+created_at: '2026-04-25T20:30:00Z'
+id: tsk-20260425-000016
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T22:09:29Z'
+  leased_at: '2026-04-25T22:09:29Z'
+  leased_by: Shiftor/61044
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Bootstrap-era instance entry retired under the new inclusion criterion\n(AGENTS.md
+  \"What counts as a system worth cataloging\"). The Amazon\nrainforest is a specific
+  named biome, not a type-level archetype.\n\nReviewer steps:\n  1. Set `status: deprecated`
+  and bump `updated_at` on\n     registry/systems/sys-000001--amazon-rainforest/system.yaml.\n\
+  \  2. Append a \"Deprecation\" section to notes.md citing this task id,\n     naming
+  the replacement type slug(s) (`ecosystem`, `forest-biome`),\n     and noting that
+  the rich existing prose can be reused as a\n     canonical example under the eventual
+  type-level entry.\n  3. Do NOT delete files — deprecated records remain on disk
+  for\n     audit/history.\n\nNo source acquisition needed. The single observation
+  against this\nsystem (obs-11111111, value-less stub) is unaffected by deprecation\n\
+  but downstream `extract-observations` will exclude deprecated\nsystems from its
+  scope.\n\nCompanion deprecations land in the same review-records batch:\n  tsk-20260425-000017\
+  \  sys-000002 gut microbiome    → microbiome\n  tsk-20260425-000018  sys-000004
+  C. elegans        → multicellular-organism\n  tsk-20260425-000019  sys-000005 neocortex\
+  \         → nervous-system\n  tsk-20260425-000020  sys-000006 rhizosphere micro
+  → microbiome\nsys-000003 (vertebrate adaptive immune system) is the only bootstrap\n\
+  entry kept as type-ish — borderline, may be re-evaluated later.\n"
+output_targets:
+  - registry/systems/sys-000001--amazon-rainforest/system.yaml
+  - registry/systems/sys-000001--amazon-rainforest/notes.md
+priority: high
+skill: review-records
+state: done
+type: review-records
