@@ -1,0 +1,45 @@
+acceptance_tests:
+  - A new resolver module src/coc/sources/isbn_books.py exists with a
+    `resolve(ref, fetcher=None) -> ResolvedSource` entry point mirroring the
+    shape of src/coc/sources/crossref.py. Implementation queries Google
+    Books (https://www.googleapis.com/books/v1/volumes?q=isbn:<isbn>) with
+    Open Library (https://openlibrary.org/api/books?bibkeys=ISBN:<isbn>&format=json&jscmd=data)
+    as fallback on empty Google Books response.
+  - 'src/coc/sources/dispatch.py routes `isbn:` refs to the new resolver
+    instead of raising UnsupportedRefError; the resolver writes
+    metadata.json (raw API body) to raw/ and a metadata-only source.yaml
+    with license = null.'
+  - 'skills/acquire-source/SKILL.md "When to use" / "Block or fail when"
+    sections are updated to reflect the broadened isbn: coverage and to
+    drop the "isbn refs are reserved but not yet resolvable" caveat.'
+  - '`uv run coc acquire isbn:9780471893844` resolves successfully and
+    writes registry/sources/src-NNNNNN--<slug>/ with metadata.json sourced
+    from the new resolver (title, author, year, publisher).'
+  - '`uv run coc validate` exits 0 after the changes.'
+created_at: '2026-04-25T22:57:30Z'
+id: tsk-20260425-000028
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Major-severity follow-up from retro-01KQ3BSE00BN3Q0Q4GAYK26PAB\n(retrospective
+  on tsk-20260425-000013, acquire-source blocked\nunsupported-ref on isbn:9780471893844).
+  Today src/coc/sources/\ndispatch.py raises UnsupportedRefError on isbn: refs, so
+  every\nplan-backlog Tier 0.75 acquire-source task for an isbn ref is\nguaranteed
+  to block at lease time. Six isbn-prefixed acquire-source\ntasks have queued through
+  this loop in two days, each one consuming\na full Branch-A iteration just to mark
+  it blocked. Recommended fix:\nadd src/coc/sources/isbn_books.py mirroring crossref.py
+  shape;\nfetch Google Books primary, Open Library fallback (both\nunauthenticated,
+  ISBN-keyed JSON endpoints); write metadata-only\nsource.yaml with license = null
+  and metadata.json in raw/. Mirrors\nthe DataCite-fallback pattern from tsk-20260425-000027.\nBlocking
+  tasks downstream: tsk-20260425-000013, 000014, 000021,\n000022, 000023 (all five
+  isbn-prefixed acquire-source tasks already\nin the queue); plus the profile-system
+  tasks they unblock."
+output_targets:
+  - src/coc/sources/isbn_books.py
+  - src/coc/sources/dispatch.py
+  - skills/acquire-source/SKILL.md
+priority: high
+skill: review-records
+source_refs: []
+state: inbox
+type: review-records
