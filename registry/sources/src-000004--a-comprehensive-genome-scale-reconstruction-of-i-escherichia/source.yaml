@@ -1,0 +1,26 @@
+authors:
+  - Jeffrey D Orth
+  - Tom M Conrad
+  - Jessica Na
+  - Joshua A Lerman
+  - Hojung Nam
+  - Adam M Feist
+  - Bernhard Ø Palsson
+citation: "Jeffrey D Orth, Tom M Conrad, Jessica Na et al.. (2011). A comprehensive
+  genome‐scale reconstruction of\n                    <i>Escherichia coli</i>\n  \
+  \                  metabolism—2011. Molecular Systems Biology. https://doi.org/10.1038/msb.2011.65"
+doi: 10.1038/msb.2011.65
+hash: c599c3d9a6cd1382fcbed689dd79f0a1c2d1d4468e7baa4fc9c1daefbd20aa7c
+id: src-000004--a-comprehensive-genome-scale-reconstruction-of-i-escherichia
+kind: peer-reviewed
+license: http://creativecommons.org/licenses/by-nc-sa/3.0/
+parsed_path: 
+  registry/sources/src-000004--a-comprehensive-genome-scale-reconstruction-of-i-escherichia/parsed/
+raw_path: 
+  registry/sources/src-000004--a-comprehensive-genome-scale-reconstruction-of-i-escherichia/raw/
+retrieved_at: '2026-04-25T23:18:31.828781Z'
+slug: a-comprehensive-genome-scale-reconstruction-of-i-escherichia
+title: "A comprehensive genome‐scale reconstruction of\n                    <i>Escherichia
+  coli</i>\n                    metabolism—2011"
+url: https://doi.org/10.1038/msb.2011.65
+year: 2011
