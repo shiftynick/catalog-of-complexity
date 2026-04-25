@@ -1,0 +1,43 @@
+id: tsk-20260425-000005
+type: review-records
+skill: review-records
+state: inbox
+priority: normal
+output_targets:
+  - skills/apply-retros/SKILL.md
+acceptance_tests:
+  - 'Edit skills/apply-retros/SKILL.md to add an "already-satisfied"
+    cluster-skip rule under Procedure step 5, narrowly scoped to slug
+    presence in taxonomy/source/*.yaml and key presence in JSON Schemas
+    (analogous to the existing "ghost-target" skip), OR record (with
+    rationale in the run report) why the skip is unsafe and an
+    alternative reviewer-side mechanism is preferred.'
+  - '`uv run coc validate` exits 0 after the edit.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T03:34:01Z'
+notes: |
+  Single moderate-severity proposal against skills/apply-retros/SKILL.md
+  surfaced by apply-retros run run-01KQ1B7NAPPLYRETROS0000001:
+    - retro-01KQ1B13EYWFRGWDS75MDS4CAE (moderate): 'Add a "Skip cluster
+      when proposal already satisfied" rule under Procedure step 5: if a
+      cluster targets a YAML/JSON file and every proposal in the cluster
+      requests adding a named slug/key/value that already resolves in
+      the file, skip the cluster and note "already-satisfied" in the
+      consumption report (analogous to the existing "ghost-target"
+      skip). Define the satisfaction check narrowly - slug presence in
+      taxonomy/source/*.yaml, key presence in a JSON Schema, etc. - to
+      avoid false-positive skips on substantive content edits.'
+
+  Reviewer guidance: The motivating evidence is concrete. The prior
+  apply-retros run emitted tsk-20260425-000002 against
+  taxonomy/source/system-classes.yaml whose two proposals both ask to
+  accept slugs (atomic-system, molecular-system, chemical-reaction-network)
+  already present in the file. Encoding the check as a narrow slug/key
+  lookup (not a free-form "is this already done?" judgement) preserves
+  the audit trail while freeing a max_clusters slot for unsatisfied work.
+  A minor sibling proposal (target re-mapping hints in the consumption
+  report when ghost-target skip fires) was deferred under
+  severity_floor=moderate and remains in retro-01KQ1B13EYWFRGWDS75MDS4CAE
+  for a future ad-hoc invocation with a lowered floor.
