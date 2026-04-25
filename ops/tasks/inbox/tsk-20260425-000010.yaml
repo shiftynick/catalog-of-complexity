@@ -1,0 +1,31 @@
+id: tsk-20260425-000010
+type: acquire-source
+skill: acquire-source
+state: inbox
+priority: normal
+source_refs:
+  - doi:10.1021/ja00780a001
+output_targets:
+  - registry/sources/
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    doi:10.1021/ja00780a001, either newly written or an idempotent match
+    reported by `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/
+    artifact bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T19:09:03Z'
+notes: |
+  Source debt: doi:10.1021/ja00780a001. Referenced by tsk-20260424-000001
+  (blocked profile-system Belousov-Zhabotinsky reaction, source-not-acquired)
+  and tsk-20260425-000007 (ready profile-system Belousov-Zhabotinsky
+  reaction). Field R.J., Körös E. & Noyes R.M. (1972) "Oscillations in
+  chemical systems. II. Thorough analysis of temporal oscillation in the
+  bromate-cerium-malonic acid system" J. Am. Chem. Soc. 94(25):8649-8664 —
+  the FKN-mechanism reference paper. Emitted by plan-backlog Tier 0.75
+  preflight sweep.

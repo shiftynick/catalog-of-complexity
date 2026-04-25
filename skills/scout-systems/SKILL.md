@@ -88,6 +88,8 @@ skill actually writes.
   ```
   The next `coc advance` sweep (preflight of every autonomous run) checks `taxonomy/source/*.yaml`; when the slug resolves, the scout is moved back to `ready/` with `lease.attempts` reset to 0. Use `--unblock-on-task <tsk-id>` instead when the dependency is another task's completion rather than a taxonomy edit.
 
+  **Priority-seed re-try.** This same flow covers `plan-backlog` Tier-0.5 priority seeds: a seed whose `class_hint` doesn't yet resolve carries the same `--unblock-on-taxonomy` condition (wired by Tier 0.5 itself, or by this skill on the first block), so the scout returns to `ready/` automatically once the paired `review-records` task lands the slug. No manual re-seed or follow-up `scout-systems` manifest is needed. plan-backlog's Tier-0.5 idempotency check (the in-flight `Priority seed: <slug>.` notes marker) keeps the seed singular across the block→advance cycle, and the empirical end-to-end pass is documented in retros `01KPYJSF5HEGXN72YQ3ETXPHPC`, `01KPYQCDMFVEMPG525BB5QEBEF`, and `01KPZPA0G4KFZ3E4QT703CGE51`.
+
 ## References
 
 - [taxonomy/source/system-domains.yaml](../../taxonomy/source/system-domains.yaml)
