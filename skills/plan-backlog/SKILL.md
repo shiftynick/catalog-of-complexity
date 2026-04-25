@@ -78,24 +78,100 @@ scope and covered by `review-records` and by human gatekeeping.
       entries, emit a `scout-systems` task with `topic: <entry.name>`,
       `domain_hint: <entry.domain>`, and
       `notes: "Priority seed: <slug>. Target system-domain:<domain>.
-      Budget: 1 candidate system."`. Cap of 3 matches the auto-promote
-      per-type ready cap on `scout-systems`. This tier fires regardless
-      of registry size (not just at cold-start) and takes priority over
-      Tier 3's profile debt so curated picks complete before organic
+      Budget: 1 candidate system."`.
+
+      **Pre-check the candidate class slug.** If the entry carries the
+      optional `class_hint` field (e.g. `class_hint: atomic-system`),
+      verify it resolves in `taxonomy/source/system-classes.yaml`. If
+      it does **not** resolve:
+
+      1. Emit a `review-records` task in the **same plan-backlog pass**
+         proposing the class addition (target
+         `taxonomy/source/system-classes.yaml`, `notes` starting with
+         `"Taxonomy gap: system-class:<class_hint>. Referenced by
+         priority seed <slug>."`).
+      2. Add an `unblock` field to the `scout-systems` task tying it to
+         the taxonomy gap:
+         ```yaml
+         unblock:
+           kind: taxonomy-slug-exists
+           taxonomy_ref: system-class:<class_hint>
+         ```
+         The auto-unblock sweep (`coc advance`) will move the scout
+         back to `ready/` once the review-records task lands the slug.
+      3. Idempotency on the paired review-records task: skip emission
+         if any task under `ops/tasks/` already has `notes` starting
+         with `"Taxonomy gap: system-class:<class_hint>."`.
+
+      When `class_hint` is absent (the legacy default), behave exactly
+      as before — emit the scout, let it discover the taxonomy gap and
+      block itself if needed. This pre-check is forward-compatible:
+      curators can opt into it per priority-seed entry, and entries
+      without `class_hint` lose nothing.
+
+      Cap of 3 matches the auto-promote per-type ready cap on
+      `scout-systems`. This tier fires regardless of registry size
+      (not just at cold-start) and takes priority over Tier 3's
+      profile debt so curated picks complete before organic
       expansion; it yields to Tier 1's review debt because reviewer
       backlog is time-sensitive. See Priority seed file below for the
       entry schema.
-   0.75. **Source debt** — scan task manifests under `ops/tasks/{inbox,
-      ready,leased,running}/` for `source_refs` entries using prefixed
-      forms (`doi:`, `arxiv:`, `url:`). For each unique ref with no
-      matching `registry/sources/src-*/source.yaml` (by doi / arxiv id /
+   0.75. **Source debt** — scan task manifests under
+      `ops/tasks/{inbox,ready,leased,running,blocked}/` for
+      `source_refs` entries using prefixed forms (`doi:`, `arxiv:`,
+      `url:`, `isbn:`). The inclusion of `blocked/` is critical:
+      profile-system and extract-observations tasks block on
+      `source-not-acquired` precisely when their prefixed refs aren't
+      registered yet, so blocked tasks are the highest-signal source
+      of acquisition demand. Skipping `blocked/` causes plan-backlog
+      to seed new scouts laterally instead of unblocking known stuck
+      work — the empirical failure mode that motivated this tier
+      expansion.
+
+      For each unique ref with no matching
+      `registry/sources/src-*/source.yaml` (by doi / arxiv id / isbn /
       url), emit one `acquire-source` task with that single ref in
       `source_refs` and `notes: "Source debt: <ref>. Referenced by
-      <tsk-id>."`. Cap at 3 per run (matches the auto-promote per-type
-      ready cap). Idempotency: skip a ref if any task under `ops/tasks/`
-      already has `notes` starting with `"Source debt: <ref>."`. This
-      tier fires before the catalog tiers below so downstream tasks find
-      their sources already registered when they run.
+      <tsk-id>[, <tsk-id>...]."` listing every task that references
+      it. Cap at 3 per run (matches the auto-promote per-type ready
+      cap).
+
+      **Unblock wiring for blocked tasks.** When a blocked task's
+      prefixed ref has an acquire-source task emitted in the same
+      pass, set the blocked task's `unblock` field to:
+      ```yaml
+      unblock:
+        kind: task-complete
+        task_id: <acquire-source-tsk-id>
+      ```
+      so `coc advance`'s sweep moves the blocked task back to ready/
+      once the acquisition lands. Use `dump_yaml` (or the equivalent
+      append) on the blocked manifest in place — do **not** move the
+      file out of `blocked/`; the state field stays `blocked` until
+      the sweep flips it.
+
+      **Multi-source caveat.** A blocked task with N missing prefixed
+      refs can only carry one `unblock` condition under the current
+      schema (`taxonomy-slug-exists` | `task-complete`). When N > 1,
+      wire the unblock to the **last** acquire-source task emitted in
+      this pass for that blocked task; once it lands, the blocked
+      task moves to ready/, the skill re-runs, sees any still-missing
+      refs, and re-blocks on `source-not-acquired`. The next
+      plan-backlog pass picks up the remainder. This converges in at
+      most ⌈N / 3⌉ plan-backlog passes (cap is 3 acquire-source
+      tasks per pass). A future review-records task may add a
+      `sources-resolved` unblock kind that fires when *all* of a
+      task's `source_refs` resolve, eliminating the loop.
+
+      Idempotency: skip a ref if any task under `ops/tasks/` already
+      has `notes` starting with `"Source debt: <ref>."`. Blocked-task
+      `unblock` field writes are also idempotent: if the blocked task
+      already has an `unblock` pointing to a still-pending
+      acquire-source task, leave it alone (overwriting would orphan
+      the wiring without benefit).
+
+      This tier fires before the catalog tiers below so downstream
+      tasks find their sources already registered when they run.
    1. **Review debt** — any record with `review_state: proposed` older than
       14 days → emit one `review-records` task per distinct reviewer target
       (system, metric, or observation batch). `auto-validated` records do
@@ -182,8 +258,18 @@ the catalog: edit the file to change what scouts run next.
 - name: Human social systems        # passed to scout-systems as topic
   slug: human-social-system         # idempotency key vs. registry slug tail
   domain: social                    # resolves against taxonomy/source/system-domains.yaml
+  class_hint: language-community    # optional; pre-checked against system-classes.yaml
   notes: optional extra scoping context
 ```
+
+The `class_hint` field is optional. When present, plan-backlog Tier
+0.5 verifies it resolves against
+`taxonomy/source/system-classes.yaml` before emitting the scout.
+Unresolved hints trigger a paired `review-records` taxonomy-proposal
+task and an `unblock` condition on the scout (see Tier 0.5 above) so
+the scout auto-resumes once the slug lands. Omit `class_hint` for
+priority seeds where the candidate class isn't known up front — the
+scout will discover it and block self-identifyingly if a gap exists.
 
 **Fulfillment check** (Tier 0.5 skip logic): an entry is considered
 done when any of the following holds —

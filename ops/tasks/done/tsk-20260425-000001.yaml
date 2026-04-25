@@ -1,0 +1,58 @@
+acceptance_tests:
+  - Edits to skills/plan-backlog/SKILL.md address the Tier 0.75 source-debt 
+    blocked/-scan gap and the pre-scout taxonomy-slug pre-check, or the review 
+    concludes (with rationale recorded in the run report) that the proposals 
+    should be deferred or rejected.
+  - '`uv run coc validate` exits 0 after the edit.'
+created_at: '2026-04-25T03:25:40Z'
+id: tsk-20260425-000001
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T13:31:45Z'
+  leased_at: '2026-04-25T13:31:45Z'
+  leased_by: Shiftor/41908
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Cluster of 6 proposals against skills/plan-backlog/SKILL.md surfaced by\n\
+  apply-retros run run-01KQ1AQPVFVD22VG1R9V4NS8SX. Two converging themes:\n\nTheme
+  A — Tier 0.75 must scan blocked/ for source debt (and emit\nacquire-source tasks
+  with --unblock-on-task wiring back to blocked\nprofile-system tasks):\n  - retro-01KPZSPPPGR03ZZ9H0XSZFYPHF
+  (moderate): 'Explicitly state that\n    Tier 0.75 (acquire-source seeding) should
+  scan ops/tasks/blocked/ for\n    profile-system tasks with unregistered prefixed
+  source_refs, and emit\n    one acquire-source task per distinct external identifier\n\
+  \    (doi/isbn/arxiv/url). Reference --unblock-on-task so the blocked\n    profile-system
+  task can be wired to auto-resume once the final\n    acquire-source task completes.'\n\
+  \  - retro-01KPZX4T48DMS9B65PDQ2PEHHY (moderate): 'Expand Tier 0.75 scan\n    set
+  from {inbox,ready,leased,running}/ to include blocked/, and\n    adopt the prior
+  retro proposal to emit acquire-source tasks with\n    --unblock-on-task wiring so
+  blocked profile-system tasks auto-resume\n    once their source debt clears.'\n\
+  \  - retro-01KQ00J0W2EQ8D9CDYBNS6MGCQ (moderate): 'Tier 0.75 must scan\n    blocked/
+  in addition to {inbox,ready,leased,running}/ for\n    unregistered prefixed source_refs,
+  emit acquire-source tasks with\n    --unblock-on-task pointers back to the blocked
+  profile-system task\n    ids; manifests should expose the isbn:/doi: -> src-* mapping
+  at a\n    glance.'\n  - retro-01KQ01AARG44F23JNC6W9NZB40 (moderate): 'Broaden Tier
+  0.75\n    source-debt scanning to include ops/tasks/blocked/ when ready/ is\n  \
+  \  empty, or add a pre-Tier-0.5 check that emits acquire-source tasks\n    for blocked
+  prefixed source_refs before seeding new scouts.'\n\nTheme B — pre-scout taxonomy-slug
+  verification at backlog-planning time\nto avoid serial scout blocks on missing slugs:\n\
+  \  - retro-01KPXX72HWVGHMXK8H3Z9CYEVT (moderate): 'When seeding multiple\n    scout-systems
+  tasks from priority-systems.yaml whose candidate\n    class-slugs are not yet in
+  taxonomy/source/system-classes.yaml, emit\n    the review-records taxonomy-proposal
+  tasks alongside the scout tasks\n    in the same backlog pass, instead of relying
+  on each scout to block\n    and emit its own.'\n  - retro-01KPXXM53WJH3KF8Y4NZ17HCGA
+  (major): 'Before emitting a\n    scout-systems task for a priority-systems.yaml
+  entry, verify the\n    candidate class slug resolves against\n    taxonomy/source/system-classes.yaml.
+  If it does not, emit the\n    review-records taxonomy-proposal task alongside (or
+  instead of) the\n    scout task, and mark the scout task as blocked-pending the\n\
+  \    review-records id so coc advance or a dependency check can gate it.'\n\nReviewer
+  guidance: Theme A and Theme B are independent edits to the\nsame SKILL.md and can
+  land in one commit. Theme A is the higher-impact\nfix - it has empirical confirmation
+  across three blocked profile-system\ntasks (tsk-20260423-000019, tsk-20260423-000020,
+  tsk-20260424-000001).\nThe major-severity escalation in Theme B is also empirically
+  grounded\n(three consecutive blocked physical-domain scouts before the slugs\nlanded).\n"
+output_targets:
+  - skills/plan-backlog/SKILL.md
+priority: high
+skill: review-records
+state: done
+type: review-records
