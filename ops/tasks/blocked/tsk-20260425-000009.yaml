@@ -25,6 +25,10 @@ acceptance_tests:
 created_at: '2026-04-25T16:08:19Z'
 id: tsk-20260425-000009
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T21:22:38Z'
+  leased_at: '2026-04-25T21:22:38Z'
+  leased_by: Shiftor/58420
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: Escherichia coli K-12 MG1655 (whole prokaryotic cell). Proposed
@@ -81,6 +85,6 @@ source_refs:
   - doi:10.1126/science.277.5331.1453
   - isbn:9781555810849
   - doi:10.1038/msb4100049
-state: ready
+state: blocked
 system_id: null
 type: profile-system
