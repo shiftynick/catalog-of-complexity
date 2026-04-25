@@ -10,6 +10,10 @@ acceptance_tests:
 created_at: '2026-04-24T15:21:45Z'
 id: tsk-20260424-000004
 lease:
+  attempts: 1
+  last_heartbeat: '2026-04-25T16:06:04Z'
+  leased_at: '2026-04-25T16:06:04Z'
+  leased_by: Shiftor/47752
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Priority seed: prokaryotic-cell. Target system-domain:biological. Budget:
@@ -23,5 +27,5 @@ output_targets:
   - ops/runs/*/scout-report.md
 priority: normal
 skill: scout-systems
-state: ready
+state: done
 type: scout-systems
