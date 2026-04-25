@@ -37,7 +37,11 @@ described by Data Package and optional RO-Crate metadata.
 
 ## Quality bar
 
-- No uncited numeric claims in canonical records.
+- No uncited numeric claims in canonical records (metrics, observations).
+  Type-level **system** entries are exempt from per-claim citation when the
+  claim is canonical knowledge (e.g. "metabolic networks contain reactions
+  catalyzed by enzymes"); cite when making specific quantitative or
+  contested claims.
 - Every observation must include `value_kind`, `confidence`, and at least one
   `evidence_ref`.
 - Every metric must declare applicability conditions.
@@ -45,6 +49,53 @@ described by Data Package and optional RO-Crate metadata.
   and `scales`.
 - Taxonomy references (`system-domain:*`, `system-class:*`, `metric-family:*`)
   must resolve against `taxonomy/source/*.yaml`.
+
+## What counts as a system worth cataloging
+
+The catalog holds **types of complex systems, not specific instances**.
+"Cell" is a system; *E. coli* is an example of a cell. "Market" is a
+system; the NYSE is an example. Entries are organized as a *periodic
+table of complexity* — one entry per archetypal system kind, mostly
+mirroring `taxonomy/source/system-classes.yaml` and the priority list
+in `config/priority-systems.yaml`.
+
+A candidate qualifies for a registry entry iff **all** of the following
+hold:
+
+1. **Type, not instance.** The candidate names a recurring kind, not a
+   single named example. (`multicellular-organism` ✓, `Caenorhabditis
+   elegans` ✗; `ecosystem` ✓, `Amazon rainforest` ✗.)
+2. **Distinct organizational level.** Fits one Boulding-style level
+   cleanly — atoms, molecules, reactions, cells, organisms, brains,
+   minds, social organizations, economies, ecosystems, Earth system, etc.
+   Conceptual blends spanning multiple levels (e.g. "Mediterranean
+   diet") don't qualify; they're cross-cuts to be analyzed downstream,
+   not catalog entries.
+3. **Recognizable characteristic structure** — boundary, components,
+   interaction types, and characteristic spatial/temporal scales that
+   survive across instances. If the structure is instance-specific
+   (you have to specify *which* X to describe it), it's an instance.
+4. **At least 3 well-known concrete examples** that can be listed in
+   `canonical_examples`. Genuinely-singular types (`the-internet`,
+   `earth-system`) are exempt and noted in the entry.
+5. **Cross-applicable measurability.** Admits at least one metric (graph
+   modularity, characteristic timescale ratio, response-recovery time,
+   etc.) that produces a value comparable to the same metric on systems
+   at other organizational levels.
+
+**Source policy under this framing.** Type-level entries (`system.yaml`)
+do **not** require literature acquisition for the entry's bare existence
+— "cells exist," "metabolic networks have stoichiometric matrices,"
+etc. is canonical knowledge. The `source_refs` field is optional on
+systems. Cite when the entry's prose makes a specific quantitative or
+contested claim. Metrics (`metric.yaml`) and observations (`*.jsonl`)
+**do** require sources — operationalization and measurement values must
+be grounded.
+
+**Implication for `scout-systems`.** The skill's job is to propose
+*missing type-level archetypes* against the priority list and existing
+taxonomy, not to surface specific case studies. Literature search is
+optional, not required. See `skills/scout-systems/SKILL.md`.
 
 ## Operating loop
 

@@ -1,0 +1,44 @@
+id: tsk-20260425-000018
+type: review-records
+skill: review-records
+state: inbox
+priority: high
+output_targets:
+  - registry/systems/sys-000004--caenorhabditis-elegans/system.yaml
+  - registry/systems/sys-000004--caenorhabditis-elegans/notes.md
+acceptance_tests:
+  - 'sys-000004 (C. elegans) has `status: deprecated` set on its
+    `system.yaml`, `updated_at` bumped, and a "Deprecation" section
+    appended to its `notes.md` explaining the type-level reframing per
+    AGENTS.md "What counts as a system worth cataloging" — C. elegans
+    is a *specific model organism*, an instance of the
+    multicellular-organism type, not a type-level archetype.'
+  - 'The notes.md deprecation section names the replacement type slug
+    (`multicellular-organism`, in taxonomy/source/system-classes.yaml
+    and config/priority-systems.yaml with `class_hint:
+    multicellular-organism`) and notes that the existing detailed prose
+    will be reused as a canonical example under the eventual
+    type-level entry alongside other model organisms (Drosophila,
+    mouse, human).'
+  - '`uv run coc validate` exits 0 after the edit.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T20:31:00Z'
+notes: |
+  Bootstrap-era instance entry retired under the new inclusion criterion
+  (AGENTS.md "What counts as a system worth cataloging"). C. elegans
+  is the canonical exemplar of the multicellular-organism type — but
+  the catalog entry should be the type, not the exemplar. The rich
+  existing prose (959 cells, 302 neurons, invariant fates, life cycle)
+  becomes a high-quality canonical-examples entry under the eventual
+  `multicellular-organism` type.
+
+  Reviewer steps:
+    1. Set `status: deprecated`, bump `updated_at` on system.yaml.
+    2. Append a "Deprecation" section to notes.md citing this task id,
+       naming the replacement type slug (`multicellular-organism`),
+       and noting that the body of notes.md (the C. elegans-specific
+       detail) is the model contribution to the future type entry's
+       canonical_examples notes.
+    3. Do NOT delete files.

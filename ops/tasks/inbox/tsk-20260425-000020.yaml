@@ -1,0 +1,41 @@
+id: tsk-20260425-000020
+type: review-records
+skill: review-records
+state: inbox
+priority: high
+output_targets:
+  - registry/systems/sys-000006--rhizosphere-microbiome/system.yaml
+  - registry/systems/sys-000006--rhizosphere-microbiome/notes.md
+acceptance_tests:
+  - 'sys-000006 (Rhizosphere microbiome) has `status: deprecated` set
+    on its `system.yaml`, `updated_at` bumped, and a "Deprecation"
+    section appended to its `notes.md` explaining the type-level
+    reframing per AGENTS.md "What counts as a system worth cataloging"
+    — the rhizosphere is a specific niche-defined microbiome, an
+    instance of the microbiome type.'
+  - 'The notes.md deprecation section names the replacement type slug
+    (`microbiome`, in taxonomy/source/system-classes.yaml; now in
+    config/priority-systems.yaml) and notes that the existing prose
+    will inform `canonical_examples` of the eventual type-level
+    `microbiome` entry alongside human gut microbiome (sys-000002).'
+  - '`uv run coc validate` exits 0 after the edit.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T20:32:00Z'
+notes: |
+  Bootstrap-era instance entry retired under the new inclusion criterion
+  (AGENTS.md "What counts as a system worth cataloging"). Rhizosphere
+  microbiome is a specific niche-defined instance of the microbiome
+  class. Pairs with sys-000002 (human gut microbiome) — both
+  deprecate together; the type-level `microbiome` entry will replace
+  both, with rhizosphere and gut as canonical examples of distinct
+  niche realizations of the same archetype.
+
+  Reviewer steps:
+    1. Set `status: deprecated`, bump `updated_at` on system.yaml.
+    2. Append a "Deprecation" section to notes.md citing this task id,
+       naming the replacement type slug (`microbiome`).
+    3. Do NOT delete files.
+
+  Companion task: tsk-20260425-000017 (sys-000002 gut microbiome → microbiome).

@@ -1,0 +1,43 @@
+id: tsk-20260425-000019
+type: review-records
+skill: review-records
+state: inbox
+priority: high
+output_targets:
+  - registry/systems/sys-000005--mammalian-neocortical-microcircuit/system.yaml
+  - registry/systems/sys-000005--mammalian-neocortical-microcircuit/notes.md
+acceptance_tests:
+  - 'sys-000005 (Mammalian neocortical microcircuit) has `status:
+    deprecated` set on its `system.yaml`, `updated_at` bumped, and a
+    "Deprecation" section appended to its `notes.md` explaining the
+    type-level reframing per AGENTS.md "What counts as a system worth
+    cataloging" — a mammalian cortical column is an *instance-level
+    sub-architecture* of a particular nervous system, not a type-level
+    archetype.'
+  - 'The notes.md deprecation section names the replacement type slug
+    (`nervous-system`, in config/priority-systems.yaml with `class_hint:
+    central-nervous-system`; alternative: a future top-level `brain`
+    entry from priority-systems.yaml) and notes that the detailed
+    neocortical prose will be reused as a canonical example under the
+    eventual type-level entry alongside e.g. invertebrate nervous
+    systems and subcortical structures.'
+  - '`uv run coc validate` exits 0 after the edit.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T20:31:30Z'
+notes: |
+  Bootstrap-era instance entry retired under the new inclusion criterion
+  (AGENTS.md "What counts as a system worth cataloging"). The mammalian
+  neocortical microcircuit is a specific architecture within a specific
+  vertebrate clade; the type-level archetype is `nervous-system` (or
+  the more general `brain` if/when the priority-list curator promotes
+  that entry). The rich existing prose (PV/SST/VIP interneurons, six
+  layers, gamma oscillations, plasticity windows) is the model
+  contribution to the future type entry's canonical_examples notes.
+
+  Reviewer steps:
+    1. Set `status: deprecated`, bump `updated_at` on system.yaml.
+    2. Append a "Deprecation" section to notes.md citing this task id,
+       naming the replacement type slug (`nervous-system`).
+    3. Do NOT delete files.

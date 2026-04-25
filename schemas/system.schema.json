@@ -87,7 +87,22 @@
         "type": "string",
         "pattern": "^src-[0-9]{6}--[a-z0-9-]+$"
       },
-      "default": []
+      "default": [],
+      "description": "Optional. Type-level system entries (the catalog's primary unit) generally do not require source citation — `cells exist` is canonical knowledge. Cite when the entry's prose makes a specific quantitative or contested claim that should be grounded. Metric and observation records still require sources."
+    },
+    "canonical_examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "note": { "type": "string" }
+        }
+      },
+      "default": [],
+      "description": "Concrete instances of this system type, listed as exemplars (not as separate catalog entries). E.g. for `multicellular-organism`: C. elegans, Drosophila, mouse, human. Recommended ≥3 examples per type-level entry; the inclusion criterion in AGENTS.md treats `has at least 3 well-known instances` as a quality gate. Not required by schema so genuinely-singular types (`the-internet`, `earth-system`) remain valid."
     },
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }

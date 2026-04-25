@@ -1,30 +1,45 @@
 ---
 name: scout-systems
-description: Discover candidate complex systems worth cataloging and the metrics that would characterize them. Produces proposal tasks that `profile-system`, `define-metrics`, and `extract-observations` consume — this skill does not write canonical records directly.
+description: Propose missing type-level complex-system archetypes against the priority list and existing taxonomy. Produces `profile-system` proposal tasks and (rarely) `review-records` taxonomy-proposal tasks. Does NOT search literature for specific case studies — the catalog holds types, not instances. See AGENTS.md "What counts as a system worth cataloging" for the inclusion criterion.
 status: active
 inputs:
-  - 'topic — free-text scope seed (e.g. "gut microbiome", "high-voltage power grids", "stock market microstructure").'
-  - 'budget — integer. Maximum number of candidate systems to surface in this run (default 3). Keep this small: each candidate becomes a profile-system task, and a 5-candidate scout monopolizes downstream runs with a single domain for ~5 iterations before cross-domain rotation can resume. plan-backlog overrides to 2 when fanning out across multiple under-covered domains.'
+  - 'topic — type-level archetype name (e.g. "metabolic network", "market", "language"). Should match or imply a `system-class` slug. Free-form case studies (e.g. "the 2008 financial crisis") are out of scope.'
+  - 'budget — integer. Maximum number of candidate type-level systems to surface in this run (default 3). Keep this small: each candidate becomes a profile-system task. plan-backlog overrides to 2 when fanning out across multiple under-covered domains.'
   - 'domain_hint — optional taxonomy slug (`system-domain:ecological`, etc.) to constrain the search.'
 outputs:
-  - 'One `ops/tasks/inbox/tsk-YYYYMMDD-NNNNNN.yaml` per candidate system (type `profile-system`).'
-  - 'Zero or more `ops/tasks/inbox/` tasks for candidate metrics not yet in the registry (type `define-metrics`).'
-  - 'A scouting report at `ops/runs/YYYY/MM/DD/<run-id>/scout-report.md` summarising rejected candidates and rationale.'
+  - 'One `ops/tasks/inbox/tsk-YYYYMMDD-NNNNNN.yaml` per candidate type-level system (type `profile-system`).'
+  - 'Zero or more `ops/tasks/inbox/` tasks proposing taxonomy slugs missing from `taxonomy/source/system-classes.yaml` (type `review-records`).'
+  - 'A scouting report at `ops/runs/YYYY/MM/DD/<run-id>/scout-report.md` listing accepted and rejected candidates with rationale.'
 stop_conditions:
-  - '`budget` candidate profile-system tasks queued in inbox with at least one candidate source cited per system.'
-  - 'Fewer than `budget` candidates found after an exhaustive pass — record the shortfall in the scout report and proceed.'
-  - 'No taxonomy slug covers a candidate system — block with a `taxonomy-proposal` task rather than inventing a slug.'
+  - '`budget` candidate type-level profile-system tasks queued in inbox.'
+  - 'Fewer than `budget` candidates pass the inclusion criterion (AGENTS.md) after an exhaustive pass — record the shortfall in the scout report and proceed.'
+  - 'No taxonomy slug covers a candidate type — block with a `review-records` taxonomy-proposal task and an `unblock-on-taxonomy` condition rather than inventing a slug.'
 ---
 
 ## When to use
 
-Use this skill to widen the catalog's coverage. Typical triggers:
+Use this skill to widen the catalog's coverage with **archetypal complex
+systems**, not case studies. Typical triggers:
 
-- A domain is underrepresented in the system roster (`v_coverage_by_family` shows thin columns).
-- A metric family has fewer than N observations across systems.
-- A reviewer has identified a literature thread worth following.
+- A `system-class` slug exists in `taxonomy/source/system-classes.yaml`
+  but no `registry/systems/sys-*` entry covers it yet.
+- An entry in `config/priority-systems.yaml` is unfulfilled and
+  `plan-backlog` Tier 0.5 has scheduled this scout.
+- A reviewer has identified a missing organizational level worth
+  cataloging (e.g. between molecule and cell, "molecular machine"
+  belongs in the catalog).
 
-Do **not** use this skill to finalize system definitions or extract measurements — it only proposes.
+Do **not** use this skill to:
+
+- Surface specific instances or case studies (e.g. "C. elegans", "the
+  NYSE", "the Amazon rainforest"). These are *examples within* a
+  type-level entry's `canonical_examples`, not separate registry
+  entries. See AGENTS.md "What counts as a system worth cataloging".
+- Search the primary literature for novel systems. Type-level
+  archetypes are textbook material; the inclusion criterion expects the
+  scout to recognize them by name, not discover them.
+- Finalize system definitions or extract measurements. This skill only
+  proposes.
 
 ## Preconditions
 
@@ -33,18 +48,19 @@ Do **not** use this skill to finalize system definitions or extract measurements
 
 ## Procedure
 
-1. Read the current system roster: `registry/systems/*/system.yaml` (just the `name`, `slug`, and `taxonomy_refs` fields) to avoid duplicate proposals.
+1. Read the current system roster: `registry/systems/*/system.yaml` (just the `name`, `slug`, `status`, and `taxonomy_refs` fields). Skip duplicates and `status: deprecated` entries that are already replaced.
 2. Read the taxonomy exports at [labels.json](../../taxonomy/exports/labels.json) to know the available `system-domain` and `system-class` slugs.
-3. Search the literature for systems matching `topic`. Prefer review articles and handbooks over primary research when scouting breadth.
-4. For each candidate system:
-   - Draft a 1-paragraph description of its boundary and components.
-   - Pick one `system-domain` and one or more `system-class` slugs. If no slug fits, queue a `taxonomy-proposal` task instead of inventing.
-   - Identify at least one citable source (DOI, handbook chapter, canonical review).
-   - Identify 2-5 candidate metrics that would characterize this system. For each, check whether the metric already exists in `registry/metrics/`. If not, add it to the candidate-metrics list for this run.
-5. Emit one `profile-system` task per candidate into `ops/tasks/inbox/` with `system_id: null` (the profile-system skill will assign the ID), the proposed slug in `notes`, and the candidate source(s) in `source_refs`.
-6. Emit one `define-metrics` task per novel candidate metric into `ops/tasks/inbox/`.
-7. Write the scout report listing each accepted candidate, each rejected candidate with rationale, and any taxonomy gaps.
-8. Validate the new task files: `uv run coc validate ops/tasks/inbox/`.
+3. Read [config/priority-systems.yaml](../../config/priority-systems.yaml) to see what's been hand-curated as priority and what's already fulfilled (per the `Priority seed: <slug>.` notes-prefix idempotency rule).
+4. For each candidate type-level system:
+   - Confirm it satisfies the inclusion criterion in AGENTS.md (type not instance; distinct organizational level; recognizable characteristic structure; ≥3 well-known examples — or genuinely singular and noted; admits at least one cross-applicable metric).
+   - Draft a 1-paragraph description of its archetypal boundary and components.
+   - Pick one `system-domain` and one or more `system-class` slugs. If no slug fits, emit a `review-records` taxonomy-proposal task and use `--unblock-on-taxonomy` on the scout (see "Block or fail when").
+   - Note 3+ canonical examples that would populate `canonical_examples` in the eventual profile (e.g. for `metabolic-network`: *E. coli* core metabolism, human red blood cell metabolism, methanogen archaea metabolism).
+   - Identify 2-5 candidate metrics that would characterize the type. For each, check whether the metric already exists in `registry/metrics/`. If not, name it in the scout report; **do not emit `define-metrics` tasks from this skill** — metric definition is a separate, more deliberate curation pass that requires literature grounding.
+   - **Source citation is optional** for the scout's profile-system proposal. Type-level entries don't require sources for their bare existence (per AGENTS.md). Include `source_refs` only if the candidate's existence or definition is genuinely contested in the literature.
+5. Emit one `profile-system` task per accepted candidate into `ops/tasks/inbox/` with the proposed slug in `notes`, the canonical examples summarized in `notes`, and `source_refs` empty (or only foundational refs if relevant).
+6. Write the scout report with sections: **Accepted**, **Rejected**, **Taxonomy gaps**, **Sources consulted (optional)**.
+7. Validate the new task files: `uv run coc validate ops/tasks/inbox/`.
 
 ## Output shape
 

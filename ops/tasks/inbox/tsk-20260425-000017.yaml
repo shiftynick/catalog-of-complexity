@@ -1,0 +1,42 @@
+id: tsk-20260425-000017
+type: review-records
+skill: review-records
+state: inbox
+priority: high
+output_targets:
+  - registry/systems/sys-000002--human-gut-microbiome/system.yaml
+  - registry/systems/sys-000002--human-gut-microbiome/notes.md
+acceptance_tests:
+  - 'sys-000002 (Human gut microbiome) has `status: deprecated` set on
+    its `system.yaml`, `updated_at` bumped, and a "Deprecation" section
+    appended to its `notes.md` explaining the type-level reframing per
+    AGENTS.md "What counts as a system worth cataloging" — the human
+    gut microbiome is an *instance* of the microbiome type
+    (host-specific, niche-specific), not a type-level archetype.'
+  - 'The notes.md deprecation section names the replacement type slug
+    (`microbiome`, in taxonomy/source/system-classes.yaml; now in
+    config/priority-systems.yaml) and notes that this entry''s prose
+    will inform `canonical_examples` of the eventual type-level
+    `microbiome` entry alongside rhizosphere microbiome (sys-000006).'
+  - '`uv run coc validate` exits 0 after the edit.'
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+created_at: '2026-04-25T20:30:30Z'
+notes: |
+  Bootstrap-era instance entry retired under the new inclusion criterion
+  (AGENTS.md "What counts as a system worth cataloging"). The human gut
+  microbiome is a specific (host-defined, niche-defined) instance of
+  the microbiome class, not a type-level archetype. Both gut microbiome
+  and rhizosphere microbiome (sys-000006) deprecate together; the
+  type-level `microbiome` entry will replace both, with the gut and
+  rhizosphere cases listed as canonical examples.
+
+  Reviewer steps:
+    1. Set `status: deprecated`, bump `updated_at` on system.yaml.
+    2. Append a "Deprecation" section to notes.md citing this task id,
+       naming the replacement type slug (`microbiome`), and noting the
+       canonical-examples reuse path.
+    3. Do NOT delete files.
+
+  Companion task: tsk-20260425-000020 (sys-000006 rhizosphere → microbiome).

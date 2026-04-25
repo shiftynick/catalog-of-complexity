@@ -20,24 +20,37 @@
 - name: Atomic systems
   slug: atomic-system
   domain: physical
+  class_hint: atomic-system
 - name: Molecular systems
   slug: molecular-system
   domain: physical
+  class_hint: molecular-system
 - name: Chemical reaction networks
   slug: chemical-reaction-network
   domain: physical
+  class_hint: chemical-reaction-network
 - name: Autocatalytic chemical systems
   slug: autocatalytic-chemical-system
   domain: physical
+  # class_hint deferred — slug not yet in taxonomy/source/system-classes.yaml.
 - name: Metabolic networks
   slug: metabolic-network
   domain: biological
+  class_hint: metabolic-network
+- name: Microbiomes
+  slug: microbiome
+  domain: biological
+  class_hint: microbiome
 - name: Prokaryotic cells
   slug: prokaryotic-cell
   domain: biological
+  class_hint: unicellular-organism
+  notes: 'Class-level entry for prokaryotic single cells (bacteria, archaea); pair with eukaryotic-cell for the cell-type axis.'
 - name: Eukaryotic cells
   slug: eukaryotic-cell
   domain: biological
+  class_hint: unicellular-organism
+  notes: 'Class-level entry for eukaryotic single cells (yeasts, protists); pair with prokaryotic-cell.'
 - name: Gene regulatory networks
   slug: gene-regulatory-network
   domain: biological
@@ -47,15 +60,19 @@
 - name: Multicellular organisms
   slug: multicellular-organism
   domain: biological
+  class_hint: multicellular-organism
 - name: Developmental (morphogenetic) systems
   slug: developmental-system
   domain: biological
 - name: Immune systems
   slug: immune-system
   domain: biological
+  class_hint: immune-system
 - name: Nervous systems
   slug: nervous-system
   domain: biological
+  class_hint: central-nervous-system
+  notes: 'Class-level archetype. The existing system-class slug `central-nervous-system` covers vertebrate cases; reframe as a more general nervous-system class if/when invertebrate-distinct treatment is wanted.'
 - name: Brains
   slug: brain
   domain: biological
@@ -125,6 +142,7 @@
 - name: Ecological systems (ecosystems)
   slug: ecosystem
   domain: ecological
+  # class_hint deferred — `ecosystem` slug not yet in taxonomy; closest is `forest-biome` which is too specific. Tier 0.5 should propose adding a general `ecosystem` class.
 - name: Food webs
   slug: food-web
   domain: ecological
