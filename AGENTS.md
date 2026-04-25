@@ -138,16 +138,17 @@ skill defaults; the skill overrides AGENTS.md silence.
 Scheduled runs (driven by Claude Code and Codex desktop schedulers) start
 from [prompts/autonomous-run.md](prompts/autonomous-run.md). One scheduled
 invocation runs preflight once and then executes up to
-`MAX_TASKS_PER_RUN` consecutive Branch-A iterations (default 5; override
-via the `COC_MAX_TASKS_PER_RUN` environment variable, clamped to [1, 10]).
-Each iteration is a complete unit — one task via `coc next`/`coc lease`,
-delegate execution to `prompts/task-envelope.md`, invoke the
-`retrospective` skill, then commit locally with `[auto]` suffix. Batching
-within an invocation amortizes the fixed cost of loading AGENTS.md, the
-active skill, schemas, and taxonomy: subsequent iterations within the same
-invocation reuse the agent's already-loaded context, so per-task token
-spend drops sharply after the first. Pushes remain human-driven — see
-"Sensitive actions".
+`max_tasks_per_run` consecutive Branch-A iterations. The value is read
+from [config/autorun.yaml](config/autorun.yaml) (default 5, clamp [1, 10]);
+edit that file to change scheduling behavior — no env var or scheduler
+reconfiguration needed. Each iteration is a complete unit — one task via
+`coc next`/`coc lease`, delegate execution to
+`prompts/task-envelope.md`, invoke the `retrospective` skill, then commit
+locally with `[auto]` suffix. Batching within an invocation amortizes the
+fixed cost of loading AGENTS.md, the active skill, schemas, and taxonomy:
+subsequent iterations within the same invocation reuse the agent's
+already-loaded context, so per-task token spend drops sharply after the
+first. Pushes remain human-driven — see "Sensitive actions".
 
 Retro cadence is "every run" by default and narrows to
 `blocked`/`failed`-only once ≥10 consecutive retros report

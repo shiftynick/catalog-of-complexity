@@ -1,0 +1,21 @@
+# Autonomous-run configuration.
+#
+# Read by prompts/autonomous-run.md at the start of each scheduled
+# invocation. Edit this file (and commit) to change behavior. Changes
+# take effect on the next routine fire — no env vars, no Claude
+# Desktop / Codex desktop reconfiguration needed.
+
+# How many Branch-A iterations a single scheduled invocation may run
+# before exiting. Each iteration is one full task (lease → execute →
+# retro → commit), so this directly controls catalog growth velocity
+# per cron tick. Higher = more tasks per cron tick + more tokens per
+# tick + faster wall-clock progress. Lower = cheaper per tick + slower
+# progress.
+#
+# Clamped to [1, 10]. Set to 1 for the original single-task-per-tick
+# behavior. The batched mode amortizes the fixed cost of loading
+# AGENTS.md, the active skill, schemas, and taxonomy into the agent's
+# context — tasks 2..N within the same invocation pay near-zero
+# context-load cost, so batching is roughly token-cost-superlinear,
+# not linear: 5 tasks ≈ 2-3× the tokens of 1 task, not 5×.
+max_tasks_per_run: 5

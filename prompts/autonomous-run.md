@@ -5,12 +5,26 @@ It is the **outer** prompt — it selects tasks, delegates execution via the
 task envelope, and runs a retrospective after each task.
 
 A single invocation of this prompt may execute up to
-**`MAX_TASKS_PER_RUN`** consecutive Branch-A iterations (default **5**;
-override with the `COC_MAX_TASKS_PER_RUN` environment variable, clamped to
-[1, 10]). The motivation is amortization of fixed context-loading cost:
-AGENTS.md, the active skill SKILL.md, schemas, and taxonomy are loaded once
-into the agent's working context and reused across iterations within the
-same invocation, so per-task token cost drops sharply after the first.
+**`max_tasks_per_run`** consecutive Branch-A iterations. Read the value
+from [config/autorun.yaml](../config/autorun.yaml) at the start of the
+invocation:
+
+```bash
+uv run python -c "import yaml; from pathlib import Path; p = Path('config/autorun.yaml'); cfg = yaml.safe_load(p.read_text(encoding='utf-8')) if p.exists() else {}; n = int(cfg.get('max_tasks_per_run', 5) or 5); print(max(1, min(10, n)))"
+```
+
+Default 5 if the file is missing or the field is absent; clamp to
+[1, 10]. The `COC_max_tasks_per_run` environment variable, if set,
+takes precedence over the config-file value (useful for ad-hoc dev
+runs); in scheduled production routines (Claude Desktop / Codex
+desktop scheduler) the env var is unavailable and the config file is
+the only knob.
+
+The motivation for batching is amortization of fixed context-loading
+cost: AGENTS.md, the active skill SKILL.md, schemas, and taxonomy are
+loaded once into the agent's working context and reused across
+iterations within the same invocation, so per-task token cost drops
+sharply after the first.
 
 Each iteration is a **complete unit**: lease one task, execute it via the
 task envelope, write `run.json`, run the retrospective, and commit
@@ -28,9 +42,11 @@ You are beginning a scheduled autonomous run. You must:
 
 1. Read and obey [AGENTS.md](../AGENTS.md). Its "Non-negotiables", "Quality
    bar", and "Sensitive actions" sections govern everything below.
-2. Run preflight (§Preflight) **once**. Then resolve `MAX_TASKS_PER_RUN`
-   from `$COC_MAX_TASKS_PER_RUN` (default 5, clamp [1, 10]).
-3. Execute up to `MAX_TASKS_PER_RUN` Branch-A iterations (§Branches). Each
+2. Run preflight (§Preflight) **once**. Then resolve `max_tasks_per_run`
+   by reading [config/autorun.yaml](../config/autorun.yaml) (default 5,
+   clamp [1, 10]). `$COC_max_tasks_per_run` overrides the config file
+   when set.
+3. Execute up to `max_tasks_per_run` Branch-A iterations (§Branches). Each
    iteration is one task: lease → execute via task envelope → write
    `run.json` → retrospective → commit. Move to the next iteration only
    if the previous one ended cleanly *and* the queue still has work *and*
@@ -115,7 +131,7 @@ from invocation start"` rather than repeating the four checks.
 
 ### Branch A — Per-task iteration (queue non-empty)
 
-Repeat the steps below until `MAX_TASKS_PER_RUN` is hit, or the queue
+Repeat the steps below until `max_tasks_per_run` is hit, or the queue
 empties (in which case Branch B fires once and the invocation exits),
 or a §Stop condition fires.
 
@@ -143,7 +159,7 @@ or a §Stop condition fires.
 6. Proceed to §Retrospective for this iteration. Then commit (§Local
    commit) for this iteration.
 7. After commit succeeds: increment iteration count. If iteration count
-   < `MAX_TASKS_PER_RUN` and no §Stop condition fires, return to step 1.
+   < `max_tasks_per_run` and no §Stop condition fires, return to step 1.
    Otherwise exit the invocation.
 
 ### Branch B — Empty queue (one-shot per invocation)
@@ -242,7 +258,7 @@ questions. Ambiguity is a proposal for improvement, not a conversation.
 
 ### Invocation-level (whole invocation ends, no further iterations)
 
-- Iteration count has reached `MAX_TASKS_PER_RUN`. Exit cleanly.
+- Iteration count has reached `max_tasks_per_run`. Exit cleanly.
 - The per-invocation soft budget has been exceeded (§Budget). Finish
   the current iteration's commit, then exit.
 - `coc next` returned exit 1 *and* Branch B has run this invocation.
@@ -269,11 +285,11 @@ exit the invocation (do not start a new iteration on top of a
 budget-exceeded one — the failure mode is usually structural and will
 recur).
 
-**Per-invocation soft budget**: `MAX_TASKS_PER_RUN × 15` minutes of
+**Per-invocation soft budget**: `max_tasks_per_run × 15` minutes of
 wall-clock total (default 75 minutes for the default of 5 iterations).
 If the cumulative wall-clock across iterations crosses this, finish the
 current iteration's commit and exit the invocation, even if the
-iteration count is below `MAX_TASKS_PER_RUN`. The 15-min/iteration
+iteration count is below `max_tasks_per_run`. The 15-min/iteration
 average reflects the expectation that batched iterations are faster
 than single-task runs because skills/schemas/taxonomy are cached in
 agent context — pure-task wall-clock for a typical iteration runs 2–10
