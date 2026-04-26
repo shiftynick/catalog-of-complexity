@@ -1,0 +1,22 @@
+authors:
+  - H. Jeong
+  - B. Tombor
+  - R. Albert
+  - Z. N. Oltvai
+  - A.-L. Barabási
+citation: H. Jeong, B. Tombor, R. Albert et al.. (2000). The large-scale 
+  organization of metabolic networks. Nature. https://doi.org/10.1038/35036627
+doi: 10.1038/35036627
+hash: 4d5a20c7e33be79fe529979a14005b60a83350bbd6dacb405bd12b1e7f55393f
+id: src-000005--the-large-scale-organization-of-metabolic-networks
+kind: peer-reviewed
+license: http://www.springer.com/tdm
+parsed_path: 
+  registry/sources/src-000005--the-large-scale-organization-of-metabolic-networks/parsed/
+raw_path: 
+  registry/sources/src-000005--the-large-scale-organization-of-metabolic-networks/raw/
+retrieved_at: '2026-04-26T01:09:35.328776Z'
+slug: the-large-scale-organization-of-metabolic-networks
+title: The large-scale organization of metabolic networks
+url: https://doi.org/10.1038/35036627
+year: 2000
