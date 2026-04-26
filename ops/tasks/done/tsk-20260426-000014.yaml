@@ -10,7 +10,10 @@ acceptance_tests:
 created_at: '2026-04-26T10:00:00Z'
 id: tsk-20260426-000014
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-26T11:11:52Z'
+  leased_at: '2026-04-26T11:11:52Z'
+  leased_by: Shiftor/64892
   max_attempts: 1
   ttl_minutes: 90
 notes: "Source debt: doi:10.1016/0022-5193(69)90015-0. Referenced by\ntsk-20260426-000011
@@ -26,5 +29,5 @@ priority: normal
 skill: acquire-source
 source_refs:
   - doi:10.1016/0022-5193(69)90015-0
-state: ready
+state: done
 type: acquire-source
