@@ -10,7 +10,10 @@ acceptance_tests:
 created_at: '2026-04-26T06:09:03Z'
 id: tsk-20260426-000004
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-26T07:17:47Z'
+  leased_at: '2026-04-26T07:17:47Z'
+  leased_by: Shiftor/47244
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Priority seed: gene-regulatory-network. Target system-domain:biological. Budget:
@@ -23,5 +26,8 @@ output_targets:
   - ops/runs/*/scout-report.md
 priority: normal
 skill: scout-systems
-state: ready
+state: blocked
 type: scout-systems
+unblock:
+  kind: taxonomy-slug-exists
+  taxonomy_ref: system-class:gene-regulatory-network

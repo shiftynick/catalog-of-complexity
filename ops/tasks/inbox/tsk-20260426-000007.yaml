@@ -1,0 +1,80 @@
+acceptance_tests:
+  - A new `gene-regulatory-network` item is appended to
+    taxonomy/source/system-classes.yaml with label, description, and >=2
+    references; the description explicitly contrasts it with the existing
+    `metabolic-network` (enzyme-catalyzed conversions of metabolites; an
+    edge represents catalysis) and with `chemical-reaction-network`
+    (population-level kinetics across general species; an edge represents
+    a stoichiometric reaction), making clear that gene-regulatory-network
+    edges encode regulatory (activation/repression) relationships among
+    genes mediated by transcription factors, miRNAs, and other regulators.
+  - '`uv run coc export-taxonomy` regenerates taxonomy/exports/labels.json
+    and taxonomy/exports/taxonomy.ttl with the new slug, and `uv run coc
+    validate` exits 0 on the repo.'
+  - The retrospective records this as a Tier-0.5 priority-seed taxonomy
+    unblock so the blocked scout (tsk-20260426-000004) can be re-run.
+created_at: '2026-04-26T07:18:46Z'
+id: tsk-20260426-000007
+lease:
+  ttl_minutes: 90
+  max_attempts: 1
+notes: "Taxonomy gap proposal emitted by scout-systems tsk-20260426-000004
+  (Priority seed: gene-regulatory-network, system-domain:biological).
+  No existing system-class slug covers a regulatory-edge graph among
+  genes: the closest existing biological-domain classes
+  (`metabolic-network` for enzyme-catalyzed metabolite conversions and
+  `immune-system` for an organism-level defense subsystem) describe
+  catalytic biochemistry or organism-level subsystems, not the
+  transcription-factor-mediated regulatory interactions among genes
+  that define a GRN. Adjacent classes that are also distinct:
+  `chemical-reaction-network` (population-level mass-action / stochastic
+  kinetics across general species, no gene-specific binding semantics)
+  and `unicellular-organism` / `multicellular-organism` (whole-cell or
+  whole-organism units rather than a within-cell regulatory graph).
+
+  Proposed addition to taxonomy/source/system-classes.yaml:
+
+  - slug: gene-regulatory-network
+    label: Gene regulatory network
+    description: >
+      Graph of regulatory interactions among genes mediated by
+      transcription factors, microRNAs, long non-coding RNAs, and other
+      regulators. Nodes are genes (or gene-product regulators) and
+      edges encode activation/repression relationships, often with sign
+      and threshold/kinetic detail. Dynamics are typically modeled as
+      Boolean / random Boolean networks (Kauffman), continuous ODE
+      systems (Hill-function repressors/activators), or stochastic
+      master equations (binding/unbinding noise). Realizes
+      developmental cell-fate decisions, homeostatic and stress
+      responses, and circadian/oscillatory behavior. Distinct from
+      `metabolic-network` (which encodes enzyme-catalyzed conversions
+      of metabolites; an edge represents catalysis, not regulation) and
+      from `chemical-reaction-network` (which encodes general
+      population-level mass-action kinetics without gene-specific
+      binding semantics). Distinct from `unicellular-organism` and
+      `multicellular-organism` by being a within-cell regulatory graph
+      rather than a whole-cell or whole-organism unit.
+    references:
+      - Davidson, E.H. (2006) The Regulatory Genome - Gene Regulatory
+        Networks in Development and Evolution. Academic Press.
+        ISBN 978-0120885633.
+      - Alon, U. (2019) An Introduction to Systems Biology - Design
+        Principles of Biological Circuits, 2nd ed. CRC Press.
+        ISBN 978-1439837177.
+      - Kauffman, S.A. (1969) Metabolic stability and epigenesis in
+        randomly constructed genetic nets. Journal of Theoretical
+        Biology 22(3):437-467. doi:10.1016/0022-5193(69)90015-0.
+
+  Policy note: this task edits taxonomy/ (content-gated under
+  AGENTS.md). Type `review-records` auto-promotes, so a reviewer may
+  want to hold or downgrade priority before merging. The block on
+  tsk-20260426-000004 names this task as its unblock dependency.
+  Severity moderate - the priority-seed scout is currently blocked;
+  downstream gene-regulatory-network profile-system, observation, and
+  metric work all depend on this slug landing."
+output_targets:
+  - taxonomy/source/system-classes.yaml
+priority: normal
+skill: review-records
+state: inbox
+type: review-records
