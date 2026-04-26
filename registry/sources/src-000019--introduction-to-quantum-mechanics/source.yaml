@@ -1,0 +1,18 @@
+authors:
+  - David J. Griffiths
+  - Darrell F. Schroeter
+citation: David J. Griffiths, Darrell F. Schroeter. (2018). Introduction to 
+  Quantum Mechanics. Cambridge University Press. ISBN:9781107189638
+doi: null
+hash: d830146d10cd9499537bb2fb73a854acc4465cb22703a7cac032dc80e43d3961
+id: src-000019--introduction-to-quantum-mechanics
+kind: book
+license: null
+parsed_path: 
+  registry/sources/src-000019--introduction-to-quantum-mechanics/parsed/
+raw_path: registry/sources/src-000019--introduction-to-quantum-mechanics/raw/
+retrieved_at: '2026-04-26T12:37:12.013376Z'
+slug: introduction-to-quantum-mechanics
+title: Introduction to Quantum Mechanics
+url: urn:isbn:9781107189638
+year: 2018
