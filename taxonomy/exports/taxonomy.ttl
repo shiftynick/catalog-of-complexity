@@ -150,6 +150,13 @@
     skos:notation "system-class:forest-biome" ;
     skos:prefLabel "Forest biome" .
 
+<https://catalog-of-complexity.org/taxonomy/system-class/gene-regulatory-network> a skos:Concept ;
+    skos:definition """Within-cell graph of regulatory interactions among genes mediated by transcription factors, microRNAs, long non-coding RNAs, and other regulators. Nodes are genes (or gene-product regulators) and edges encode activation/repression relationships, often with sign and threshold/kinetic detail. Dynamics are typically modeled as Boolean / random Boolean networks (Kauffman), continuous ODE systems with Hill-function repressors/activators, or stochastic master equations capturing binding/unbinding noise. Realizes developmental cell-fate decisions, homeostatic and stress responses, and circadian / oscillatory behavior. Distinct from `metabolic-network`, which encodes enzyme-catalyzed conversions of metabolites — an edge there represents catalysis of a chemical transformation rather than a regulatory relationship. Distinct from `chemical-reaction-network`, which encodes general population-level mass-action / stochastic kinetics across arbitrary species without gene-specific binding semantics or the regulator-target edge structure that defines a GRN. Distinct from `unicellular-organism` and `multicellular-organism` by being a within-cell regulatory graph rather than a whole-cell or whole-organism unit.
+""" ;
+    skos:inScheme coc:scheme ;
+    skos:notation "system-class:gene-regulatory-network" ;
+    skos:prefLabel "Gene regulatory network" .
+
 <https://catalog-of-complexity.org/taxonomy/system-class/immune-system> a skos:Concept ;
     skos:definition "Cellular and molecular subsystem that discriminates self from non-self and responds to threats." ;
     skos:inScheme coc:scheme ;

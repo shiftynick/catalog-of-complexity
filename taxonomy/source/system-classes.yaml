@@ -166,3 +166,29 @@ items:
       - Érdi, P. & Tóth, J. (1989) Mathematical Models of Chemical Reactions. Princeton University Press / Manchester University Press. ISBN 978-0691085326.
       - Feinberg, M. (2019) Foundations of Chemical Reaction Network Theory. Springer Applied Mathematical Sciences vol. 202. ISBN 978-3030038571.
       - Gillespie, D.T. (1977) Exact stochastic simulation of coupled chemical reactions. Journal of Physical Chemistry 81(25):2340-2361. doi:10.1021/j100540a008.
+  - slug: gene-regulatory-network
+    label: Gene regulatory network
+    description: >
+      Within-cell graph of regulatory interactions among genes mediated by
+      transcription factors, microRNAs, long non-coding RNAs, and other
+      regulators. Nodes are genes (or gene-product regulators) and edges
+      encode activation/repression relationships, often with sign and
+      threshold/kinetic detail. Dynamics are typically modeled as Boolean
+      / random Boolean networks (Kauffman), continuous ODE systems with
+      Hill-function repressors/activators, or stochastic master equations
+      capturing binding/unbinding noise. Realizes developmental cell-fate
+      decisions, homeostatic and stress responses, and circadian /
+      oscillatory behavior. Distinct from `metabolic-network`, which
+      encodes enzyme-catalyzed conversions of metabolites — an edge there
+      represents catalysis of a chemical transformation rather than a
+      regulatory relationship. Distinct from `chemical-reaction-network`,
+      which encodes general population-level mass-action / stochastic
+      kinetics across arbitrary species without gene-specific binding
+      semantics or the regulator-target edge structure that defines a GRN.
+      Distinct from `unicellular-organism` and `multicellular-organism` by
+      being a within-cell regulatory graph rather than a whole-cell or
+      whole-organism unit.
+    references:
+      - Davidson, E.H. (2006) The Regulatory Genome - Gene Regulatory Networks in Development and Evolution. Academic Press. ISBN 978-0120885633.
+      - Alon, U. (2019) An Introduction to Systems Biology - Design Principles of Biological Circuits, 2nd ed. CRC Press. ISBN 978-1439837177.
+      - Kauffman, S.A. (1969) Metabolic stability and epigenesis in randomly constructed genetic nets. Journal of Theoretical Biology 22(3):437-467. doi:10.1016/0022-5193(69)90015-0.
