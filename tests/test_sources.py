@@ -18,6 +18,7 @@ from coc.sources import (
 )
 from coc.sources import arxiv as arxiv_resolver
 from coc.sources import crossref as crossref_resolver
+from coc.sources import isbn_books as isbn_books_resolver
 from coc.sources import web as web_resolver
 from coc.sources.base import ResolvedArtifact, ResolvedSource
 from coc.sources.slugs import next_source_id, slugify
@@ -57,9 +58,94 @@ def test_dispatch_rejects_unsupported_prefix():
         resolve("ftp://not-a-ref")
 
 
-def test_dispatch_rejects_isbn_for_now():
-    with pytest.raises(UnsupportedRefError):
-        resolve("isbn:9780815345053")
+def test_isbn_books_resolve_happy_path():
+    isbn = "9780815345053"
+    gb_body = json.dumps({
+        "kind": "books#volumes",
+        "totalItems": 1,
+        "items": [
+            {
+                "volumeInfo": {
+                    "title": "Molecular Biology of the Cell",
+                    "authors": ["Bruce Alberts", "Alexander Johnson"],
+                    "publishedDate": "2014-11-18",
+                    "publisher": "Garland Science",
+                }
+            }
+        ],
+    }).encode("utf-8")
+    responses = {
+        f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}": (
+            200, {"content-type": "application/json"}, gb_body,
+        ),
+    }
+    rs = isbn_books_resolver.resolve(
+        f"isbn:{isbn}",
+        fetcher=_fetcher_from_map(responses),
+    )
+    assert rs.kind == "book"
+    assert rs.license is None
+    assert rs.url == f"urn:isbn:{isbn}"
+    assert len(rs.artifacts) == 1
+    assert rs.artifacts[0].filename == "metadata.json"
+    assert rs.artifacts[0].content == gb_body
+    assert rs.slug == "molecular-biology-of-the-cell"
+    assert rs.authors == ["Bruce Alberts", "Alexander Johnson"]
+    assert rs.year == 2014
+
+
+def test_isbn_books_falls_back_to_open_library():
+    isbn = "9780199541423"
+    gb_body = json.dumps({"kind": "books#volumes", "totalItems": 0}).encode("utf-8")
+    ol_body = json.dumps({
+        f"ISBN:{isbn}": {
+            "title": "The Oxford Handbook of Innovation",
+            "authors": [{"name": "Jan Fagerberg"}, {"name": "David C. Mowery"}],
+            "publish_date": "2006",
+            "publishers": [{"name": "Oxford University Press"}],
+        }
+    }).encode("utf-8")
+    responses = {
+        f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}": (
+            200, {"content-type": "application/json"}, gb_body,
+        ),
+        f"https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json&jscmd=data": (
+            200, {"content-type": "application/json"}, ol_body,
+        ),
+    }
+    rs = isbn_books_resolver.resolve(
+        f"isbn:{isbn}",
+        fetcher=_fetcher_from_map(responses),
+    )
+    assert rs.kind == "book"
+    assert rs.license is None
+    assert rs.url == f"urn:isbn:{isbn}"
+    assert len(rs.artifacts) == 1
+    assert rs.artifacts[0].filename == "metadata.json"
+    assert rs.artifacts[0].content == ol_body
+    assert rs.title == "The Oxford Handbook of Innovation"
+    assert rs.authors == ["Jan Fagerberg", "David C. Mowery"]
+    assert rs.year == 2006
+    assert rs.slug == "the-oxford-handbook-of-innovation"
+
+
+def test_isbn_books_not_found_when_both_empty():
+    isbn = "9999999999999"
+    gb_body = json.dumps({"kind": "books#volumes", "totalItems": 0}).encode("utf-8")
+    ol_body = json.dumps({}).encode("utf-8")
+    responses = {
+        f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}": (
+            200, {"content-type": "application/json"}, gb_body,
+        ),
+        f"https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json&jscmd=data": (
+            200, {"content-type": "application/json"}, ol_body,
+        ),
+    }
+    with pytest.raises(NotFoundError):
+        isbn_books_resolver.resolve(
+            f"isbn:{isbn}",
+            fetcher=_fetcher_from_map(responses),
+        )
 
 
 def test_crossref_resolve_happy_path(monkeypatch):

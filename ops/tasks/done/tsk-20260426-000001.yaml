@@ -1,0 +1,45 @@
+acceptance_tests:
+  - 'tests/test_sources.py::test_dispatch_rejects_isbn_for_now is removed (the invariant
+    it asserted no longer holds — dispatch now routes isbn: to isbn_books.resolve).'
+  - A new tests/test_sources.py::test_isbn_books_resolve_happy_path test feeds a
+    fake fetcher with a Google Books volumes response (one item, populated 
+    volumeInfo with title, authors, publishedDate, publisher) and asserts the 
+    returned ResolvedSource has kind=book, license=null, url=urn:isbn:<isbn>, 
+    exactly one ResolvedArtifact named metadata.json, slug derived from the 
+    title, and authors/year as expected.
+  - 'A new tests/test_sources.py::test_isbn_books_falls_back_to_open_library test
+    feeds a fake fetcher where Google Books returns {"kind": "books#volumes", "totalItems":
+    0} (no items) and Open Library returns a populated ISBN:<isbn> entry; asserts
+    the metadata.json artifact carries the Open Library response body and the ResolvedSource
+    fields are sourced from the Open Library entry.'
+  - A new tests/test_sources.py::test_isbn_books_not_found_when_both_empty test 
+    asserts NotFoundError is raised when both Google Books returns no items and 
+    Open Library returns an empty payload.
+  - '`uv run pytest tests/test_sources.py` exits 0.'
+created_at: '2026-04-26T04:14:00Z'
+id: tsk-20260426-000001
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-26T05:06:56Z'
+  leased_at: '2026-04-26T05:06:56Z'
+  leased_by: Shiftor/53764
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Major-severity follow-up from\nretro-01KQ3ZS6CF7M9HEX0N746NRH48 (retrospective
+  on tsk-20260425-000028,\nadded isbn_books resolver). The new isbn dispatch landed
+  but the\nstale test_dispatch_rejects_isbn_for_now assertion in\ntests/test_sources.py
+  now fails: it asserts resolve('isbn:9780815345053')\nraises UnsupportedRefError,
+  which is no longer true. Couldn't fix in\nthe original task because tests/ was not
+  in its output_targets — same\nscoping pattern that the DataCite resolver retro flagged.
+  Replace the\nstale test with three new ones: happy-path against Google Books,\n\
+  fallback to Open Library, NotFoundError when both providers return\nempty. Use the
+  existing _fetcher_from_map helper in test_sources.py.\nNo network calls — fake fetcher
+  only, mirroring the\ntest_crossref_resolve_happy_path / test_arxiv_resolve_happy_path\n\
+  pattern."
+output_targets:
+  - tests/test_sources.py
+priority: high
+skill: review-records
+source_refs: []
+state: done
+type: review-records
