@@ -1,0 +1,27 @@
+sources:
+  - id: src-000010--animals-in-a-bacterial-world-a-new-imperative-for-the-life-s
+    doi: 10.1073/pnas.1218525110
+    citation: >
+      McFall-Ngai M, Hadfield MG, Bosch TCG, Carey HV, Domazet-Loso T, et al.
+      Animals in a bacterial world, a new imperative for the life sciences.
+      Proceedings of the National Academy of Sciences 110(9):3229-3236 (2013).
+  - id: src-000011--the-application-of-ecological-theory-toward-an-understanding
+    doi: 10.1126/science.1224203
+    citation: >
+      Costello EK, Stagaman K, Dethlefsen L, Bohannan BJM, Relman DA. The
+      application of ecological theory toward an understanding of the human
+      microbiome. Science 336(6086):1255-1262 (2012).
+related_systems:
+  - sys-000002--human-gut-microbiome
+  - sys-000003--vertebrate-adaptive-immune-system
+  - sys-000006--rhizosphere-microbiome
+datasets:
+  - name: NIH Human Microbiome Project (HMP) Data Portal
+    url: https://portal.hmpdacc.org/
+    license: open access; see HMP data use terms
+  - name: Earth Microbiome Project (EMP)
+    url: https://earthmicrobiome.org/
+    license: CC BY 4.0
+  - name: MGnify (EMBL-EBI metagenomics resource)
+    url: https://www.ebi.ac.uk/metagenomics/
+    license: EMBL-EBI terms of use
