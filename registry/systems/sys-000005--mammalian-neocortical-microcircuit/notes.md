@@ -105,3 +105,27 @@ minicolumn or any single functional column.
   Cell 163(2):456-492 (2015). DOI: 10.1016/j.cell.2015.09.029.
 - Mountcastle VB. The columnar organization of the neocortex. Brain
   120(4):701-722 (1997). DOI: 10.1093/brain/120.4.701.
+
+## Deprecation
+
+Deprecated 2026-04-25 by task tsk-20260425-000019 under the type-vs-instance
+inclusion criterion in [AGENTS.md](../../../AGENTS.md) ("What counts as a
+system worth cataloging"). A mammalian neocortical microcircuit is an
+*instance-level sub-architecture* of a particular nervous system in a
+particular vertebrate clade — it does not satisfy criterion 1 (type, not
+instance) or criterion 2 (distinct organizational level cleanly mapped to a
+Boulding-style level). The replacement type-level archetype is
+`nervous-system` (queued in [config/priority-systems.yaml](../../../config/priority-systems.yaml)
+with `class_hint: central-nervous-system`); a future top-level `brain`
+entry from the same priority list is the natural alternative if the
+curator promotes it.
+
+The detailed prose above (six-layered cytoarchitecture, PV/SST/VIP
+interneuron inventory, gamma oscillations, plasticity windows, Blue Brain
+reconstruction, Mountcastle column synthesis) is preserved for reuse: when
+the type-level `nervous-system` (or `brain`) entry lands, this material
+should be folded into its `canonical_examples` notes alongside parallel
+exemplars such as invertebrate central nervous systems (e.g. *C. elegans*
+nerve ring, *Drosophila* central brain) and subcortical vertebrate
+structures (basal ganglia, cerebellum). No files are deleted; the record
+remains in the registry as a deprecated stub for provenance.

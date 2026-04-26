@@ -1,10 +1,10 @@
 acceptance_tests:
-  - A directory registry/sources/src-*--<slug>/ exists for the ref
-    doi:10.1126/science.277.5331.1453, either newly written or an idempotent match
-    reported by `coc acquire`.
-  - That directory contains source.yaml (validating against
+  - A directory registry/sources/src-*--<slug>/ exists for the ref 
+    doi:10.1126/science.277.5331.1453, either newly written or an idempotent 
+    match reported by `coc acquire`.
+  - That directory contains source.yaml (validating against 
     schemas/source.schema.json) and a non-empty raw/ subdirectory.
-  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact 
     bytes), and its kind is consistent with the resolver output.
   - '`uv run coc validate` exits 0.'
 created_at: '2026-04-25T22:30:00Z'
@@ -15,13 +15,13 @@ lease:
 notes: "Source debt: doi:10.1126/science.277.5331.1453. Referenced by\ntsk-20260425-000009
   (blocked profile-system E. coli K-12 prokaryotic\ncell). Science 1997 paper cited
   as anchor for the prokaryotic-cell\nprofile (likely a foundational characterization
-  of bacterial cell\nbiology / E. coli physiology); source useful for type-level\nprokaryote
-  / cell profiles. Emitted by plan-backlog Tier 0.75\npreflight sweep.\n"
+  of bacterial cell\nbiology / E. coli physiology); source useful for type-level\n\
+  prokaryote / cell profiles. Emitted by plan-backlog Tier 0.75\npreflight sweep.\n"
 output_targets:
   - registry/sources/
 priority: normal
 skill: acquire-source
 source_refs:
   - doi:10.1126/science.277.5331.1453
-state: inbox
+state: ready
 type: acquire-source
