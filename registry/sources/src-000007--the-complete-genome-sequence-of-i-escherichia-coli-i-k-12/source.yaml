@@ -1,0 +1,36 @@
+authors:
+  - Frederick R. Blattner
+  - Guy Plunkett
+  - Craig A. Bloch
+  - Nicole T. Perna
+  - Valerie Burland
+  - Monica Riley
+  - Julio Collado-Vides
+  - Jeremy D. Glasner
+  - Christopher K. Rode
+  - George F. Mayhew
+  - Jason Gregor
+  - Nelson Wayne Davis
+  - Heather A. Kirkpatrick
+  - Michael A. Goeden
+  - Debra J. Rose
+  - Bob Mau
+  - Ying Shao
+citation: "Frederick R. Blattner, Guy Plunkett, Craig A. Bloch et al.. (1997). The
+  Complete Genome Sequence of\n            <i>Escherichia coli</i>\n            K-12.
+  Science. https://doi.org/10.1126/science.277.5331.1453"
+doi: 10.1126/science.277.5331.1453
+hash: ea29acdba4fb896402e32fedb758b5f4bdfda05d501015374f4696dbe7def8f1
+id: src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12
+kind: peer-reviewed
+license: null
+parsed_path: 
+  registry/sources/src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12/parsed/
+raw_path: 
+  registry/sources/src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12/raw/
+retrieved_at: '2026-04-26T01:11:33.524794Z'
+slug: the-complete-genome-sequence-of-i-escherichia-coli-i-k-12
+title: "The Complete Genome Sequence of\n            <i>Escherichia coli</i>\n   \
+  \         K-12"
+url: https://doi.org/10.1126/science.277.5331.1453
+year: 1997
