@@ -1,10 +1,10 @@
 acceptance_tests:
-  - A directory registry/sources/src-*--<slug>/ exists for the ref
-    doi:10.1016/0022-5193(69)90015-0, either newly written or an idempotent match
-    reported by `coc acquire`.
-  - That directory contains source.yaml (validating against
+  - A directory registry/sources/src-*--<slug>/ exists for the ref 
+    doi:10.1016/0022-5193(69)90015-0, either newly written or an idempotent 
+    match reported by `coc acquire`.
+  - That directory contains source.yaml (validating against 
     schemas/source.schema.json) and a non-empty raw/ subdirectory.
-  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact 
     bytes), and its kind is consistent with the resolver output.
   - '`uv run coc validate` exits 0.'
 created_at: '2026-04-26T10:00:00Z'
@@ -16,15 +16,15 @@ lease:
 notes: "Source debt: doi:10.1016/0022-5193(69)90015-0. Referenced by\ntsk-20260426-000011
   (ready profile-system gene-regulatory-network,\nsource-not-acquired). Kauffman,
   S.A. (1969) Metabolic stability and\nepigenesis in randomly constructed genetic
-  nets, Journal of Theoretical\nBiology 22(3):437-467 — founding Boolean-network
-  model of GRNs and the\nattractor-as-cell-type hypothesis; anchor source for the
-  gene-\nregulatory-network type-level profile. Emitted by plan-backlog Tier
-  0.75\npreflight sweep.\n"
+  nets, Journal of Theoretical\nBiology 22(3):437-467 — founding Boolean-network model
+  of GRNs and the\nattractor-as-cell-type hypothesis; anchor source for the gene-\n\
+  regulatory-network type-level profile. Emitted by plan-backlog Tier 0.75\npreflight
+  sweep.\n"
 output_targets:
   - registry/sources/
 priority: normal
 skill: acquire-source
 source_refs:
   - doi:10.1016/0022-5193(69)90015-0
-state: inbox
+state: ready
 type: acquire-source

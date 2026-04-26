@@ -1,0 +1,32 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref 
+    isbn:9780120885633, either newly written or an idempotent match reported by 
+    `coc acquire`.
+  - That directory contains source.yaml (validating against 
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact 
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-26T10:00:00Z'
+id: tsk-20260426-000012
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-26T11:08:17Z'
+  leased_at: '2026-04-26T11:08:17Z'
+  leased_by: Shiftor/56304
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Source debt: isbn:9780120885633. Referenced by tsk-20260426-000011\n(ready
+  profile-system gene-regulatory-network, source-not-acquired).\nDavidson, E.H. (2006)
+  The Regulatory Genome: Gene Regulatory Networks\nin Development and Evolution, Academic
+  Press — foundational textbook\nframing GRNs as the causal substrate of development
+  and evolution;\nanchor source for the gene-regulatory-network type-level profile.
+  Emitted\nby plan-backlog Tier 0.75 preflight sweep.\n"
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - isbn:9780120885633
+state: done
+type: acquire-source

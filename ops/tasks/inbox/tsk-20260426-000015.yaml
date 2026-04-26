@@ -1,0 +1,36 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    doi:10.1186/1745-6150-5-7, either newly written or an idempotent match reported
+    by `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-26T10:00:00Z'
+id: tsk-20260426-000015
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: |
+  Source debt: doi:10.1186/1745-6150-5-7. Referenced by tsk-20260426-000006
+  (blocked profile-system eukaryotic-cell). Cavalier-Smith T. (2010) "Origin
+  of the cell nucleus, mitosis and sex: roles of intracellular coevolution"
+  Biology Direct 5:7 — open-access foundational treatment of the suite of
+  eukaryote-defining features (nucleus, endomembrane system, cytoskeleton,
+  mitosis, sex) and their integrated origin, anchoring the eukaryotic-cell
+  type-level identity claim. Emitted by plan-backlog Tier 0.75 preflight
+  sweep. Profiling task carries unblock kind=sources-resolved, so this
+  acquisition closing out (alongside the already-registered
+  src-000012--molecular-biology-of-the-cell for isbn:9780815344322) will
+  satisfy the all-sources-resolved condition and return tsk-20260426-000006
+  to ready/.
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - doi:10.1186/1745-6150-5-7
+state: inbox
+type: acquire-source
