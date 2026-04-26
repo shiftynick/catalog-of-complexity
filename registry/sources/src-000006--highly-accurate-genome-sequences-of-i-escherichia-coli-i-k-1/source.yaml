@@ -1,0 +1,30 @@
+authors:
+  - Koji Hayashi
+  - Naoki Morooka
+  - Yoshihiro Yamamoto
+  - Katsutoshi Fujita
+  - Katsumi Isono
+  - Sunju Choi
+  - Eiichi Ohtsubo
+  - Tomoya Baba
+  - Barry L Wanner
+  - Hirotada Mori
+  - Takashi Horiuchi
+citation: "Koji Hayashi, Naoki Morooka, Yoshihiro Yamamoto et al.. (2006). Highly
+  accurate genome sequences of\n                    <i>Escherichia coli</i>\n    \
+  \                K‐12 strains MG1655 and W3110. Molecular Systems Biology. https://doi.org/10.1038/msb4100049"
+doi: 10.1038/msb4100049
+hash: 167c491abacd0525fbc669aeca3aa797a23b1ca777116b3f6bc9f6fb7966ab04
+id: src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1
+kind: peer-reviewed
+license: http://onlinelibrary.wiley.com/termsAndConditions#vor
+parsed_path: 
+  registry/sources/src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1/parsed/
+raw_path: 
+  registry/sources/src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1/raw/
+retrieved_at: '2026-04-26T01:10:35.985340Z'
+slug: highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1
+title: "Highly accurate genome sequences of\n                    <i>Escherichia coli</i>\n\
+  \                    K‐12 strains MG1655 and W3110"
+url: https://doi.org/10.1038/msb4100049
+year: 2006
