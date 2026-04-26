@@ -1,0 +1,45 @@
+acceptance_tests:
+  - A new resolver module src/coc/sources/datacite.py exists with a 
+    `resolve(ref, fetcher=None) -> ResolvedSource` entry point mirroring the 
+    shape of src/coc/sources/crossref.py.
+  - src/coc/sources/dispatch.py routes `doi:` refs by trying Crossref first and 
+    falling back to DataCite on 404 (any other failure mode propagates as 
+    today).
+  - 'skills/acquire-source/SKILL.md "Block or fail when" section is updated to reflect
+    the broadened doi: coverage and to keep the `not-found` reason well-defined (the
+    DOI is not minted at any of the queried registrars).'
+  - '`uv run coc acquire doi:10.18434/T4W30F` resolves successfully and writes registry/sources/src-NNNNNN--<slug>/
+    with metadata.json sourced from DataCite (publisher = National Institute of Standards
+    and Technology; type = Dataset; landing url = http://www.nist.gov/pml/data/asd.cfm).'
+  - '`uv run coc validate` exits 0 after the changes.'
+created_at: '2026-04-25T22:48:30Z'
+id: tsk-20260425-000027
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-26T03:08:10Z'
+  leased_at: '2026-04-26T03:08:10Z'
+  leased_by: Shiftor/67216
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Major-severity follow-up from retro-01KQ3BDZ6KK51AFW5MBE1H3H68\n(retrospective
+  on tsk-20260425-000011, acquire-source blocked\nnot-found on doi:10.18434/T4W30F).
+  The current src/coc/sources/\ndispatch.py routes `doi:` exclusively to Crossref;
+  the NIST DOI\nnamespace 10.18434/* is registered with DataCite, as are most\nZenodo
+  (10.5281/*), figshare (10.6084/*), and dataset-publisher\nDOIs. Without a DataCite
+  fallback, every reference to a NIST\nstandard reference database, a Zenodo dataset,
+  or similar dataset\nDOI produces a blocked acquire-source task with no auto-\nremediation
+  path. Pattern recommended in the retro: add\nsrc/coc/sources/datacite.py mirroring
+  crossref.py's shape (fetch\nhttps://api.datacite.org/dois/<doi>, map JSON:API to\n\
+  ResolvedSource, write metadata.json to raw/), then have\ndispatch.resolve try Crossref
+  first and fall back to DataCite on\n404. DataCite's API is unauthenticated and returns
+  full records.\nBlocking task downstream: tsk-20260425-000011 (and through it,\n\
+  tsk-20260423-000019 profile-system hydrogen atom)."
+output_targets:
+  - src/coc/sources/datacite.py
+  - src/coc/sources/dispatch.py
+  - skills/acquire-source/SKILL.md
+priority: high
+skill: review-records
+source_refs: []
+state: done
+type: review-records

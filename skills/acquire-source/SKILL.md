@@ -50,7 +50,11 @@ Do **not** use this skill to:
 1. Read the task manifest's `source_refs` — exactly one entry expected.
 2. Call `uv run coc acquire <ref>`. Under the hood:
    - `doi:` → Crossref metadata + Unpaywall OA lookup; fetches the OA PDF
-     if one exists.
+     if one exists. If Crossref returns 404 (the DOI is not minted there
+     — common for dataset / standards DOIs in the NIST `10.18434/*`,
+     Zenodo `10.5281/*`, and figshare `10.6084/*` namespaces),
+     dispatch falls back to DataCite's JSON:API for metadata-only
+     resolution.
    - `arxiv:` → arXiv query API + PDF.
    - `url:` → generic GET; content-type determines `kind`.
 3. The CLI writes `registry/sources/src-NNNNNN--<slug>/` atomically (stages
@@ -90,7 +94,8 @@ acceptance_tests:
 
 - The ref uses an unsupported prefix (`isbn:` today, or an unknown prefix)
   → block with reason `unsupported-ref`.
-- The upstream returned 404 / the DOI is not minted / the arxiv id has no
+- The upstream returned 404 / the DOI is not minted at any of the queried
+  registrars (Crossref *and* DataCite for `doi:`) / the arxiv id has no
   entry → block with reason `not-found`.
 - Network failure (DNS, timeout, 5xx) persisting across retries → fail with
   reason `fetch-error`. The watchdog will retry up to `max_attempts`.

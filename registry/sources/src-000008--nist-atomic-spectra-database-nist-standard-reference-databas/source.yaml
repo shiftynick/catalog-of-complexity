@@ -1,0 +1,20 @@
+authors:
+  - Alexander Kramida
+  - Yuri Ralchenko
+citation: Alexander Kramida, Yuri Ralchenko. (1999). NIST Atomic Spectra 
+  Database, NIST Standard Reference Database 78. National Institute of Standards
+  and Technology. https://doi.org/10.18434/T4W30F
+doi: 10.18434/T4W30F
+hash: d6a88865d941dd466dee2b1f4c967ff20646bc25919fc5395a6797e9e22de890
+id: src-000008--nist-atomic-spectra-database-nist-standard-reference-databas
+kind: dataset
+license: http://nist.gov/open/license.cfm
+parsed_path: 
+  registry/sources/src-000008--nist-atomic-spectra-database-nist-standard-reference-databas/parsed/
+raw_path: 
+  registry/sources/src-000008--nist-atomic-spectra-database-nist-standard-reference-databas/raw/
+retrieved_at: '2026-04-26T03:10:13.318821Z'
+slug: nist-atomic-spectra-database-nist-standard-reference-databas
+title: NIST Atomic Spectra Database, NIST Standard Reference Database 78
+url: http://www.nist.gov/pml/data/asd.cfm
+year: 1999
