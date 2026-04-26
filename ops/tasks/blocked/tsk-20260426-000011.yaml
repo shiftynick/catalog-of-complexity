@@ -31,7 +31,10 @@ acceptance_tests:
 created_at: '2026-04-26T09:08:29Z'
 id: tsk-20260426-000011
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-26T10:15:17Z'
+  leased_at: '2026-04-26T10:15:17Z'
+  leased_by: Shiftor/66564
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Candidate: Gene regulatory network (type-level archetype). Proposed slug:
@@ -108,6 +111,8 @@ source_refs:
   - isbn:9780120885633
   - isbn:9781439837177
   - doi:10.1016/0022-5193(69)90015-0
-state: ready
+state: blocked
 system_id: null
 type: profile-system
+unblock:
+  kind: sources-resolved
