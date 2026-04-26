@@ -71,3 +71,28 @@ rather than attributed to the rhizosphere sensu stricto.
 - Berendsen RL, Pieterse CMJ, Bakker PAHM. The rhizosphere microbiome and
   plant health. Trends in Plant Science 17(8):478-486 (2012). DOI:
   10.1016/j.tplants.2012.04.001.
+
+## Deprecation
+
+Deprecated 2026-04-25 under tsk-20260425-000020 per the AGENTS.md "What
+counts as a system worth cataloging" inclusion criterion. The
+rhizosphere microbiome is a niche-specific *instance* of the microbiome
+class — operationally defined by attachment to plant roots and the
+exudate-influenced soil zone — not a type-level archetype. The
+replacement type slug is `microbiome` (resolved in
+[taxonomy/source/system-classes.yaml](../../../taxonomy/source/system-classes.yaml);
+queued in [config/priority-systems.yaml](../../../config/priority-systems.yaml)).
+
+The prose above — boundary cues (rhizoplane vs rhizosphere soil vs bulk
+soil), components (rhizoplane bacteria, mycorrhizal partners, protistan
+predators, phages, exudate pools), interaction types (root exudation,
+predation, quorum sensing, mutualistic nutrient exchange, antagonism),
+and the spatial/temporal scale ladder — is preserved here so it can
+inform the `canonical_examples` of the eventual type-level `microbiome`
+system entry. The rhizosphere case will sit alongside the human gut
+microbiome (sys-000002, deprecated in companion task
+tsk-20260425-000017) as the two seed exemplars of distinct
+niche realizations of the same archetype: a host-associated gut
+microbiome and an environment-interface root microbiome. Do not delete
+this directory: the material is the source for the plant/soil branch of
+the eventual type-level entry's examples.

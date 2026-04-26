@@ -1,0 +1,37 @@
+acceptance_tests:
+  - 'sys-000006 (Rhizosphere microbiome) has `status: deprecated` set on its `system.yaml`,
+    `updated_at` bumped, and a "Deprecation" section appended to its `notes.md` explaining
+    the type-level reframing per AGENTS.md "What counts as a system worth cataloging"
+    — the rhizosphere is a specific niche-defined microbiome, an instance of the microbiome
+    type.'
+  - The notes.md deprecation section names the replacement type slug 
+    (`microbiome`, in taxonomy/source/system-classes.yaml; now in 
+    config/priority-systems.yaml) and notes that the existing prose will inform 
+    `canonical_examples` of the eventual type-level `microbiome` entry alongside
+    human gut microbiome (sys-000002).
+  - '`uv run coc validate` exits 0 after the edit.'
+created_at: '2026-04-25T20:32:00Z'
+id: tsk-20260425-000020
+lease:
+  attempts: 1
+  last_heartbeat: '2026-04-26T02:07:27Z'
+  leased_at: '2026-04-26T02:07:27Z'
+  leased_by: Shiftor/56432
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Bootstrap-era instance entry retired under the new inclusion criterion\n(AGENTS.md
+  \"What counts as a system worth cataloging\"). Rhizosphere\nmicrobiome is a specific
+  niche-defined instance of the microbiome\nclass. Pairs with sys-000002 (human gut
+  microbiome) — both\ndeprecate together; the type-level `microbiome` entry will replace\n\
+  both, with rhizosphere and gut as canonical examples of distinct\nniche realizations
+  of the same archetype.\n\nReviewer steps:\n  1. Set `status: deprecated`, bump `updated_at`
+  on system.yaml.\n  2. Append a \"Deprecation\" section to notes.md citing this task
+  id,\n     naming the replacement type slug (`microbiome`).\n  3. Do NOT delete files.\n\
+  \nCompanion task: tsk-20260425-000017 (sys-000002 gut microbiome → microbiome).\n"
+output_targets:
+  - registry/systems/sys-000006--rhizosphere-microbiome/system.yaml
+  - registry/systems/sys-000006--rhizosphere-microbiome/notes.md
+priority: high
+skill: review-records
+state: done
+type: review-records
