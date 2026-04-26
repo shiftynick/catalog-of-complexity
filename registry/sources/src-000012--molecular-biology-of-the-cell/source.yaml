@@ -1,0 +1,22 @@
+authors:
+  - Bruce Alberts
+  - Alexander Johnson
+  - Julian Lewis
+  - David Morgan
+  - Martin Raff
+  - Keith Roberts
+  - Peter Walter
+citation: Bruce Alberts, Alexander Johnson, Julian Lewis et al.. (2014). 
+  Molecular Biology of the Cell. Garland Science. ISBN:9780815344322
+doi: null
+hash: 355b4da447cf6ebe4af67f66090abf75ebecb9d95b88d3a2faa9001e1a6baa3b
+id: src-000012--molecular-biology-of-the-cell
+kind: book
+license: null
+parsed_path: registry/sources/src-000012--molecular-biology-of-the-cell/parsed/
+raw_path: registry/sources/src-000012--molecular-biology-of-the-cell/raw/
+retrieved_at: '2026-04-26T09:16:55.715377Z'
+slug: molecular-biology-of-the-cell
+title: Molecular Biology of the Cell
+url: urn:isbn:9780815344322
+year: 2014
