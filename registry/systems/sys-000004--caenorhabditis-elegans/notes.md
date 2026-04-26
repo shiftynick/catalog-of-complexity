@@ -92,3 +92,25 @@ included.
 - White JG, Southgate E, Thomson JN, Brenner S. The structure of the nervous
   system of the nematode *Caenorhabditis elegans*. Philos Trans R Soc Lond B
   314(1165):1-340 (1986). DOI: 10.1098/rstb.1986.0056.
+
+## Deprecation
+
+Per task `tsk-20260425-000018` (review-records, 2026-04-26) this entry is
+retired under the inclusion criterion in
+[AGENTS.md](../../../AGENTS.md) "What counts as a system worth cataloging":
+the catalog holds *types* of complex systems, not specific instances.
+*Caenorhabditis elegans* is a single named model organism — an instance of
+the type-level archetype `multicellular-organism` (see
+`taxonomy/source/system-classes.yaml` and the priority-systems entry
+`config/priority-systems.yaml` with `class_hint: multicellular-organism`).
+
+The detailed prose preserved above (959 somatic cells, 302-neuron
+connectome, invariant cell lineage, ~3-day life cycle, dauer diapause,
+EM-reconstructed wiring) is **not deleted**: it remains the authoritative
+description of the canonical exemplar and will be reused, alongside other
+model organisms (*Drosophila*, mouse, human), as a `canonical_examples`
+entry under the eventual type-level `multicellular-organism` system.
+
+Files are retained on disk; only the YAML `status` field is set to
+`deprecated`. Do not delete this directory — the prose is the model
+contribution to the future type entry.

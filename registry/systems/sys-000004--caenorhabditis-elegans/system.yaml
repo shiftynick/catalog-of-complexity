@@ -4,7 +4,7 @@ name: Caenorhabditis elegans (model multicellular organism)
 aliases:
   - C. elegans
   - Nematode C. elegans
-status: profiled
+status: deprecated
 taxonomy_refs:
   - system-domain:biological
   - system-class:multicellular-organism
@@ -65,4 +65,4 @@ scales:
     - dauer diapause extending survival for weeks to months under stress
 source_refs: []
 created_at: '2026-04-23T16:33:13Z'
-updated_at: '2026-04-23T16:33:13Z'
+updated_at: '2026-04-26T00:06:58Z'
