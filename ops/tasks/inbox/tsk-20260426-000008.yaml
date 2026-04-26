@@ -1,0 +1,29 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    doi:10.1073/pnas.1218525110, either newly written or an idempotent match
+    reported by `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-26T07:25:00Z'
+id: tsk-20260426-000008
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Source debt: doi:10.1073/pnas.1218525110. Referenced by tsk-20260426-000005\n\
+  (ready profile-system microbiome). McFall-Ngai M. et al. (2013)\n\"Animals in a bacterial\
+  \ world, a new imperative for the life\nsciences\" Proc. Natl. Acad. Sci. USA 110(9):3229-3236\
+  \ \xE2\x80\x94 the\nmanifesto establishing microbiome as a unifying biological\nconcept\
+  \ across hosts and environments, anchoring the type-level\nmicrobiome profile's boundary\
+  \ / interaction-type framing. Emitted by\nplan-backlog Tier 0.75 preflight sweep.\n"
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - doi:10.1073/pnas.1218525110
+state: inbox
+type: acquire-source

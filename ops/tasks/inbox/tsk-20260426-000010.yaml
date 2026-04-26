@@ -1,0 +1,30 @@
+acceptance_tests:
+  - A directory registry/sources/src-*--<slug>/ exists for the ref
+    isbn:9780815344322, either newly written or an idempotent match reported by
+    `coc acquire`.
+  - That directory contains source.yaml (validating against
+    schemas/source.schema.json) and a non-empty raw/ subdirectory.
+  - source.yaml has non-null retrieved_at and hash (SHA-256 over raw/ artifact
+    bytes), and its kind is consistent with the resolver output.
+  - '`uv run coc validate` exits 0.'
+created_at: '2026-04-26T07:25:00Z'
+id: tsk-20260426-000010
+lease:
+  attempts: 0
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Source debt: isbn:9780815344322. Referenced by tsk-20260426-000006\n(ready\
+  \ profile-system eukaryotic-cell). Alberts B., Johnson A., Lewis\nJ., Morgan D.,\
+  \ Raff M., Roberts K., Walter P. (2014) Molecular\nBiology of the Cell, 6th ed.,\
+  \ Garland Science \xE2\x80\x94 the canonical\ngraduate-level reference for eukaryotic\
+  \ cell organization, organelle\nbiology, intracellular signaling, cytoskeleton, and\
+  \ cell-cycle\ndynamics, anchoring the eukaryotic-cell profile's components,\ninteraction-types,\
+  \ and scales fields. Emitted by plan-backlog Tier\n0.75 preflight sweep.\n"
+output_targets:
+  - registry/sources/
+priority: normal
+skill: acquire-source
+source_refs:
+  - isbn:9780815344322
+state: inbox
+type: acquire-source

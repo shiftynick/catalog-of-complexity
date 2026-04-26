@@ -1,0 +1,110 @@
+acceptance_tests:
+  - registry/systems/sys-NNNNNN--eukaryotic-cell/system.yaml validates against 
+    schemas/system.schema.json with status profiled and taxonomy_refs containing
+    system-domain:biological and system-class:unicellular-organism.
+  - links.yaml cites >=2 authoritative sources (Alberts et al. 2014 Molecular 
+    Biology of the Cell isbn:9780815344322 and Cavalier-Smith 2010 
+    doi:10.1186/1745-6150-5-7 are the scouted anchors; substitute equivalents 
+    only with rationale in notes.md).
+  - boundary, components, interaction_types, and scales are populated with 
+    specifics (a single eukaryotic cell bounded by the plasma membrane and 
+    architecturally distinguished by a membrane-bound nucleus housing linear 
+    chromatin plus a suite of membrane-bound organelles - mitochondria, 
+    endoplasmic reticulum, Golgi apparatus, lysosomes/vacuoles, peroxisomes, and
+    (in plants/algae) plastids - as components; enzyme catalysis, signal 
+    transduction, intracellular vesicle trafficking, transcription with RNA 
+    splicing/processing, cytoplasmic translation, mitotic and meiotic cell 
+    division with spindle assembly, cytoskeletal remodeling, and organelle 
+    communication as interaction types; ~5-100 micron cell-scale spatial extent 
+    with ~10^1-10^4 fL volumes and ~10^-3 to 10^-1 s catalytic to ~10^3 s 
+    organelle-trafficking to ~10^4-10^5 s cell-cycle timescales), not 
+    placeholders.
+  - canonical_examples lists >=3 well-known type-level instances (Saccharomyces 
+    cerevisiae, Tetrahymena thermophila, and Chlamydomonas reinhardtii are the 
+    scouted anchors; additional acceptable picks include Paramecium tetraurelia,
+    Trypanosoma brucei, Dictyostelium discoideum, Plasmodium falciparum).
+created_at: '2026-04-26T07:14:35Z'
+id: tsk-20260426-000006
+lease:
+  max_attempts: 1
+  ttl_minutes: 90
+notes: "Candidate: Eukaryotic cell (type-level archetype, single-celled-eukaryote
+  scope per priority-seed class_hint). Proposed slug: eukaryotic-cell. Proposed taxonomy:
+  system-domain:biological, system-class:unicellular-organism. Scouted by tsk-20260426-000003
+  (Tier 0.5 priority-seed `eukaryotic-cell`, biological domain, class_hint=unicellular-organism
+  resolves in taxonomy/source/system-classes.yaml). Boundary cue: at the type level,
+  a eukaryotic cell is a single cell bounded by a plasma (cytoplasmic) membrane and
+  architecturally distinguished from prokaryotic cells by (a) a membrane-bound nucleus
+  housing linear chromosomes packaged into nucleosomal chromatin, (b) a suite of membrane-bound
+  cytoplasmic organelles — mitochondria (or mitochondrion-derived hydrogenosomes/mitosomes
+  in anaerobic lineages), endoplasmic reticulum, Golgi apparatus, lysosomes/vacuoles,
+  peroxisomes, and (in plants and algae) plastids — and (c) a cytoskeletal scaffold
+  combining actin microfilaments, microtubules organized by a microtubule-organizing
+  center (centriole/spindle pole body), and intermediate filaments. The priority-seed
+  class_hint constrains this entry to single-celled eukaryotes (yeasts, ciliates,
+  flagellates, amoebae, dinoflagellates, diatoms, single-celled green algae) per the
+  unicellular-organism class definition; eukaryotic cells of multicellular organisms
+  (hepatocytes, neurons, etc.) share the same architecture but are out of scope for
+  the unicellular-organism class — they belong in multicellular-organism component
+  descriptions or in a future cell-type axis if the taxonomy is extended. Components:
+  linear chromosomal DNA packaged as chromatin into ~46 (human-equivalent baseline)
+  to a few-to-many chromosomes per nucleus, ~80S cytoplasmic ribosomes (~10^6-10^7
+  per cell in actively-growing yeast vs ~10^4 in bacteria), nuclear pore complexes,
+  mitochondria (typical ~50-1000 per yeast cell, ~mitochondrial matrix contains its
+  own ~70S ribosomes and circular mtDNA encoding a small set of oxidative-phosphorylation
+  subunits), the endomembrane system (ER -> Golgi -> lysosome/vacuole/secretory-vesicle
+  trafficking), peroxisomes for fatty-acid oxidation and reactive-oxygen-species handling,
+  and the cytoskeletal apparatus (actin, microtubules, intermediate filaments) plus
+  motor proteins (myosins, kinesins, dyneins). Interaction types: enzyme- catalyzed
+  metabolism (mass-action / Michaelis-Menten kinetics) compartmentalized across organelles,
+  signal transduction (receptor tyrosine kinases, GPCRs, MAPK cascades, calcium signaling),
+  nuclear-cytoplasmic transport via importin/exportin and the nuclear pore complex,
+  transcription with extensive pre-mRNA processing (5' capping, splicing, 3' polyadenylation),
+  cytoplasmic translation regulated by initiation factors, vesicular trafficking (COPII/COPI/clathrin
+  coats, Rab GTPases, SNAREs), mitotic spindle assembly and chromosome segregation,
+  meiosis with homologous recombination (the class-defining sexual cycle), cytoskeletal
+  dynamics (actin polymerization, microtubule dynamic instability), autophagy, and
+  organelle biogenesis. Scales: spatial — typical single-celled eukaryote ~5-100 microns
+  in characteristic dimension (yeast ~5-10 microns, Paramecium ~200 microns, diatoms
+  20-200 microns, Chlamydomonas ~10 microns), volume ~10^1-10^4 fL (1-2 orders of
+  magnitude larger than typical prokaryotes), nuclear diameter ~3-10 microns, organelle
+  scales ~0.1-3 microns; temporal — catalytic turnover ~10^-3 to 10^-1 s, transcription
+  with splicing ~10^1-10^2 s, vesicle trafficking ~10^1-10^3 s, cell cycle ~10^4 s
+  (90 min budding yeast on rich medium) to ~10^5-10^6 s (slow-growing protists), evolutionary
+  mutation rate ~10^-9-10^-10 per base per generation. Canonical examples (>=3): Saccharomyces
+  cerevisiae (budding yeast — the deepest-characterized model eukaryote, foundational
+  for cell- cycle, secretion, and signaling work; ~5-10 micron oval cell, ~12 Mbp
+  genome on 16 chromosomes, ~6000 protein-coding genes); Tetrahymena thermophila (ciliate
+  — model for telomere biology, RNA self-splicing (Cech), and chromatin biology with
+  germline/somatic nuclear dimorphism; ~50 micron pear-shaped cell with thousands
+  of cilia); Chlamydomonas reinhardtii (single-celled green alga — model for flagellar/ciliary
+  motility, photosynthesis genetics, and the green-lineage chloroplast; ~10 micron
+  biflagellate cell). Additional well-known type-level instances that may substitute:
+  Paramecium tetraurelia (ciliate, conjugation/sexual cycle), Trypanosoma brucei (kinetoplastid,
+  glycosomes, antigenic variation), Dictyostelium discoideum (social amoeba, multicellular
+  aggregation lifecycle - uses its single-cell phase here), Plasmodium falciparum
+  (apicomplexan, intracellular parasite life cycle). Anchor sources: Alberts, B.,
+  Johnson, A., Lewis, J., Morgan, D., Raff, M., Roberts, K., Walter, P. (2014) Molecular
+  Biology of the Cell, 6th ed., Garland Science, isbn:9780815344322 (the canonical
+  eukaryotic cell biology textbook covering all components, interaction types, and
+  scales above); Cavalier-Smith, T. (2010) \"Origin of the cell nucleus, mitosis and
+  sex: roles of intracellular coevolution\" Biology Direct 5:7, doi:10.1186/1745-6150-5-7
+  (foundational treatment of the suite of eukaryote-defining features — nucleus, endomembrane
+  system, cytoskeleton, mitosis, sex — and their integrated origin, anchoring the
+  type-level identity claim). Note: existing registry/systems/ contains no profiled
+  eukaryotic-cell-class entry; this scout pairs with the prokaryotic-cell priority-seed
+  scout (tsk-20260424-000004 -> profile-system tsk-20260425-000009 for E. coli K-12
+  MG1655) on the cell-type axis. The current `prokaryotic-cell` pair landed at instance
+  level (E. coli K-12 MG1655) rather than type level; consider proposing a parallel
+  type-level `prokaryotic-cell` scout in a future plan-backlog pass to balance the
+  cell-type axis at the type level."
+output_targets:
+  - registry/systems/
+priority: normal
+skill: profile-system
+source_refs:
+  - isbn:9780815344322
+  - doi:10.1186/1745-6150-5-7
+state: ready
+system_id: null
+type: profile-system
