@@ -1,16 +1,19 @@
 acceptance_tests:
   - At least one profile-system task manifest is written to ops/tasks/inbox/ for
-    a biological-domain candidate, each carrying >=1 source_ref and naming a
-    candidate system-domain / system-class slug pair that resolves against
+    a biological-domain candidate, each carrying >=1 source_ref and naming a 
+    candidate system-domain / system-class slug pair that resolves against 
     taxonomy/source/.
-  - A scout-report.md is written under
-    ops/runs/YYYY/MM/DD/<run-id>/scout-report.md with sections Accepted,
+  - A scout-report.md is written under 
+    ops/runs/YYYY/MM/DD/<run-id>/scout-report.md with sections Accepted, 
     Rejected, Taxonomy gaps, and Sources consulted.
   - '`uv run coc validate ops/tasks/inbox/` exits 0 on the emitted manifests.'
 created_at: '2026-04-26T06:09:03Z'
 id: tsk-20260426-000002
 lease:
-  attempts: 0
+  attempts: 1
+  last_heartbeat: '2026-04-26T07:09:21Z'
+  leased_at: '2026-04-26T07:07:18Z'
+  leased_by: Shiftor/55252
   max_attempts: 1
   ttl_minutes: 90
 notes: 'Priority seed: microbiome. Target system-domain:biological. Budget: 1 candidate
@@ -22,5 +25,5 @@ output_targets:
   - ops/runs/*/scout-report.md
 priority: normal
 skill: scout-systems
-state: inbox
+state: done
 type: scout-systems
