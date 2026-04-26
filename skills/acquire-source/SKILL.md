@@ -1,9 +1,9 @@
 ---
 name: acquire-source
-description: Fetch one prefixed source reference (`doi:`, `arxiv:`, `url:`) and register it under `registry/sources/src-NNNNNN--<slug>/` with immutable raw artifacts and a validated source.yaml. The last step in the chain that turns an unresolved bibliographic reference into canonical catalog state.
+description: Fetch one prefixed source reference (`doi:`, `arxiv:`, `url:`, `isbn:`) and register it under `registry/sources/src-NNNNNN--<slug>/` with immutable raw artifacts and a validated source.yaml. The last step in the chain that turns an unresolved bibliographic reference into canonical catalog state.
 status: active
 inputs:
-  - 'source_refs — exactly one entry. Accepted prefixes: `doi:<doi>`, `arxiv:<id>`, `url:<absolute-url>`. `isbn:` is reserved but not yet resolvable; block the task if one is passed.'
+  - 'source_refs — exactly one entry. Accepted prefixes: `doi:<doi>`, `arxiv:<id>`, `url:<absolute-url>`, `isbn:<isbn>` (10- or 13-digit, no hyphens). The `isbn:` resolver is metadata-only (no full-text retrieval).'
 outputs:
   - '`registry/sources/src-NNNNNN--<slug>/source.yaml` — validated against schemas/source.schema.json.'
   - '`registry/sources/src-NNNNNN--<slug>/raw/` — one or more immutable artifact files (metadata + any OA full-text).'
@@ -19,8 +19,8 @@ stop_conditions:
 
 This is the *only* skill that writes to `registry/sources/<src>/raw/`. Use it
 when any upstream task references an unregistered source with a prefixed
-form (`doi:`, `arxiv:`, `url:`). Once the source is registered, downstream
-tasks cite it by its `src-NNNNNN--<slug>` id instead.
+form (`doi:`, `arxiv:`, `url:`, `isbn:`). Once the source is registered,
+downstream tasks cite it by its `src-NNNNNN--<slug>` id instead.
 
 `plan-backlog` Tier 0.75 (Source debt) scans in-flight and queued tasks for
 unregistered prefixed refs and emits one `acquire-source` task per unique ref.
@@ -29,21 +29,21 @@ Do **not** use this skill to:
 
 - Edit an existing source under `registry/sources/` — raw/ is immutable; a
   re-fetch produces a new `src-NNNNNN--<slug>` entry.
-- Resolve `isbn:` refs — not yet supported; block.
 - Run a literature search — that's `scout-systems` (and, later,
   `deep-search-systems`).
 
 ## Preconditions
 
 - The task manifest has exactly one entry in `source_refs` with a supported
-  prefix (`doi:`, `arxiv:`, `url:`).
+  prefix (`doi:`, `arxiv:`, `url:`, `isbn:`).
 - Environment variable `COC_CONTACT_EMAIL` is set (used in User-Agent and in
   the Unpaywall query parameter). Unset falls back to the default contact
   email; runs should override it for courtesy to the upstream APIs.
 - Network access is enabled for the autonomous-run environment (see
   references below — Claude Code needs `WebFetch`, Codex needs a network
-  allowlist covering `api.crossref.org`, `api.openalex.org`,
-  `api.unpaywall.org`, `arxiv.org`, and publisher OA domains).
+  allowlist covering `api.crossref.org`, `api.datacite.org`,
+  `api.openalex.org`, `api.unpaywall.org`, `arxiv.org`,
+  `www.googleapis.com`, `openlibrary.org`, and publisher OA domains).
 
 ## Procedure
 
@@ -57,6 +57,11 @@ Do **not** use this skill to:
      resolution.
    - `arxiv:` → arXiv query API + PDF.
    - `url:` → generic GET; content-type determines `kind`.
+   - `isbn:` → Google Books `volumes?q=isbn:<isbn>` primary; falls back to
+     Open Library `api/books?bibkeys=ISBN:<isbn>` when Google Books
+     returns no items. Metadata-only (`license = null`, `kind = book`,
+     `url = urn:isbn:<isbn>`); no full-text retrieval. NotFoundError when
+     both providers come up empty.
 3. The CLI writes `registry/sources/src-NNNNNN--<slug>/` atomically (stages
    under `.tmp-<src>/` and renames on success). On idempotency match, no
    new directory is created; the existing path is printed.
@@ -70,7 +75,8 @@ Do **not** use this skill to:
   `hash` is a SHA-256 over the ordered `raw/` artifact bytes.
 - `raw/` — for DOI: `metadata.json`, `unpaywall.json`, optionally
   `paper.<ext>`. For arxiv: `metadata.xml`, optionally `paper.pdf`. For
-  url: one `landing.<ext>`.
+  url: one `landing.<ext>`. For isbn: one `metadata.json` containing the
+  raw Google Books or Open Library response body.
 - `parsed/` — empty directory (populated by a future `parse-source` skill).
 - `evidence.jsonl` — empty file (populated by `extract-observations`).
 
@@ -92,11 +98,12 @@ acceptance_tests:
 
 ## Block or fail when
 
-- The ref uses an unsupported prefix (`isbn:` today, or an unknown prefix)
-  → block with reason `unsupported-ref`.
+- The ref uses an unknown prefix (none of `doi:`, `arxiv:`, `url:`,
+  `isbn:`) → block with reason `unsupported-ref`.
 - The upstream returned 404 / the DOI is not minted at any of the queried
   registrars (Crossref *and* DataCite for `doi:`) / the arxiv id has no
-  entry → block with reason `not-found`.
+  entry / both Google Books and Open Library returned no record for the
+  isbn → block with reason `not-found`.
 - Network failure (DNS, timeout, 5xx) persisting across retries → fail with
   reason `fetch-error`. The watchdog will retry up to `max_attempts`.
 - The resolver produced a source record that fails schema validation →
