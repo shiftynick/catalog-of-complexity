@@ -1,0 +1,76 @@
+boundary:
+  description: A bounded geographic region whose biotic and abiotic components 
+    are functionally coupled through energy and matter flows; boundary is 
+    typically drawn at major discontinuities in vegetation, climate, or habitat.
+  type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Amazon rainforest
+    note: Largest tropical ecosystem; canonical high-biodiversity terrestrial 
+      case.
+  - name: Coral reef
+    note: Highest biodiversity per area; canonical mutualism-driven ecosystem.
+  - name: Boreal forest
+    note: Largest terrestrial biome by area; canonical low-diversity 
+      temperature-limited ecosystem.
+  - name: Open ocean / pelagic ecosystem
+    note: Largest ecosystem by volume; canonical microbial-loop case.
+components:
+  - primary producers (plants, algae, photosynthetic bacteria)
+  - consumers (herbivores, carnivores, omnivores)
+  - decomposers (bacteria, fungi)
+  - abiotic substrate (soil, water, atmosphere)
+  - nutrient pools (nitrogen, phosphorus, carbon)
+  - climate forcing
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - solar energy input
+  - water and nutrient availability
+  - thermodynamic limits (~10% trophic transfer efficiency)
+emergent_properties:
+  - biodiversity patterns
+  - food-web topology
+  - succession trajectories
+  - ecosystem services (pollination, water purification, climate regulation)
+failure_modes:
+  - regime shift / tipping point (e.g. coral bleaching, savannization)
+  - cascading extinctions from keystone-species loss
+  - biodiversity collapse from habitat destruction
+  - invasive-species takeover
+id: sys-000017--ecosystem
+interaction_types:
+  - trophic interactions (predation, herbivory, parasitism)
+  - competition for resources
+  - mutualism (pollination, mycorrhizal associations)
+  - decomposition and nutrient cycling
+  - succession after disturbance
+lifecycle_stage: maturity
+main_feedbacks:
+  - predator-prey population cycles
+  - nutrient cycling regulating productivity
+  - climate-vegetation feedback (albedo, evapotranspiration)
+  - density-dependent regulation
+name: Ecosystem
+origin: evolved
+primary_function: cycle energy and matter through coupled biotic-abiotic flows
+priority: P0
+scales:
+  spatial:
+    - patch ~10^0 to 10^2 m
+    - landscape ~10^3 to 10^5 m
+    - biome ~10^6 to 10^7 m
+  temporal:
+    - generation times ~10^7 to 10^9 s
+    - successional dynamics ~10^9 to 10^10 s
+    - evolutionary timescale ~10^11 to 10^13 s
+slug: ecosystem
+status: bootstrap-stub
+substrate: biotic communities + abiotic environment
+summary: "Biotic community plus its abiotic environment, coupled through\nenergy flow
+  and biogeochemical cycling. Defined at scales from\nlocal patches (a pond) to biomes
+  (the Amazon rainforest) to the\nglobal biosphere. Substrate of ecology.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:ecosystem
+updated_at: '2026-04-29T22:08:28Z'

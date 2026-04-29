@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - component-type-classification
+description: "Heterogeneity of components by type, measured as effective number\n\
+  of types (exp(Shannon entropy)) or as a richness count weighted\nby abundance. From
+  metric ontology §5.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-computation
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000002--component-diversity
+maturity_level: L1
+name: Component diversity
+scale_level: micro
+slug: component-diversity
+status: bootstrap-stub
+unit: shannon-bits-or-effective-types
+value_type: continuous

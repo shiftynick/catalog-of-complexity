@@ -1,0 +1,86 @@
+boundary:
+  description: "The microbiome occupies a delimited niche (a host tissue\ncompartment
+    or an environmental matrix) and includes the\nbacterial, archaeal, fungal, and
+    viral populations resident in\nthat niche together with the microbe-derived metabolite
+    pools.\n"
+  type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Human gut microbiome
+    note: Highest-density host-associated microbiome; hundreds of species, 
+      10^11-10^12 cells/g.
+  - name: Rhizosphere microbiome
+    note: Root-soil interface community shaping plant nutrient uptake.
+  - name: Marine surface (epipelagic) microbiome
+    note: SAR11/Prochlorococcus/Synechococcus dominated; couples to global 
+      biogeochemistry.
+  - name: Oral microbiome
+    note: Multi-site biofilm community; site-specific assemblies.
+  - name: Skin microbiome
+    note: Patchwork of dry/moist/sebaceous microhabitats.
+components:
+  - bacterial populations (typically 10^9-10^14 cells per host or per gram)
+  - archaeal populations (methanogens, ammonia oxidizers, halophiles)
+  - fungal populations
+  - viral populations (bacteriophages and eukaryotic viruses)
+  - microbial metabolite pools
+  - extracellular polymeric matrix and biofilm structural components
+  - mobile genetic elements (plasmids, integrative conjugative elements, 
+    prophages)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - substrate availability from host or environment
+  - host immunity (in host-associated cases)
+  - thermodynamic constraints on syntrophic chains
+emergent_properties:
+  - community-level metabolic functions (e.g. SCFA production in gut)
+  - ecological resilience to invasion
+  - host-microbiome co-adaptation
+failure_modes:
+  - dysbiosis (loss of beneficial taxa, expansion of pathogens)
+  - invasion by exogenous pathogens
+  - antimicrobial-driven collapse and re-equilibration
+id: sys-000012--microbiome
+interaction_types:
+  - trophic cross-feeding
+  - syntrophy
+  - competition for substrates and niches
+  - bacteriophage predation and lysis
+  - host immune and metabolic signaling (in host-associated cases)
+  - horizontal gene transfer
+  - quorum sensing
+lifecycle_stage: maturity
+main_feedbacks:
+  - cross-feeding loops stabilizing community structure
+  - host-microbe metabolic feedback
+  - phage-bacteria population oscillation
+name: Microbiome
+origin: evolved
+primary_function: community-level metabolic and ecological coupling within a 
+  host or environmental matrix
+priority: P0
+scales:
+  spatial:
+    - cell scale ~10^-6 m
+    - biofilm and microcolony scale ~10^-4 m
+    - niche or host-organ scale ~10^-1 m
+  temporal:
+    - metabolite-pool turnover ~10^2 to 10^4 s
+    - community restructuring after perturbation ~weeks-months
+    - successional dynamics ~years-decades
+slug: microbiome
+source_refs:
+  - src-000010--animals-in-a-bacterial-world-a-new-imperative-for-the-life-s
+  - src-000011--the-application-of-ecological-theory-toward-an-understanding
+status: bootstrap-stub
+substrate: multi-taxon microbial community in a host or environmental niche
+summary: "Type-level archetype for a multi-taxon microbial community\nresident in
+  a defined niche — host tissue (gut, skin, oral\ncavity, root rhizosphere) or environmental
+  matrix (marine surface\nwater, sediment, deep subsurface, built-environment surface).\n\
+  Members are coupled by trophic cross-feeding, syntrophy,\ncompetition, phage predation,
+  host or niche signaling, and\nhorizontal gene transfer.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:microbiome
+updated_at: '2026-04-29T22:08:28Z'

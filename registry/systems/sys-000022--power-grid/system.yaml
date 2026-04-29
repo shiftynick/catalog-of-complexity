@@ -1,0 +1,77 @@
+boundary:
+  description: All electrically interconnected generators, transmission lines, 
+    transformers, and consumers within a single synchronous frequency-controlled
+    region.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Eastern Interconnection (USA)
+    note: Largest synchronous grid; canonical large-scale power-grid case.
+  - name: Texas ERCOT grid
+    note: Canonical example of vulnerability to extreme cold (Feb 2021 failure).
+  - name: European synchronous grid
+    note: Canonical multi-national interconnection.
+components:
+  - generators (thermal, hydro, nuclear, wind, solar)
+  - transmission lines (high-voltage AC and DC)
+  - transformers and substations
+  - distribution network (medium- and low-voltage)
+  - loads (industrial, commercial, residential)
+  - control room / SCADA system
+  - reactive power and voltage support equipment
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - real-time generation = load (no large-scale storage at most-needed 
+    timescales)
+  - thermal limits on transmission lines
+  - voltage stability constraints
+  - N-1 reliability standard
+emergent_properties:
+  - synchronous frequency lock across the interconnection
+  - cascade failure modes
+  - market price volatility
+failure_modes:
+  - cascade blackout (line trips trigger overloads on parallel paths)
+  - voltage collapse
+  - frequency-deviation islanding
+  - cyber-attack (Stuxnet-class)
+  - extreme-weather widespread outages
+id: sys-000022--power-grid
+interaction_types:
+  - power flow on transmission lines (subject to Kirchhoff's laws)
+  - automatic generation control
+  - protective relaying (rapid disconnection of faults)
+  - voltage and frequency regulation
+  - market dispatch (in deregulated grids)
+lifecycle_stage: maturity
+main_feedbacks:
+  - automatic generation control responding to frequency deviation
+  - market price feedback (in deregulated markets)
+  - investment-cycle feedback responding to capacity margins
+  - protective relay cascades
+name: Power grid
+origin: designed
+primary_function: real-time generation-load balancing of electrical power
+priority: P0
+scales:
+  spatial:
+    - distribution feeder ~10^3 m
+    - transmission line ~10^5 m
+    - synchronous interconnection ~10^6 to 10^7 m (continental)
+  temporal:
+    - electromagnetic transient ~10^-6 s
+    - frequency excursion ~10^0 s
+    - dispatch cycle ~10^2 to 10^3 s
+    - capacity planning ~10^9 s (decades)
+slug: power-grid
+status: bootstrap-stub
+substrate: synchronous AC generators + transmission + distribution + loads
+summary: "Synchronized electricity generation, transmission, and\ndistribution network
+  with real-time supply-demand balance\nrequirements. Canonical example of tight-coupling,
+  cascade-prone\ninfrastructure; subject of network-resilience research and the\n\
+  classic blackout-cascade literature.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:technological
+  - system-class:power-grid
+updated_at: '2026-04-29T22:08:28Z'

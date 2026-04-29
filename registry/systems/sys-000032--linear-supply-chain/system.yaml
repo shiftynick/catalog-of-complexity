@@ -1,0 +1,58 @@
+boundary:
+  description: A defined sequence of stages from raw material to finished good, 
+    with one supplier and one buyer at each stage.
+  type: functional
+boundary_clarity: crisp
+canonical_examples:
+  - name: Automotive Tier-1-2-3 supplier sequence (idealized)
+    note: Pedagogical baseline; real automotive chains are networks, not lines.
+  - name: Textbook beer-game supply chain
+    note: Canonical operations-management teaching example illustrating 
+      bullwhip.
+  - name: Single-source pharmaceutical API supply chain
+    note: Real-world fragility example; canonical case for critical-supply-chain
+      risk.
+components:
+  - upstream raw-material source
+  - sequential conversion stages
+  - downstream consumer
+  - inventory buffers between stages (sometimes absent)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - throughput limited by slowest stage
+  - any single-stage failure breaks the chain
+emergent_properties:
+  - bullwhip effect (demand-variation amplification upstream)
+failure_modes:
+  - single-stage disruption halts entire chain
+  - bullwhip-driven over- and under-stocking
+id: sys-000032--linear-supply-chain
+interaction_types:
+  - one-stage-to-next material flow
+  - payment flow upstream
+  - schedule and demand information passed upstream
+lifecycle_stage: maturity
+main_feedbacks:
+  - inventory buffer dynamics (bullwhip effect even in linear chains)
+name: Linear supply chain
+origin: designed
+primary_function: sequential stepwise transformation from raw input to end 
+  product
+priority: C
+scales:
+  spatial:
+    - regional or global, depending on instance
+  temporal:
+    - cycle time ~10^5 to 10^7 s (days to months)
+slug: linear-supply-chain
+status: bootstrap-stub
+substrate: sequential conversion pipeline with no redundancy
+summary: "A non-redundant, strictly sequential conversion pipeline —\nA -> B -> C
+  -> D — without alternative routing, redundancy, or\nadaptive capacity. Boundary
+  case for the supply-chain class;\nestablishes the baseline against which networked
+  supply chains\nshould be compared.\n"
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:economic
+  - system-class:linear-supply-chain
+updated_at: '2026-04-29T22:08:28Z'

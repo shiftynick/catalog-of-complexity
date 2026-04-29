@@ -2,74 +2,106 @@ name: system-classes
 description: >
   Sub-categories of systems spanning one or more domains. Classes are a
   secondary classification axis: a single system may be tagged with multiple
-  classes. Keep the list small at first; expand when >5 systems cluster around
-  a concept not yet represented.
-version: 0.1.0
+  classes.
+
+  v0.2 expansion (2026-04-29) widens the class list from 18 to ~75 to
+  cover the do-not-miss systems in
+  docs/framework/02-candidate-systems-catalog.md §26 and the full
+  priority list in config/priority-systems.yaml. Adding classes
+  upfront avoids forcing the bootstrap importer to invent slugs and
+  keeps the type-level / instance-level distinction crisp (each class
+  is a recurring archetype; a registry/systems entry is the catalog's
+  treatment of that archetype).
+
+  Classes are *type-level archetypes*. Specific instances (e.g. the
+  Amazon rainforest, Caenorhabditis elegans, Apache Kafka) live as
+  `canonical_examples` inside a system entry, not as their own class
+  slugs.
+version: 0.2.0
 items:
-  - slug: forest-biome
-    label: Forest biome
-    description: Large-scale terrestrial ecological system dominated by trees.
-  - slug: ocean-circulation-cell
-    label: Ocean circulation cell
-    description: Basin- or gyre-scale pattern of ocean currents driven by wind, temperature, and salinity.
-  - slug: urban-metabolism
-    label: Urban metabolism
+  # --- Physical / cosmic ---
+  - slug: cosmic-structure
+    label: Cosmic large-scale structure
+    description: Density-driven hierarchical organization of matter across megaparsec scales — cosmic web, voids, clusters.
+  - slug: stellar-system
+    label: Stellar / planetary system
+    description: Gravitationally bound assembly of one or more stars and orbiting bodies (planets, moons, asteroids, dust). Includes binaries and exoplanetary systems.
+  - slug: turbulent-fluid
+    label: Turbulent fluid
+    description: Fluid flow at high Reynolds number with cascade of energy across scales; canonical example of dynamical complexity.
+  - slug: phase-transition-system
+    label: Phase-transition system
+    description: System exhibiting qualitative regime change (gas/liquid/solid, paramagnet/ferromagnet, ordered/disordered) at a critical parameter.
+  - slug: self-organized-critical-system
+    label: Self-organized critical system
+    description: Slowly driven dissipative system that naturally evolves to a critical state with power-law avalanches (Bak-Tang-Wiesenfeld sandpile, earthquake fault).
+  - slug: granular-medium
+    label: Granular medium
+    description: Collection of macroscopic discrete particles whose collective behavior shows jamming, avalanches, and pattern formation.
+  - slug: planetary-system
+    label: Planetary geophysical system
+    description: Differentiated planetary body's coupled interior, surface, and atmospheric subsystems — mantle convection, plate tectonics, volcanism.
+  - slug: geosphere
+    label: Earth geosphere
+    description: One of Earth's coupled spheres — atmosphere, hydrosphere, lithosphere, biosphere, cryosphere, pedosphere — each defined by a substrate and characteristic flows.
+  - slug: climate-system
+    label: Climate system
+    description: Coupled atmospheric, oceanic, cryospheric, and biospheric dynamics generating planetary-scale temperature and circulation patterns over decades to millennia.
+  - slug: biogeochemical-cycle
+    label: Biogeochemical cycle
+    description: Element-specific flow of matter (carbon, nitrogen, phosphorus, sulfur, water) through abiotic reservoirs and biological pools.
+
+  # --- Chemical / material ---
+  - slug: atomic-system
+    label: Atomic system
     description: >
-      A city treated as a system of material and energy flows, coupling human,
-      technological, and ecological subsystems.
-  - slug: distributed-software-system
-    label: Distributed software system
+      Bound system of one nucleus and its electrons (neutral atom or atomic
+      ion), whose stationary states and transitions are governed by the
+      electromagnetic interaction plus spin-orbit and relativistic corrections.
+      The canonical unit of the periodic table and the smallest system
+      exhibiting discrete quantum energy levels that realize chemical identity.
+      Distinct from `molecular-system` (nuclei bonded into a multi-atom
+      structure via shared electronic states) and from `chemical-reaction-network`
+      (population-level kinetics across many molecular species).
+    references:
+      - Bransden, B.H. & Joachain, C.J. (2003) Physics of Atoms and Molecules, 2nd ed. Pearson. ISBN 978-0582356924.
+      - Foot, C.J. (2005) Atomic Physics. Oxford University Press. ISBN 978-0198506966.
+      - NIST Atomic Spectra Database (2024). doi:10.18434/T4W30F.
+  - slug: molecular-system
+    label: Molecular system
     description: >
-      Network of computational processes coordinating over messages to
-      provide a service, subject to partial failures and consistency tradeoffs.
-  - slug: artificial-neural-network
-    label: Artificial neural network
-    description: Parameterized differentiable model trained via gradient descent.
-  - slug: central-nervous-system
-    label: Central nervous system
-    description: Neural tissue coordinating perception, cognition, and motor control in animals.
-  - slug: supply-chain
-    label: Supply chain
+      Bound assembly of two or more atoms held together by chemical bonds
+      (covalent, ionic, metallic, hydrogen, or van der Waals), whose
+      stationary states are governed by the coupled electronic and nuclear
+      Schrodinger problem. Spans diatomics, polyatomic small molecules, and
+      macromolecules treated as a single bound object rather than as a
+      population of species.
+    references:
+      - Atkins, P. & Friedman, R. (2011) Molecular Quantum Mechanics, 5th ed. Oxford University Press. ISBN 978-0199541423.
+      - Szabo, A. & Ostlund, N.S. (1996) Modern Quantum Chemistry. Dover. ISBN 978-0486691862.
+  - slug: chemical-reaction-network
+    label: Chemical reaction network
     description: >
-      Multi-organization network of suppliers, transforms, and distributors
-      converting raw inputs to end-consumer goods.
-  - slug: market-exchange
-    label: Market exchange
-    description: >
-      Venue where dispersed participants transact, with prices emerging from
-      their aggregate actions.
-  - slug: bureaucratic-organization
-    label: Bureaucratic organization
-    description: Formal hierarchical structure with rule-based decision authority.
-  - slug: power-grid
-    label: Power grid
-    description: >
-      Synchronized electricity generation, transmission, and distribution
-      network with real-time supply-demand balance requirements.
-  - slug: river-network
-    label: River network
-    description: Dendritic hydrological system draining a terrestrial area into a common outlet.
-  - slug: immune-system
-    label: Immune system
-    description: Cellular and molecular subsystem that discriminates self from non-self and responds to threats.
-  - slug: multicellular-organism
-    label: Multicellular organism
-    description: Coordinated colony of differentiated cells with a shared genome.
-  - slug: microbiome
-    label: Microbiome
-    description: Community of microorganisms occupying a defined environment or host.
-  - slug: protocol-stack
-    label: Protocol stack
-    description: Layered set of communication protocols enabling interoperable data exchange.
-  - slug: language-community
-    label: Language community
-    description: Population of speakers sharing a linguistic code, with ongoing variation and change.
-  - slug: belief-network
-    label: Belief network
-    description: Structured collection of propositions held by a group, with inferential and social coupling.
-  - slug: transportation-network
-    label: Transportation network
-    description: Infrastructure plus flow system moving people or goods between nodes.
+      Population-level system of chemical species coupled by elementary
+      reactions, described by a stoichiometric matrix and a rate law
+      (mass-action, Michaelis-Menten, or other). Canonical examples include
+      the Belousov-Zhabotinsky oscillator, combustion kinetics, and atmospheric
+      photochemistry.
+    references:
+      - Erdi, P. & Toth, J. (1989) Mathematical Models of Chemical Reactions. Princeton University Press / Manchester University Press. ISBN 978-0691085326.
+      - Feinberg, M. (2019) Foundations of Chemical Reaction Network Theory. Springer. ISBN 978-3030038571.
+      - Gillespie, D.T. (1977) Exact stochastic simulation of coupled chemical reactions. J Phys Chem 81(25):2340-2361. doi:10.1021/j100540a008.
+  - slug: autocatalytic-set
+    label: Autocatalytic chemical set
+    description: Closed set of chemical reactions in which every species is produced by at least one reaction catalyzed by a member of the set; Kauffman / Stuart Kauffman framework for prebiotic chemistry.
+  - slug: protein-folding-system
+    label: Protein folding system
+    description: A polypeptide chain navigating a high-dimensional energy landscape to reach a functional native state; canonical example of constraint-satisfying self-assembly.
+  - slug: crystal-lattice
+    label: Crystal lattice
+    description: Periodic spatial arrangement of atoms or molecules with long-range order; baseline for "ordered, low-emergence" comparison.
+
+  # --- Biological / cellular ---
   - slug: unicellular-organism
     label: Unicellular organism
     description: >
@@ -81,114 +113,298 @@ items:
     references:
       - Madigan, M.T. et al. (2021) Brock Biology of Microorganisms, 16th ed. Pearson. ISBN 978-0134874401.
       - Woese, C.R. (1987) Bacterial evolution. Microbiological Reviews 51(2):221-271.
-  - slug: metabolic-network
-    label: Metabolic network
-    description: >
-      Intracellular graph of biochemical reactions — metabolites as nodes,
-      enzyme-catalyzed conversions as edges — that collectively realize a
-      cell's energy, biosynthesis, and regulatory functions. Distinct from
-      `immune-system` (organism-level defense subsystem) and from
-      `unicellular-organism` (the whole cell as a unit) by being a
-      within-cell functional network rather than an organism or community.
-    references:
-      - Jeong, H., Tombor, B., Albert, R., Oltvai, Z.N., Barabási, A.-L. (2000) The large-scale organization of metabolic networks. Nature 407:651-654. doi:10.1038/35036627.
-      - Palsson, B.Ø. (2015) Systems Biology - Constraint-based Reconstruction and Analysis. Cambridge University Press. ISBN 978-1107038851.
+  - slug: multicellular-organism
+    label: Multicellular organism
+    description: Coordinated colony of differentiated cells with a shared genome.
   - slug: superorganism
     label: Superorganism
     description: >
       Eusocial colony (e.g. social insects) or clonal colony whose members
       exhibit reproductive division of labor and are treated as the unit of
-      selection. Distinct from `multicellular-organism` (differentiated cells
-      rather than differentiated individuals) and from `microbiome` (diverse
-      community without unified reproductive specialization).
+      selection.
     references:
-      - Hölldobler, B. & Wilson, E.O. (2009) The Superorganism - The Beauty, Elegance, and Strangeness of Insect Societies. W. W. Norton. ISBN 978-0393067040.
+      - Holldobler, B. & Wilson, E.O. (2009) The Superorganism. W. W. Norton. ISBN 978-0393067040.
       - Wheeler, W.M. (1911) The ant-colony as an organism. Journal of Morphology 22(2):307-325.
-  - slug: atomic-system
-    label: Atomic system
+  - slug: microbiome
+    label: Microbiome
+    description: Community of microorganisms occupying a defined environment or host.
+  - slug: genome
+    label: Genome
+    description: The complete set of heritable nucleic-acid sequences of an organism, with structural organization (chromosomes, plasmids), replication machinery, and regulatory architecture.
+  - slug: metabolic-network
+    label: Metabolic network
     description: >
-      Bound system of one nucleus and its electrons (neutral atom or atomic
-      ion), whose stationary states and transitions are governed by the
-      electromagnetic interaction plus spin-orbit and relativistic corrections.
-      The canonical unit of the periodic table and the smallest system
-      exhibiting discrete quantum energy levels that realize chemical identity.
-      Distinct from `molecular-system` (once added: nuclei bonded into a
-      multi-atom structure via shared electronic states) and from
-      `chemical-reaction-network` (once added: population-level kinetics across
-      many molecular species). Also distinct from physical-domain classes like
-      `ocean-circulation-cell` and `river-network`, which describe macroscale
-      classical fluid/transport systems rather than bound few-body
-      electromagnetic systems.
+      Intracellular graph of biochemical reactions — metabolites as nodes,
+      enzyme-catalyzed conversions as edges — that collectively realize a
+      cell's energy, biosynthesis, and regulatory functions.
     references:
-      - Bransden, B.H. & Joachain, C.J. (2003) Physics of Atoms and Molecules, 2nd ed. Pearson. ISBN 978-0582356924.
-      - Foot, C.J. (2005) Atomic Physics. Oxford University Press. ISBN 978-0198506966.
-      - NIST Atomic Spectra Database (2024). doi:10.18434/T4W30F.
-  - slug: molecular-system
-    label: Molecular system
-    description: >
-      Bound assembly of two or more atoms held together by chemical bonds
-      (covalent, ionic, metallic, hydrogen, or van der Waals), whose
-      stationary states are governed by the coupled electronic and nuclear
-      Schrödinger problem (Born–Oppenheimer separation in most practical
-      treatments). Spans diatomics (H2, N2), polyatomic small molecules
-      (H2O, CO2), and macromolecules (proteins, polymers) when treated as
-      a single bound object rather than as a population of species.
-      Distinct from `atomic-system` (single nucleus plus electrons, no
-      interatomic bonds) and from `chemical-reaction-network` (once added:
-      population-level kinetics across many molecular species rather than
-      a single bound assembly). Also distinct from biological classes like
-      `multicellular-organism`, where molecules are components rather than
-      the system-of-interest.
-    references:
-      - Atkins, P. & Friedman, R. (2011) Molecular Quantum Mechanics, 5th ed. Oxford University Press. ISBN 978-0199541423.
-      - McQuarrie, D.A. (2007) Quantum Chemistry, 2nd ed. University Science Books. ISBN 978-1891389504.
-      - Szabo, A. & Ostlund, N.S. (1996) Modern Quantum Chemistry. Dover. ISBN 978-0486691862.
-  - slug: chemical-reaction-network
-    label: Chemical reaction network
-    description: >
-      Population-level system of chemical species coupled by elementary
-      reactions, described by a stoichiometric matrix and a rate law
-      (mass-action, Michaelis-Menten, or other). Dynamics are typically
-      modeled as ODEs in the deterministic limit or as continuous-time
-      Markov chains in the stochastic limit (chemical master equation /
-      Gillespie simulation). Canonical examples include the
-      Belousov-Zhabotinsky oscillator, the Brusselator, combustion
-      kinetics, atmospheric photochemistry, and in-silico CRN models of
-      gene regulation. Distinct from `atomic-system` (single nucleus plus
-      electrons, no interatomic bonds) and from `molecular-system` (a
-      single bound multi-atom object treated as the system-of-interest
-      rather than a population of species). Distinct from
-      `metabolic-network`, which is a biological-domain special case of a
-      CRN restricted to enzyme-catalyzed intracellular biochemistry with
-      additional cellular context (compartments, regulation, cofactor
-      pools).
-    references:
-      - Érdi, P. & Tóth, J. (1989) Mathematical Models of Chemical Reactions. Princeton University Press / Manchester University Press. ISBN 978-0691085326.
-      - Feinberg, M. (2019) Foundations of Chemical Reaction Network Theory. Springer Applied Mathematical Sciences vol. 202. ISBN 978-3030038571.
-      - Gillespie, D.T. (1977) Exact stochastic simulation of coupled chemical reactions. Journal of Physical Chemistry 81(25):2340-2361. doi:10.1021/j100540a008.
+      - Jeong, H. et al. (2000) The large-scale organization of metabolic networks. Nature 407:651-654. doi:10.1038/35036627.
+      - Palsson, B.O. (2015) Systems Biology - Constraint-based Reconstruction and Analysis. Cambridge University Press. ISBN 978-1107038851.
   - slug: gene-regulatory-network
     label: Gene regulatory network
     description: >
       Within-cell graph of regulatory interactions among genes mediated by
       transcription factors, microRNAs, long non-coding RNAs, and other
-      regulators. Nodes are genes (or gene-product regulators) and edges
-      encode activation/repression relationships, often with sign and
-      threshold/kinetic detail. Dynamics are typically modeled as Boolean
-      / random Boolean networks (Kauffman), continuous ODE systems with
-      Hill-function repressors/activators, or stochastic master equations
-      capturing binding/unbinding noise. Realizes developmental cell-fate
-      decisions, homeostatic and stress responses, and circadian /
-      oscillatory behavior. Distinct from `metabolic-network`, which
-      encodes enzyme-catalyzed conversions of metabolites — an edge there
-      represents catalysis of a chemical transformation rather than a
-      regulatory relationship. Distinct from `chemical-reaction-network`,
-      which encodes general population-level mass-action / stochastic
-      kinetics across arbitrary species without gene-specific binding
-      semantics or the regulator-target edge structure that defines a GRN.
-      Distinct from `unicellular-organism` and `multicellular-organism` by
-      being a within-cell regulatory graph rather than a whole-cell or
-      whole-organism unit.
+      regulators.
     references:
-      - Davidson, E.H. (2006) The Regulatory Genome - Gene Regulatory Networks in Development and Evolution. Academic Press. ISBN 978-0120885633.
-      - Alon, U. (2019) An Introduction to Systems Biology - Design Principles of Biological Circuits, 2nd ed. CRC Press. ISBN 978-1439837177.
-      - Kauffman, S.A. (1969) Metabolic stability and epigenesis in randomly constructed genetic nets. Journal of Theoretical Biology 22(3):437-467. doi:10.1016/0022-5193(69)90015-0.
+      - Davidson, E.H. (2006) The Regulatory Genome. Academic Press. ISBN 978-0120885633.
+      - Alon, U. (2019) An Introduction to Systems Biology, 2nd ed. CRC Press. ISBN 978-1439837177.
+      - Kauffman, S.A. (1969) Metabolic stability and epigenesis in randomly constructed genetic nets. JTB 22(3):437-467. doi:10.1016/0022-5193(69)90015-0.
+  - slug: protein-interaction-network
+    label: Protein-protein interaction network
+    description: Graph of binding/regulatory interactions among an organism's protein complement; substrate for systems-biology analyses.
+  - slug: signal-transduction-network
+    label: Signal transduction network
+    description: Multi-stage cascade of receptor-mediated, kinase- and phosphatase-driven information transfer from cell surface to nucleus.
+  - slug: developmental-system
+    label: Developmental / morphogenetic system
+    description: The genetic-epigenetic process by which an organism's body plan emerges from a single zygote through differentiation, pattern formation, and growth.
+  - slug: immune-system
+    label: Immune system
+    description: Cellular and molecular subsystem that discriminates self from non-self and responds to threats.
+  - slug: nervous-system
+    label: Nervous system
+    description: Network of neurons (and supporting glia) that conducts and processes signals across an animal body, enabling sensation, decision, and action.
+  - slug: central-nervous-system
+    label: Central nervous system
+    description: Vertebrate-style neural tissue (brain plus spinal cord) coordinating perception, cognition, and motor control.
+  - slug: brain
+    label: Brain
+    description: The most centralized portion of a nervous system; canonical substrate for studies of neural complexity, consciousness, and learning.
+  - slug: endocrine-system
+    label: Endocrine system
+    description: Slow-timescale hormonal regulatory network coordinating physiology across an organism via blood-borne signals.
+  - slug: circulatory-system
+    label: Circulatory system
+    description: Pumped fluid network distributing oxygen, nutrients, and signaling molecules through an organism.
+  - slug: cancer-system
+    label: Cancer (somatic evolution)
+    description: An evolving cellular population within an organism, undergoing selection on proliferation, immune evasion, and metastasis.
+  - slug: aging-system
+    label: Aging (organismal senescence)
+    description: The progressive decline in physiological function with time, driven by accumulated damage, dysregulation, and constraint accumulation.
+
+  # --- Evolutionary ---
+  - slug: evolutionary-system
+    label: Evolutionary system
+    description: A population of replicators with heritable variation and differential survival/reproduction; the substrate of biological and cultural evolution.
+  - slug: coevolutionary-system
+    label: Coevolutionary system
+    description: Two or more populations whose evolutionary trajectories are mutually dependent (predator-prey, host-parasite, mutualists, arms races).
+  - slug: speciation-system
+    label: Speciation / phylogenetic radiation
+    description: The process by which one ancestral lineage divides into multiple reproductively isolated descendants; population-genetic and ecological substrate.
+
+  # --- Ecological ---
+  - slug: ecosystem
+    label: Ecosystem
+    description: Biotic community plus its abiotic environment, coupled through energy and nutrient flows; from local patches to biomes.
+  - slug: food-web
+    label: Food web
+    description: Network of trophic (who-eats-whom) relationships in a community; classic graph object in ecology.
+  - slug: forest-biome
+    label: Forest biome
+    description: Large-scale terrestrial ecological system dominated by trees.
+  - slug: ocean-circulation-cell
+    label: Ocean circulation cell
+    description: Basin- or gyre-scale pattern of ocean currents driven by wind, temperature, and salinity.
+  - slug: river-network
+    label: River network
+    description: Dendritic hydrological system draining a terrestrial area into a common outlet.
+  - slug: niche-system
+    label: Ecological niche
+    description: The multidimensional set of conditions and resources under which a species or strategy persists; competitive-exclusion and niche-construction live here.
+  - slug: keystone-species-system
+    label: Keystone species system
+    description: A community in which one species has a disproportionate stabilizing or structuring effect; classic example of asymmetric coupling.
+  - slug: biosphere
+    label: Biosphere
+    description: The global, planetary-scale community of living organisms and their interactions with the geospheres.
+
+  # --- Collective animal ---
+  - slug: animal-collective
+    label: Animal collective / flock / school
+    description: Self-organizing group of animals (birds, fish, mammals) producing coordinated motion from local interaction rules; canonical example of emergent collective behavior.
+
+  # --- Cognitive / psychological ---
+  - slug: cognitive-system
+    label: Cognitive system
+    description: An information-processing system that perceives, represents, infers, decides, and acts; can be biological (a mind) or artificial.
+  - slug: language-system
+    label: Language system
+    description: A compositional symbolic communication system with grammar, lexicon, and pragmatic conventions, evolving in a community of speakers.
+  - slug: language-community
+    label: Language community
+    description: Population of speakers sharing a linguistic code, with ongoing variation and change.
+  - slug: belief-network
+    label: Belief network
+    description: Structured collection of propositions held by a group, with inferential and social coupling.
+  - slug: collective-intelligence-system
+    label: Collective intelligence system
+    description: A group whose problem-solving capacity exceeds that of its members through aggregation, deliberation, or emergent dynamics; markets, scientific communities, online crowds.
+
+  # --- Cultural / symbolic ---
+  - slug: cultural-system
+    label: Cultural system
+    description: Transmissible patterns of behavior, belief, artifact, and value within a population; substrate of cultural evolution.
+  - slug: knowledge-system
+    label: Knowledge / scientific system
+    description: A community-driven process of producing, validating, transmitting, and revising knowledge claims, embedded in institutions and incentive structures.
+
+  # --- Social / institutional ---
+  - slug: kinship-system
+    label: Kinship / family system
+    description: The structured set of family relationships and obligations governing reproduction, inheritance, and small-group cooperation.
+  - slug: social-network
+    label: Social network
+    description: Graph of interpersonal ties (friendship, advice, trust, communication) supporting information flow and influence in human groups.
+  - slug: bureaucratic-organization
+    label: Bureaucratic organization
+    description: Formal hierarchical structure with rule-based decision authority.
+  - slug: firm
+    label: Firm / corporation
+    description: A bounded organization of people, capital, and processes producing goods or services within an economy.
+  - slug: government
+    label: Government
+    description: A polity's coordinated apparatus for legislation, administration, and enforcement.
+  - slug: legal-system
+    label: Legal system
+    description: A polity's body of binding rules, institutions for adjudication, and enforcement apparatus.
+  - slug: governance-system
+    label: Governance system
+    description: Polycentric or centralized arrangements coordinating action across actors, possibly including but not limited to formal government (commons governance, internet governance, climate governance).
+  - slug: civilization
+    label: Civilization
+    description: A persistent, large-scale, hierarchically organized human society with cities, division of labor, written records, and accumulated material culture.
+  - slug: city
+    label: City
+    description: A dense human settlement with infrastructure, economy, and governance; canonical urban-complexity object.
+  - slug: urban-metabolism
+    label: Urban metabolism
+    description: A city treated as a system of material and energy flows, coupling human, technological, and ecological subsystems.
+
+  # --- Economic / financial ---
+  - slug: market-exchange
+    label: Market exchange
+    description: Venue where dispersed participants transact, with prices emerging from their aggregate actions.
+  - slug: financial-system
+    label: Financial system
+    description: Network of banks, exchanges, regulators, and instruments allocating capital and risk; canonical example of high-coupling, reflexive complexity.
+  - slug: monetary-system
+    label: Monetary system
+    description: Institutional arrangement issuing, backing, and circulating money; couples to financial-system but distinct in its public-good role.
+  - slug: trade-network
+    label: Trade network
+    description: Inter-regional or international exchange graph of goods, services, and capital flows.
+  - slug: supply-chain
+    label: Supply chain
+    description: Multi-organization network of suppliers, transforms, and distributors converting raw inputs to end-consumer goods.
+
+  # --- Technological / infrastructure ---
+  - slug: power-grid
+    label: Power grid
+    description: Synchronized electricity generation, transmission, and distribution network with real-time supply-demand balance requirements.
+  - slug: transportation-network
+    label: Transportation network
+    description: Infrastructure plus flow system moving people or goods between nodes.
+  - slug: communication-network
+    label: Communication network
+    description: Engineered system carrying voice, data, or signaling traffic between endpoints; canonical case of routing and packet-flow complexity.
+  - slug: water-supply-system
+    label: Water supply / wastewater system
+    description: Engineered hydraulic network distributing potable water and removing wastewater for an urban or regional population.
+  - slug: industrial-system
+    label: Industrial production system
+    description: A coupled set of factories, supply chains, energy inputs, and labor producing a class of manufactured goods at scale.
+  - slug: protocol-stack
+    label: Protocol stack
+    description: Layered set of communication protocols enabling interoperable data exchange.
+  - slug: distributed-software-system
+    label: Distributed software system
+    description: Network of computational processes coordinating over messages to provide a service, subject to partial failures and consistency tradeoffs.
+  - slug: software-ecosystem
+    label: Software ecosystem
+    description: A community of interdependent software projects, package registries, and maintainers; substrate of dependency networks and "supply-chain" software risk.
+  - slug: internet-system
+    label: Internet (global)
+    description: The planet-scale interconnected packet-switched network of networks; substrate of the World Wide Web and most contemporary digital infrastructure.
+
+  # --- AI / computational ---
+  - slug: artificial-neural-network
+    label: Artificial neural network
+    description: Parameterized differentiable model trained via gradient descent.
+  - slug: ai-system
+    label: AI system / model deployment
+    description: A trained model plus its inference, evaluation, and feedback infrastructure; substrate for AI-safety, alignment, and capability-elicitation research.
+  - slug: multi-agent-ai-system
+    label: Multi-agent AI system
+    description: Multiple AI agents (or AI plus humans) interacting via a shared environment or communication channel; substrate for emergent strategic behavior.
+
+  # --- Information / media ---
+  - slug: information-ecosystem
+    label: Information / attention ecosystem
+    description: A platform-mediated system in which content, recommender systems, advertisers, and audiences mutually shape attention and belief.
+  - slug: contagion-system
+    label: Contagion / spreading system
+    description: A graph or population substrate over which a property (disease, rumor, behavior, currency) spreads through local rules; SIR/SEIR class.
+
+  # --- Health / medical ---
+  - slug: epidemic-system
+    label: Epidemic / pandemic system
+    description: A coupled disease-transmission, healthcare-response, and behavioral-adaptation system playing out over a population during an outbreak.
+  - slug: healthcare-system
+    label: Healthcare system
+    description: A society's coordinated network of care providers, payers, regulators, pharmaceutical supply, and patients.
+
+  # --- Conflict / security ---
+  - slug: conflict-system
+    label: Conflict / arms-race system
+    description: Adversarial interaction between two or more agents continuously adapting in response to each other; cyber, military, predator-prey, regulatory.
+  - slug: cybersecurity-system
+    label: Cybersecurity ecosystem
+    description: Coupled attacker, defender, and infrastructure populations on the internet; canonical adversarial-complexity object.
+
+  # --- Earth-human ---
+  - slug: earth-system
+    label: Earth system (anthropocene)
+    description: The fully coupled biophysical-human-technological system at planetary scale, including climate, biosphere, economies, and infrastructure.
+  - slug: planetary-boundary-system
+    label: Planetary boundary system
+    description: A specific Earth-system regulatory subsystem (carbon, nitrogen, biosphere integrity, freshwater, land-use) treated as a boundary on safe operating space.
+
+  # --- Abstract / model ---
+  - slug: cellular-automaton
+    label: Cellular automaton
+    description: Discrete-space, discrete-time grid of finite-state cells updating by local rules; minimal substrate for computational emergence (Game of Life, Wolfram class).
+  - slug: ising-model
+    label: Ising / Potts spin system
+    description: Lattice of binary or k-state spins with nearest-neighbor coupling; canonical phase-transition / universality-class object.
+  - slug: random-graph
+    label: Random / scale-free graph
+    description: Statistical ensemble of graphs (Erdos-Renyi, configuration model, preferential-attachment); baseline for network-topology comparison.
+  - slug: kuramoto-oscillator
+    label: Kuramoto coupled-oscillator system
+    description: Network of phase oscillators with sinusoidal coupling; canonical synchronization-transition object.
+  - slug: lorenz-system
+    label: Lorenz / chaotic-attractor system
+    description: Low-dimensional ODE system exhibiting deterministic chaos; canonical dynamical-complexity object.
+  - slug: agent-based-model
+    label: Agent-based model
+    description: A simulation in which heterogeneous agents follow local rules and produce macro-scale phenomena; NetLogo-style modeling object.
+
+  # --- Boundary / control cases ---
+  - slug: simple-pendulum
+    label: Simple pendulum
+    description: Two-body deterministic oscillator; baseline "low-dimensional, low-complexity" anchor for the metric space.
+  - slug: ideal-gas
+    label: Ideal gas
+    description: Many non-interacting particles in equilibrium; baseline "many parts, weak interactions, high entropy" anchor.
+  - slug: clockwork-mechanism
+    label: Clockwork mechanism
+    description: A precisely engineered, deterministic chain of mechanical components; baseline "complicated, not complex" anchor.
+  - slug: random-noise-field
+    label: Random noise field
+    description: A spatial or temporal field of independent random variables; baseline "high entropy, no structure" anchor.
+  - slug: linear-supply-chain
+    label: Linear supply chain
+    description: A non-redundant, sequential conversion pipeline; baseline against networked supply systems.

@@ -1,0 +1,71 @@
+boundary:
+  description: All neurons, glial cells, and connective tissue dedicated to 
+    electrochemical signaling; bounded by the organism and (in vertebrates) the 
+    blood-brain barrier.
+  type: functional
+boundary_clarity: crisp
+canonical_examples:
+  - name: Caenorhabditis elegans nervous system
+    note: 302 neurons, fully reconstructed connectome; canonical 
+      small-nervous-system model.
+  - name: Drosophila central complex
+    note: Mid-scale invertebrate model with documented behavioral roles.
+  - name: Mammalian neocortex
+    note: Canonical large-scale layered cortical architecture.
+components:
+  - neurons (~10^11 in human brain; ~10^2 in C. elegans; ~10^5 in Drosophila)
+  - glial cells (astrocytes, oligodendrocytes, microglia)
+  - synapses (~10^14-10^15 in human)
+  - neurotransmitter and neuropeptide pools
+  - sensory transducers
+  - neuromuscular junctions
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - metabolic cost of action potentials (~20% of human resting metabolism)
+  - axon length and conduction delay
+  - synaptic density limit
+emergent_properties:
+  - learning and memory
+  - sensory perception
+  - motor coordination
+  - in some lineages, cognition and consciousness
+failure_modes:
+  - epileptic seizure (synchronous excitation runaway)
+  - stroke / ischemic injury
+  - neurodegeneration
+  - chronic pain
+id: sys-000014--nervous-system
+interaction_types:
+  - synaptic transmission (chemical and electrical)
+  - action potential propagation
+  - long-term potentiation and depression
+  - neuromodulation
+lifecycle_stage: maturity
+main_feedbacks:
+  - Hebbian plasticity (correlated activity strengthens synapses)
+  - homeostatic plasticity stabilizing firing rates
+  - inhibitory feedback preventing runaway excitation
+name: Nervous system
+origin: evolved
+primary_function: rapid long-range information transfer and behavioral control
+priority: P0
+scales:
+  spatial:
+    - synapse ~10^-9 to 10^-6 m
+    - circuit ~10^-3 m
+    - whole-brain ~10^-1 m
+  temporal:
+    - action potential ~10^-3 s
+    - synaptic plasticity ~seconds to days
+    - learning consolidation ~hours to years
+slug: nervous-system
+status: bootstrap-stub
+substrate: neurons + glia + neurotransmitters
+summary: "Network of neurons (and supporting glia) that conducts and processes\nsignals
+  across an animal body, enabling sensation, decision, and\naction on millisecond
+  timescales. Substrate of behavior, learning,\nand (in some lineages) cognition.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:nervous-system
+updated_at: '2026-04-29T22:08:28Z'

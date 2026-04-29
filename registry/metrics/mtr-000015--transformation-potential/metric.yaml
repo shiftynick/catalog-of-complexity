@@ -1,0 +1,20 @@
+applicability: {}
+description: "Qualitative ordinal score of the system's capacity to become a\ndifferent
+  viable system without ceasing to function. 0 = locked-in;\n5 = highly transformable.
+  Distinct from `recovery-time` (returning\nto same state) and from `evolvability`
+  (incremental novelty). From\nmetric ontology §20.\n"
+directionality: context-dependent
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000015--transformation-potential
+maturity_level: L0
+name: Transformation potential
+scale_level: macro
+slug: transformation-potential
+status: bootstrap-stub
+unit: null
+value_type: ordinal

@@ -1,0 +1,74 @@
+boundary:
+  description: All regulatory interactions among gene products within a single 
+    cell type or developmental context; boundary is the cell, but the network is
+    defined at the regulatory-graph level.
+  type: functional
+boundary_clarity: crisp
+canonical_examples:
+  - name: Sea urchin endomesoderm GRN
+    note: Davidson et al., textbook reference for developmental GRN 
+      architecture.
+  - name: Drosophila segmentation network
+    note: Gap, pair-rule, segment-polarity GRN; canonical morphogen-cascade 
+      case.
+  - name: Mammalian circadian clock GRN
+    note: BMAL1/CLOCK/PER/CRY transcription-translation feedback loop.
+components:
+  - protein-coding genes (~10^4 in mammals)
+  - regulatory RNAs (microRNAs, lncRNAs)
+  - transcription factors (~10^3 in mammals)
+  - cis-regulatory elements (promoters, enhancers, silencers)
+  - chromatin modifiers and remodelers
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - cooperative binding kinetics
+  - chromatin accessibility
+  - gene-product half-lives setting response timescales
+emergent_properties:
+  - bistability and multistability (cell-fate determination)
+  - oscillation (segmentation clock, circadian rhythms)
+  - robustness to noise (canalization)
+failure_modes:
+  - dysregulated bistability (oncogenic state lock-in)
+  - feedback-loop failure leading to runaway expression
+  - misexpression in wrong cell context (developmental defects, cancer)
+id: sys-000010--gene-regulatory-network
+interaction_types:
+  - sequence-specific TF binding to cis-regulatory elements
+  - cooperative TF assembly on enhancers
+  - chromatin state modulation (methylation, acetylation, accessibility)
+  - post-transcriptional regulation by ncRNAs
+lifecycle_stage: maturity
+main_feedbacks:
+  - autoregulatory negative feedback (transcription factor represses own gene)
+  - mutual repression bistable switches (lateral inhibition)
+  - feed-forward loops (filtering and pulse generation)
+name: Gene regulatory network
+origin: evolved
+primary_function: program developmental cell-fate decisions and homeostatic 
+  transcriptional responses
+priority: P0
+scales:
+  spatial:
+    - regulatory element ~10^-7 m (~kb)
+    - genome ~10^-2 m unraveled, ~10^-5 m packed
+  temporal:
+    - transcription pulse ~10^2 s
+    - protein lifetime ~10^3 to 10^5 s
+    - developmental switch ~10^3 to 10^5 s
+slug: gene-regulatory-network
+source_refs:
+  - src-000013--the-regulatory-genome-gene-regulatory-networks-in-developmen
+  - src-000014--an-introduction-to-systems-biology-design-principles-of-biol
+  - src-000015--metabolic-stability-and-epigenesis-in-randomly-constructed-g
+status: bootstrap-stub
+substrate: DNA + RNA + transcription factors + chromatin
+summary: "Within-cell graph of regulatory interactions among genes mediated by\ntranscription
+  factors, microRNAs, long non-coding RNAs, and\nchromatin modifiers. Realizes developmental
+  cell-fate decisions,\nhomeostatic responses, and oscillatory behavior; substrate
+  of\ndevelopmental biology and systems biology.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:gene-regulatory-network
+updated_at: '2026-04-29T22:08:28Z'

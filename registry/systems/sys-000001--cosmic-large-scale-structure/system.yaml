@@ -1,0 +1,66 @@
+boundary:
+  description: "The observable universe; outer boundary is the cosmological horizon\n\
+    (~46.5 Gly comoving). Internal organization extends from\nsuperclusters and filaments
+    down to individual galaxy clusters\n(~tens of Mpc).\n"
+  type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Laniakea Supercluster
+    note: Local supercluster containing the Milky Way; ~160 Mpc across.
+  - name: Coma Cluster
+    note: ~1000 galaxies bound in a ~5 Mpc region; canonical X-ray cluster.
+  - name: Bootes Void
+    note: ~330 Mly diameter underdensity; canonical void example.
+components:
+  - dark matter halos (~10^15 solar masses for clusters; the dominant 
+    gravitational mass)
+  - galaxy clusters and superclusters
+  - galaxy filaments and walls
+  - cosmic voids (tens to hundreds of Mpc across)
+  - hot intracluster medium (X-ray emitting plasma, 10^7-10^8 K)
+  - cosmic microwave background photons (~2.7 K relic radiation)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - cosmic expansion limits gravitational binding above the cluster scale
+  - dark-matter density and equation of state set the clustering pattern
+emergent_properties:
+  - filament-void cosmic web topology
+  - hierarchical clustering at all observed scales
+failure_modes:
+  - none on observable timescales (heat death is asymptotic)
+id: sys-000001--cosmic-large-scale-structure
+interaction_types:
+  - gravitational attraction (Newtonian on subhorizon scales; 
+    general-relativistic globally)
+  - cosmic expansion (recession governed by the scale factor a(t))
+  - radiative cooling and gas accretion onto halos
+  - merger events between halos and clusters
+lifecycle_stage: maturity
+main_feedbacks:
+  - gravitational instability (denser regions accrete more mass)
+  - radiative cooling enabling gas collapse to form stars and galaxies
+name: Cosmic large-scale structure
+origin: natural
+primary_function: gravitational hierarchical clustering of matter
+priority: P0
+scales:
+  spatial:
+    - galaxy ~10^20 m (10 kpc)
+    - cluster ~10^23 m (Mpc)
+    - filament ~10^24 m (tens of Mpc)
+    - observable universe ~10^26 m (Gpc)
+  temporal:
+    - dynamical time of cluster ~10^16 s (Gyr)
+    - age of universe ~4.4 x 10^17 s (13.8 Gyr)
+slug: cosmic-large-scale-structure
+status: bootstrap-stub
+substrate: dark matter, baryonic matter, radiation
+summary: "Density-driven hierarchical organization of matter across megaparsec\nscales
+  — the cosmic web of filaments, walls, voids, and clusters\narising from primordial
+  density fluctuations amplified by gravity in\nan expanding spacetime. The largest
+  known organized structure.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:cosmic-structure
+updated_at: '2026-04-29T22:08:28Z'

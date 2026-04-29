@@ -1,0 +1,20 @@
+applicability: {}
+description: "Categorical tag identifying the system's most-likely or\nhistorically-most-common
+  failure mode, drawn from the failure-mode\nvocabulary in metric ontology §19 (cascade,
+  fragmentation,\ncapture, lock-in, senescence, runaway-feedback, etc.).\n"
+directionality: neither
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000014--dominant-failure-mode
+maturity_level: L0
+name: Dominant failure mode
+scale_level: macro
+slug: dominant-failure-mode
+status: bootstrap-stub
+unit: null
+value_type: categorical

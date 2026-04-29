@@ -1,0 +1,23 @@
+applicability:
+  requires:
+    - state-space-partition
+    - frequencies-or-probabilities
+description: "Uncertainty or diversity over a probability distribution describing\n\
+  the system's state. Computed on the appropriate state-space\npartition for the system
+  class. From metric ontology §10.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000005--shannon-entropy
+maturity_level: L2
+name: Shannon entropy
+scale_level: multi-scale
+slug: shannon-entropy
+status: bootstrap-stub
+unit: bits
+value_type: continuous

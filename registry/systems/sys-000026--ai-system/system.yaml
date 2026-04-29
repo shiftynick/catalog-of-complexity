@@ -1,0 +1,84 @@
+boundary:
+  description: All components participating in a model's training, evaluation, 
+    deployment, and ongoing improvement — training data, training compute, model
+    weights, inference infrastructure, evaluation suite, user feedback loop.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: OpenAI / Anthropic / Google foundation models
+    note: Frontier closed models as canonical reference points.
+  - name: Open-weights model ecosystem (Llama, Mistral, etc.)
+    note: Canonical open-distribution model class.
+  - name: Multi-agent RL systems (AlphaStar, OpenAI Five)
+    note: Canonical strategic-game AI.
+components:
+  - foundation models (large pretrained neural networks)
+  - training datasets
+  - compute infrastructure (GPU/TPU clusters)
+  - inference serving infrastructure
+  - evaluation benchmarks
+  - human feedback (RLHF, fine-tuning data)
+  - downstream applications
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - compute cost
+  - training-data availability and quality
+  - inference latency budget
+  - safety and alignment concerns
+  - regulatory regimes
+emergent_properties:
+  - few-shot generalization
+  - in-context learning
+  - emergent capabilities at scale
+  - hallucination / confabulation failure modes
+  - sycophantic / reward-hacked behavior
+failure_modes:
+  - hallucination
+  - reward hacking and gaming
+  - training-data contamination
+  - deceptive alignment
+  - misuse for malicious purposes
+  - capability overhang
+id: sys-000026--ai-system
+interaction_types:
+  - training (gradient descent on dataset)
+  - inference (forward pass)
+  - evaluation against benchmarks
+  - human feedback collection and integration
+  - deployment-driven data collection
+  - safety / red-team adversarial probing
+lifecycle_stage: formation
+main_feedbacks:
+  - capability-driven adoption
+  - usage-driven training-data shift
+  - benchmark-driven research direction
+  - competitive race dynamics among labs
+  - regulatory feedback
+name: AI ecosystem
+origin: designed
+primary_function: deployed inference and ongoing model lifecycle for AI 
+  capabilities
+priority: P0
+scales:
+  spatial:
+    - GPU / TPU pod ~10^1 m
+    - data center ~10^2 m
+    - global deployment ~10^7 m
+  temporal:
+    - inference ~10^-1 to 10^1 s
+    - training run ~10^4 to 10^7 s
+    - model generation cycle ~10^7 s
+slug: ai-system
+status: bootstrap-stub
+substrate: trained models + compute + data + deployment infrastructure
+summary: "A trained model plus its inference, evaluation, deployment, and\nfeedback
+  infrastructure. Substrate of contemporary AI capabilities\nfrom foundation models
+  through agentic systems. Canonical\nrapidly-changing reflexive complex system —
+  the model influences\nthe world that produces its training data, which influences
+  the\nnext model.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:computational
+  - system-class:ai-system
+  - system-class:software-ecosystem
+updated_at: '2026-04-29T22:08:28Z'

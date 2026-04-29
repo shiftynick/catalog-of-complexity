@@ -1,0 +1,71 @@
+boundary:
+  description: "Plasma membrane plus the nuclear envelope and organelle membranes\n\
+    creating internal subcompartments. Distinct from prokaryotes by\nthe presence
+    of a nucleus, organelles, and a complex\ncytoskeleton.\n"
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Saccharomyces cerevisiae
+    note: Canonical unicellular eukaryote model.
+  - name: Tetrahymena thermophila
+    note: Canonical ciliate; macronucleus/micronucleus split.
+  - name: Naegleria gruberi
+    note: Free-living amoeboflagellate; canonical excavate eukaryote.
+components:
+  - nucleus with linear chromatin and nuclear envelope
+  - mitochondria (descendants of alpha-proteobacterial endosymbiont)
+  - endoplasmic reticulum (rough and smooth)
+  - Golgi apparatus
+  - lysosomes / vacuoles
+  - cytoskeleton (actin, microtubules, intermediate filaments)
+  - in plant lineages, plastids (descendants of cyanobacterial endosymbiont)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - membrane lipid composition and curvature constraints on organelle identity
+  - genome size limited by replication fidelity and division economics
+emergent_properties:
+  - intracellular spatial differentiation
+  - true multicellularity becoming evolvable
+  - eukaryotic-specific information processing (splicing, alternative isoforms)
+failure_modes:
+  - mitochondrial dysfunction triggering apoptosis
+  - nuclear envelope breakdown errors
+  - organelle imbalance (ER stress, lysosomal storage)
+id: sys-000008--eukaryotic-cell
+interaction_types:
+  - nucleo-cytoplasmic transport via nuclear pore complexes
+  - vesicular trafficking among organelles (COPI, COPII, clathrin pathways)
+  - mitochondrial-nuclear retrograde signaling
+  - endomembrane biogenesis and turnover
+lifecycle_stage: maturity
+main_feedbacks:
+  - mitochondrial-nuclear cross-talk balancing biogenesis with energy demand
+  - vesicular flux balance among compartments
+  - chromatin conformation feedback on transcription
+name: Eukaryotic cell
+origin: evolved
+primary_function: compartmentalized cellular organization with endosymbiotic 
+  energy organelles
+priority: P0
+scales:
+  spatial:
+    - cell ~10^-5 m
+    - organelle ~10^-7 to 10^-6 m
+  temporal:
+    - cell cycle ~10^4 to 10^5 s (8-24 h typical)
+    - organelle turnover ~10^4 to 10^6 s
+slug: eukaryotic-cell
+source_refs:
+  - src-000012--molecular-biology-of-the-cell
+  - src-000016--origin-of-the-cell-nucleus-mitosis-and-sex-roles-of-intracel
+status: bootstrap-stub
+substrate: lipid membranes, internal organelles, multipartite chromatin
+summary: "A cell with a true nucleus and membrane-bound organelles\n(mitochondria,
+  ER, Golgi, often plastids), the product of\nsymbiogenesis between an archaeal host
+  and an alpha-proteobacterial\nendosymbiont. The substrate of all multicellular life
+  and the\nstructural basis for the second great transition in biological\ncomplexity.\n"
+system_kind: transition
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:unicellular-organism
+updated_at: '2026-04-29T22:08:28Z'

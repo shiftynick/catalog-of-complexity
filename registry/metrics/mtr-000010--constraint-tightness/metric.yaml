@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - identifiable-binding-constraints
+description: "Qualitative score of how close the system operates to its binding\n\
+  constraints. 0 = fully slack; 5 = saturated against binding\nconstraints. From metric
+  ontology §13.\n"
+directionality: context-dependent
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000010--constraint-tightness
+maturity_level: L0
+name: Constraint tightness
+scale_level: macro
+slug: constraint-tightness
+status: bootstrap-stub
+unit: null
+value_type: ordinal

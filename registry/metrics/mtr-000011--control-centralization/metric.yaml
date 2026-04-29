@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - identifiable-decision-loci
+description: "Concentration of decision authority across the system's\ncomponents.
+  Often computed as a Gini coefficient or as a\nHerfindahl-Hirschman index over decision-power
+  shares. From\nmetric ontology §16.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-computation
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000011--control-centralization
+maturity_level: L1
+name: Control centralization
+scale_level: macro
+slug: control-centralization
+status: bootstrap-stub
+unit: unitless
+value_type: continuous

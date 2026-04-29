@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - identifiable-component-hierarchy
+description: "Number of distinct nested organizational levels in the system —\nfrom
+  atom to molecule to cell to organism, etc. Counted at the\ncoarsest meaningful granularity
+  for the system class. From metric\nontology §4.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000001--hierarchy-depth
+maturity_level: L1
+name: Hierarchy depth
+scale_level: macro
+slug: hierarchy-depth
+status: bootstrap-stub
+unit: levels
+value_type: discrete

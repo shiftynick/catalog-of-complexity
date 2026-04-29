@@ -1,0 +1,66 @@
+boundary:
+  description: The closure of the catalytic dependency graph among species; 
+    spatial boundary is whatever microenvironment (vesicle, hydrothermal pore, 
+    mineral surface) maintains concentration.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Hypothesized RNA-world ribozyme set
+    note: Self-replicating ribozymes as prebiotic autocatalytic candidates.
+  - name: Hydrothermal-vent FeS-mediated chemistry
+    note: Wachtershauser/Russell scenario.
+  - name: Formose reaction sugar autocatalysis
+    note: In vitro autocatalytic carbohydrate synthesis.
+components:
+  - small organic monomers (amino acids, nucleotides, sugars, fatty acids)
+  - oligomeric catalysts (RNA, peptides)
+  - mineral or membrane-confined substrate
+  - free-energy input (chemical disequilibrium, geothermal, photochemical)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - thermodynamic free-energy availability (must be net entropy-producing)
+  - catalytic specificity (low specificity prevents network closure)
+  - confinement preventing dilution
+emergent_properties:
+  - chemical closure (every species has a producer in-set)
+  - heritable variation under selection on autocatalytic motifs
+failure_modes:
+  - hydrolytic dilution and loss of closure
+  - catalytic poisoning by accumulating side products
+  - thermodynamic equilibration when free energy exhausted
+id: sys-000006--prebiotic-metabolism
+interaction_types:
+  - chemical reactions (synthesis, hydrolysis, polymerization, redox)
+  - catalysis (one species accelerates another's formation)
+  - autocatalysis (a species accelerates its own formation directly or 
+    indirectly)
+  - environmental energy capture
+lifecycle_stage: formation
+main_feedbacks:
+  - autocatalytic amplification of catalytically-effective species
+  - depletion-and-replenishment cycles tied to environmental fluctuation
+name: Prebiotic / autocatalytic metabolism
+origin: natural
+primary_function: closed self-reproducing chemical reaction network harvesting 
+  environmental free energy
+priority: P0
+scales:
+  spatial:
+    - molecular ~10^-9 m
+    - vesicle / pore microenvironment ~10^-6 m
+  temporal:
+    - reaction timescale ~10^-3 to 10^3 s
+    - pool turnover ~hours to days
+slug: prebiotic-metabolism
+status: bootstrap-stub
+substrate: small organic molecules in aqueous environment
+summary: "A reaction network in which every molecular species is produced by\nat least
+  one reaction catalyzed by a member of the set, capable in\nprinciple of self-maintenance
+  and self-reproduction in a\nsufficiently rich substrate. The hypothesized chemistry
+  of the\norigin of life.\n"
+system_kind: transition
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:chemical-reaction-network
+  - system-class:autocatalytic-set
+updated_at: '2026-04-29T22:08:28Z'

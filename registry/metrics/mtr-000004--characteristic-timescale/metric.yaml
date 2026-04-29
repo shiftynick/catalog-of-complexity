@@ -1,0 +1,23 @@
+applicability:
+  requires:
+    - identifiable-state-transitions
+description: "Typical update, reaction, or turnover time over which the system's\n\
+  state changes meaningfully. Order-of-magnitude estimate is\ntypically sufficient.
+  From metric ontology §4.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-measurement
+  - derived-from-process-rates
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000004--characteristic-timescale
+maturity_level: L1
+name: Characteristic timescale
+scale_level: macro
+slug: characteristic-timescale
+status: bootstrap-stub
+unit: seconds
+value_type: continuous

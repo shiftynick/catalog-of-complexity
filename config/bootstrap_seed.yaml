@@ -1,0 +1,2424 @@
+# Bootstrap seed for the Catalog of Complexity
+#
+# Source manifest for `scripts/bootstrap_from_seed.py`. Each `systems`
+# entry produces one `registry/systems/sys-NNNNNN--<slug>/system.yaml`
+# (status: bootstrap-stub by default; see schemas/system.schema.json
+# for the full v0.2 record shape). Each `metrics` entry produces one
+# `registry/metrics/mtr-NNNNNN--<slug>/metric.yaml` (status:
+# bootstrap-stub).
+#
+# Authored by hand from docs/framework/02-candidate-systems-catalog.md.
+# Slugs match `taxonomy/source/system-classes.yaml` where a class slug
+# already exists; entries that name a new class slug should pair with
+# a taxonomy edit in the same commit.
+#
+# Status convention:
+#   - bootstrap-stub: imported in bulk; metric matrix is the next pass.
+#                     plan-backlog Tier 3 (profile debt) will pick these
+#                     up for upgrade once `phase: metrics-fill`.
+#   - candidate:      hand-authored entry awaiting review.
+#   - profiled:       review-validated.
+#
+# Detail tier per entry (informal):
+#   * P0 entries (Morowitz emergence anchors + do-not-miss anchors)
+#     get substantive `boundary` / `components` / `interaction_types`
+#     / `scales` / `main_feedbacks` / `dominant_constraints` /
+#     `failure_modes` / `canonical_examples`.
+#   * P1 entries get moderate detail (>=3 components, >=3 interactions,
+#     spatial+temporal scales, >=2 canonical examples).
+#   * P2/P3/C entries get thin stubs (1-2 entries per required list)
+#     pending domain-specific upgrade.
+
+phase_label: bootstrap-v1
+description: |
+  Initial catalog seed sourced from docs/framework/02-candidate-systems-catalog.md
+  and docs/framework/03-metric-ontology.md. Every entry corresponds to a
+  type-level archetype (per AGENTS.md "What counts as a system worth cataloging").
+  Specific instances (e.g. C. elegans, NYSE, Apache Kafka) appear as
+  canonical_examples inside type entries, not as their own entries.
+
+systems:
+  # ============================================================
+  # SECTION A — Physical / cosmological substrate
+  # ============================================================
+  - slug: cosmic-large-scale-structure
+    name: Cosmic large-scale structure
+    priority: P0
+    domain: physical
+    classes: [cosmic-structure]
+    system_kind: class
+    substrate: dark matter, baryonic matter, radiation
+    origin: natural
+    boundary_clarity: fuzzy
+    primary_function: gravitational hierarchical clustering of matter
+    lifecycle_stage: maturity
+    summary: |
+      Density-driven hierarchical organization of matter across megaparsec
+      scales — the cosmic web of filaments, walls, voids, and clusters
+      arising from primordial density fluctuations amplified by gravity in
+      an expanding spacetime. The largest known organized structure.
+    boundary:
+      type: spatial
+      description: |
+        The observable universe; outer boundary is the cosmological horizon
+        (~46.5 Gly comoving). Internal organization extends from
+        superclusters and filaments down to individual galaxy clusters
+        (~tens of Mpc).
+    components:
+      - dark matter halos (~10^15 solar masses for clusters; the dominant gravitational mass)
+      - galaxy clusters and superclusters
+      - galaxy filaments and walls
+      - cosmic voids (tens to hundreds of Mpc across)
+      - hot intracluster medium (X-ray emitting plasma, 10^7-10^8 K)
+      - cosmic microwave background photons (~2.7 K relic radiation)
+    interaction_types:
+      - gravitational attraction (Newtonian on subhorizon scales; general-relativistic globally)
+      - cosmic expansion (recession governed by the scale factor a(t))
+      - radiative cooling and gas accretion onto halos
+      - merger events between halos and clusters
+    scales:
+      spatial:
+        - galaxy ~10^20 m (10 kpc)
+        - cluster ~10^23 m (Mpc)
+        - filament ~10^24 m (tens of Mpc)
+        - observable universe ~10^26 m (Gpc)
+      temporal:
+        - dynamical time of cluster ~10^16 s (Gyr)
+        - age of universe ~4.4 x 10^17 s (13.8 Gyr)
+    main_feedbacks:
+      - gravitational instability (denser regions accrete more mass)
+      - radiative cooling enabling gas collapse to form stars and galaxies
+    dominant_constraints:
+      - cosmic expansion limits gravitational binding above the cluster scale
+      - dark-matter density and equation of state set the clustering pattern
+    emergent_properties:
+      - filament-void cosmic web topology
+      - hierarchical clustering at all observed scales
+    failure_modes:
+      - none on observable timescales (heat death is asymptotic)
+    canonical_examples:
+      - {name: "Laniakea Supercluster", note: "Local supercluster containing the Milky Way; ~160 Mpc across."}
+      - {name: "Coma Cluster", note: "~1000 galaxies bound in a ~5 Mpc region; canonical X-ray cluster."}
+      - {name: "Bootes Void", note: "~330 Mly diameter underdensity; canonical void example."}
+
+  - slug: stellar-system
+    name: Stellar / planetary system
+    priority: P0
+    domain: physical
+    classes: [stellar-system]
+    system_kind: class
+    substrate: hydrogen, helium, heavier elements; gravitational binding
+    origin: natural
+    boundary_clarity: crisp
+    primary_function: gravitational binding plus stellar nuclear fusion energy throughput
+    lifecycle_stage: maturity
+    summary: |
+      Gravitationally bound assembly of one or more stars and orbiting
+      bodies (planets, moons, asteroids, comets, dust). Powered by stellar
+      fusion, structured by Keplerian orbital mechanics and resonances,
+      and bounded by the heliopause / equivalent at the interstellar
+      medium interface.
+    boundary:
+      type: spatial
+      description: |
+        Gravitational sphere of influence of the central star(s);
+        commonly approximated by the heliopause (~120 AU for the Sun)
+        for solar-style systems, or the Hill sphere boundary for
+        circumbinary cases.
+    components:
+      - one or more stars (main-sequence, giant, dwarf, or compact remnants)
+      - planets (rocky, gaseous, ice giants, dwarf planets)
+      - moons and ring systems
+      - asteroid and Kuiper-belt-equivalent populations
+      - cometary reservoirs (Oort cloud / scattered disk equivalent)
+      - heliosphere / astrosphere of stellar wind plasma
+    interaction_types:
+      - gravitational orbital coupling (Keplerian, with mean-motion resonances)
+      - stellar radiation pressure and wind
+      - tidal forces (between star-planet, planet-moon)
+      - magnetospheric coupling (stellar wind to planetary magnetic fields)
+    scales:
+      spatial:
+        - stellar radius ~10^9 m
+        - inner-planet orbit ~10^11 m (1 AU)
+        - heliopause ~10^13 m (~100 AU)
+        - Oort cloud ~10^16 m (100 kAU)
+      temporal:
+        - planetary year ~10^7 s
+        - stellar main-sequence lifetime ~10^15-10^17 s (Gyr scale)
+    main_feedbacks:
+      - radiation pressure balancing gravitational accretion in protostellar phase
+      - tidal locking and orbital resonance pumping
+      - stellar evolution feedback to planetary atmospheres
+    dominant_constraints:
+      - stellar mass-luminosity-lifetime relation
+      - orbital stability (chaotic, but bounded over Gyr)
+      - chemical inheritance from the parent molecular cloud
+    emergent_properties:
+      - habitable zones around main-sequence stars
+      - planetary diversity from a small set of formation mechanisms
+    failure_modes:
+      - stellar evolution off main sequence (red-giant phase, supernova) destabilizes planetary orbits
+      - planet-planet scattering ejects worlds into interstellar space
+    canonical_examples:
+      - {name: "Solar System", note: "Sun + 8 planets + dwarf planets + minor bodies; the empirical anchor for planetary science."}
+      - {name: "TRAPPIST-1 system", note: "M-dwarf with seven roughly Earth-size planets in mean-motion resonance; canonical exoplanetary case."}
+      - {name: "Alpha Centauri", note: "Triple star system with rocky planet candidate; canonical multi-star case."}
+
+  - slug: turbulent-fluid
+    name: Turbulent fluid
+    priority: P0
+    domain: physical
+    classes: [turbulent-fluid]
+    system_kind: class
+    substrate: gas or liquid in fluid mechanical regime
+    origin: natural
+    boundary_clarity: fuzzy
+    primary_function: dissipative cascade of kinetic energy across scales
+    lifecycle_stage: maturity
+    summary: |
+      Fluid flow at high Reynolds number where inertial forces dominate
+      viscous forces and energy injected at large scales cascades through
+      a self-similar inertial range to be dissipated at the Kolmogorov
+      microscale. Canonical example of dynamical complexity.
+    boundary:
+      type: spatial
+      description: The flow domain (pipe, atmosphere, ocean basin, stellar interior); boundary is the container or free surface.
+    components:
+      - eddies of all scales between integral and Kolmogorov
+      - mean flow component
+      - velocity, pressure, temperature, density fields
+    interaction_types:
+      - nonlinear advection (the v dot grad v term)
+      - viscous dissipation
+      - vortex stretching and reconnection
+      - pressure-velocity coupling enforcing incompressibility
+    scales:
+      spatial:
+        - Kolmogorov microscale eta ~Re^{-3/4} times integral scale
+        - integral scale L (system size; pipe diameter, atmospheric boundary layer height)
+      temporal:
+        - large-eddy turnover time L/U
+        - dissipative scale time eta^2/nu
+    main_feedbacks:
+      - vortex stretching amplifies velocity gradients
+      - viscous dissipation removes kinetic energy at small scales
+    dominant_constraints:
+      - mass conservation (continuity)
+      - momentum conservation (Navier-Stokes)
+      - energy conservation including dissipation
+    emergent_properties:
+      - Kolmogorov -5/3 inertial-range energy spectrum
+      - intermittency (non-Gaussian velocity-derivative statistics)
+      - coherent structures (vortices, hairpins)
+    failure_modes:
+      - laminarization at low Reynolds number
+      - shock formation and compressibility breakdown of incompressible-flow assumptions
+    canonical_examples:
+      - {name: "Atmospheric boundary layer", note: "Strongest natural high-Re turbulence accessible to direct measurement."}
+      - {name: "Pipe flow at Re > ~4000", note: "Classical laboratory turbulence."}
+      - {name: "Solar convection zone", note: "Large-Reynolds-number magnetohydrodynamic turbulence driving the solar dynamo."}
+
+  - slug: phase-transition-system
+    name: Phase-transition system
+    priority: P0
+    domain: physical
+    classes: [phase-transition-system]
+    system_kind: class
+    substrate: many-body matter near a critical point
+    origin: natural
+    boundary_clarity: crisp
+    primary_function: qualitative regime change at a control parameter threshold
+    lifecycle_stage: maturity
+    summary: |
+      Many-body system whose macroscopic state changes qualitatively
+      at a critical value of a control parameter (temperature,
+      pressure, coupling strength). Continuous (second-order)
+      transitions exhibit universal scaling exponents independent of
+      microscopic detail.
+    boundary:
+      type: spatial
+      description: A bulk material or field-theoretic system with well-defined order parameter and control parameter.
+    components:
+      - microscopic degrees of freedom (spins, particles, fields)
+      - order parameter (magnetization, density, condensate amplitude)
+      - control parameter (temperature, pressure, coupling)
+    interaction_types:
+      - short-range or power-law interactions among components
+      - thermal fluctuations
+      - external field coupling
+    scales:
+      spatial:
+        - lattice spacing or correlation length microscale
+        - correlation length xi (diverges at criticality)
+        - system size
+      temporal:
+        - microscopic relaxation time
+        - critical relaxation tau ~xi^z (diverges; critical slowing down)
+    main_feedbacks:
+      - cooperative alignment near critical point (order parameter responds to itself)
+      - long-range correlations from local interactions at criticality
+    dominant_constraints:
+      - symmetry of the order parameter
+      - dimensionality of the order parameter and the system
+    emergent_properties:
+      - universal scaling exponents (alpha, beta, gamma, delta, nu, eta)
+      - power-law correlations at criticality
+      - hysteresis in first-order transitions
+    failure_modes:
+      - symmetry-breaking metastability
+      - false vacuum trapping
+    canonical_examples:
+      - {name: "Liquid-gas critical point", note: "Universality class shared with Ising (3D)."}
+      - {name: "Ferromagnet at Curie point", note: "Canonical second-order transition."}
+      - {name: "Superfluid lambda transition in He-4", note: "U(1) symmetry breaking."}
+
+  - slug: chemical-element-system
+    name: Chemical element system / periodic table
+    priority: P0
+    domain: physical
+    classes: [atomic-system]
+    system_kind: class
+    substrate: nucleons and electrons bound by electromagnetism
+    origin: natural
+    boundary_clarity: crisp
+    primary_function: quantum-mechanical structuring of bound nucleus-electron systems into reproducible chemical species
+    lifecycle_stage: maturity
+    summary: |
+      The set of all atomic species (~118 elements; thousands of
+      isotopes) characterized by atomic number Z and bound electronic
+      structure. Quantum mechanics + Pauli exclusion organize electrons
+      into shells, generating the periodic table's observed regularities.
+    boundary:
+      type: functional
+      description: A single bound system of one nucleus (any A, Z) plus Z electrons; the smallest unit exhibiting chemical identity.
+    components:
+      - protons and neutrons in the nucleus (binding energy ~MeV per nucleon)
+      - bound electrons in shells (binding energy ~eV)
+      - electromagnetic field
+    interaction_types:
+      - Coulombic electron-nucleus attraction
+      - electron-electron Coulomb and exchange interaction
+      - spin-orbit coupling
+      - nuclear strong force (within the nucleus)
+    scales:
+      spatial:
+        - nuclear radius ~10^-15 m
+        - Bohr radius ~5 x 10^-11 m
+      temporal:
+        - electron orbital period ~10^-16 s
+        - nuclear vibration ~10^-21 s
+        - radiative lifetime of excited states ~10^-9 to 10^-3 s
+    main_feedbacks:
+      - shell filling determines chemical reactivity
+    dominant_constraints:
+      - Pauli exclusion principle
+      - Schroedinger / Dirac equation for the bound system
+      - nuclear stability valley (drives isotope distribution)
+    emergent_properties:
+      - periodic table regularities (group, period, block structure)
+      - characteristic spectral lines
+      - chemical valence
+    failure_modes:
+      - radioactive decay for unstable isotopes
+      - photoionization above the binding energy
+    canonical_examples:
+      - {name: "Hydrogen atom", note: "Two-body exactly-solvable case."}
+      - {name: "Carbon-12", note: "Tetravalent backbone of organic chemistry."}
+      - {name: "Iron-56", note: "Maximum-binding-energy nucleus; fusion endpoint."}
+    source_refs:
+      - src-000008--nist-atomic-spectra-database-nist-standard-reference-databas
+      - src-000018--physics-of-atoms-and-molecules
+      - src-000019--introduction-to-quantum-mechanics
+
+  - slug: prebiotic-metabolism
+    name: Prebiotic / autocatalytic metabolism
+    priority: P0
+    domain: physical
+    classes: [chemical-reaction-network, autocatalytic-set]
+    system_kind: transition
+    substrate: small organic molecules in aqueous environment
+    origin: natural
+    boundary_clarity: fuzzy
+    primary_function: closed self-reproducing chemical reaction network harvesting environmental free energy
+    lifecycle_stage: formation
+    summary: |
+      A reaction network in which every molecular species is produced by
+      at least one reaction catalyzed by a member of the set, capable in
+      principle of self-maintenance and self-reproduction in a
+      sufficiently rich substrate. The hypothesized chemistry of the
+      origin of life.
+    boundary:
+      type: functional
+      description: The closure of the catalytic dependency graph among species; spatial boundary is whatever microenvironment (vesicle, hydrothermal pore, mineral surface) maintains concentration.
+    components:
+      - small organic monomers (amino acids, nucleotides, sugars, fatty acids)
+      - oligomeric catalysts (RNA, peptides)
+      - mineral or membrane-confined substrate
+      - free-energy input (chemical disequilibrium, geothermal, photochemical)
+    interaction_types:
+      - chemical reactions (synthesis, hydrolysis, polymerization, redox)
+      - catalysis (one species accelerates another's formation)
+      - autocatalysis (a species accelerates its own formation directly or indirectly)
+      - environmental energy capture
+    scales:
+      spatial:
+        - molecular ~10^-9 m
+        - vesicle / pore microenvironment ~10^-6 m
+      temporal:
+        - reaction timescale ~10^-3 to 10^3 s
+        - pool turnover ~hours to days
+    main_feedbacks:
+      - autocatalytic amplification of catalytically-effective species
+      - depletion-and-replenishment cycles tied to environmental fluctuation
+    dominant_constraints:
+      - thermodynamic free-energy availability (must be net entropy-producing)
+      - catalytic specificity (low specificity prevents network closure)
+      - confinement preventing dilution
+    emergent_properties:
+      - chemical closure (every species has a producer in-set)
+      - heritable variation under selection on autocatalytic motifs
+    failure_modes:
+      - hydrolytic dilution and loss of closure
+      - catalytic poisoning by accumulating side products
+      - thermodynamic equilibration when free energy exhausted
+    canonical_examples:
+      - {name: "Hypothesized RNA-world ribozyme set", note: "Self-replicating ribozymes as prebiotic autocatalytic candidates."}
+      - {name: "Hydrothermal-vent FeS-mediated chemistry", note: "Wachtershauser/Russell scenario."}
+      - {name: "Formose reaction sugar autocatalysis", note: "In vitro autocatalytic carbohydrate synthesis."}
+
+  - slug: cell
+    name: Cell
+    priority: P0
+    domain: biological
+    classes: [unicellular-organism]
+    system_kind: class
+    substrate: lipids, proteins, nucleic acids, water, ions
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: bounded self-maintaining replicative unit harvesting environmental free energy to sustain its own organization
+    lifecycle_stage: maturity
+    summary: |
+      The smallest autonomous biological system: a bounded, internally
+      compartmentalized, self-replicating chemical reactor that
+      maintains itself far from equilibrium by metabolic free-energy
+      throughput. Universal substrate of all known life.
+    boundary:
+      type: spatial
+      description: |
+        Phospholipid bilayer plasma membrane (with embedded transport
+        proteins) separating cytoplasm from external environment.
+        Eukaryotic cells contain additional internal membranes
+        (organelles).
+    components:
+      - genome (DNA, organized as one or more chromosomes; ~10^6 to ~10^11 bp)
+      - ribosomes (~10^4-10^7 per cell)
+      - cytoskeleton (actin, intermediate filaments, microtubules)
+      - organelles (mitochondria, ER, Golgi, nucleus in eukaryotes)
+      - cytoplasmic enzyme pool
+      - membrane transporters and receptors
+    interaction_types:
+      - DNA replication, transcription, translation
+      - signal transduction (receptor-mediated cascades)
+      - metabolic flux through enzymatic pathways
+      - membrane transport (active and passive)
+      - cytoskeletal force generation
+    scales:
+      spatial:
+        - prokaryote ~10^-6 m
+        - eukaryote ~10^-5 m
+      temporal:
+        - protein turnover ~10^2 to 10^4 s
+        - cell cycle ~10^3 to 10^5 s
+        - protein-conformation dynamics ~10^-9 to 10^-3 s
+    main_feedbacks:
+      - homeostatic regulation of pH, osmolarity, ion gradients
+      - transcriptional feedback maintaining stable expression states
+      - metabolic feedback (allosteric regulation, feedback inhibition)
+    dominant_constraints:
+      - membrane impermeability + selective transporter availability
+      - free-energy supply (ATP, ion gradients)
+      - genome integrity and replication fidelity
+    emergent_properties:
+      - self-replication
+      - compartmentalized metabolism
+      - heritable individual identity
+    failure_modes:
+      - apoptosis / programmed cell death
+      - membrane rupture and lysis
+      - replication errors leading to non-viable progeny
+    canonical_examples:
+      - {name: "Escherichia coli", note: "Canonical model prokaryote; ~5 Mbp genome, ~30 min division time."}
+      - {name: "Saccharomyces cerevisiae", note: "Canonical model eukaryote; budding yeast."}
+      - {name: "Human red blood cell", note: "Anucleate specialized cell; canonical metabolic-network case."}
+    source_refs:
+      - src-000012--molecular-biology-of-the-cell
+
+  - slug: eukaryotic-cell
+    name: Eukaryotic cell
+    priority: P0
+    domain: biological
+    classes: [unicellular-organism]
+    system_kind: transition
+    substrate: lipid membranes, internal organelles, multipartite chromatin
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: compartmentalized cellular organization with endosymbiotic energy organelles
+    lifecycle_stage: maturity
+    summary: |
+      A cell with a true nucleus and membrane-bound organelles
+      (mitochondria, ER, Golgi, often plastids), the product of
+      symbiogenesis between an archaeal host and an alpha-proteobacterial
+      endosymbiont. The substrate of all multicellular life and the
+      structural basis for the second great transition in biological
+      complexity.
+    boundary:
+      type: spatial
+      description: |
+        Plasma membrane plus the nuclear envelope and organelle membranes
+        creating internal subcompartments. Distinct from prokaryotes by
+        the presence of a nucleus, organelles, and a complex
+        cytoskeleton.
+    components:
+      - nucleus with linear chromatin and nuclear envelope
+      - mitochondria (descendants of alpha-proteobacterial endosymbiont)
+      - endoplasmic reticulum (rough and smooth)
+      - Golgi apparatus
+      - lysosomes / vacuoles
+      - cytoskeleton (actin, microtubules, intermediate filaments)
+      - in plant lineages, plastids (descendants of cyanobacterial endosymbiont)
+    interaction_types:
+      - nucleo-cytoplasmic transport via nuclear pore complexes
+      - vesicular trafficking among organelles (COPI, COPII, clathrin pathways)
+      - mitochondrial-nuclear retrograde signaling
+      - endomembrane biogenesis and turnover
+    scales:
+      spatial:
+        - cell ~10^-5 m
+        - organelle ~10^-7 to 10^-6 m
+      temporal:
+        - cell cycle ~10^4 to 10^5 s (8-24 h typical)
+        - organelle turnover ~10^4 to 10^6 s
+    main_feedbacks:
+      - mitochondrial-nuclear cross-talk balancing biogenesis with energy demand
+      - vesicular flux balance among compartments
+      - chromatin conformation feedback on transcription
+    dominant_constraints:
+      - membrane lipid composition and curvature constraints on organelle identity
+      - genome size limited by replication fidelity and division economics
+    emergent_properties:
+      - intracellular spatial differentiation
+      - true multicellularity becoming evolvable
+      - eukaryotic-specific information processing (splicing, alternative isoforms)
+    failure_modes:
+      - mitochondrial dysfunction triggering apoptosis
+      - nuclear envelope breakdown errors
+      - organelle imbalance (ER stress, lysosomal storage)
+    canonical_examples:
+      - {name: "Saccharomyces cerevisiae", note: "Canonical unicellular eukaryote model."}
+      - {name: "Tetrahymena thermophila", note: "Canonical ciliate; macronucleus/micronucleus split."}
+      - {name: "Naegleria gruberi", note: "Free-living amoeboflagellate; canonical excavate eukaryote."}
+    source_refs:
+      - src-000012--molecular-biology-of-the-cell
+      - src-000016--origin-of-the-cell-nucleus-mitosis-and-sex-roles-of-intracel
+
+  - slug: multicellular-organism
+    name: Multicellular organism
+    priority: P0
+    domain: biological
+    classes: [multicellular-organism]
+    system_kind: transition
+    substrate: differentiated eukaryotic cells with shared genome
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: coordinated body of clonally related differentiated cells maintaining a shared somatic-germline life cycle
+    lifecycle_stage: maturity
+    summary: |
+      A coordinated colony of differentiated cells with a shared genome,
+      separated into specialized tissues, organs, and (in animals)
+      organ systems. Independently evolved at least 25 times in
+      eukaryotic lineages. The substrate of all macroscopic life.
+    boundary:
+      type: spatial
+      description: |
+        The outer integument or equivalent (skin, cuticle, cell wall in
+        plants) demarcating soma from environment, and the germline /
+        soma distinction internally.
+    components:
+      - somatic cells of multiple differentiated types (hundreds in vertebrates)
+      - germ cells (gametes and their precursors)
+      - extracellular matrix
+      - tissue-organizing signaling gradients
+      - in animals, organs and organ systems
+    interaction_types:
+      - cell-cell signaling (juxtacrine, paracrine, endocrine, synaptic)
+      - mechanical coupling via ECM
+      - developmental cell fate specification and migration
+      - immune surveillance of self vs altered-self
+    scales:
+      spatial:
+        - cell ~10^-5 m
+        - tissue ~10^-3 m
+        - organ ~10^-2 m
+        - organism ~10^-3 to 10^2 m (microscopic to whale)
+      temporal:
+        - cell cycle ~10^4 s
+        - developmental timescale ~10^5 to 10^9 s
+        - organism lifespan ~10^7 to 10^9 s
+    main_feedbacks:
+      - homeostatic feedback within and across tissues (endocrine, neural)
+      - developmental cell-fate feedback (lateral inhibition, gradient induction)
+      - growth-control feedback preventing tumorigenesis
+    dominant_constraints:
+      - shared genome implies shared evolutionary fate
+      - germline-soma distinction limits heritability of somatic change
+      - oxygen / nutrient diffusion limits maximum cell-from-vessel distance
+    emergent_properties:
+      - body plans (bilateria, radiata, etc.)
+      - centralized regulatory systems (nervous, immune, endocrine)
+      - complex behavior
+    failure_modes:
+      - cancer (somatic-evolution defection)
+      - developmental malformation
+      - autoimmunity
+      - aging-related multi-organ failure
+    canonical_examples:
+      - {name: "Caenorhabditis elegans", note: "Nematode; canonical model with ~959 invariant somatic cells."}
+      - {name: "Drosophila melanogaster", note: "Fruit fly; canonical developmental and behavioral model."}
+      - {name: "Mus musculus", note: "Mouse; canonical mammalian model."}
+      - {name: "Arabidopsis thaliana", note: "Canonical model plant; small, fast-cycling, well-genetically-mapped."}
+      - {name: "Homo sapiens", note: "Self-referential canonical example; ~3.7 x 10^13 cells across ~200 cell types."}
+
+  - slug: gene-regulatory-network
+    name: Gene regulatory network
+    priority: P0
+    domain: biological
+    classes: [gene-regulatory-network]
+    system_kind: class
+    substrate: DNA + RNA + transcription factors + chromatin
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: program developmental cell-fate decisions and homeostatic transcriptional responses
+    lifecycle_stage: maturity
+    summary: |
+      Within-cell graph of regulatory interactions among genes mediated by
+      transcription factors, microRNAs, long non-coding RNAs, and
+      chromatin modifiers. Realizes developmental cell-fate decisions,
+      homeostatic responses, and oscillatory behavior; substrate of
+      developmental biology and systems biology.
+    boundary:
+      type: functional
+      description: All regulatory interactions among gene products within a single cell type or developmental context; boundary is the cell, but the network is defined at the regulatory-graph level.
+    components:
+      - protein-coding genes (~10^4 in mammals)
+      - regulatory RNAs (microRNAs, lncRNAs)
+      - transcription factors (~10^3 in mammals)
+      - cis-regulatory elements (promoters, enhancers, silencers)
+      - chromatin modifiers and remodelers
+    interaction_types:
+      - sequence-specific TF binding to cis-regulatory elements
+      - cooperative TF assembly on enhancers
+      - chromatin state modulation (methylation, acetylation, accessibility)
+      - post-transcriptional regulation by ncRNAs
+    scales:
+      spatial:
+        - regulatory element ~10^-7 m (~kb)
+        - genome ~10^-2 m unraveled, ~10^-5 m packed
+      temporal:
+        - transcription pulse ~10^2 s
+        - protein lifetime ~10^3 to 10^5 s
+        - developmental switch ~10^3 to 10^5 s
+    main_feedbacks:
+      - autoregulatory negative feedback (transcription factor represses own gene)
+      - mutual repression bistable switches (lateral inhibition)
+      - feed-forward loops (filtering and pulse generation)
+    dominant_constraints:
+      - cooperative binding kinetics
+      - chromatin accessibility
+      - gene-product half-lives setting response timescales
+    emergent_properties:
+      - bistability and multistability (cell-fate determination)
+      - oscillation (segmentation clock, circadian rhythms)
+      - robustness to noise (canalization)
+    failure_modes:
+      - dysregulated bistability (oncogenic state lock-in)
+      - feedback-loop failure leading to runaway expression
+      - misexpression in wrong cell context (developmental defects, cancer)
+    canonical_examples:
+      - {name: "Sea urchin endomesoderm GRN", note: "Davidson et al., textbook reference for developmental GRN architecture."}
+      - {name: "Drosophila segmentation network", note: "Gap, pair-rule, segment-polarity GRN; canonical morphogen-cascade case."}
+      - {name: "Mammalian circadian clock GRN", note: "BMAL1/CLOCK/PER/CRY transcription-translation feedback loop."}
+    source_refs:
+      - src-000013--the-regulatory-genome-gene-regulatory-networks-in-developmen
+      - src-000014--an-introduction-to-systems-biology-design-principles-of-biol
+      - src-000015--metabolic-stability-and-epigenesis-in-randomly-constructed-g
+
+  - slug: metabolic-network
+    name: Metabolic network
+    priority: P0
+    domain: biological
+    classes: [metabolic-network]
+    system_kind: class
+    substrate: enzymatic biochemistry within a cell or organelle
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: biochemical conversion of input substrates into energy and biosynthetic precursors
+    lifecycle_stage: maturity
+    summary: |
+      Intracellular graph of biochemical reactions — metabolites as
+      nodes, enzyme-catalyzed conversions as edges — collectively
+      realizing a cell's energy generation, biosynthetic precursor
+      supply, and waste disposal. The chemical engine of life.
+    boundary:
+      type: functional
+      description: All enzyme-catalyzed reactions whose substrates and products are intracellular metabolites; spatial bound is the cell or organelle.
+    components:
+      - small-molecule metabolites (~10^3 distinct species in E. coli; ~10^4 in human)
+      - enzymes (~10^3)
+      - cofactors (NAD/NADH, NADP/NADPH, ATP, FAD, coenzyme A, vitamins)
+      - transport proteins
+    interaction_types:
+      - enzyme-catalyzed reactions (biochemical conversions)
+      - allosteric regulation
+      - metabolite channeling between sequential enzymes
+      - compartment-crossing transport
+    scales:
+      spatial:
+        - molecular ~10^-9 m
+        - cell or organelle ~10^-6 to 10^-5 m
+      temporal:
+        - enzymatic turnover ~10^-3 to 10^0 s
+        - metabolite pool turnover ~10^0 to 10^3 s
+        - metabolic adaptation ~10^2 to 10^4 s
+    main_feedbacks:
+      - feedback inhibition (end-product inhibits committing-step enzyme)
+      - allosteric activation by precursors
+      - transcriptional feedback adjusting enzyme abundance
+    dominant_constraints:
+      - thermodynamic feasibility (Gibbs free energy)
+      - mass and atom conservation (stoichiometry)
+      - cofactor pool size and balance
+    emergent_properties:
+      - flux distribution patterns (rich-club / bow-tie metabolic topology)
+      - homeostatic robustness to perturbation
+    failure_modes:
+      - cofactor imbalance (e.g. NADH overload)
+      - toxic intermediate accumulation when downstream pathway blocked
+      - thermodynamic infeasibility under low free-energy supply
+    canonical_examples:
+      - {name: "E. coli central carbon metabolism", note: "Glycolysis + TCA + pentose phosphate; canonical reference model (iJO1366, etc.)."}
+      - {name: "Human red blood cell metabolism", note: "Glycolysis without mitochondria; canonical metabolic-network minimal model."}
+      - {name: "Methanogen archaeal metabolism", note: "CO2 + H2 -> CH4; canonical anaerobic metabolism."}
+    source_refs:
+      - src-000004--a-comprehensive-genome-scale-reconstruction-of-i-escherichia
+      - src-000005--the-large-scale-organization-of-metabolic-networks
+      - src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1
+      - src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12
+
+  - slug: microbiome
+    name: Microbiome
+    priority: P0
+    domain: biological
+    classes: [microbiome]
+    system_kind: class
+    substrate: multi-taxon microbial community in a host or environmental niche
+    origin: evolved
+    boundary_clarity: fuzzy
+    primary_function: community-level metabolic and ecological coupling within a host or environmental matrix
+    lifecycle_stage: maturity
+    summary: |
+      Type-level archetype for a multi-taxon microbial community
+      resident in a defined niche — host tissue (gut, skin, oral
+      cavity, root rhizosphere) or environmental matrix (marine surface
+      water, sediment, deep subsurface, built-environment surface).
+      Members are coupled by trophic cross-feeding, syntrophy,
+      competition, phage predation, host or niche signaling, and
+      horizontal gene transfer.
+    boundary:
+      type: spatial
+      description: |
+        The microbiome occupies a delimited niche (a host tissue
+        compartment or an environmental matrix) and includes the
+        bacterial, archaeal, fungal, and viral populations resident in
+        that niche together with the microbe-derived metabolite pools.
+    components:
+      - bacterial populations (typically 10^9-10^14 cells per host or per gram)
+      - archaeal populations (methanogens, ammonia oxidizers, halophiles)
+      - fungal populations
+      - viral populations (bacteriophages and eukaryotic viruses)
+      - microbial metabolite pools
+      - extracellular polymeric matrix and biofilm structural components
+      - mobile genetic elements (plasmids, integrative conjugative elements, prophages)
+    interaction_types:
+      - trophic cross-feeding
+      - syntrophy
+      - competition for substrates and niches
+      - bacteriophage predation and lysis
+      - host immune and metabolic signaling (in host-associated cases)
+      - horizontal gene transfer
+      - quorum sensing
+    scales:
+      spatial:
+        - cell scale ~10^-6 m
+        - biofilm and microcolony scale ~10^-4 m
+        - niche or host-organ scale ~10^-1 m
+      temporal:
+        - metabolite-pool turnover ~10^2 to 10^4 s
+        - community restructuring after perturbation ~weeks-months
+        - successional dynamics ~years-decades
+    main_feedbacks:
+      - cross-feeding loops stabilizing community structure
+      - host-microbe metabolic feedback
+      - phage-bacteria population oscillation
+    dominant_constraints:
+      - substrate availability from host or environment
+      - host immunity (in host-associated cases)
+      - thermodynamic constraints on syntrophic chains
+    emergent_properties:
+      - community-level metabolic functions (e.g. SCFA production in gut)
+      - ecological resilience to invasion
+      - host-microbiome co-adaptation
+    failure_modes:
+      - dysbiosis (loss of beneficial taxa, expansion of pathogens)
+      - invasion by exogenous pathogens
+      - antimicrobial-driven collapse and re-equilibration
+    canonical_examples:
+      - {name: "Human gut microbiome", note: "Highest-density host-associated microbiome; hundreds of species, 10^11-10^12 cells/g."}
+      - {name: "Rhizosphere microbiome", note: "Root-soil interface community shaping plant nutrient uptake."}
+      - {name: "Marine surface (epipelagic) microbiome", note: "SAR11/Prochlorococcus/Synechococcus dominated; couples to global biogeochemistry."}
+      - {name: "Oral microbiome", note: "Multi-site biofilm community; site-specific assemblies."}
+      - {name: "Skin microbiome", note: "Patchwork of dry/moist/sebaceous microhabitats."}
+    source_refs:
+      - src-000010--animals-in-a-bacterial-world-a-new-imperative-for-the-life-s
+      - src-000011--the-application-of-ecological-theory-toward-an-understanding
+
+  - slug: immune-system
+    name: Immune system
+    priority: P0
+    domain: biological
+    classes: [immune-system]
+    system_kind: class
+    substrate: lymphoid and myeloid cells plus signaling molecules
+    origin: evolved
+    boundary_clarity: fuzzy
+    primary_function: discriminate self from non-self and mount adaptive responses to pathogens
+    lifecycle_stage: maturity
+    summary: |
+      Cellular and molecular subsystem of an animal that discriminates
+      self from non-self and responds to threats. Vertebrate adaptive
+      immunity adds clonal selection on lymphocyte receptors and
+      immunological memory. Canonical adaptive complex system; classic
+      structural homolog of cybersecurity.
+    boundary:
+      type: functional
+      description: All cells, organs (thymus, lymph nodes, spleen, bone marrow), and signaling molecules dedicated to host defense; spatial bound is the organism but functionally distinct from other physiological systems.
+    components:
+      - innate immune cells (macrophages, dendritic cells, neutrophils, NK cells)
+      - adaptive immune cells (B cells, T cells)
+      - antibodies (~10^11 distinct specificities in humans)
+      - T-cell receptors (~10^15 to 10^18 potential sequences)
+      - cytokines and chemokines
+      - lymphoid organs (thymus, lymph nodes, spleen, bone marrow)
+    interaction_types:
+      - antigen presentation by MHC I/II
+      - clonal selection and expansion
+      - antibody-antigen binding
+      - cytokine signaling cascades
+      - immunological memory formation
+    scales:
+      spatial:
+        - cell ~10^-5 m
+        - lymph node ~10^-3 m
+        - lymphoid network ~10^0 m
+      temporal:
+        - innate response ~hours
+        - primary adaptive response ~days
+        - memory persistence ~years to decades
+    main_feedbacks:
+      - clonal expansion under antigenic stimulation
+      - regulatory T-cell suppression preventing autoimmunity
+      - cytokine networks balancing Th1/Th2/Th17 responses
+    dominant_constraints:
+      - thymic selection prevents grossly autoreactive T cells
+      - resource allocation between innate and adaptive arms
+      - tolerance vs response trade-off
+    emergent_properties:
+      - immunological memory
+      - self/non-self discrimination
+      - clonal repertoire
+    failure_modes:
+      - autoimmunity (false-positive self-attack)
+      - immunodeficiency (false-negative pathogen escape)
+      - allergic / hypersensitivity reactions
+      - chronic inflammation
+    canonical_examples:
+      - {name: "Human adaptive immunity", note: "Best-studied vertebrate adaptive immune system."}
+      - {name: "Drosophila innate immunity", note: "Classic invertebrate model; Toll and Imd pathways."}
+      - {name: "CRISPR-Cas in prokaryotes", note: "Microbial adaptive immunity via genomic memory; canonical alternative architecture."}
+
+  - slug: nervous-system
+    name: Nervous system
+    priority: P0
+    domain: biological
+    classes: [nervous-system]
+    system_kind: class
+    substrate: neurons + glia + neurotransmitters
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: rapid long-range information transfer and behavioral control
+    lifecycle_stage: maturity
+    summary: |
+      Network of neurons (and supporting glia) that conducts and processes
+      signals across an animal body, enabling sensation, decision, and
+      action on millisecond timescales. Substrate of behavior, learning,
+      and (in some lineages) cognition.
+    boundary:
+      type: functional
+      description: All neurons, glial cells, and connective tissue dedicated to electrochemical signaling; bounded by the organism and (in vertebrates) the blood-brain barrier.
+    components:
+      - neurons (~10^11 in human brain; ~10^2 in C. elegans; ~10^5 in Drosophila)
+      - glial cells (astrocytes, oligodendrocytes, microglia)
+      - synapses (~10^14-10^15 in human)
+      - neurotransmitter and neuropeptide pools
+      - sensory transducers
+      - neuromuscular junctions
+    interaction_types:
+      - synaptic transmission (chemical and electrical)
+      - action potential propagation
+      - long-term potentiation and depression
+      - neuromodulation
+    scales:
+      spatial:
+        - synapse ~10^-9 to 10^-6 m
+        - circuit ~10^-3 m
+        - whole-brain ~10^-1 m
+      temporal:
+        - action potential ~10^-3 s
+        - synaptic plasticity ~seconds to days
+        - learning consolidation ~hours to years
+    main_feedbacks:
+      - Hebbian plasticity (correlated activity strengthens synapses)
+      - homeostatic plasticity stabilizing firing rates
+      - inhibitory feedback preventing runaway excitation
+    dominant_constraints:
+      - metabolic cost of action potentials (~20% of human resting metabolism)
+      - axon length and conduction delay
+      - synaptic density limit
+    emergent_properties:
+      - learning and memory
+      - sensory perception
+      - motor coordination
+      - in some lineages, cognition and consciousness
+    failure_modes:
+      - epileptic seizure (synchronous excitation runaway)
+      - stroke / ischemic injury
+      - neurodegeneration
+      - chronic pain
+    canonical_examples:
+      - {name: "Caenorhabditis elegans nervous system", note: "302 neurons, fully reconstructed connectome; canonical small-nervous-system model."}
+      - {name: "Drosophila central complex", note: "Mid-scale invertebrate model with documented behavioral roles."}
+      - {name: "Mammalian neocortex", note: "Canonical large-scale layered cortical architecture."}
+
+  - slug: brain
+    name: Brain
+    priority: P0
+    domain: biological
+    classes: [brain, central-nervous-system]
+    system_kind: class
+    substrate: dense neural tissue with vascular and glial support
+    origin: evolved
+    boundary_clarity: crisp
+    primary_function: centralized integration, learning, and high-bandwidth control of sensorimotor and cognitive function
+    lifecycle_stage: maturity
+    summary: |
+      The most centralized portion of an animal nervous system, dense
+      with neurons and synapses, organized into functional regions and
+      (in vertebrates) layered cortex. Substrate of perception,
+      learning, decision-making, and (in some lineages) consciousness.
+      The most studied complex system in nature.
+    boundary:
+      type: spatial
+      description: |
+        The cranial nervous tissue, demarcated by the meninges and
+        blood-brain barrier from peripheral systems. Includes (in
+        vertebrates) cerebrum, cerebellum, brainstem, and midbrain
+        structures.
+    components:
+      - cerebral cortex (~10^10 neurons in human)
+      - subcortical nuclei (basal ganglia, thalamus, hypothalamus, hippocampus, amygdala)
+      - cerebellum (~5 x 10^10 neurons)
+      - brainstem
+      - white-matter tracts (long-range axonal projections)
+      - vascular and glial support tissue
+    interaction_types:
+      - intra-area recurrent processing
+      - inter-area long-range projections
+      - thalamocortical loops
+      - basal-ganglia-cortical loops
+      - neuromodulatory broadcast (dopamine, serotonin, noradrenaline, acetylcholine)
+    scales:
+      spatial:
+        - microcircuit ~10^-3 m
+        - cortical area ~10^-2 m
+        - whole brain ~10^-1 m
+      temporal:
+        - spiking ~10^-3 s
+        - perception ~10^-1 s
+        - working-memory span ~10^0 s
+        - episodic memory consolidation ~10^4 s
+    main_feedbacks:
+      - predictive-coding feedback between cortical hierarchies
+      - reward-prediction-error feedback in dopaminergic system
+      - sleep-driven memory consolidation
+    dominant_constraints:
+      - metabolic budget (~20% of resting human energy)
+      - skull volume / craniofacial geometry
+      - white-matter wiring cost (long projections expensive)
+    emergent_properties:
+      - perception and attention
+      - episodic and semantic memory
+      - decision-making
+      - in some species, consciousness and self-modeling
+    failure_modes:
+      - stroke (focal ischemic injury)
+      - seizure (network synchronization collapse)
+      - neurodegeneration (Alzheimer's, Parkinson's)
+      - traumatic injury with long-recovery sequelae
+    canonical_examples:
+      - {name: "Human brain", note: "~86 x 10^9 neurons; canonical reference."}
+      - {name: "Mouse brain", note: "~7 x 10^7 neurons; canonical model for cellular and circuit-level neuroscience."}
+      - {name: "Octopus brain", note: "Distributed nervous system with 2/3 of neurons in arms; canonical alternative architecture."}
+
+  - slug: ant-colony
+    name: Ant colony
+    priority: P0
+    domain: biological
+    classes: [superorganism]
+    system_kind: class
+    substrate: hundreds to millions of ant individuals + nest infrastructure
+    origin: evolved
+    boundary_clarity: fuzzy
+    primary_function: collectively forage, defend, and reproduce as a unit of selection
+    lifecycle_stage: maturity
+    summary: |
+      Eusocial insect colony exhibiting reproductive division of labor
+      between sterile workers and reproductive queens (and, in some
+      species, soldiers). Treated as a unit of selection. Canonical
+      example of self-organized stigmergic coordination through pheromone
+      trails and local interaction rules. Foundational for the
+      superorganism concept.
+    boundary:
+      type: spatial
+      description: The nest and the foraging perimeter where colony pheromone trails define territory; functionally bounded by genetic relatedness within the colony.
+    components:
+      - workers (sterile females; orders of magnitude more than other castes)
+      - reproductive queen (typically one or few)
+      - in some species, soldiers (specialized defensive caste)
+      - male reproductives (ephemeral; produced for mating flights)
+      - brood (eggs, larvae, pupae)
+      - nest infrastructure (chambers, tunnels)
+      - pheromone communication system
+    interaction_types:
+      - pheromone trail laying and following (stigmergy)
+      - trophallaxis (oral food exchange)
+      - tactile and chemical individual recognition
+      - colony-level division of labor
+      - inter-colony aggression at territory boundaries
+    scales:
+      spatial:
+        - individual ant ~10^-3 m
+        - nest ~10^-1 to 10^0 m
+        - foraging perimeter ~10^1 to 10^2 m
+      temporal:
+        - individual ant lifespan ~weeks to months
+        - colony lifespan ~years to decades (queen-life)
+    main_feedbacks:
+      - pheromone-trail amplification of successful foraging routes
+      - density-dependent task switching among workers
+      - queen-pheromone suppression of worker reproduction
+    dominant_constraints:
+      - individual ant cognitive capacity (very limited)
+      - resource availability in foraging perimeter
+      - genetic relatedness threshold for cooperative behavior
+    emergent_properties:
+      - shortest-path discovery via pheromone optimization
+      - division of labor without centralized control
+      - colony-level "intelligence" exceeding individual cognition
+    failure_modes:
+      - queen death (colony decline unless replacement queen)
+      - invasion by competitor colonies
+      - resource depletion in foraging perimeter
+      - parasitic exploitation (myrmecophiles, social parasites)
+    canonical_examples:
+      - {name: "Atta cephalotes", note: "Leaf-cutter ant; canonical fungal-cultivating colony, millions of workers."}
+      - {name: "Solenopsis invicta", note: "Red imported fire ant; canonical invasive supercolony case."}
+      - {name: "Linepithema humile", note: "Argentine ant; canonical example of intercontinental supercolony."}
+
+  - slug: ecosystem
+    name: Ecosystem
+    priority: P0
+    domain: ecological
+    classes: [ecosystem]
+    system_kind: class
+    substrate: biotic communities + abiotic environment
+    origin: evolved
+    boundary_clarity: fuzzy
+    primary_function: cycle energy and matter through coupled biotic-abiotic flows
+    lifecycle_stage: maturity
+    summary: |
+      Biotic community plus its abiotic environment, coupled through
+      energy flow and biogeochemical cycling. Defined at scales from
+      local patches (a pond) to biomes (the Amazon rainforest) to the
+      global biosphere. Substrate of ecology.
+    boundary:
+      type: spatial
+      description: A bounded geographic region whose biotic and abiotic components are functionally coupled through energy and matter flows; boundary is typically drawn at major discontinuities in vegetation, climate, or habitat.
+    components:
+      - primary producers (plants, algae, photosynthetic bacteria)
+      - consumers (herbivores, carnivores, omnivores)
+      - decomposers (bacteria, fungi)
+      - abiotic substrate (soil, water, atmosphere)
+      - nutrient pools (nitrogen, phosphorus, carbon)
+      - climate forcing
+    interaction_types:
+      - trophic interactions (predation, herbivory, parasitism)
+      - competition for resources
+      - mutualism (pollination, mycorrhizal associations)
+      - decomposition and nutrient cycling
+      - succession after disturbance
+    scales:
+      spatial:
+        - patch ~10^0 to 10^2 m
+        - landscape ~10^3 to 10^5 m
+        - biome ~10^6 to 10^7 m
+      temporal:
+        - generation times ~10^7 to 10^9 s
+        - successional dynamics ~10^9 to 10^10 s
+        - evolutionary timescale ~10^11 to 10^13 s
+    main_feedbacks:
+      - predator-prey population cycles
+      - nutrient cycling regulating productivity
+      - climate-vegetation feedback (albedo, evapotranspiration)
+      - density-dependent regulation
+    dominant_constraints:
+      - solar energy input
+      - water and nutrient availability
+      - thermodynamic limits (~10% trophic transfer efficiency)
+    emergent_properties:
+      - biodiversity patterns
+      - food-web topology
+      - succession trajectories
+      - ecosystem services (pollination, water purification, climate regulation)
+    failure_modes:
+      - regime shift / tipping point (e.g. coral bleaching, savannization)
+      - cascading extinctions from keystone-species loss
+      - biodiversity collapse from habitat destruction
+      - invasive-species takeover
+    canonical_examples:
+      - {name: "Amazon rainforest", note: "Largest tropical ecosystem; canonical high-biodiversity terrestrial case."}
+      - {name: "Coral reef", note: "Highest biodiversity per area; canonical mutualism-driven ecosystem."}
+      - {name: "Boreal forest", note: "Largest terrestrial biome by area; canonical low-diversity temperature-limited ecosystem."}
+      - {name: "Open ocean / pelagic ecosystem", note: "Largest ecosystem by volume; canonical microbial-loop case."}
+
+  - slug: food-web
+    name: Food web
+    priority: P0
+    domain: ecological
+    classes: [food-web]
+    system_kind: class
+    substrate: ecological community as a who-eats-whom graph
+    origin: evolved
+    boundary_clarity: fuzzy
+    primary_function: trophic energy flow through a community
+    lifecycle_stage: maturity
+    summary: |
+      Network representation of trophic (who-eats-whom) relationships
+      in an ecological community. The classic graph object in ecology;
+      substrate for connectance, motif, and stability analyses.
+    boundary:
+      type: functional
+      description: All trophic links among species in an ecological community; spatial bound is the ecosystem the community occupies.
+    components:
+      - species (or trophic groups) as nodes
+      - directed edges from prey to predator
+      - basal species (autotrophs, detritivores)
+      - apex predators
+    interaction_types:
+      - predation
+      - herbivory
+      - parasitism
+      - omnivory (cross-trophic-level feeding)
+      - cannibalism (intra-species predation)
+    scales:
+      spatial:
+        - community ~10^2 to 10^5 m
+      temporal:
+        - generation cycle of constituent species
+        - trophic-cascade response ~years to decades
+    main_feedbacks:
+      - top-down control (predator regulates prey)
+      - bottom-up control (resource availability sets predator population)
+      - apparent competition (shared predator couples otherwise unrelated prey)
+    dominant_constraints:
+      - thermodynamic ~10% trophic transfer efficiency
+      - body-size-based prey-predator constraints
+      - spatial overlap requirements
+    emergent_properties:
+      - trophic levels (despite continuous diet variation)
+      - keystone-species effects
+      - food-web stability vs complexity (May's paradox)
+    failure_modes:
+      - trophic cascade from apex-predator loss
+      - keystone-species extinction
+      - food-web simplification under stress
+    canonical_examples:
+      - {name: "Yellowstone wolf-elk-aspen cascade", note: "Canonical empirical trophic cascade."}
+      - {name: "Pacific kelp-urchin-otter cascade", note: "Canonical marine trophic cascade."}
+      - {name: "Lake Constance pelagic food web", note: "Highly resolved freshwater food web, canonical reference dataset."}
+
+  - slug: language
+    name: Language
+    priority: P0
+    domain: cognitive
+    classes: [language-system, language-community]
+    system_kind: transition
+    substrate: shared symbolic conventions in a community of speakers
+    origin: emergent
+    boundary_clarity: fuzzy
+    primary_function: compositional symbolic communication and cultural transmission
+    lifecycle_stage: maturity
+    summary: |
+      A compositional symbolic communication system with grammar,
+      lexicon, and pragmatic conventions, evolving in a community of
+      speakers. Substrate of cumulative culture; the foundational
+      cultural-evolutionary medium. Spans tens of thousands of years
+      of human history.
+    boundary:
+      type: functional
+      description: The shared linguistic code of a speech community; boundary is mutual intelligibility (often dialectal continuum rather than crisp).
+    components:
+      - phonology (sound inventory)
+      - morphology (word formation)
+      - lexicon (vocabulary, ~10^4-10^5 morphemes per language)
+      - syntax (grammatical rules)
+      - pragmatics (use conventions)
+      - speakers (community of users)
+    interaction_types:
+      - speech production and comprehension
+      - language acquisition (child learning from caregivers)
+      - linguistic innovation and propagation
+      - language contact and borrowing
+    scales:
+      spatial:
+        - speaker ~10^0 m
+        - community ~10^4 to 10^7 speakers
+        - global language ~10^9 speakers (e.g. English, Mandarin)
+      temporal:
+        - utterance ~10^0 s
+        - generational learning ~10^9 s (decades)
+        - language change ~10^10 to 10^13 s (centuries to millennia)
+    main_feedbacks:
+      - frequency-driven entrenchment (common forms become more common)
+      - regularization of irregularities through child learning
+      - prestige-driven adoption of innovations
+    dominant_constraints:
+      - cognitive constraints on parsing and production
+      - articulatory constraints on phonology
+      - communicative pressure for ambiguity reduction
+    emergent_properties:
+      - compositional infinite expressive capacity from finite means
+      - Zipf's law in word frequency
+      - regularity-irregularity gradient (frequent forms tolerate irregularity)
+    failure_modes:
+      - language death (loss of speakers)
+      - mutual unintelligibility from drift (dialect to language transition)
+      - language attrition under contact pressure
+    canonical_examples:
+      - {name: "English", note: "Most-studied language; ~1.5 x 10^9 speakers including L2."}
+      - {name: "Mandarin Chinese", note: "Largest L1 community; ~10^9 speakers."}
+      - {name: "Pirahã", note: "Cited example of unusual grammatical features; useful for typological boundaries."}
+
+  - slug: city
+    name: City
+    priority: P0
+    domain: social
+    classes: [city, urban-metabolism]
+    system_kind: class
+    substrate: humans + built environment + infrastructure + institutions
+    origin: hybrid
+    boundary_clarity: fuzzy
+    primary_function: dense human settlement coupling infrastructure, economy, and governance
+    lifecycle_stage: maturity
+    summary: |
+      A dense human settlement with infrastructure, economy, and
+      governance. Canonical urban-complexity object — exhibits
+      universal scaling laws (West et al.) in resource consumption,
+      socioeconomic output, and infrastructure with population. Coupled
+      to hinterland through commodity, food, water, energy, and
+      information flows.
+    boundary:
+      type: mixed
+      description: |
+        Spatial — the contiguous built-up area or municipal boundary.
+        Functional — the labor market and commuting shed (often larger
+        than the formal city boundary, leading to metropolitan-area
+        definitions).
+    components:
+      - residents (10^4 to 10^7+)
+      - firms and economic actors
+      - housing stock
+      - transportation network (roads, transit, airports)
+      - utility infrastructure (water, sewer, power, telecom)
+      - government and institutions
+      - public space
+    interaction_types:
+      - daily mobility (commuting, errands)
+      - economic exchange (labor, goods, services)
+      - communication (face-to-face, telecom)
+      - governance and regulation
+      - resource flows (energy, water, food, materials)
+    scales:
+      spatial:
+        - building ~10^1 m
+        - neighborhood ~10^3 m
+        - city ~10^4 to 10^5 m
+        - metropolitan area ~10^5 to 10^6 m
+      temporal:
+        - daily commuting cycle ~10^5 s
+        - housing-stock turnover ~10^9 s (decades)
+        - urban-form change ~10^10 s (centuries)
+    main_feedbacks:
+      - agglomeration economies (productivity rises with size)
+      - congestion costs (efficiency falls with size)
+      - housing-price-driven displacement
+      - migration responding to opportunity
+      - infrastructure-investment feedback
+    dominant_constraints:
+      - water and energy supply
+      - transportation throughput
+      - housing affordability
+      - governance capacity
+    emergent_properties:
+      - superlinear scaling of innovation, GDP, patents (~N^1.15)
+      - sublinear scaling of infrastructure (~N^0.85)
+      - segregation patterns
+      - diversity-dependent cultural production
+    failure_modes:
+      - infrastructure collapse
+      - fiscal crisis
+      - segregation and inequality
+      - climate vulnerability (heatwaves, flooding, sea-level rise)
+      - violence and civil unrest
+    canonical_examples:
+      - {name: "Tokyo", note: "Largest metropolitan area (~37M); canonical megacity case."}
+      - {name: "New York City", note: "Canonical financial-and-cultural global city."}
+      - {name: "Lagos", note: "Canonical rapidly-growing African megacity."}
+      - {name: "Singapore", note: "Canonical city-state; complete polity at city scale."}
+
+  - slug: market
+    name: Market
+    priority: P0
+    domain: economic
+    classes: [market-exchange]
+    system_kind: class
+    substrate: dispersed transacting agents + price discovery mechanism
+    origin: emergent
+    boundary_clarity: fuzzy
+    primary_function: distributed allocation of goods and services through price-mediated exchange
+    lifecycle_stage: maturity
+    summary: |
+      Venue (physical or virtual) where dispersed participants transact,
+      with prices emerging from their aggregate actions. Substrate of
+      most modern economic activity; canonical reflexive complex system
+      — agents adapt to prices, and their adaptation moves prices.
+    boundary:
+      type: functional
+      description: All buyer-seller pairs trading a defined set of goods or services; boundary is by good, geography, and institutional rules.
+    components:
+      - buyers (consumers, firms)
+      - sellers (firms, individuals)
+      - intermediaries (brokers, exchanges)
+      - the good or asset being traded
+      - rules and contracts
+      - price discovery mechanism (auction, bilateral, posted-price)
+    interaction_types:
+      - buy/sell offers
+      - price discovery
+      - contract execution
+      - information flow (news, signals, rumors)
+      - regulatory enforcement
+    scales:
+      spatial:
+        - local market ~10^3 m
+        - national market ~10^6 m
+        - global market ~10^7 m
+      temporal:
+        - transaction ~10^-3 to 10^3 s (microseconds for HFT to days for housing)
+        - price discovery ~seconds to days
+        - market regime ~years
+    main_feedbacks:
+      - price-quantity feedback (Walrasian adjustment)
+      - momentum / herding feedback
+      - reflexivity (agent expectations move prices that move expectations)
+      - regulatory feedback
+    dominant_constraints:
+      - resource and production limits
+      - institutional rules and contracts
+      - information asymmetry
+      - cognitive limits of participants
+    emergent_properties:
+      - prices as compressed information
+      - bubbles and crashes
+      - power-law return distributions
+      - market segmentation
+    failure_modes:
+      - bubble and crash
+      - liquidity collapse
+      - information asymmetry leading to adverse selection
+      - capture by dominant participants
+      - market manipulation
+    canonical_examples:
+      - {name: "Stock market (NYSE/NASDAQ)", note: "Most-studied financial market."}
+      - {name: "FX market", note: "Largest market by volume (~7 trillion USD/day)."}
+      - {name: "Local farmers market", note: "Canonical small-scale physical market."}
+      - {name: "eBay", note: "Canonical online auction marketplace."}
+
+  - slug: power-grid
+    name: Power grid
+    priority: P0
+    domain: technological
+    classes: [power-grid]
+    system_kind: class
+    substrate: synchronous AC generators + transmission + distribution + loads
+    origin: designed
+    boundary_clarity: crisp
+    primary_function: real-time generation-load balancing of electrical power
+    lifecycle_stage: maturity
+    summary: |
+      Synchronized electricity generation, transmission, and
+      distribution network with real-time supply-demand balance
+      requirements. Canonical example of tight-coupling, cascade-prone
+      infrastructure; subject of network-resilience research and the
+      classic blackout-cascade literature.
+    boundary:
+      type: spatial
+      description: All electrically interconnected generators, transmission lines, transformers, and consumers within a single synchronous frequency-controlled region.
+    components:
+      - generators (thermal, hydro, nuclear, wind, solar)
+      - transmission lines (high-voltage AC and DC)
+      - transformers and substations
+      - distribution network (medium- and low-voltage)
+      - loads (industrial, commercial, residential)
+      - control room / SCADA system
+      - reactive power and voltage support equipment
+    interaction_types:
+      - power flow on transmission lines (subject to Kirchhoff's laws)
+      - automatic generation control
+      - protective relaying (rapid disconnection of faults)
+      - voltage and frequency regulation
+      - market dispatch (in deregulated grids)
+    scales:
+      spatial:
+        - distribution feeder ~10^3 m
+        - transmission line ~10^5 m
+        - synchronous interconnection ~10^6 to 10^7 m (continental)
+      temporal:
+        - electromagnetic transient ~10^-6 s
+        - frequency excursion ~10^0 s
+        - dispatch cycle ~10^2 to 10^3 s
+        - capacity planning ~10^9 s (decades)
+    main_feedbacks:
+      - automatic generation control responding to frequency deviation
+      - market price feedback (in deregulated markets)
+      - investment-cycle feedback responding to capacity margins
+      - protective relay cascades
+    dominant_constraints:
+      - real-time generation = load (no large-scale storage at most-needed timescales)
+      - thermal limits on transmission lines
+      - voltage stability constraints
+      - N-1 reliability standard
+    emergent_properties:
+      - synchronous frequency lock across the interconnection
+      - cascade failure modes
+      - market price volatility
+    failure_modes:
+      - cascade blackout (line trips trigger overloads on parallel paths)
+      - voltage collapse
+      - frequency-deviation islanding
+      - cyber-attack (Stuxnet-class)
+      - extreme-weather widespread outages
+    canonical_examples:
+      - {name: "Eastern Interconnection (USA)", note: "Largest synchronous grid; canonical large-scale power-grid case."}
+      - {name: "Texas ERCOT grid", note: "Canonical example of vulnerability to extreme cold (Feb 2021 failure)."}
+      - {name: "European synchronous grid", note: "Canonical multi-national interconnection."}
+
+  - slug: internet
+    name: The Internet
+    priority: P0
+    domain: technological
+    classes: [internet-system, communication-network, protocol-stack]
+    system_kind: class
+    substrate: TCP/IP packet-switched internetwork
+    origin: designed
+    boundary_clarity: fuzzy
+    primary_function: planet-scale packet-switched data transport
+    lifecycle_stage: maturity
+    summary: |
+      The planet-scale interconnected packet-switched network of
+      networks. Substrate of the World Wide Web, email, video
+      streaming, real-time communication, and most contemporary
+      digital infrastructure. Architectural exemplar of layered
+      protocol design (the OSI / TCP/IP stack) and decentralized
+      routing (BGP).
+    boundary:
+      type: functional
+      description: All hosts and routers participating in the BGP-routed global IPv4/IPv6 address space; boundary is functional (whether reachable via the global routing table) rather than ownership-based.
+    components:
+      - hosts (end devices, ~10^10+)
+      - routers (autonomous-system-internal and inter-AS)
+      - autonomous systems (~10^5 globally)
+      - DNS infrastructure
+      - submarine and terrestrial cable infrastructure
+      - data centers
+      - protocols (IP, TCP, UDP, BGP, DNS, TLS, HTTP/HTTPS, etc.)
+    interaction_types:
+      - packet routing (BGP between ASes; OSPF/IS-IS within ASes)
+      - DNS name resolution
+      - TCP / TLS connection establishment
+      - peer / transit / customer business relationships among ASes
+      - distributed denial-of-service attacks and defenses
+    scales:
+      spatial:
+        - device ~10^-1 m
+        - data center ~10^2 m
+        - submarine cable ~10^7 m
+        - global ~10^7 m
+      temporal:
+        - packet RTT ~10^-3 to 10^-1 s
+        - DNS TTL ~10^2 to 10^4 s
+        - BGP convergence ~10^1 to 10^2 s
+        - infrastructure investment ~10^9 s
+    main_feedbacks:
+      - congestion control (TCP's AIMD)
+      - BGP route propagation and policy convergence
+      - economics of peering and transit driving topology
+      - investment responding to traffic growth
+    dominant_constraints:
+      - speed of light (latency floor)
+      - bandwidth limits on physical media
+      - IPv4 address exhaustion (driving NAT and IPv6)
+      - DNS root authority and ICANN governance
+    emergent_properties:
+      - power-law AS topology
+      - rich-club connectivity among large transits
+      - end-to-end principle (intelligence at edges)
+      - resilience to random failures, vulnerability to targeted attacks
+    failure_modes:
+      - BGP route hijacking and leaks
+      - DDoS attacks
+      - submarine cable cuts
+      - DNS infrastructure failures
+      - regional fragmentation (splinternet)
+    canonical_examples:
+      - {name: "Public Internet (BGP-routed IPv4/IPv6)", note: "The reference instance."}
+      - {name: "Tor network", note: "Canonical alternative routing overlay."}
+      - {name: "Tier-1 ISP backbone (e.g. NTT, Telia)", note: "Canonical AS-level component."}
+
+  - slug: open-source-ecosystem
+    name: Open-source software ecosystem
+    priority: P0
+    domain: technological
+    classes: [software-ecosystem]
+    system_kind: class
+    substrate: package registries + maintainers + dependency graphs
+    origin: hybrid
+    boundary_clarity: fuzzy
+    primary_function: cooperative production and maintenance of openly-licensed software
+    lifecycle_stage: maturity
+    summary: |
+      A community of interdependent software projects, package
+      registries, and maintainers producing openly-licensed software.
+      Canonical example of self-organizing knowledge production;
+      structurally homologous to biological ecosystems (niches,
+      keystone species, parasites, dependency cascades).
+    boundary:
+      type: functional
+      description: All projects, packages, and contributors participating in a coherent open-source community (often defined by shared registries, conferences, or governance bodies).
+    components:
+      - packages / projects (~10^6 in npm, ~10^5 in PyPI/Cargo/etc.)
+      - maintainers and contributors
+      - package registries (npm, PyPI, Maven Central, crates.io, etc.)
+      - dependency graph
+      - issue trackers and code review tools
+      - governance bodies (foundations, working groups)
+    interaction_types:
+      - package depends-on relationships
+      - pull requests and code review
+      - issue reports and feature requests
+      - downstream / upstream coordination
+      - governance decisions
+    scales:
+      spatial:
+        - global; collaboration is asynchronous and remote
+      temporal:
+        - commit ~10^3 s
+        - release cycle ~10^5 to 10^7 s
+        - project lifespan ~10^8 to 10^9 s (months to decades)
+    main_feedbacks:
+      - popularity-driven contribution (more users -> more contributors)
+      - maintainer burnout and project sunset
+      - dependency-update propagation
+      - security-vulnerability disclosure cycles
+    dominant_constraints:
+      - maintainer attention (volunteer or weakly compensated)
+      - license compatibility
+      - governance disagreements
+      - corporate-sponsor influence
+    emergent_properties:
+      - power-law contribution distribution
+      - keystone packages whose failure breaks the ecosystem
+      - convergent design patterns across languages and domains
+      - heterogeneous quality-vs-popularity outcomes
+    failure_modes:
+      - maintainer burnout and abandonment
+      - dependency confusion / supply-chain attacks
+      - protestware (maintainer politicizes their package)
+      - corporate fork and split governance
+    canonical_examples:
+      - {name: "npm ecosystem (JavaScript)", note: "Largest package registry by count; canonical heavy-dependency-graph case."}
+      - {name: "Linux kernel", note: "Canonical large-scale open-source project; tens of thousands of contributors."}
+      - {name: "PyPI (Python)", note: "Canonical scientific-computing-adjacent ecosystem."}
+      - {name: "Apache Software Foundation projects", note: "Canonical foundation-governed open-source community."}
+
+  - slug: scientific-community
+    name: Scientific community
+    priority: P0
+    domain: cognitive
+    classes: [knowledge-system, collective-intelligence-system]
+    system_kind: class
+    substrate: researchers + institutions + publication and review machinery
+    origin: emergent
+    boundary_clarity: fuzzy
+    primary_function: cooperative-competitive production and validation of knowledge claims
+    lifecycle_stage: maturity
+    summary: |
+      A community-driven process of producing, validating,
+      transmitting, and revising knowledge claims, embedded in
+      institutions and incentive structures. Substrate of cumulative
+      science; canonical reflexive epistemic complex system. Includes
+      peer review, citation, prestige hierarchies, and grant-funding
+      dynamics.
+    boundary:
+      type: functional
+      description: All researchers, journals, institutions, and grant-funding bodies participating in a recognizable disciplinary or interdisciplinary research community.
+    components:
+      - researchers (active, ~10^7 globally)
+      - laboratories and research groups
+      - universities and research institutes
+      - peer-reviewed journals
+      - preprint servers
+      - grant-funding agencies
+      - conferences and professional societies
+    interaction_types:
+      - publication and peer review
+      - citation
+      - collaboration and co-authorship
+      - replication (or its absence)
+      - debate and controversy
+      - hiring and credentialing
+    scales:
+      spatial:
+        - laboratory ~10^1 m
+        - global community ~10^7 m
+      temporal:
+        - paper revision cycle ~10^7 s
+        - PhD ~10^8 s
+        - paradigm shift ~10^9 to 10^10 s (decades)
+    main_feedbacks:
+      - citation-driven prestige (Matthew effect)
+      - grant-funding feedback rewarding past success
+      - peer-review gatekeeping
+      - replication / non-replication cycles
+    dominant_constraints:
+      - finite researcher attention
+      - finite grant-funding pools
+      - publication-bias incentives toward positive results
+      - reproducibility constraints
+    emergent_properties:
+      - paradigms (Kuhnian normal vs revolutionary science)
+      - scientific consensus
+      - knowledge accumulation
+      - reproducibility crises
+    failure_modes:
+      - replication crisis (false-positive accumulation)
+      - p-hacking and questionable research practices
+      - paradigm lock-in resisting evidence
+      - capture by funding interests
+      - publish-or-perish pathologies
+    canonical_examples:
+      - {name: "Academic physics community", note: "Canonical mature science with strong tradition of replication and theory."}
+      - {name: "Biomedical research community", note: "Canonical example with active replication-crisis discourse."}
+      - {name: "Open-source ML / AI research community", note: "Canonical recent example with rapid iteration and preprints."}
+
+  - slug: ai-system
+    name: AI ecosystem
+    priority: P0
+    domain: computational
+    classes: [ai-system, software-ecosystem]
+    system_kind: class
+    substrate: trained models + compute + data + deployment infrastructure
+    origin: designed
+    boundary_clarity: fuzzy
+    primary_function: deployed inference and ongoing model lifecycle for AI capabilities
+    lifecycle_stage: formation
+    summary: |
+      A trained model plus its inference, evaluation, deployment, and
+      feedback infrastructure. Substrate of contemporary AI capabilities
+      from foundation models through agentic systems. Canonical
+      rapidly-changing reflexive complex system — the model influences
+      the world that produces its training data, which influences the
+      next model.
+    boundary:
+      type: functional
+      description: All components participating in a model's training, evaluation, deployment, and ongoing improvement — training data, training compute, model weights, inference infrastructure, evaluation suite, user feedback loop.
+    components:
+      - foundation models (large pretrained neural networks)
+      - training datasets
+      - compute infrastructure (GPU/TPU clusters)
+      - inference serving infrastructure
+      - evaluation benchmarks
+      - human feedback (RLHF, fine-tuning data)
+      - downstream applications
+    interaction_types:
+      - training (gradient descent on dataset)
+      - inference (forward pass)
+      - evaluation against benchmarks
+      - human feedback collection and integration
+      - deployment-driven data collection
+      - safety / red-team adversarial probing
+    scales:
+      spatial:
+        - GPU / TPU pod ~10^1 m
+        - data center ~10^2 m
+        - global deployment ~10^7 m
+      temporal:
+        - inference ~10^-1 to 10^1 s
+        - training run ~10^4 to 10^7 s
+        - model generation cycle ~10^7 s
+    main_feedbacks:
+      - capability-driven adoption
+      - usage-driven training-data shift
+      - benchmark-driven research direction
+      - competitive race dynamics among labs
+      - regulatory feedback
+    dominant_constraints:
+      - compute cost
+      - training-data availability and quality
+      - inference latency budget
+      - safety and alignment concerns
+      - regulatory regimes
+    emergent_properties:
+      - few-shot generalization
+      - in-context learning
+      - emergent capabilities at scale
+      - hallucination / confabulation failure modes
+      - sycophantic / reward-hacked behavior
+    failure_modes:
+      - hallucination
+      - reward hacking and gaming
+      - training-data contamination
+      - deceptive alignment
+      - misuse for malicious purposes
+      - capability overhang
+    canonical_examples:
+      - {name: "OpenAI / Anthropic / Google foundation models", note: "Frontier closed models as canonical reference points."}
+      - {name: "Open-weights model ecosystem (Llama, Mistral, etc.)", note: "Canonical open-distribution model class."}
+      - {name: "Multi-agent RL systems (AlphaStar, OpenAI Five)", note: "Canonical strategic-game AI."}
+
+  - slug: earth-system
+    name: Earth system (Anthropocene)
+    priority: P0
+    domain: ecological
+    classes: [earth-system, biosphere, climate-system]
+    system_kind: class
+    substrate: fully coupled biophysical-human-technological planetary system
+    origin: hybrid
+    boundary_clarity: crisp
+    primary_function: planetary-scale homeostatic regulation now strongly perturbed by human activity
+    lifecycle_stage: senescence
+    summary: |
+      The fully coupled biophysical-human-technological system at
+      planetary scale, including climate, biosphere, oceans, ice,
+      economies, and infrastructure. Increasingly characterized by
+      human activity as the dominant geological force; substrate of
+      the planetary-boundaries framework and global sustainability
+      science.
+    boundary:
+      type: spatial
+      description: The Earth's surface and atmosphere as a closed material system (open energetically, closed essentially in mass) — atmosphere, hydrosphere, lithosphere surface, cryosphere, biosphere, and human technosphere.
+    components:
+      - atmosphere
+      - oceans
+      - cryosphere (ice sheets, glaciers, permafrost)
+      - biosphere (all living organisms)
+      - lithosphere (continental and oceanic crust)
+      - global human civilization (~8 x 10^9 humans)
+      - technosphere (built environment, industrial flows)
+    interaction_types:
+      - radiative coupling (solar input, IR emission to space)
+      - biogeochemical cycles (carbon, nitrogen, phosphorus, water, sulfur)
+      - climate-biosphere coupling (vegetation, albedo, evapotranspiration)
+      - human-environment coupling (extraction, pollution, land-use change)
+    scales:
+      spatial:
+        - local ~10^3 m
+        - regional ~10^5 m
+        - global ~10^7 m
+      temporal:
+        - weather ~10^5 to 10^6 s
+        - climate ~10^9 s (decades)
+        - biosphere succession ~10^9 to 10^11 s
+        - geological forcing ~10^14 s (millions of years)
+    main_feedbacks:
+      - albedo-temperature (ice-albedo feedback)
+      - water-vapor amplification of greenhouse warming
+      - carbon-cycle-climate coupling
+      - human technological response to environmental change
+    dominant_constraints:
+      - solar energy budget
+      - mass conservation across reservoirs
+      - "planetary boundaries (Rockstroem framework — nine boundaries)"
+      - thermodynamic limits
+    emergent_properties:
+      - climate states (glacial / interglacial)
+      - biosphere productivity patterns
+      - tipping points and regime shifts
+      - Anthropocene as a distinct geological epoch
+    failure_modes:
+      - climate tipping (Amazon dieback, AMOC collapse, ice-sheet collapse, permafrost release)
+      - mass extinction (sixth)
+      - planetary-boundary transgression (multiple already crossed)
+      - civilizational stress from environmental change
+    canonical_examples:
+      - {name: "Holocene", note: "Stable interglacial state of the past ~12 ky; reference baseline."}
+      - {name: "Anthropocene (current)", note: "Proposed current epoch dominated by human activity; the system as it now stands."}
+      - {name: "Paleocene-Eocene thermal maximum (~56 Ma)", note: "Canonical paleoclimatic analog for rapid greenhouse warming."}
+
+  # ============================================================
+  # SECTION B — Boundary / control cases (catalog §25)
+  # ============================================================
+  # These are deliberate anti-examples: simple, complicated, random,
+  # or static. Their role is to keep the metric space honest by
+  # ruling out "lots of parts" or "high entropy" as proxies for
+  # complexity. Marked with system_kind: boundary_case and priority C.
+  - slug: simple-pendulum
+    name: Simple pendulum
+    priority: C
+    domain: physical
+    classes: [simple-pendulum]
+    system_kind: boundary_case
+    substrate: rigid body in uniform gravity
+    origin: designed
+    boundary_clarity: crisp
+    primary_function: low-dimensional deterministic oscillator; baseline for the metric space
+    lifecycle_stage: maturity
+    summary: |
+      Two-body deterministic oscillator (point mass on rigid massless rod
+      in uniform gravity). Boundary case for the catalog — exemplar of
+      "many parts not required for organized dynamics" and "deterministic
+      ≠ complex". Closed-form solvable in the small-angle limit.
+    boundary:
+      type: spatial
+      description: A pivot point and a point mass connected by a rigid rod, in a uniform gravitational field; closed mechanical system.
+    components:
+      - point mass
+      - rigid rod
+      - pivot
+      - gravitational field (external)
+    interaction_types:
+      - gravitational force on the mass
+      - constraint force in the rod
+      - small frictional damping at the pivot (sometimes neglected)
+    scales:
+      spatial:
+        - rod length L ~10^-1 to 10^0 m
+      temporal:
+        - oscillation period T = 2 pi sqrt(L/g) ~10^0 s
+    main_feedbacks: []
+    dominant_constraints:
+      - rigid-rod inextensibility
+      - energy conservation (or slow dissipation)
+    emergent_properties:
+      - simple harmonic motion (small angle)
+      - period independence from amplitude (small angle)
+    failure_modes:
+      - rod breakage (outside system definition)
+    canonical_examples:
+      - {name: "Foucault pendulum", note: "Demonstrates Earth's rotation; canonical macroscopic instance."}
+      - {name: "Grandfather clock pendulum", note: "Canonical timekeeping pendulum."}
+      - {name: "Galileo's pendulum experiments", note: "Foundational physics demonstrations."}
+
+  - slug: ideal-gas
+    name: Ideal gas
+    priority: C
+    domain: physical
+    classes: [ideal-gas]
+    system_kind: boundary_case
+    substrate: large number of non-interacting point particles
+    origin: designed
+    boundary_clarity: crisp
+    primary_function: high-N high-entropy weakly-interacting baseline
+    lifecycle_stage: maturity
+    summary: |
+      Large number (~Avogadro) of point particles with no interaction
+      energy, in thermodynamic equilibrium. Boundary case for "many
+      parts, weak interactions, high entropy" — entropy is large but
+      the system has no organization beyond equilibrium.
+    boundary:
+      type: spatial
+      description: A bounded volume containing the gas; closed thermodynamic system (or open with controlled exchange).
+    components:
+      - point particles (~10^23)
+    interaction_types:
+      - elastic collisions (in the limit of vanishing collision time)
+      - container-wall reflections
+    scales:
+      spatial:
+        - mean free path ~10^-7 m at STP
+        - container ~10^-2 to 10^0 m
+      temporal:
+        - collision frequency ~10^9 s^-1
+        - relaxation to equilibrium ~10^-3 s
+    main_feedbacks: []
+    dominant_constraints:
+      - mass / energy conservation
+      - PV = NkT
+    emergent_properties:
+      - bulk thermodynamic properties (P, V, T) from microscopic statistics
+      - equipartition theorem
+    failure_modes:
+      - condensation (failure of ideal-gas assumption)
+      - degenerate-gas regime (quantum statistics matter)
+    canonical_examples:
+      - {name: "Air at STP", note: "Canonical near-ideal gas."}
+      - {name: "Helium near room temperature", note: "Closest to ideal because of weak interactions."}
+      - {name: "Maxwell-Boltzmann statistical-mechanics textbook system", note: "Foundational pedagogical example."}
+
+  - slug: clockwork-mechanism
+    name: Clockwork mechanism
+    priority: C
+    domain: technological
+    classes: [clockwork-mechanism]
+    system_kind: boundary_case
+    substrate: rigid mechanical components in deterministic engagement
+    origin: designed
+    boundary_clarity: crisp
+    primary_function: precisely engineered deterministic chain of mechanical components
+    lifecycle_stage: maturity
+    summary: |
+      Precisely engineered chain of mechanical components — gears,
+      escapement, mainspring, levers — operating deterministically.
+      Boundary case for "complicated, not complex" — many parts but
+      no adaptation, no significant feedback, no emergent dynamics
+      beyond designed operation.
+    boundary:
+      type: spatial
+      description: The enclosed mechanical assembly; closed except for energy input via mainspring or weight.
+    components:
+      - mainspring or weight (energy storage)
+      - escapement (timekeeping regulator)
+      - gear train
+      - hands or display mechanism
+      - housing
+    interaction_types:
+      - gear meshing (deterministic kinematic coupling)
+      - escapement engagement / disengagement
+      - elastic energy release from spring
+    scales:
+      spatial:
+        - gear ~10^-3 to 10^-2 m
+        - whole mechanism ~10^-1 m
+      temporal:
+        - escapement tick ~10^0 s
+        - mainspring discharge ~10^5 s (~day)
+    main_feedbacks:
+      - escapement-pendulum locking maintaining constant period
+    dominant_constraints:
+      - mechanical wear and friction
+      - manufacturing precision
+    emergent_properties:
+      - precise timekeeping
+    failure_modes:
+      - wear-induced precision loss
+      - mainspring exhaustion
+      - mechanical failure of escapement
+    canonical_examples:
+      - {name: "Antikythera mechanism", note: "Ancient analog astronomical clock; canonical historical example."}
+      - {name: "Mechanical wristwatch", note: "Canonical compact clockwork."}
+      - {name: "Marine chronometer (Harrison)", note: "Canonical precision clockwork solving the longitude problem."}
+
+  - slug: random-noise-field
+    name: Random noise field
+    priority: C
+    domain: physical
+    classes: [random-noise-field]
+    system_kind: boundary_case
+    substrate: spatial or temporal field of independent random variables
+    origin: natural
+    boundary_clarity: crisp
+    primary_function: high-entropy structureless baseline
+    lifecycle_stage: maturity
+    summary: |
+      A spatial or temporal field of independent random variables —
+      Gaussian white noise as canonical case. Boundary case for "high
+      entropy, no structure" — maximum entropy but no organization,
+      no feedback, no adaptive capacity. Useful for distinguishing
+      complexity from randomness.
+    boundary:
+      type: spatial
+      description: A bounded domain (1D, 2D, 3D) over which random values are sampled at every point.
+    components:
+      - independent random variables (one per location)
+      - sampling distribution (typically Gaussian)
+    interaction_types:
+      - none (independence is the defining property)
+    scales:
+      spatial:
+        - any (parametrically defined)
+      temporal:
+        - any (parametrically defined)
+    main_feedbacks: []
+    dominant_constraints:
+      - normalization of the sampling distribution
+    emergent_properties:
+      - flat power spectrum (white noise) or chosen colored spectrum
+      - Gaussian statistics by central-limit aggregation
+    failure_modes:
+      - none in itself; serves as null model
+    canonical_examples:
+      - {name: "Thermal Johnson-Nyquist noise", note: "Physically realized white noise in resistors."}
+      - {name: "Cosmic microwave background fluctuations (Gaussian random field)", note: "Canonical 2D Gaussian random field."}
+      - {name: "Random number generator output", note: "Canonical computational random source."}
+
+  - slug: linear-supply-chain
+    name: Linear supply chain
+    priority: C
+    domain: economic
+    classes: [linear-supply-chain]
+    system_kind: boundary_case
+    substrate: sequential conversion pipeline with no redundancy
+    origin: designed
+    boundary_clarity: crisp
+    primary_function: sequential stepwise transformation from raw input to end product
+    lifecycle_stage: maturity
+    summary: |
+      A non-redundant, strictly sequential conversion pipeline —
+      A -> B -> C -> D — without alternative routing, redundancy, or
+      adaptive capacity. Boundary case for the supply-chain class;
+      establishes the baseline against which networked supply chains
+      should be compared.
+    boundary:
+      type: functional
+      description: A defined sequence of stages from raw material to finished good, with one supplier and one buyer at each stage.
+    components:
+      - upstream raw-material source
+      - sequential conversion stages
+      - downstream consumer
+      - inventory buffers between stages (sometimes absent)
+    interaction_types:
+      - one-stage-to-next material flow
+      - payment flow upstream
+      - schedule and demand information passed upstream
+    scales:
+      spatial:
+        - regional or global, depending on instance
+      temporal:
+        - cycle time ~10^5 to 10^7 s (days to months)
+    main_feedbacks:
+      - inventory buffer dynamics (bullwhip effect even in linear chains)
+    dominant_constraints:
+      - throughput limited by slowest stage
+      - any single-stage failure breaks the chain
+    emergent_properties:
+      - bullwhip effect (demand-variation amplification upstream)
+    failure_modes:
+      - single-stage disruption halts entire chain
+      - bullwhip-driven over- and under-stocking
+    canonical_examples:
+      - {name: "Automotive Tier-1-2-3 supplier sequence (idealized)", note: "Pedagogical baseline; real automotive chains are networks, not lines."}
+      - {name: "Textbook beer-game supply chain", note: "Canonical operations-management teaching example illustrating bullwhip."}
+      - {name: "Single-source pharmaceutical API supply chain", note: "Real-world fragility example; canonical case for critical-supply-chain risk."}
+
+# ============================================================
+# Stub metrics — one canonical example per metric-family
+# ============================================================
+# These are L0 / L1 stubs: enough to make plan-backlog Tier 4
+# (define-metrics) and Tier 2 (extract-observations) operational.
+# Rubric.md / examples.yaml are filled in by upgrade tasks.
+metrics:
+  - slug: hierarchy-depth
+    name: Hierarchy depth
+    family: boundary-scale
+    value_type: discrete
+    unit: levels
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Number of distinct nested organizational levels in the system —
+      from atom to molecule to cell to organism, etc. Counted at the
+      coarsest meaningful granularity for the system class. From metric
+      ontology §4.
+    estimation_methods:
+      - direct-enumeration
+      - expert-estimate
+    applicability:
+      requires:
+        - identifiable-component-hierarchy
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: component-diversity
+    name: Component diversity
+    family: composition
+    value_type: continuous
+    unit: shannon-bits-or-effective-types
+    directionality: context-dependent
+    scale_level: micro
+    maturity_level: L1
+    description: |
+      Heterogeneity of components by type, measured as effective number
+      of types (exp(Shannon entropy)) or as a richness count weighted
+      by abundance. From metric ontology §5.
+    estimation_methods:
+      - direct-computation
+      - expert-estimate
+    applicability:
+      requires:
+        - component-type-classification
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: network-modularity
+    name: Network modularity
+    family: topology
+    value_type: continuous
+    unit: unitless
+    directionality: context-dependent
+    scale_level: meso
+    maturity_level: L2
+    description: |
+      Degree to which a graph representation of a system partitions into
+      internally dense, externally sparse communities. Computed on a
+      chosen interaction graph (trophic, citation, transactional, etc.)
+      per a stated definition (Newman-Girvan most common).
+    estimation_methods:
+      - direct-computation
+      - inferred-network
+    applicability:
+      requires:
+        - explicit_graph_representation
+      excludes:
+        - systems_without_interaction_model
+    normalization:
+      strategy: raw-and-zscore
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: characteristic-timescale
+    name: Characteristic timescale
+    family: dynamics
+    value_type: continuous
+    unit: seconds
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Typical update, reaction, or turnover time over which the system's
+      state changes meaningfully. Order-of-magnitude estimate is
+      typically sufficient. From metric ontology §4.
+    estimation_methods:
+      - direct-measurement
+      - derived-from-process-rates
+      - expert-estimate
+    applicability:
+      requires:
+        - identifiable-state-transitions
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: shannon-entropy
+    name: Shannon entropy
+    family: information
+    value_type: continuous
+    unit: bits
+    directionality: context-dependent
+    scale_level: multi-scale
+    maturity_level: L2
+    description: |
+      Uncertainty or diversity over a probability distribution describing
+      the system's state. Computed on the appropriate state-space
+      partition for the system class. From metric ontology §10.
+    estimation_methods:
+      - direct-computation
+      - estimator-from-empirical-frequencies
+    applicability:
+      requires:
+        - state-space-partition
+        - frequencies-or-probabilities
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: feedback-loop-count
+    name: Feedback loop count
+    family: feedback-adaptation
+    value_type: discrete
+    unit: loops
+    directionality: context-dependent
+    scale_level: meso
+    maturity_level: L1
+    description: |
+      Number of identified positive and negative feedback loops in the
+      system's causal or process diagram. Often expressed separately as
+      `positive_feedback_count` and `negative_feedback_count`. From
+      metric ontology §9.
+    estimation_methods:
+      - direct-enumeration
+      - causal-loop-diagram-extraction
+    applicability:
+      requires:
+        - causal-or-process-diagram
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: energy-throughput
+    name: Energy throughput
+    family: throughput
+    value_type: continuous
+    unit: watts
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L2
+    description: |
+      Rate at which energy flows through the system to maintain
+      function — Chaisson's energy-rate density when normalized by
+      mass. From metric ontology §12.
+    estimation_methods:
+      - direct-measurement
+      - derived-from-energy-balance
+    applicability:
+      requires:
+        - identifiable-energy-input
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: recovery-time
+    name: Recovery time
+    family: resilience
+    value_type: continuous
+    unit: seconds
+    directionality: less-is-better
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Time required for the system to return to its pre-disturbance
+      functional state after a defined perturbation. The disturbance
+      magnitude and the criterion for "recovered" must be specified.
+      From metric ontology §14.
+    estimation_methods:
+      - direct-measurement
+      - derived-from-recovery-curve
+      - expert-estimate
+    applicability:
+      requires:
+        - defined-disturbance-and-recovery-criterion
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: causal-density
+    name: Causal density
+    family: causality
+    value_type: continuous
+    unit: unitless
+    directionality: context-dependent
+    scale_level: meso
+    maturity_level: L1
+    description: |
+      Fraction of all possible causal links among components for which
+      empirical or modeled evidence supports a causal connection.
+      Distinct from network density (which counts any edge); here only
+      causal edges count. From metric ontology §11.
+    estimation_methods:
+      - direct-computation
+      - causal-discovery-algorithm
+      - expert-estimate
+    applicability:
+      requires:
+        - components-and-candidate-causal-links
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: constraint-tightness
+    name: Constraint tightness
+    family: constraints
+    value_type: ordinal
+    unit: null
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L0
+    description: |
+      Qualitative score of how close the system operates to its binding
+      constraints. 0 = fully slack; 5 = saturated against binding
+      constraints. From metric ontology §13.
+    estimation_methods:
+      - expert-estimate
+      - derived-from-utilization-data
+    applicability:
+      requires:
+        - identifiable-binding-constraints
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: control-centralization
+    name: Control centralization
+    family: governance
+    value_type: continuous
+    unit: unitless
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Concentration of decision authority across the system's
+      components. Often computed as a Gini coefficient or as a
+      Herfindahl-Hirschman index over decision-power shares. From
+      metric ontology §16.
+    estimation_methods:
+      - direct-computation
+      - expert-estimate
+    applicability:
+      requires:
+        - identifiable-decision-loci
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: environmental-volatility
+    name: Environmental volatility
+    family: environment
+    value_type: continuous
+    unit: relative-stdev
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Rate of change of the system's environment, typically expressed
+      as a relative standard deviation of relevant environmental
+      variables over the system's characteristic timescale. From metric
+      ontology §17.
+    estimation_methods:
+      - direct-measurement
+      - derived-from-time-series
+    applicability:
+      requires:
+        - identified-environmental-driver
+        - time-series-data
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: throughput-rate
+    name: Throughput rate (function)
+    family: function-performance
+    value_type: continuous
+    unit: domain-specific
+    directionality: more-is-better
+    scale_level: macro
+    maturity_level: L1
+    description: |
+      Domain-specific rate at which the system produces its primary
+      output (transactions per second, papers per year, packets per
+      second, etc.). Distinct from `energy-throughput` by being about
+      *output*, not *energy flow*. From metric ontology §18.
+    estimation_methods:
+      - direct-measurement
+    applicability:
+      requires:
+        - defined-primary-output
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: dominant-failure-mode
+    name: Dominant failure mode
+    family: failure-mode
+    value_type: categorical
+    unit: null
+    directionality: neither
+    scale_level: macro
+    maturity_level: L0
+    description: |
+      Categorical tag identifying the system's most-likely or
+      historically-most-common failure mode, drawn from the failure-mode
+      vocabulary in metric ontology §19 (cascade, fragmentation,
+      capture, lock-in, senescence, runaway-feedback, etc.).
+    estimation_methods:
+      - expert-estimate
+      - derived-from-historical-record
+    applicability: {}
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: transformation-potential
+    name: Transformation potential
+    family: potentials
+    value_type: ordinal
+    unit: null
+    directionality: context-dependent
+    scale_level: macro
+    maturity_level: L0
+    description: |
+      Qualitative ordinal score of the system's capacity to become a
+      different viable system without ceasing to function. 0 = locked-in;
+      5 = highly transformable. Distinct from `recovery-time` (returning
+      to same state) and from `evolvability` (incremental novelty). From
+      metric ontology §20.
+    estimation_methods:
+      - expert-estimate
+    applicability: {}
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true
+
+  - slug: nearest-neighbor-system
+    name: Nearest-neighbor system
+    family: comparative
+    value_type: categorical
+    unit: null
+    directionality: neither
+    scale_level: macro
+    maturity_level: L0
+    description: |
+      Most similar other system in the catalog by metric profile —
+      effectively a string field naming a sys-* id. Computed downstream
+      after enough metric values exist to support similarity. From metric
+      ontology §21.
+    estimation_methods:
+      - direct-computation
+      - expert-estimate
+    applicability:
+      requires:
+        - sufficient-metric-coverage-across-systems
+    evidence_requirements:
+      minimum_source_count: 1
+      review_required: true

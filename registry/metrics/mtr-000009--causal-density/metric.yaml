@@ -1,0 +1,23 @@
+applicability:
+  requires:
+    - components-and-candidate-causal-links
+description: "Fraction of all possible causal links among components for which\nempirical
+  or modeled evidence supports a causal connection.\nDistinct from network density
+  (which counts any edge); here only\ncausal edges count. From metric ontology §11.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000009--causal-density
+maturity_level: L1
+name: Causal density
+scale_level: meso
+slug: causal-density
+status: bootstrap-stub
+unit: unitless
+value_type: continuous

@@ -1,0 +1,23 @@
+applicability:
+  requires:
+    - identified-environmental-driver
+    - time-series-data
+description: "Rate of change of the system's environment, typically expressed\nas
+  a relative standard deviation of relevant environmental\nvariables over the system's
+  characteristic timescale. From metric\nontology §17.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000012--environmental-volatility
+maturity_level: L1
+name: Environmental volatility
+scale_level: macro
+slug: environmental-volatility
+status: bootstrap-stub
+unit: relative-stdev
+value_type: continuous

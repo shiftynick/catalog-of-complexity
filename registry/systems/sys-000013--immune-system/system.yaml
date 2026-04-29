@@ -1,0 +1,73 @@
+boundary:
+  description: All cells, organs (thymus, lymph nodes, spleen, bone marrow), and
+    signaling molecules dedicated to host defense; spatial bound is the organism
+    but functionally distinct from other physiological systems.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Human adaptive immunity
+    note: Best-studied vertebrate adaptive immune system.
+  - name: Drosophila innate immunity
+    note: Classic invertebrate model; Toll and Imd pathways.
+  - name: CRISPR-Cas in prokaryotes
+    note: Microbial adaptive immunity via genomic memory; canonical alternative 
+      architecture.
+components:
+  - innate immune cells (macrophages, dendritic cells, neutrophils, NK cells)
+  - adaptive immune cells (B cells, T cells)
+  - antibodies (~10^11 distinct specificities in humans)
+  - T-cell receptors (~10^15 to 10^18 potential sequences)
+  - cytokines and chemokines
+  - lymphoid organs (thymus, lymph nodes, spleen, bone marrow)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - thymic selection prevents grossly autoreactive T cells
+  - resource allocation between innate and adaptive arms
+  - tolerance vs response trade-off
+emergent_properties:
+  - immunological memory
+  - self/non-self discrimination
+  - clonal repertoire
+failure_modes:
+  - autoimmunity (false-positive self-attack)
+  - immunodeficiency (false-negative pathogen escape)
+  - allergic / hypersensitivity reactions
+  - chronic inflammation
+id: sys-000013--immune-system
+interaction_types:
+  - antigen presentation by MHC I/II
+  - clonal selection and expansion
+  - antibody-antigen binding
+  - cytokine signaling cascades
+  - immunological memory formation
+lifecycle_stage: maturity
+main_feedbacks:
+  - clonal expansion under antigenic stimulation
+  - regulatory T-cell suppression preventing autoimmunity
+  - cytokine networks balancing Th1/Th2/Th17 responses
+name: Immune system
+origin: evolved
+primary_function: discriminate self from non-self and mount adaptive responses 
+  to pathogens
+priority: P0
+scales:
+  spatial:
+    - cell ~10^-5 m
+    - lymph node ~10^-3 m
+    - lymphoid network ~10^0 m
+  temporal:
+    - innate response ~hours
+    - primary adaptive response ~days
+    - memory persistence ~years to decades
+slug: immune-system
+status: bootstrap-stub
+substrate: lymphoid and myeloid cells plus signaling molecules
+summary: "Cellular and molecular subsystem of an animal that discriminates\nself from
+  non-self and responds to threats. Vertebrate adaptive\nimmunity adds clonal selection
+  on lymphocyte receptors and\nimmunological memory. Canonical adaptive complex system;
+  classic\nstructural homolog of cybersecurity.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:immune-system
+updated_at: '2026-04-29T22:08:28Z'

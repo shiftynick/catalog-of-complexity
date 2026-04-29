@@ -1,0 +1,79 @@
+boundary:
+  description: All researchers, journals, institutions, and grant-funding bodies
+    participating in a recognizable disciplinary or interdisciplinary research 
+    community.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Academic physics community
+    note: Canonical mature science with strong tradition of replication and 
+      theory.
+  - name: Biomedical research community
+    note: Canonical example with active replication-crisis discourse.
+  - name: Open-source ML / AI research community
+    note: Canonical recent example with rapid iteration and preprints.
+components:
+  - researchers (active, ~10^7 globally)
+  - laboratories and research groups
+  - universities and research institutes
+  - peer-reviewed journals
+  - preprint servers
+  - grant-funding agencies
+  - conferences and professional societies
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - finite researcher attention
+  - finite grant-funding pools
+  - publication-bias incentives toward positive results
+  - reproducibility constraints
+emergent_properties:
+  - paradigms (Kuhnian normal vs revolutionary science)
+  - scientific consensus
+  - knowledge accumulation
+  - reproducibility crises
+failure_modes:
+  - replication crisis (false-positive accumulation)
+  - p-hacking and questionable research practices
+  - paradigm lock-in resisting evidence
+  - capture by funding interests
+  - publish-or-perish pathologies
+id: sys-000025--scientific-community
+interaction_types:
+  - publication and peer review
+  - citation
+  - collaboration and co-authorship
+  - replication (or its absence)
+  - debate and controversy
+  - hiring and credentialing
+lifecycle_stage: maturity
+main_feedbacks:
+  - citation-driven prestige (Matthew effect)
+  - grant-funding feedback rewarding past success
+  - peer-review gatekeeping
+  - replication / non-replication cycles
+name: Scientific community
+origin: emergent
+primary_function: cooperative-competitive production and validation of knowledge
+  claims
+priority: P0
+scales:
+  spatial:
+    - laboratory ~10^1 m
+    - global community ~10^7 m
+  temporal:
+    - paper revision cycle ~10^7 s
+    - PhD ~10^8 s
+    - paradigm shift ~10^9 to 10^10 s (decades)
+slug: scientific-community
+status: bootstrap-stub
+substrate: researchers + institutions + publication and review machinery
+summary: "A community-driven process of producing, validating,\ntransmitting, and
+  revising knowledge claims, embedded in\ninstitutions and incentive structures. Substrate
+  of cumulative\nscience; canonical reflexive epistemic complex system. Includes\n\
+  peer review, citation, prestige hierarchies, and grant-funding\ndynamics.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:cognitive
+  - system-class:knowledge-system
+  - system-class:collective-intelligence-system
+updated_at: '2026-04-29T22:08:28Z'

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://catalog-of-complexity.org/schemas/system.schema.json",
   "title": "System",
-  "description": "A complex system being cataloged. Canonical record; hand- or agent-edited YAML.",
+  "description": "A type-level complex system in the catalog. v0.2 — adds optional periodic-table fields (system_kind, substrate, origin, primary_function, main_feedbacks, dominant_constraints, emergent_properties, failure_modes, lifecycle_stage, priority) sourced from docs/framework/01-discovery-framework.md §5 and docs/framework/02-candidate-systems-catalog.md §27. New fields are all optional so v0.1 records remain valid.",
   "type": "object",
   "required": [
     "id",
@@ -22,7 +22,7 @@
     "id": {
       "type": "string",
       "pattern": "^sys-[0-9]{6}--[a-z0-9-]+$",
-      "description": "Canonical identifier, e.g. sys-000001--amazon-rainforest."
+      "description": "Canonical identifier, e.g. sys-000001--cell."
     },
     "slug": {
       "type": "string",
@@ -39,7 +39,41 @@
     },
     "status": {
       "type": "string",
-      "enum": ["candidate", "profiling", "profiled", "deprecated"]
+      "enum": ["bootstrap-stub", "candidate", "profiling", "profiled", "deprecated"],
+      "description": "Lifecycle state. `bootstrap-stub` (added in v0.2) marks records imported in bulk from docs/framework/02-candidate-systems-catalog.md with placeholder boundary/components/scales — usable as catalog index but not yet substantive. `candidate` is a hand- or scout-authored entry awaiting review. `profiling` is in-progress upgrade. `profiled` is review-validated. `deprecated` is retained for history."
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["P0", "P1", "P2", "P3", "C"],
+      "description": "Curatorial priority tag from docs/framework/02-candidate-systems-catalog.md §2: P0 foundational, P1 core, P2 specialized/applied, P3 abstract/model, C control/boundary case. Optional; absent means unranked."
+    },
+    "system_kind": {
+      "type": "string",
+      "enum": ["class", "transition", "subsystem", "model", "boundary_case"],
+      "description": "What kind of object this entry represents. `class` (default for most catalog entries) — recurring archetype. `transition` — emergence transition (e.g. multicellularity, language). `subsystem` — nested system primarily of interest as a component (rare; usually classes). `model` — abstract/computational model system (cellular automata, Ising). `boundary_case` — anti-example used to calibrate metric space (simple pendulum, ideal gas). See docs/framework/02-candidate-systems-catalog.md §1 and §25."
+    },
+    "substrate": {
+      "type": "string",
+      "description": "Free-text description of what the system is made of: matter, energy, organisms, humans, institutions, information, software, infrastructure, hybrid, etc. From docs/framework/02 §29. Single string rather than array — most systems have one dominant substrate; for hybrids combine into one descriptor (e.g. \"humans + infrastructure + institutions\")."
+    },
+    "origin": {
+      "type": "string",
+      "enum": ["natural", "designed", "evolved", "emergent", "hybrid"],
+      "description": "How the system came into being. `natural` — physical-law assembly (atoms, planets). `evolved` — biological/cultural evolution. `designed` — intentional engineering (power grid, software). `emergent` — arises from collective dynamics without designer (markets, language). `hybrid` — multiple origins combined."
+    },
+    "boundary_clarity": {
+      "type": "string",
+      "enum": ["crisp", "fuzzy", "contested", "multi-boundary"],
+      "description": "Independent of `boundary.type`: how sharp the inside/outside distinction is. From docs/framework/01 §10.1, §5.1."
+    },
+    "primary_function": {
+      "type": "string",
+      "description": "What the system does or maintains, in one sentence. Useful for cross-domain analogy queries (\"what other systems do X?\")."
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": ["formation", "growth", "maturity", "senescence", "collapse-or-renewal"],
+      "description": "Where the type-level archetype typically sits in its life cycle. For most enduring archetypes this is `maturity`; transition entries (multicellularity, agriculture) may be `formation`. From docs/framework/01 §4.8."
     },
     "taxonomy_refs": {
       "type": "array",
@@ -81,6 +115,36 @@
         "temporal": { "type": "array", "items": { "type": "string" } }
       }
     },
+    "main_feedbacks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Salient feedback loops — positive/reinforcing and negative/balancing. Free-text descriptions; the typology is in docs/framework/01 §4.16, §5.4."
+    },
+    "dominant_constraints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "What limits the system's possible behavior: physical, energetic, informational, ecological, legal, social, computational, economic. From docs/framework/03 §13."
+    },
+    "emergent_properties": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Macro-level patterns not present at component level. From docs/framework/01 §4.7, §5.2."
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "How the system tends to break. Use the failure-family vocabulary in docs/framework/01 §4.4 and the taxonomy in docs/framework/03 §19 where possible (cascade, fragmentation, runaway-feedback, capture, etc.)."
+    },
+    "primary_resources": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "What the system consumes/transforms to maintain function: energy, matter, information, attention, computation, capital, labor, trust, legitimacy, time, coordination bandwidth. From docs/framework/01 §4.11, §5.6."
+    },
     "source_refs": {
       "type": "array",
       "items": {
@@ -102,7 +166,7 @@
         }
       },
       "default": [],
-      "description": "Concrete instances of this system type, listed as exemplars (not as separate catalog entries). E.g. for `multicellular-organism`: C. elegans, Drosophila, mouse, human. Recommended ≥3 examples per type-level entry; the inclusion criterion in AGENTS.md treats `has at least 3 well-known instances` as a quality gate. Not required by schema so genuinely-singular types (`the-internet`, `earth-system`) remain valid."
+      "description": "Concrete instances of this system type, listed as exemplars (not as separate catalog entries). E.g. for `multicellular-organism`: C. elegans, Drosophila, mouse, human. Recommended >=3 examples per type-level entry; the inclusion criterion in AGENTS.md treats `has at least 3 well-known instances` as a quality gate. Not required by schema so genuinely-singular types (`the-internet`, `earth-system`) remain valid."
     },
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }

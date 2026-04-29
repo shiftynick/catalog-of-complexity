@@ -14,6 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMAS = REPO_ROOT / "schemas"
 PROMPTS = REPO_ROOT / "prompts"
 SKILLS = REPO_ROOT / "skills"
+CONFIG = REPO_ROOT / "config"
 
 TAXONOMY_SRC = REPO_ROOT / "taxonomy" / "source"
 TAXONOMY_EXPORTS = REPO_ROOT / "taxonomy" / "exports"

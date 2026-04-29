@@ -4,50 +4,132 @@ description: >
   exactly one `family` slug referencing this list. Families define the
   conceptual axis a metric lives on; specific metrics within a family may
   still differ substantially in formulation and applicability.
-version: 0.1.0
+
+  v0.2 expansion follows docs/framework/03-metric-ontology.md §3-21. The
+  original eight families (boundary-scale, composition, topology,
+  dynamics, information, feedback-adaptation, throughput, resilience)
+  cover structural and dynamical axes; the seven additions
+  (causality, constraints, governance, environment, function-performance,
+  failure-mode, potentials, comparative) cover the harder-to-quantify
+  axes the framework doc explicitly calls out as distinctive — the
+  "geometry of possibility" rather than just structure.
+version: 0.2.0
 items:
   - slug: boundary-scale
     label: Boundary & scale
     description: >
       Characterizations of a system's extent — spatial, temporal,
       organizational — and of where it ends. Examples: spatial extent,
-      temporal horizon, number of nested levels.
+      temporal horizon, number of nested levels, scale-separation ratio,
+      coarse-grainability.
   - slug: composition
     label: Composition & heterogeneity
     description: >
       Inventory and diversity of a system's components. Examples: component
-      count, species richness, type entropy, heterogeneity indices.
+      count, species richness, type entropy, heterogeneity indices,
+      agency density, role/functional/behavioral diversity.
   - slug: topology
     label: Interaction topology
     description: >
       Structural properties of the network of interactions among components.
       Examples: degree distribution, clustering coefficient, modularity,
-      centrality, path length.
+      centrality, path length, motif frequency, k-core depth.
   - slug: dynamics
     label: Dynamics & stability
     description: >
       Temporal behavior. Examples: Lyapunov exponents, period, bifurcation
-      parameters, autocorrelation structure, variance.
+      parameters, autocorrelation structure, variance, attractor count,
+      regime-switch frequency, criticality proximity.
   - slug: information
     label: Information & uncertainty
     description: >
       Measures drawn from information theory and algorithmic complexity.
-      Examples: Shannon entropy, mutual information, Lempel-Ziv complexity,
-      thermodynamic depth.
+      Examples: Shannon entropy, mutual information, transfer entropy,
+      Lempel-Ziv complexity, statistical complexity, predictive
+      compression gain.
   - slug: feedback-adaptation
     label: Feedback, control & adaptation
     description: >
       Capacities for regulation, learning, and self-modification. Examples:
       feedback loop count, homeostatic range, learning rate, adaptive
-      capacity indices.
+      capacity indices, exploration/exploitation balance, evolvability.
   - slug: throughput
     label: Throughput & metabolism
     description: >
       Flows of matter, energy, or resource through the system. Examples:
-      mass flux, energy flux, productivity, transaction volume.
+      mass flux, energy flux, energy rate density (Chaisson), productivity,
+      transaction volume, attention throughput, maintenance burden.
   - slug: resilience
     label: Resilience & recovery
     description: >
       Persistence under disturbance and recovery trajectories. Examples:
       recovery time, critical slowing down indicators, basin-of-attraction
-      depth, functional redundancy.
+      depth, functional redundancy, response diversity, transformability.
+  - slug: causality
+    label: Causality & influence
+    description: >
+      Distinguishes causal structure from mere correlation. Examples:
+      causal density, causal depth, intervention effect size, Granger
+      influence, mediation count, confounding risk, causal emergence
+      score (Hoel), counterfactual sensitivity. From metric ontology §11.
+  - slug: constraints
+    label: Constraints & geometry of possibility
+    description: >
+      What limits the system's possible behavior, not just what it currently
+      does. Examples: constraint count, constraint tightness, binding vs
+      latent constraint count, capacity limits, conservation constraints,
+      feasible state-space volume, constraint-induced modularity. From
+      metric ontology §13 — flagged in that doc as one of the most
+      distinctive metric families because it captures possibility, not
+      just realization.
+  - slug: governance
+    label: Organization & governance
+    description: >
+      Coordination structure for systems with agents or institutional
+      layers. Examples: centralization, polycentricity, decision latency,
+      coordination cost, conflict rate, legitimacy, accountability,
+      principal-agent risk, capture risk, governance adaptability. From
+      metric ontology §16.
+  - slug: environment
+    label: Environment & niche
+    description: >
+      Properties of the system-environment interface and the selection
+      pressures the environment imposes. Examples: environmental
+      volatility, resource abundance/variability, competition intensity,
+      adversarial pressure, niche breadth, environmental coupling,
+      externality production. From metric ontology §17.
+  - slug: function-performance
+    label: Function, performance & value
+    description: >
+      Output-side measures: what the system produces and how well.
+      Examples: throughput, latency, reliability, quality, productivity,
+      goal achievement, value creation/capture, externalized cost. From
+      metric ontology §18. Distinct from `throughput` (resource flow)
+      by being about *outcome quality* rather than *flow magnitude*.
+  - slug: failure-mode
+    label: Failure modes & risk
+    description: >
+      Vulnerability profile and breakdown styles. Examples: dominant
+      failure mode (cascade / fragmentation / capture / lock-in /
+      senescence), single-point-of-failure count, failure cascade depth,
+      mean time to failure / recovery, technical-debt score, capture
+      risk, gaming susceptibility. From metric ontology §19.
+  - slug: potentials
+    label: Potentials & latent capacities
+    description: >
+      What the system *could* become or do. Examples: reconfiguration
+      potential, transformation potential, expansion potential, control
+      leverage, latent cascade capacity, phase-transition potential,
+      self-replication potential. Inherently more speculative than other
+      families — observations in this family should always include
+      explicit confidence and assumptions. From metric ontology §20.
+  - slug: comparative
+    label: Comparative & relational
+    description: >
+      Position in the cross-system space rather than properties of a
+      single system. Examples: nearest neighbors, embedding coordinates,
+      cluster membership, universality class, tradeoff-frontier position,
+      isomorphism scores, homology / analogy strength, missing-combination
+      markers. Largely *derived* metrics (computed from other observations
+      across systems); expect most entries here to have value_kind =
+      `derived` or `simulation`. From metric ontology §21.

@@ -1,0 +1,80 @@
+boundary:
+  description: All hosts and routers participating in the BGP-routed global 
+    IPv4/IPv6 address space; boundary is functional (whether reachable via the 
+    global routing table) rather than ownership-based.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Public Internet (BGP-routed IPv4/IPv6)
+    note: The reference instance.
+  - name: Tor network
+    note: Canonical alternative routing overlay.
+  - name: Tier-1 ISP backbone (e.g. NTT, Telia)
+    note: Canonical AS-level component.
+components:
+  - hosts (end devices, ~10^10+)
+  - routers (autonomous-system-internal and inter-AS)
+  - autonomous systems (~10^5 globally)
+  - DNS infrastructure
+  - submarine and terrestrial cable infrastructure
+  - data centers
+  - protocols (IP, TCP, UDP, BGP, DNS, TLS, HTTP/HTTPS, etc.)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - speed of light (latency floor)
+  - bandwidth limits on physical media
+  - IPv4 address exhaustion (driving NAT and IPv6)
+  - DNS root authority and ICANN governance
+emergent_properties:
+  - power-law AS topology
+  - rich-club connectivity among large transits
+  - end-to-end principle (intelligence at edges)
+  - resilience to random failures, vulnerability to targeted attacks
+failure_modes:
+  - BGP route hijacking and leaks
+  - DDoS attacks
+  - submarine cable cuts
+  - DNS infrastructure failures
+  - regional fragmentation (splinternet)
+id: sys-000023--internet
+interaction_types:
+  - packet routing (BGP between ASes; OSPF/IS-IS within ASes)
+  - DNS name resolution
+  - TCP / TLS connection establishment
+  - peer / transit / customer business relationships among ASes
+  - distributed denial-of-service attacks and defenses
+lifecycle_stage: maturity
+main_feedbacks:
+  - congestion control (TCP's AIMD)
+  - BGP route propagation and policy convergence
+  - economics of peering and transit driving topology
+  - investment responding to traffic growth
+name: The Internet
+origin: designed
+primary_function: planet-scale packet-switched data transport
+priority: P0
+scales:
+  spatial:
+    - device ~10^-1 m
+    - data center ~10^2 m
+    - submarine cable ~10^7 m
+    - global ~10^7 m
+  temporal:
+    - packet RTT ~10^-3 to 10^-1 s
+    - DNS TTL ~10^2 to 10^4 s
+    - BGP convergence ~10^1 to 10^2 s
+    - infrastructure investment ~10^9 s
+slug: internet
+status: bootstrap-stub
+substrate: TCP/IP packet-switched internetwork
+summary: "The planet-scale interconnected packet-switched network of\nnetworks. Substrate
+  of the World Wide Web, email, video\nstreaming, real-time communication, and most
+  contemporary\ndigital infrastructure. Architectural exemplar of layered\nprotocol
+  design (the OSI / TCP/IP stack) and decentralized\nrouting (BGP).\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:technological
+  - system-class:internet-system
+  - system-class:communication-network
+  - system-class:protocol-stack
+updated_at: '2026-04-29T22:08:28Z'

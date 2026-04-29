@@ -1,0 +1,61 @@
+boundary:
+  description: A bulk material or field-theoretic system with well-defined order
+    parameter and control parameter.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Liquid-gas critical point
+    note: Universality class shared with Ising (3D).
+  - name: Ferromagnet at Curie point
+    note: Canonical second-order transition.
+  - name: Superfluid lambda transition in He-4
+    note: U(1) symmetry breaking.
+components:
+  - microscopic degrees of freedom (spins, particles, fields)
+  - order parameter (magnetization, density, condensate amplitude)
+  - control parameter (temperature, pressure, coupling)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - symmetry of the order parameter
+  - dimensionality of the order parameter and the system
+emergent_properties:
+  - universal scaling exponents (alpha, beta, gamma, delta, nu, eta)
+  - power-law correlations at criticality
+  - hysteresis in first-order transitions
+failure_modes:
+  - symmetry-breaking metastability
+  - false vacuum trapping
+id: sys-000004--phase-transition-system
+interaction_types:
+  - short-range or power-law interactions among components
+  - thermal fluctuations
+  - external field coupling
+lifecycle_stage: maturity
+main_feedbacks:
+  - cooperative alignment near critical point (order parameter responds to 
+    itself)
+  - long-range correlations from local interactions at criticality
+name: Phase-transition system
+origin: natural
+primary_function: qualitative regime change at a control parameter threshold
+priority: P0
+scales:
+  spatial:
+    - lattice spacing or correlation length microscale
+    - correlation length xi (diverges at criticality)
+    - system size
+  temporal:
+    - microscopic relaxation time
+    - critical relaxation tau ~xi^z (diverges; critical slowing down)
+slug: phase-transition-system
+status: bootstrap-stub
+substrate: many-body matter near a critical point
+summary: "Many-body system whose macroscopic state changes qualitatively\nat a critical
+  value of a control parameter (temperature,\npressure, coupling strength). Continuous
+  (second-order)\ntransitions exhibit universal scaling exponents independent of\n\
+  microscopic detail.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:phase-transition-system
+updated_at: '2026-04-29T22:08:28Z'

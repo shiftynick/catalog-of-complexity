@@ -1,0 +1,70 @@
+boundary:
+  description: The shared linguistic code of a speech community; boundary is 
+    mutual intelligibility (often dialectal continuum rather than crisp).
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: English
+    note: Most-studied language; ~1.5 x 10^9 speakers including L2.
+  - name: Mandarin Chinese
+    note: Largest L1 community; ~10^9 speakers.
+  - name: Pirahã
+    note: Cited example of unusual grammatical features; useful for typological 
+      boundaries.
+components:
+  - phonology (sound inventory)
+  - morphology (word formation)
+  - lexicon (vocabulary, ~10^4-10^5 morphemes per language)
+  - syntax (grammatical rules)
+  - pragmatics (use conventions)
+  - speakers (community of users)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - cognitive constraints on parsing and production
+  - articulatory constraints on phonology
+  - communicative pressure for ambiguity reduction
+emergent_properties:
+  - compositional infinite expressive capacity from finite means
+  - Zipf's law in word frequency
+  - regularity-irregularity gradient (frequent forms tolerate irregularity)
+failure_modes:
+  - language death (loss of speakers)
+  - mutual unintelligibility from drift (dialect to language transition)
+  - language attrition under contact pressure
+id: sys-000019--language
+interaction_types:
+  - speech production and comprehension
+  - language acquisition (child learning from caregivers)
+  - linguistic innovation and propagation
+  - language contact and borrowing
+lifecycle_stage: maturity
+main_feedbacks:
+  - frequency-driven entrenchment (common forms become more common)
+  - regularization of irregularities through child learning
+  - prestige-driven adoption of innovations
+name: Language
+origin: emergent
+primary_function: compositional symbolic communication and cultural transmission
+priority: P0
+scales:
+  spatial:
+    - speaker ~10^0 m
+    - community ~10^4 to 10^7 speakers
+    - global language ~10^9 speakers (e.g. English, Mandarin)
+  temporal:
+    - utterance ~10^0 s
+    - generational learning ~10^9 s (decades)
+    - language change ~10^10 to 10^13 s (centuries to millennia)
+slug: language
+status: bootstrap-stub
+substrate: shared symbolic conventions in a community of speakers
+summary: "A compositional symbolic communication system with grammar,\nlexicon, and
+  pragmatic conventions, evolving in a community of\nspeakers. Substrate of cumulative
+  culture; the foundational\ncultural-evolutionary medium. Spans tens of thousands
+  of years\nof human history.\n"
+system_kind: transition
+taxonomy_refs:
+  - system-domain:cognitive
+  - system-class:language-system
+  - system-class:language-community
+updated_at: '2026-04-29T22:08:28Z'

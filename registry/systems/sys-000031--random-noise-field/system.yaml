@@ -1,0 +1,49 @@
+boundary:
+  description: A bounded domain (1D, 2D, 3D) over which random values are 
+    sampled at every point.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Thermal Johnson-Nyquist noise
+    note: Physically realized white noise in resistors.
+  - name: Cosmic microwave background fluctuations (Gaussian random field)
+    note: Canonical 2D Gaussian random field.
+  - name: Random number generator output
+    note: Canonical computational random source.
+components:
+  - independent random variables (one per location)
+  - sampling distribution (typically Gaussian)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - normalization of the sampling distribution
+emergent_properties:
+  - flat power spectrum (white noise) or chosen colored spectrum
+  - Gaussian statistics by central-limit aggregation
+failure_modes:
+  - none in itself; serves as null model
+id: sys-000031--random-noise-field
+interaction_types:
+  - none (independence is the defining property)
+lifecycle_stage: maturity
+main_feedbacks: []
+name: Random noise field
+origin: natural
+primary_function: high-entropy structureless baseline
+priority: C
+scales:
+  spatial:
+    - any (parametrically defined)
+  temporal:
+    - any (parametrically defined)
+slug: random-noise-field
+status: bootstrap-stub
+substrate: spatial or temporal field of independent random variables
+summary: "A spatial or temporal field of independent random variables —\nGaussian
+  white noise as canonical case. Boundary case for \"high\nentropy, no structure\"\
+  \ — maximum entropy but no organization,\nno feedback, no adaptive capacity. Useful
+  for distinguishing\ncomplexity from randomness.\n"
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:random-noise-field
+updated_at: '2026-04-29T22:08:28Z'

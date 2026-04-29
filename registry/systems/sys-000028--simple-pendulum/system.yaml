@@ -1,0 +1,55 @@
+boundary:
+  description: A pivot point and a point mass connected by a rigid rod, in a 
+    uniform gravitational field; closed mechanical system.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Foucault pendulum
+    note: Demonstrates Earth's rotation; canonical macroscopic instance.
+  - name: Grandfather clock pendulum
+    note: Canonical timekeeping pendulum.
+  - name: Galileo's pendulum experiments
+    note: Foundational physics demonstrations.
+components:
+  - point mass
+  - rigid rod
+  - pivot
+  - gravitational field (external)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - rigid-rod inextensibility
+  - energy conservation (or slow dissipation)
+emergent_properties:
+  - simple harmonic motion (small angle)
+  - period independence from amplitude (small angle)
+failure_modes:
+  - rod breakage (outside system definition)
+id: sys-000028--simple-pendulum
+interaction_types:
+  - gravitational force on the mass
+  - constraint force in the rod
+  - small frictional damping at the pivot (sometimes neglected)
+lifecycle_stage: maturity
+main_feedbacks: []
+name: Simple pendulum
+origin: designed
+primary_function: low-dimensional deterministic oscillator; baseline for the 
+  metric space
+priority: C
+scales:
+  spatial:
+    - rod length L ~10^-1 to 10^0 m
+  temporal:
+    - oscillation period T = 2 pi sqrt(L/g) ~10^0 s
+slug: simple-pendulum
+status: bootstrap-stub
+substrate: rigid body in uniform gravity
+summary: "Two-body deterministic oscillator (point mass on rigid massless rod\nin
+  uniform gravity). Boundary case for the catalog — exemplar of\n\"many parts not
+  required for organized dynamics\" and \"deterministic\n≠ complex\". Closed-form
+  solvable in the small-angle limit.\n"
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:simple-pendulum
+updated_at: '2026-04-29T22:08:28Z'

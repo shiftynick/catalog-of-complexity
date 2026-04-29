@@ -1,0 +1,48 @@
+name: system-kinds
+description: >
+  Controlled vocabulary for the optional `system_kind` field on system
+  records. New in v0.2 — sourced from
+  docs/framework/02-candidate-systems-catalog.md §1 and §25.
+
+  This axis is orthogonal to system-domain and system-class: it
+  classifies the *epistemic role* of a catalog entry, not its subject
+  matter. A `boundary_case` entry is included specifically to keep the
+  metric space honest by pinning down what high-entropy or
+  high-complicatedness without complexity looks like.
+version: 0.2.0
+items:
+  - slug: class
+    label: System class
+    description: >
+      A recurring archetype — the default kind for most catalog entries.
+      Examples: `cell`, `market`, `ant-colony`, `multicellular-organism`.
+  - slug: transition
+    label: Emergence transition
+    description: >
+      A historical/structural transition where a new level of organization
+      appeared. Examples: `multicellularity`, `language`, `agriculture`,
+      `cities`. Catalog entries primarily of historical/developmental
+      interest.
+  - slug: subsystem
+    label: Subsystem
+    description: >
+      A nested system primarily of interest as a component of a larger
+      system. Rare as a top-level catalog entry — most subsystems are
+      better represented as a `class` entry with a `part_of` relation.
+      Use this only when the subsystem has its own distinct dynamics
+      worth cataloging (e.g. an organism's `immune-system`).
+  - slug: model
+    label: Model system
+    description: >
+      A simplified mathematical or computational system useful for
+      comparison and metric calibration. Examples: `cellular-automata`,
+      `ising-model`, `kuramoto-oscillator`, `schelling-segregation`.
+      Tagged so analyses can include or exclude model systems.
+  - slug: boundary_case
+    label: Boundary / control case
+    description: >
+      A simple, complicated, random, or borderline system included
+      specifically to keep the metric space honest by ruling out
+      "lots of parts" or "high entropy" as proxies for complexity.
+      Examples: `simple-pendulum`, `ideal-gas`, `perfect-crystal`,
+      `clockwork-mechanism`, `random-noise-field`. From candidate catalog §25.

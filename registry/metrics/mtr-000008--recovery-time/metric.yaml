@@ -1,0 +1,23 @@
+applicability:
+  requires:
+    - defined-disturbance-and-recovery-criterion
+description: "Time required for the system to return to its pre-disturbance\nfunctional
+  state after a defined perturbation. The disturbance\nmagnitude and the criterion
+  for \"recovered\" must be specified.\nFrom metric ontology §14.\n"
+directionality: less-is-better
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000008--recovery-time
+maturity_level: L1
+name: Recovery time
+scale_level: macro
+slug: recovery-time
+status: bootstrap-stub
+unit: seconds
+value_type: continuous

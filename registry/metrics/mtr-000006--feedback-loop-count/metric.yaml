@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - causal-or-process-diagram
+description: "Number of identified positive and negative feedback loops in the\nsystem's
+  causal or process diagram. Often expressed separately as\n`positive_feedback_count`
+  and `negative_feedback_count`. From\nmetric ontology §9.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000006--feedback-loop-count
+maturity_level: L1
+name: Feedback loop count
+scale_level: meso
+slug: feedback-loop-count
+status: bootstrap-stub
+unit: loops
+value_type: discrete

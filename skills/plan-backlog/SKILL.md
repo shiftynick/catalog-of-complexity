@@ -60,8 +60,17 @@ scope and covered by `review-records` and by human gatekeeping.
    `unblock` field. Do not re-invent the sweep here; blocked tasks
    without an `unblock` field stay blocked until a human or a targeted
    `review-records` task unsticks them.
-4. Apply the gap heuristic, in priority order. Stop after the first tier
-   that produces at least one proposal:
+4. **Phase gate.** Read [config/phase.yaml](../../config/phase.yaml).
+   Each tier below has a `phases` list; if the current phase is not in
+   that list, **skip the tier entirely** (do not even compute its
+   gap). Defaults are documented in `config/phase.yaml` and exposed via
+   `coc.phase.tier_fires(tier)`. Phase semantics: `bootstrap` (catalog
+   body being seeded by hand — discovery off), `metrics-fill`
+   (observation matrix is the goal), `discovery` (legacy mode, all
+   tiers available), `analysis` (catalog frozen for cross-system work).
+5. Apply the gap heuristic, in priority order. Stop after the first
+   tier that **fires** (passes the phase gate *and* produces at least
+   one proposal):
    0. **Bootstrap** — if `registry/systems/` has zero entries *and* there
       are fewer than 2 `scout-systems` tasks across `inbox/ + ready/`,
       emit **one `scout-systems` task per zero-count `system-domain`** up
@@ -194,7 +203,7 @@ scope and covered by `review-records` and by human gatekeeping.
       where one scout's 5-candidate budget dominates several subsequent
       autoruns with a single domain before rotation can resume. If only
       one domain is under-covered, emit a single scout with `Budget: 3`.
-5. For each proposal, generate a task manifest with:
+6. For each proposal, generate a task manifest with:
    - `id` — `tsk-YYYYMMDD-NNNNNN` where the `NNNNNN` suffix is the next
      unused number for that date across all `ops/tasks/` subdirectories.
    - `state: inbox`, `priority: normal`, `lease: {ttl_minutes: 90, max_attempts: 1}`.
@@ -203,13 +212,15 @@ scope and covered by `review-records` and by human gatekeeping.
    - `notes` — one sentence naming the gap this proposal fills, e.g.
      "Covers observation-debt gap: sys-000123 has zero observations against
      metric-family:dynamics."
-6. Write the plan-report to
+7. Write the plan-report to
    `ops/runs/YYYY/MM/DD/<run-id>/plan-report.md` with sections:
+   - **Active phase** — value of `current_phase()` and which tiers were
+     gated off by the phase gate.
    - **Scoreboard** — counts from step 1 as a table.
    - **Gap selected** — which tier fired and why.
    - **Proposals emitted** — list of task ids + one-line rationale.
    - **Skipped** — lower-priority tiers that had gaps but were not acted on.
-7. Validate: `uv run coc validate ops/tasks/inbox/`. If any proposal fails
+8. Validate: `uv run coc validate ops/tasks/inbox/`. If any proposal fails
    validation, delete it, record the failure in the plan-report under
    **Errors**, and fall through to `status: blocked` for the run.
 

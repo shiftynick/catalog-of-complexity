@@ -60,6 +60,31 @@ def _validate_systems(index) -> list[Problem]:
     return problems
 
 
+def _validate_system_relations() -> list[Problem]:
+    """Validate per-system relations.yaml files (v0.2). Each file is a top-level
+    list of objects matching system-relation.schema.json."""
+    problems: list[Problem] = []
+    if not REG_SYSTEMS.exists():
+        return problems
+    for entry in sorted(REG_SYSTEMS.iterdir()):
+        if not entry.is_dir():
+            continue
+        rel_path = entry / "relations.yaml"
+        if not rel_path.exists():
+            continue
+        rel = rel_path.relative_to(REPO_ROOT).as_posix()
+        data = load_yaml(rel_path)
+        if data is None:
+            continue
+        if not isinstance(data, list):
+            problems.append(f"{rel}: relations.yaml must be a top-level list")
+            continue
+        for i, item in enumerate(data):
+            for err in validate_instance("system-relation", item):
+                problems.append(f"{rel}#{i}: {err}")
+    return problems
+
+
 def _validate_metrics(index) -> list[Problem]:
     problems: list[Problem] = []
     for path in _iter_yaml(REG_METRICS, "metric.yaml"):
@@ -180,6 +205,7 @@ def validate_path(path: str = ".") -> tuple[bool, list[Problem]]:
     index = load_index()
     problems: list[Problem] = []
     problems.extend(_validate_systems(index))
+    problems.extend(_validate_system_relations())
     problems.extend(_validate_metrics(index))
     problems.extend(_validate_sources())
     problems.extend(_validate_observations())

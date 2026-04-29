@@ -5,6 +5,19 @@
 # take effect on the next routine fire — no env vars, no Claude
 # Desktop / Codex desktop reconfiguration needed.
 
+# Master switch. When `true`, prompts/autonomous-run.md exits
+# immediately on entry without touching the queue, the registry, or
+# git. Use this while large hand-curation passes (schema v0.2
+# rollout, bulk bootstrap) are in flight so cron ticks don't race
+# the curator's edits. Flip back to `false` once the curated state
+# is committed and the queue is reseeded.
+#
+# Set 2026-04-29 during the framework v0.2 + bulk catalog bootstrap
+# (see docs/framework/, config/bootstrap_seed.yaml). Re-enable once
+# the seed lands and the phase switch (config/phase.yaml) reads
+# `metrics-fill`.
+disabled: true
+
 # How many Branch-A iterations a single scheduled invocation may run
 # before exiting. Each iteration is one full task (lease → execute →
 # retro → commit), so this directly controls catalog growth velocity

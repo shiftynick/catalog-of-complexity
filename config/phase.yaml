@@ -1,0 +1,51 @@
+# Project phase switch.
+#
+# Read by skills/plan-backlog/SKILL.md and prompts/autonomous-run.md
+# to gate which tiers of work fire on each scheduled invocation.
+# The catalog goes through clearly distinct phases of work; plan-backlog
+# tiers that make sense in one phase create noise in another.
+#
+# Edit `current` and commit to change behavior. Changes take effect on
+# the next autorun (assuming `disabled: false` in config/autorun.yaml).
+#
+# Phase semantics:
+#
+#   bootstrap     — catalog body is being seeded in bulk. plan-backlog
+#                   stays mostly idle; a `bootstrap` script under
+#                   scripts/ writes registry/systems/, registry/metrics/
+#                   from config/bootstrap_seed.yaml. Source debt and
+#                   review debt may still fire to keep the literature
+#                   side coherent. Discovery (scout-systems, coverage
+#                   expansion) is OFF.
+#
+#   metrics-fill  — the catalog body exists; fill the system x metric
+#                   matrix. plan-backlog Tier 2 (observation debt)
+#                   becomes primary. Discovery is OFF — no new systems
+#                   are scouted; no new metrics are proposed beyond
+#                   stub upgrades.
+#
+#   discovery     — original mode, where scout-systems and coverage
+#                   expansion may extend the catalog. plan-backlog
+#                   Tiers 0/0.5/5 fire normally.
+#
+#   analysis      — observation matrix is dense enough to support
+#                   analyze-archetypes and downstream. catalog growth
+#                   is paused; the queue carries primarily
+#                   analyze-archetypes and review-records tasks.
+current: bootstrap
+
+# Tier gating. When a tier's `phases` list does not contain `current`,
+# plan-backlog skips that tier's gap check entirely. The order of
+# tier evaluation in plan-backlog itself is unchanged; only firing
+# is gated.
+#
+# Tier numbers match skills/plan-backlog/SKILL.md "gap heuristic" steps.
+tier_gating:
+  "0":     [discovery]                           # bootstrap cold-start scout
+  "0.5":   [discovery]                           # priority seed
+  "0.75":  [bootstrap, metrics-fill, discovery]  # source debt
+  "1":     [bootstrap, metrics-fill, discovery, analysis]  # review debt
+  "2":     [metrics-fill, discovery]             # observation debt
+  "3":     [bootstrap, metrics-fill, discovery]  # profile debt (stub upgrade)
+  "4":     [metrics-fill, discovery]             # metric-rubric debt
+  "5":     [discovery]                           # coverage expansion

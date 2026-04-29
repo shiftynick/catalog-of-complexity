@@ -1,0 +1,60 @@
+boundary:
+  description: The enclosed mechanical assembly; closed except for energy input 
+    via mainspring or weight.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Antikythera mechanism
+    note: Ancient analog astronomical clock; canonical historical example.
+  - name: Mechanical wristwatch
+    note: Canonical compact clockwork.
+  - name: Marine chronometer (Harrison)
+    note: Canonical precision clockwork solving the longitude problem.
+components:
+  - mainspring or weight (energy storage)
+  - escapement (timekeeping regulator)
+  - gear train
+  - hands or display mechanism
+  - housing
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - mechanical wear and friction
+  - manufacturing precision
+emergent_properties:
+  - precise timekeeping
+failure_modes:
+  - wear-induced precision loss
+  - mainspring exhaustion
+  - mechanical failure of escapement
+id: sys-000030--clockwork-mechanism
+interaction_types:
+  - gear meshing (deterministic kinematic coupling)
+  - escapement engagement / disengagement
+  - elastic energy release from spring
+lifecycle_stage: maturity
+main_feedbacks:
+  - escapement-pendulum locking maintaining constant period
+name: Clockwork mechanism
+origin: designed
+primary_function: precisely engineered deterministic chain of mechanical 
+  components
+priority: C
+scales:
+  spatial:
+    - gear ~10^-3 to 10^-2 m
+    - whole mechanism ~10^-1 m
+  temporal:
+    - escapement tick ~10^0 s
+    - mainspring discharge ~10^5 s (~day)
+slug: clockwork-mechanism
+status: bootstrap-stub
+substrate: rigid mechanical components in deterministic engagement
+summary: "Precisely engineered chain of mechanical components — gears,\nescapement,
+  mainspring, levers — operating deterministically.\nBoundary case for \"complicated,
+  not complex\" — many parts but\nno adaptation, no significant feedback, no emergent
+  dynamics\nbeyond designed operation.\n"
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:technological
+  - system-class:clockwork-mechanism
+updated_at: '2026-04-29T22:08:28Z'

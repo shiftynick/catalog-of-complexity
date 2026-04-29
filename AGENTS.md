@@ -136,8 +136,16 @@ skill defaults; the skill overrides AGENTS.md silence.
 ## Autonomous runs
 
 Scheduled runs (driven by Claude Code and Codex desktop schedulers) start
-from [prompts/autonomous-run.md](prompts/autonomous-run.md). One scheduled
-invocation runs preflight once and then executes up to
+from [prompts/autonomous-run.md](prompts/autonomous-run.md).
+
+**Master switch.** [config/autorun.yaml](config/autorun.yaml) carries a
+top-level `disabled` boolean. When `true`, every scheduled invocation
+exits immediately on entry — no preflight, no queue work, no git
+activity. Use it to pause the scheduler during large hand-curation
+passes (schema rollouts, bulk bootstraps) without reconfiguring the
+desktop routine.
+
+One scheduled invocation runs preflight once and then executes up to
 `max_tasks_per_run` consecutive Branch-A iterations. The value is read
 from [config/autorun.yaml](config/autorun.yaml) (default 5, clamp [1, 10]);
 edit that file to change scheduling behavior — no env var or scheduler
@@ -153,6 +161,18 @@ first. Pushes remain human-driven — see "Sensitive actions".
 Retro cadence is "every run" by default and narrows to
 `blocked`/`failed`-only once ≥10 consecutive retros report
 `actionable: false`. The transition is itself a reviewable change.
+
+### Project phase
+
+`config/phase.yaml` carries a `current` value that gates which
+plan-backlog tiers fire on each invocation. Phases are
+`bootstrap` (catalog body being seeded by hand from
+`config/bootstrap_seed.yaml`; discovery off), `metrics-fill`
+(observation matrix is the goal; no new systems or metrics scouted),
+`discovery` (legacy mode, all tiers available), and `analysis`
+(catalog frozen for cross-system work). See `config/phase.yaml` for
+the full tier-gating matrix and `coc.phase` for the helper functions
+that read it.
 
 ### Autonomy policy (what promotes without human review)
 

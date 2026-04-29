@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - defined-primary-output
+description: "Domain-specific rate at which the system produces its primary\noutput
+  (transactions per second, papers per year, packets per\nsecond, etc.). Distinct
+  from `energy-throughput` by being about\n*output*, not *energy flow*. From metric
+  ontology §18.\n"
+directionality: more-is-better
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000013--throughput-rate
+maturity_level: L1
+name: Throughput rate (function)
+scale_level: macro
+slug: throughput-rate
+status: bootstrap-stub
+unit: domain-specific
+value_type: continuous

@@ -1,0 +1,79 @@
+boundary:
+  description: "The cranial nervous tissue, demarcated by the meninges and\nblood-brain
+    barrier from peripheral systems. Includes (in\nvertebrates) cerebrum, cerebellum,
+    brainstem, and midbrain\nstructures.\n"
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Human brain
+    note: ~86 x 10^9 neurons; canonical reference.
+  - name: Mouse brain
+    note: ~7 x 10^7 neurons; canonical model for cellular and circuit-level 
+      neuroscience.
+  - name: Octopus brain
+    note: Distributed nervous system with 2/3 of neurons in arms; canonical 
+      alternative architecture.
+components:
+  - cerebral cortex (~10^10 neurons in human)
+  - subcortical nuclei (basal ganglia, thalamus, hypothalamus, hippocampus, 
+    amygdala)
+  - cerebellum (~5 x 10^10 neurons)
+  - brainstem
+  - white-matter tracts (long-range axonal projections)
+  - vascular and glial support tissue
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - metabolic budget (~20% of resting human energy)
+  - skull volume / craniofacial geometry
+  - white-matter wiring cost (long projections expensive)
+emergent_properties:
+  - perception and attention
+  - episodic and semantic memory
+  - decision-making
+  - in some species, consciousness and self-modeling
+failure_modes:
+  - stroke (focal ischemic injury)
+  - seizure (network synchronization collapse)
+  - neurodegeneration (Alzheimer's, Parkinson's)
+  - traumatic injury with long-recovery sequelae
+id: sys-000015--brain
+interaction_types:
+  - intra-area recurrent processing
+  - inter-area long-range projections
+  - thalamocortical loops
+  - basal-ganglia-cortical loops
+  - neuromodulatory broadcast (dopamine, serotonin, noradrenaline, 
+    acetylcholine)
+lifecycle_stage: maturity
+main_feedbacks:
+  - predictive-coding feedback between cortical hierarchies
+  - reward-prediction-error feedback in dopaminergic system
+  - sleep-driven memory consolidation
+name: Brain
+origin: evolved
+primary_function: centralized integration, learning, and high-bandwidth control 
+  of sensorimotor and cognitive function
+priority: P0
+scales:
+  spatial:
+    - microcircuit ~10^-3 m
+    - cortical area ~10^-2 m
+    - whole brain ~10^-1 m
+  temporal:
+    - spiking ~10^-3 s
+    - perception ~10^-1 s
+    - working-memory span ~10^0 s
+    - episodic memory consolidation ~10^4 s
+slug: brain
+status: bootstrap-stub
+substrate: dense neural tissue with vascular and glial support
+summary: "The most centralized portion of an animal nervous system, dense\nwith neurons
+  and synapses, organized into functional regions and\n(in vertebrates) layered cortex.
+  Substrate of perception,\nlearning, decision-making, and (in some lineages) consciousness.\n\
+  The most studied complex system in nature.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:brain
+  - system-class:central-nervous-system
+updated_at: '2026-04-29T22:08:28Z'

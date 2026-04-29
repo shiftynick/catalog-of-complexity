@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://catalog-of-complexity.org/schemas/system-relation.schema.json",
+  "title": "SystemRelation",
+  "description": "A typed edge between two type-level system entries. New in v0.2 — formalizes the freeform `links.yaml` files. Each entry's relations live at `registry/systems/<id>/relations.yaml` as a top-level YAML list of objects matching this schema. The edge is directed (source -> target); declare both directions explicitly when the relationship is mutual but asymmetric (e.g. competition strengths differ).",
+  "type": "object",
+  "required": [
+    "source_system",
+    "target_system",
+    "relation_type"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "source_system": {
+      "type": "string",
+      "pattern": "^sys-[0-9]{6}--[a-z0-9-]+$",
+      "description": "The relation source. Must match `id` of a `registry/systems/<id>/system.yaml`."
+    },
+    "target_system": {
+      "type": "string",
+      "pattern": "^sys-[0-9]{6}--[a-z0-9-]+$",
+      "description": "The relation target. Must match `id` of a `registry/systems/<id>/system.yaml`."
+    },
+    "relation_type": {
+      "type": "string",
+      "enum": [
+        "contains",
+        "part_of",
+        "depends_on",
+        "feeds",
+        "regulates",
+        "competes_with",
+        "cooperates_with",
+        "models",
+        "simulates",
+        "copies",
+        "descends_from",
+        "replaces",
+        "stabilizes",
+        "destabilizes",
+        "extracts_from",
+        "is_analogous_to",
+        "is_homologous_to"
+      ],
+      "description": "Vocabulary from docs/framework/02 §28 and docs/framework/03 §21. Compositional: contains/part_of, depends_on. Functional: feeds, regulates, extracts_from. Competitive/cooperative: competes_with, cooperates_with, stabilizes, destabilizes. Modeling: models, simulates, copies. Historical: descends_from, replaces. Similarity: is_analogous_to (same function, different origin), is_homologous_to (shared deep structure or origin)."
+    },
+    "strength": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional 0..1 strength score. Use sparingly — most type-level relations are categorical, not graded. Useful for `competes_with`/`cooperates_with` where intensity varies."
+    },
+    "symmetry": {
+      "type": "string",
+      "enum": ["asymmetric", "symmetric"],
+      "description": "Whether the relation is naturally bidirectional (e.g. `is_analogous_to` is symmetric — declare once with this flag) or directional (e.g. `part_of` — must be declared with explicit source/target)."
+    },
+    "dependency_type": {
+      "type": "string",
+      "description": "Free-text qualifier on `depends_on` relations: e.g. `component`, `infrastructure`, `regulatory`, `informational`, `energetic`. Optional."
+    },
+    "temporal_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "description": "e.g. `2020-present`, `industrial-era`, `ongoing`." },
+        "start": { "type": ["string", "null"] },
+        "end": { "type": ["string", "null"] }
+      },
+      "description": "When the relation holds. Most type-level relations are timeless; use this to scope (e.g. `software-ecosystem depends_on internet-infrastructure since 1990s`)."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Curator confidence in the relation. Default 1.0 for textbook relations (cell part_of organism); lower for analogies."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional prose justifying the relation, especially for analogies and homologies where the comparison isn't obvious."
+    }
+  }
+}

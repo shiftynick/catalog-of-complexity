@@ -45,6 +45,30 @@ EDGES_SCHEMA = pa.schema(
     ]
 )
 
+# Mirrors the row shape produced by _load_observations(); needed when the
+# registry holds zero observations (e.g. immediately after bootstrap) so
+# the empty parquet still has the typed columns the SQL views reference.
+OBSERVATIONS_SCHEMA = pa.schema(
+    [
+        ("observation_id", pa.string()),
+        ("system_id", pa.string()),
+        ("metric_id", pa.string()),
+        ("value_numeric", pa.float64()),
+        ("value_text", pa.string()),
+        ("value_boolean", pa.bool_()),
+        ("unit", pa.string()),
+        ("value_kind", pa.string()),
+        ("confidence", pa.float64()),
+        ("method", pa.string()),
+        ("source_refs", pa.string()),
+        ("evidence_refs", pa.string()),
+        ("temporal_label", pa.string()),
+        ("spatial_label", pa.string()),
+        ("review_state", pa.string()),
+        ("observed_at", pa.string()),
+    ]
+)
+
 
 def _iter_system_yamls():
     if not REG_SYSTEMS.exists():
@@ -248,7 +272,7 @@ def materialize() -> dict[str, int]:
     counts["systems"] = _write_parquet("systems", _load_systems())
     counts["metrics"] = _write_parquet("metrics", _load_metrics())
     counts["sources"] = _write_parquet("sources", _load_sources())
-    counts["observations"] = _write_parquet("observations", _load_observations())
+    counts["observations"] = _write_parquet("observations", _load_observations(), empty_schema=OBSERVATIONS_SCHEMA)
     counts["evidence"] = _write_parquet("evidence", _load_evidence())
     counts["applicability"] = _write_parquet("applicability", [], empty_schema=APPLICABILITY_SCHEMA)
     counts["edges"] = _write_parquet("edges", [], empty_schema=EDGES_SCHEMA)

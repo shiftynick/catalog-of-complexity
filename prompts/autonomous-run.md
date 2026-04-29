@@ -40,6 +40,13 @@ rather than exiting.
 
 You are beginning a scheduled autonomous run. You must:
 
+0. **Master switch.** Read [config/autorun.yaml](../config/autorun.yaml).
+   If `disabled: true` is set, exit immediately with no side effects:
+   write a single event of kind `run.skipped` with reason
+   `autorun_disabled` and stop. Do **not** validate, advance the queue,
+   touch git, or call any skill. The flag exists so curators running
+   large hand-edits (schema rollouts, bulk bootstraps) can pause the
+   scheduler without reconfiguring it.
 1. Read and obey [AGENTS.md](../AGENTS.md). Its "Non-negotiables", "Quality
    bar", and "Sensitive actions" sections govern everything below.
 2. Run preflight (§Preflight) **once**. Then resolve `max_tasks_per_run`

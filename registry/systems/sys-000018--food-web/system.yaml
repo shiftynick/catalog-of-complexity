@@ -1,0 +1,63 @@
+boundary:
+  description: All trophic links among species in an ecological community; 
+    spatial bound is the ecosystem the community occupies.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Yellowstone wolf-elk-aspen cascade
+    note: Canonical empirical trophic cascade.
+  - name: Pacific kelp-urchin-otter cascade
+    note: Canonical marine trophic cascade.
+  - name: Lake Constance pelagic food web
+    note: Highly resolved freshwater food web, canonical reference dataset.
+components:
+  - species (or trophic groups) as nodes
+  - directed edges from prey to predator
+  - basal species (autotrophs, detritivores)
+  - apex predators
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - thermodynamic ~10% trophic transfer efficiency
+  - body-size-based prey-predator constraints
+  - spatial overlap requirements
+emergent_properties:
+  - trophic levels (despite continuous diet variation)
+  - keystone-species effects
+  - food-web stability vs complexity (May's paradox)
+failure_modes:
+  - trophic cascade from apex-predator loss
+  - keystone-species extinction
+  - food-web simplification under stress
+id: sys-000018--food-web
+interaction_types:
+  - predation
+  - herbivory
+  - parasitism
+  - omnivory (cross-trophic-level feeding)
+  - cannibalism (intra-species predation)
+lifecycle_stage: maturity
+main_feedbacks:
+  - top-down control (predator regulates prey)
+  - bottom-up control (resource availability sets predator population)
+  - apparent competition (shared predator couples otherwise unrelated prey)
+name: Food web
+origin: evolved
+primary_function: trophic energy flow through a community
+priority: P0
+scales:
+  spatial:
+    - community ~10^2 to 10^5 m
+  temporal:
+    - generation cycle of constituent species
+    - trophic-cascade response ~years to decades
+slug: food-web
+status: bootstrap-stub
+substrate: ecological community as a who-eats-whom graph
+summary: "Network representation of trophic (who-eats-whom) relationships\nin an ecological
+  community. The classic graph object in ecology;\nsubstrate for connectance, motif,
+  and stability analyses.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:food-web
+updated_at: '2026-04-29T22:08:28Z'

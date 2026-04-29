@@ -1,0 +1,71 @@
+boundary:
+  description: "Phospholipid bilayer plasma membrane (with embedded transport\nproteins)
+    separating cytoplasm from external environment.\nEukaryotic cells contain additional
+    internal membranes\n(organelles).\n"
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Escherichia coli
+    note: Canonical model prokaryote; ~5 Mbp genome, ~30 min division time.
+  - name: Saccharomyces cerevisiae
+    note: Canonical model eukaryote; budding yeast.
+  - name: Human red blood cell
+    note: Anucleate specialized cell; canonical metabolic-network case.
+components:
+  - genome (DNA, organized as one or more chromosomes; ~10^6 to ~10^11 bp)
+  - ribosomes (~10^4-10^7 per cell)
+  - cytoskeleton (actin, intermediate filaments, microtubules)
+  - organelles (mitochondria, ER, Golgi, nucleus in eukaryotes)
+  - cytoplasmic enzyme pool
+  - membrane transporters and receptors
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - membrane impermeability + selective transporter availability
+  - free-energy supply (ATP, ion gradients)
+  - genome integrity and replication fidelity
+emergent_properties:
+  - self-replication
+  - compartmentalized metabolism
+  - heritable individual identity
+failure_modes:
+  - apoptosis / programmed cell death
+  - membrane rupture and lysis
+  - replication errors leading to non-viable progeny
+id: sys-000007--cell
+interaction_types:
+  - DNA replication, transcription, translation
+  - signal transduction (receptor-mediated cascades)
+  - metabolic flux through enzymatic pathways
+  - membrane transport (active and passive)
+  - cytoskeletal force generation
+lifecycle_stage: maturity
+main_feedbacks:
+  - homeostatic regulation of pH, osmolarity, ion gradients
+  - transcriptional feedback maintaining stable expression states
+  - metabolic feedback (allosteric regulation, feedback inhibition)
+name: Cell
+origin: evolved
+primary_function: bounded self-maintaining replicative unit harvesting 
+  environmental free energy to sustain its own organization
+priority: P0
+scales:
+  spatial:
+    - prokaryote ~10^-6 m
+    - eukaryote ~10^-5 m
+  temporal:
+    - protein turnover ~10^2 to 10^4 s
+    - cell cycle ~10^3 to 10^5 s
+    - protein-conformation dynamics ~10^-9 to 10^-3 s
+slug: cell
+source_refs:
+  - src-000012--molecular-biology-of-the-cell
+status: bootstrap-stub
+substrate: lipids, proteins, nucleic acids, water, ions
+summary: "The smallest autonomous biological system: a bounded, internally\ncompartmentalized,
+  self-replicating chemical reactor that\nmaintains itself far from equilibrium by
+  metabolic free-energy\nthroughput. Universal substrate of all known life.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:unicellular-organism
+updated_at: '2026-04-29T22:08:28Z'

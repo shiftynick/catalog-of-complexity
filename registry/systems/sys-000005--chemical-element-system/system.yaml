@@ -1,0 +1,65 @@
+boundary:
+  description: A single bound system of one nucleus (any A, Z) plus Z electrons;
+    the smallest unit exhibiting chemical identity.
+  type: functional
+boundary_clarity: crisp
+canonical_examples:
+  - name: Hydrogen atom
+    note: Two-body exactly-solvable case.
+  - name: Carbon-12
+    note: Tetravalent backbone of organic chemistry.
+  - name: Iron-56
+    note: Maximum-binding-energy nucleus; fusion endpoint.
+components:
+  - protons and neutrons in the nucleus (binding energy ~MeV per nucleon)
+  - bound electrons in shells (binding energy ~eV)
+  - electromagnetic field
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - Pauli exclusion principle
+  - Schroedinger / Dirac equation for the bound system
+  - nuclear stability valley (drives isotope distribution)
+emergent_properties:
+  - periodic table regularities (group, period, block structure)
+  - characteristic spectral lines
+  - chemical valence
+failure_modes:
+  - radioactive decay for unstable isotopes
+  - photoionization above the binding energy
+id: sys-000005--chemical-element-system
+interaction_types:
+  - Coulombic electron-nucleus attraction
+  - electron-electron Coulomb and exchange interaction
+  - spin-orbit coupling
+  - nuclear strong force (within the nucleus)
+lifecycle_stage: maturity
+main_feedbacks:
+  - shell filling determines chemical reactivity
+name: Chemical element system / periodic table
+origin: natural
+primary_function: quantum-mechanical structuring of bound nucleus-electron 
+  systems into reproducible chemical species
+priority: P0
+scales:
+  spatial:
+    - nuclear radius ~10^-15 m
+    - Bohr radius ~5 x 10^-11 m
+  temporal:
+    - electron orbital period ~10^-16 s
+    - nuclear vibration ~10^-21 s
+    - radiative lifetime of excited states ~10^-9 to 10^-3 s
+slug: chemical-element-system
+source_refs:
+  - src-000008--nist-atomic-spectra-database-nist-standard-reference-databas
+  - src-000018--physics-of-atoms-and-molecules
+  - src-000019--introduction-to-quantum-mechanics
+status: bootstrap-stub
+substrate: nucleons and electrons bound by electromagnetism
+summary: "The set of all atomic species (~118 elements; thousands of\nisotopes) characterized
+  by atomic number Z and bound electronic\nstructure. Quantum mechanics + Pauli exclusion
+  organize electrons\ninto shells, generating the periodic table's observed regularities.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:atomic-system
+updated_at: '2026-04-29T22:08:28Z'

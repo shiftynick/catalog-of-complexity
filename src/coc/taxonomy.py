@@ -25,6 +25,7 @@ COC_NS = Namespace("https://catalog-of-complexity.org/taxonomy/")
 FILE_TO_PREFIX = {
     "system-domains.yaml": "system-domain",
     "system-classes.yaml": "system-class",
+    "system-kinds.yaml": "system-kind",
     "metric-families.yaml": "metric-family",
     "evidence-types.yaml": "evidence-type",
 }

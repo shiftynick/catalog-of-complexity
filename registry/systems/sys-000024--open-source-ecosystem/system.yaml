@@ -1,0 +1,77 @@
+boundary:
+  description: All projects, packages, and contributors participating in a 
+    coherent open-source community (often defined by shared registries, 
+    conferences, or governance bodies).
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: npm ecosystem (JavaScript)
+    note: Largest package registry by count; canonical heavy-dependency-graph 
+      case.
+  - name: Linux kernel
+    note: Canonical large-scale open-source project; tens of thousands of 
+      contributors.
+  - name: PyPI (Python)
+    note: Canonical scientific-computing-adjacent ecosystem.
+  - name: Apache Software Foundation projects
+    note: Canonical foundation-governed open-source community.
+components:
+  - packages / projects (~10^6 in npm, ~10^5 in PyPI/Cargo/etc.)
+  - maintainers and contributors
+  - package registries (npm, PyPI, Maven Central, crates.io, etc.)
+  - dependency graph
+  - issue trackers and code review tools
+  - governance bodies (foundations, working groups)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - maintainer attention (volunteer or weakly compensated)
+  - license compatibility
+  - governance disagreements
+  - corporate-sponsor influence
+emergent_properties:
+  - power-law contribution distribution
+  - keystone packages whose failure breaks the ecosystem
+  - convergent design patterns across languages and domains
+  - heterogeneous quality-vs-popularity outcomes
+failure_modes:
+  - maintainer burnout and abandonment
+  - dependency confusion / supply-chain attacks
+  - protestware (maintainer politicizes their package)
+  - corporate fork and split governance
+id: sys-000024--open-source-ecosystem
+interaction_types:
+  - package depends-on relationships
+  - pull requests and code review
+  - issue reports and feature requests
+  - downstream / upstream coordination
+  - governance decisions
+lifecycle_stage: maturity
+main_feedbacks:
+  - popularity-driven contribution (more users -> more contributors)
+  - maintainer burnout and project sunset
+  - dependency-update propagation
+  - security-vulnerability disclosure cycles
+name: Open-source software ecosystem
+origin: hybrid
+primary_function: cooperative production and maintenance of openly-licensed 
+  software
+priority: P0
+scales:
+  spatial:
+    - global; collaboration is asynchronous and remote
+  temporal:
+    - commit ~10^3 s
+    - release cycle ~10^5 to 10^7 s
+    - project lifespan ~10^8 to 10^9 s (months to decades)
+slug: open-source-ecosystem
+status: bootstrap-stub
+substrate: package registries + maintainers + dependency graphs
+summary: "A community of interdependent software projects, package\nregistries, and
+  maintainers producing openly-licensed software.\nCanonical example of self-organizing
+  knowledge production;\nstructurally homologous to biological ecosystems (niches,\n\
+  keystone species, parasites, dependency cascades).\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:technological
+  - system-class:software-ecosystem
+updated_at: '2026-04-29T22:08:28Z'

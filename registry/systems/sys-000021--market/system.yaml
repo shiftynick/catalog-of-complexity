@@ -1,0 +1,77 @@
+boundary:
+  description: All buyer-seller pairs trading a defined set of goods or 
+    services; boundary is by good, geography, and institutional rules.
+  type: functional
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Stock market (NYSE/NASDAQ)
+    note: Most-studied financial market.
+  - name: FX market
+    note: Largest market by volume (~7 trillion USD/day).
+  - name: Local farmers market
+    note: Canonical small-scale physical market.
+  - name: eBay
+    note: Canonical online auction marketplace.
+components:
+  - buyers (consumers, firms)
+  - sellers (firms, individuals)
+  - intermediaries (brokers, exchanges)
+  - the good or asset being traded
+  - rules and contracts
+  - price discovery mechanism (auction, bilateral, posted-price)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - resource and production limits
+  - institutional rules and contracts
+  - information asymmetry
+  - cognitive limits of participants
+emergent_properties:
+  - prices as compressed information
+  - bubbles and crashes
+  - power-law return distributions
+  - market segmentation
+failure_modes:
+  - bubble and crash
+  - liquidity collapse
+  - information asymmetry leading to adverse selection
+  - capture by dominant participants
+  - market manipulation
+id: sys-000021--market
+interaction_types:
+  - buy/sell offers
+  - price discovery
+  - contract execution
+  - information flow (news, signals, rumors)
+  - regulatory enforcement
+lifecycle_stage: maturity
+main_feedbacks:
+  - price-quantity feedback (Walrasian adjustment)
+  - momentum / herding feedback
+  - reflexivity (agent expectations move prices that move expectations)
+  - regulatory feedback
+name: Market
+origin: emergent
+primary_function: distributed allocation of goods and services through 
+  price-mediated exchange
+priority: P0
+scales:
+  spatial:
+    - local market ~10^3 m
+    - national market ~10^6 m
+    - global market ~10^7 m
+  temporal:
+    - transaction ~10^-3 to 10^3 s (microseconds for HFT to days for housing)
+    - price discovery ~seconds to days
+    - market regime ~years
+slug: market
+status: bootstrap-stub
+substrate: dispersed transacting agents + price discovery mechanism
+summary: "Venue (physical or virtual) where dispersed participants transact,\nwith
+  prices emerging from their aggregate actions. Substrate of\nmost modern economic
+  activity; canonical reflexive complex system\n— agents adapt to prices, and their
+  adaptation moves prices.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:economic
+  - system-class:market-exchange
+updated_at: '2026-04-29T22:08:28Z'

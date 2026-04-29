@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - sufficient-metric-coverage-across-systems
+description: "Most similar other system in the catalog by metric profile —\neffectively
+  a string field naming a sys-* id. Computed downstream\nafter enough metric values
+  exist to support similarity. From metric\nontology §21.\n"
+directionality: neither
+estimation_methods:
+  - direct-computation
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000016--nearest-neighbor-system
+maturity_level: L0
+name: Nearest-neighbor system
+scale_level: macro
+slug: nearest-neighbor-system
+status: bootstrap-stub
+unit: null
+value_type: categorical

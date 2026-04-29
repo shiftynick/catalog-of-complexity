@@ -1,0 +1,80 @@
+boundary:
+  description: The Earth's surface and atmosphere as a closed material system 
+    (open energetically, closed essentially in mass) — atmosphere, hydrosphere, 
+    lithosphere surface, cryosphere, biosphere, and human technosphere.
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Holocene
+    note: Stable interglacial state of the past ~12 ky; reference baseline.
+  - name: Anthropocene (current)
+    note: Proposed current epoch dominated by human activity; the system as it 
+      now stands.
+  - name: Paleocene-Eocene thermal maximum (~56 Ma)
+    note: Canonical paleoclimatic analog for rapid greenhouse warming.
+components:
+  - atmosphere
+  - oceans
+  - cryosphere (ice sheets, glaciers, permafrost)
+  - biosphere (all living organisms)
+  - lithosphere (continental and oceanic crust)
+  - global human civilization (~8 x 10^9 humans)
+  - technosphere (built environment, industrial flows)
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - solar energy budget
+  - mass conservation across reservoirs
+  - planetary boundaries (Rockstroem framework — nine boundaries)
+  - thermodynamic limits
+emergent_properties:
+  - climate states (glacial / interglacial)
+  - biosphere productivity patterns
+  - tipping points and regime shifts
+  - Anthropocene as a distinct geological epoch
+failure_modes:
+  - climate tipping (Amazon dieback, AMOC collapse, ice-sheet collapse, 
+    permafrost release)
+  - mass extinction (sixth)
+  - planetary-boundary transgression (multiple already crossed)
+  - civilizational stress from environmental change
+id: sys-000027--earth-system
+interaction_types:
+  - radiative coupling (solar input, IR emission to space)
+  - biogeochemical cycles (carbon, nitrogen, phosphorus, water, sulfur)
+  - climate-biosphere coupling (vegetation, albedo, evapotranspiration)
+  - human-environment coupling (extraction, pollution, land-use change)
+lifecycle_stage: senescence
+main_feedbacks:
+  - albedo-temperature (ice-albedo feedback)
+  - water-vapor amplification of greenhouse warming
+  - carbon-cycle-climate coupling
+  - human technological response to environmental change
+name: Earth system (Anthropocene)
+origin: hybrid
+primary_function: planetary-scale homeostatic regulation now strongly perturbed 
+  by human activity
+priority: P0
+scales:
+  spatial:
+    - local ~10^3 m
+    - regional ~10^5 m
+    - global ~10^7 m
+  temporal:
+    - weather ~10^5 to 10^6 s
+    - climate ~10^9 s (decades)
+    - biosphere succession ~10^9 to 10^11 s
+    - geological forcing ~10^14 s (millions of years)
+slug: earth-system
+status: bootstrap-stub
+substrate: fully coupled biophysical-human-technological planetary system
+summary: "The fully coupled biophysical-human-technological system at\nplanetary scale,
+  including climate, biosphere, oceans, ice,\neconomies, and infrastructure. Increasingly
+  characterized by\nhuman activity as the dominant geological force; substrate of\n\
+  the planetary-boundaries framework and global sustainability\nscience.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:earth-system
+  - system-class:biosphere
+  - system-class:climate-system
+updated_at: '2026-04-29T22:08:28Z'

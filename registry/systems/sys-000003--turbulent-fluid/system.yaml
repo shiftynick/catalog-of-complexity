@@ -1,0 +1,64 @@
+boundary:
+  description: The flow domain (pipe, atmosphere, ocean basin, stellar 
+    interior); boundary is the container or free surface.
+  type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Atmospheric boundary layer
+    note: Strongest natural high-Re turbulence accessible to direct measurement.
+  - name: Pipe flow at Re > ~4000
+    note: Classical laboratory turbulence.
+  - name: Solar convection zone
+    note: Large-Reynolds-number magnetohydrodynamic turbulence driving the solar
+      dynamo.
+components:
+  - eddies of all scales between integral and Kolmogorov
+  - mean flow component
+  - velocity, pressure, temperature, density fields
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - mass conservation (continuity)
+  - momentum conservation (Navier-Stokes)
+  - energy conservation including dissipation
+emergent_properties:
+  - Kolmogorov -5/3 inertial-range energy spectrum
+  - intermittency (non-Gaussian velocity-derivative statistics)
+  - coherent structures (vortices, hairpins)
+failure_modes:
+  - laminarization at low Reynolds number
+  - shock formation and compressibility breakdown of incompressible-flow 
+    assumptions
+id: sys-000003--turbulent-fluid
+interaction_types:
+  - nonlinear advection (the v dot grad v term)
+  - viscous dissipation
+  - vortex stretching and reconnection
+  - pressure-velocity coupling enforcing incompressibility
+lifecycle_stage: maturity
+main_feedbacks:
+  - vortex stretching amplifies velocity gradients
+  - viscous dissipation removes kinetic energy at small scales
+name: Turbulent fluid
+origin: natural
+primary_function: dissipative cascade of kinetic energy across scales
+priority: P0
+scales:
+  spatial:
+    - Kolmogorov microscale eta ~Re^{-3/4} times integral scale
+    - integral scale L (system size; pipe diameter, atmospheric boundary layer 
+      height)
+  temporal:
+    - large-eddy turnover time L/U
+    - dissipative scale time eta^2/nu
+slug: turbulent-fluid
+status: bootstrap-stub
+substrate: gas or liquid in fluid mechanical regime
+summary: "Fluid flow at high Reynolds number where inertial forces dominate\nviscous
+  forces and energy injected at large scales cascades through\na self-similar inertial
+  range to be dissipated at the Kolmogorov\nmicroscale. Canonical example of dynamical
+  complexity.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:turbulent-fluid
+updated_at: '2026-04-29T22:08:28Z'

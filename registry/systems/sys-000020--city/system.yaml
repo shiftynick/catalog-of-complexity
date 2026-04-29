@@ -1,0 +1,83 @@
+boundary:
+  description: "Spatial — the contiguous built-up area or municipal boundary.\nFunctional
+    — the labor market and commuting shed (often larger\nthan the formal city boundary,
+    leading to metropolitan-area\ndefinitions).\n"
+  type: mixed
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Tokyo
+    note: Largest metropolitan area (~37M); canonical megacity case.
+  - name: New York City
+    note: Canonical financial-and-cultural global city.
+  - name: Lagos
+    note: Canonical rapidly-growing African megacity.
+  - name: Singapore
+    note: Canonical city-state; complete polity at city scale.
+components:
+  - residents (10^4 to 10^7+)
+  - firms and economic actors
+  - housing stock
+  - transportation network (roads, transit, airports)
+  - utility infrastructure (water, sewer, power, telecom)
+  - government and institutions
+  - public space
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - water and energy supply
+  - transportation throughput
+  - housing affordability
+  - governance capacity
+emergent_properties:
+  - superlinear scaling of innovation, GDP, patents (~N^1.15)
+  - sublinear scaling of infrastructure (~N^0.85)
+  - segregation patterns
+  - diversity-dependent cultural production
+failure_modes:
+  - infrastructure collapse
+  - fiscal crisis
+  - segregation and inequality
+  - climate vulnerability (heatwaves, flooding, sea-level rise)
+  - violence and civil unrest
+id: sys-000020--city
+interaction_types:
+  - daily mobility (commuting, errands)
+  - economic exchange (labor, goods, services)
+  - communication (face-to-face, telecom)
+  - governance and regulation
+  - resource flows (energy, water, food, materials)
+lifecycle_stage: maturity
+main_feedbacks:
+  - agglomeration economies (productivity rises with size)
+  - congestion costs (efficiency falls with size)
+  - housing-price-driven displacement
+  - migration responding to opportunity
+  - infrastructure-investment feedback
+name: City
+origin: hybrid
+primary_function: dense human settlement coupling infrastructure, economy, and 
+  governance
+priority: P0
+scales:
+  spatial:
+    - building ~10^1 m
+    - neighborhood ~10^3 m
+    - city ~10^4 to 10^5 m
+    - metropolitan area ~10^5 to 10^6 m
+  temporal:
+    - daily commuting cycle ~10^5 s
+    - housing-stock turnover ~10^9 s (decades)
+    - urban-form change ~10^10 s (centuries)
+slug: city
+status: bootstrap-stub
+substrate: humans + built environment + infrastructure + institutions
+summary: "A dense human settlement with infrastructure, economy, and\ngovernance.
+  Canonical urban-complexity object — exhibits\nuniversal scaling laws (West et al.)
+  in resource consumption,\nsocioeconomic output, and infrastructure with population.
+  Coupled\nto hinterland through commodity, food, water, energy, and\ninformation
+  flows.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:social
+  - system-class:city
+  - system-class:urban-metabolism
+updated_at: '2026-04-29T22:08:28Z'

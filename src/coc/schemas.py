@@ -13,6 +13,7 @@ from coc.paths import SCHEMAS
 
 SCHEMA_NAMES = (
     "system",
+    "system-relation",
     "metric",
     "source",
     "observation",

@@ -1,0 +1,27 @@
+applicability:
+  excludes:
+    - systems_without_interaction_model
+  requires:
+    - explicit_graph_representation
+description: "Degree to which a graph representation of a system partitions into\n\
+  internally dense, externally sparse communities. Computed on a\nchosen interaction
+  graph (trophic, citation, transactional, etc.)\nper a stated definition (Newman-Girvan
+  most common).\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000003--network-modularity
+maturity_level: L2
+name: Network modularity
+normalization:
+  strategy: raw-and-zscore
+scale_level: meso
+slug: network-modularity
+status: bootstrap-stub
+unit: unitless
+value_type: continuous

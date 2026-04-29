@@ -1,0 +1,76 @@
+boundary:
+  description: "The outer integument or equivalent (skin, cuticle, cell wall in\n\
+    plants) demarcating soma from environment, and the germline /\nsoma distinction
+    internally.\n"
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Caenorhabditis elegans
+    note: Nematode; canonical model with ~959 invariant somatic cells.
+  - name: Drosophila melanogaster
+    note: Fruit fly; canonical developmental and behavioral model.
+  - name: Mus musculus
+    note: Mouse; canonical mammalian model.
+  - name: Arabidopsis thaliana
+    note: Canonical model plant; small, fast-cycling, well-genetically-mapped.
+  - name: Homo sapiens
+    note: Self-referential canonical example; ~3.7 x 10^13 cells across ~200 
+      cell types.
+components:
+  - somatic cells of multiple differentiated types (hundreds in vertebrates)
+  - germ cells (gametes and their precursors)
+  - extracellular matrix
+  - tissue-organizing signaling gradients
+  - in animals, organs and organ systems
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - shared genome implies shared evolutionary fate
+  - germline-soma distinction limits heritability of somatic change
+  - oxygen / nutrient diffusion limits maximum cell-from-vessel distance
+emergent_properties:
+  - body plans (bilateria, radiata, etc.)
+  - centralized regulatory systems (nervous, immune, endocrine)
+  - complex behavior
+failure_modes:
+  - cancer (somatic-evolution defection)
+  - developmental malformation
+  - autoimmunity
+  - aging-related multi-organ failure
+id: sys-000009--multicellular-organism
+interaction_types:
+  - cell-cell signaling (juxtacrine, paracrine, endocrine, synaptic)
+  - mechanical coupling via ECM
+  - developmental cell fate specification and migration
+  - immune surveillance of self vs altered-self
+lifecycle_stage: maturity
+main_feedbacks:
+  - homeostatic feedback within and across tissues (endocrine, neural)
+  - developmental cell-fate feedback (lateral inhibition, gradient induction)
+  - growth-control feedback preventing tumorigenesis
+name: Multicellular organism
+origin: evolved
+primary_function: coordinated body of clonally related differentiated cells 
+  maintaining a shared somatic-germline life cycle
+priority: P0
+scales:
+  spatial:
+    - cell ~10^-5 m
+    - tissue ~10^-3 m
+    - organ ~10^-2 m
+    - organism ~10^-3 to 10^2 m (microscopic to whale)
+  temporal:
+    - cell cycle ~10^4 s
+    - developmental timescale ~10^5 to 10^9 s
+    - organism lifespan ~10^7 to 10^9 s
+slug: multicellular-organism
+status: bootstrap-stub
+substrate: differentiated eukaryotic cells with shared genome
+summary: "A coordinated colony of differentiated cells with a shared genome,\nseparated
+  into specialized tissues, organs, and (in animals)\norgan systems. Independently
+  evolved at least 25 times in\neukaryotic lineages. The substrate of all macroscopic
+  life.\n"
+system_kind: transition
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:multicellular-organism
+updated_at: '2026-04-29T22:08:28Z'

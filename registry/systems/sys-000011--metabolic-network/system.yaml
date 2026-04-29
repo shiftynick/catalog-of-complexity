@@ -1,0 +1,72 @@
+boundary:
+  description: All enzyme-catalyzed reactions whose substrates and products are 
+    intracellular metabolites; spatial bound is the cell or organelle.
+  type: functional
+boundary_clarity: crisp
+canonical_examples:
+  - name: E. coli central carbon metabolism
+    note: Glycolysis + TCA + pentose phosphate; canonical reference model 
+      (iJO1366, etc.).
+  - name: Human red blood cell metabolism
+    note: Glycolysis without mitochondria; canonical metabolic-network minimal 
+      model.
+  - name: Methanogen archaeal metabolism
+    note: CO2 + H2 -> CH4; canonical anaerobic metabolism.
+components:
+  - small-molecule metabolites (~10^3 distinct species in E. coli; ~10^4 in 
+    human)
+  - enzymes (~10^3)
+  - cofactors (NAD/NADH, NADP/NADPH, ATP, FAD, coenzyme A, vitamins)
+  - transport proteins
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - thermodynamic feasibility (Gibbs free energy)
+  - mass and atom conservation (stoichiometry)
+  - cofactor pool size and balance
+emergent_properties:
+  - flux distribution patterns (rich-club / bow-tie metabolic topology)
+  - homeostatic robustness to perturbation
+failure_modes:
+  - cofactor imbalance (e.g. NADH overload)
+  - toxic intermediate accumulation when downstream pathway blocked
+  - thermodynamic infeasibility under low free-energy supply
+id: sys-000011--metabolic-network
+interaction_types:
+  - enzyme-catalyzed reactions (biochemical conversions)
+  - allosteric regulation
+  - metabolite channeling between sequential enzymes
+  - compartment-crossing transport
+lifecycle_stage: maturity
+main_feedbacks:
+  - feedback inhibition (end-product inhibits committing-step enzyme)
+  - allosteric activation by precursors
+  - transcriptional feedback adjusting enzyme abundance
+name: Metabolic network
+origin: evolved
+primary_function: biochemical conversion of input substrates into energy and 
+  biosynthetic precursors
+priority: P0
+scales:
+  spatial:
+    - molecular ~10^-9 m
+    - cell or organelle ~10^-6 to 10^-5 m
+  temporal:
+    - enzymatic turnover ~10^-3 to 10^0 s
+    - metabolite pool turnover ~10^0 to 10^3 s
+    - metabolic adaptation ~10^2 to 10^4 s
+slug: metabolic-network
+source_refs:
+  - src-000004--a-comprehensive-genome-scale-reconstruction-of-i-escherichia
+  - src-000005--the-large-scale-organization-of-metabolic-networks
+  - src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1
+  - src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12
+status: bootstrap-stub
+substrate: enzymatic biochemistry within a cell or organelle
+summary: "Intracellular graph of biochemical reactions — metabolites as\nnodes, enzyme-catalyzed
+  conversions as edges — collectively\nrealizing a cell's energy generation, biosynthetic
+  precursor\nsupply, and waste disposal. The chemical engine of life.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:metabolic-network
+updated_at: '2026-04-29T22:08:28Z'

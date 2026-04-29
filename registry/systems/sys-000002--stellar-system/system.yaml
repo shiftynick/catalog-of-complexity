@@ -1,0 +1,72 @@
+boundary:
+  description: "Gravitational sphere of influence of the central star(s);\ncommonly
+    approximated by the heliopause (~120 AU for the Sun)\nfor solar-style systems,
+    or the Hill sphere boundary for\ncircumbinary cases.\n"
+  type: spatial
+boundary_clarity: crisp
+canonical_examples:
+  - name: Solar System
+    note: Sun + 8 planets + dwarf planets + minor bodies; the empirical anchor 
+      for planetary science.
+  - name: TRAPPIST-1 system
+    note: M-dwarf with seven roughly Earth-size planets in mean-motion 
+      resonance; canonical exoplanetary case.
+  - name: Alpha Centauri
+    note: Triple star system with rocky planet candidate; canonical multi-star 
+      case.
+components:
+  - one or more stars (main-sequence, giant, dwarf, or compact remnants)
+  - planets (rocky, gaseous, ice giants, dwarf planets)
+  - moons and ring systems
+  - asteroid and Kuiper-belt-equivalent populations
+  - cometary reservoirs (Oort cloud / scattered disk equivalent)
+  - heliosphere / astrosphere of stellar wind plasma
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - stellar mass-luminosity-lifetime relation
+  - orbital stability (chaotic, but bounded over Gyr)
+  - chemical inheritance from the parent molecular cloud
+emergent_properties:
+  - habitable zones around main-sequence stars
+  - planetary diversity from a small set of formation mechanisms
+failure_modes:
+  - stellar evolution off main sequence (red-giant phase, supernova) 
+    destabilizes planetary orbits
+  - planet-planet scattering ejects worlds into interstellar space
+id: sys-000002--stellar-system
+interaction_types:
+  - gravitational orbital coupling (Keplerian, with mean-motion resonances)
+  - stellar radiation pressure and wind
+  - tidal forces (between star-planet, planet-moon)
+  - magnetospheric coupling (stellar wind to planetary magnetic fields)
+lifecycle_stage: maturity
+main_feedbacks:
+  - radiation pressure balancing gravitational accretion in protostellar phase
+  - tidal locking and orbital resonance pumping
+  - stellar evolution feedback to planetary atmospheres
+name: Stellar / planetary system
+origin: natural
+primary_function: gravitational binding plus stellar nuclear fusion energy 
+  throughput
+priority: P0
+scales:
+  spatial:
+    - stellar radius ~10^9 m
+    - inner-planet orbit ~10^11 m (1 AU)
+    - heliopause ~10^13 m (~100 AU)
+    - Oort cloud ~10^16 m (100 kAU)
+  temporal:
+    - planetary year ~10^7 s
+    - stellar main-sequence lifetime ~10^15-10^17 s (Gyr scale)
+slug: stellar-system
+status: bootstrap-stub
+substrate: hydrogen, helium, heavier elements; gravitational binding
+summary: "Gravitationally bound assembly of one or more stars and orbiting\nbodies
+  (planets, moons, asteroids, comets, dust). Powered by stellar\nfusion, structured
+  by Keplerian orbital mechanics and resonances,\nand bounded by the heliopause /
+  equivalent at the interstellar\nmedium interface.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:stellar-system
+updated_at: '2026-04-29T22:08:28Z'

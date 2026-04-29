@@ -1,0 +1,74 @@
+boundary:
+  description: The nest and the foraging perimeter where colony pheromone trails
+    define territory; functionally bounded by genetic relatedness within the 
+    colony.
+  type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Atta cephalotes
+    note: Leaf-cutter ant; canonical fungal-cultivating colony, millions of 
+      workers.
+  - name: Solenopsis invicta
+    note: Red imported fire ant; canonical invasive supercolony case.
+  - name: Linepithema humile
+    note: Argentine ant; canonical example of intercontinental supercolony.
+components:
+  - workers (sterile females; orders of magnitude more than other castes)
+  - reproductive queen (typically one or few)
+  - in some species, soldiers (specialized defensive caste)
+  - male reproductives (ephemeral; produced for mating flights)
+  - brood (eggs, larvae, pupae)
+  - nest infrastructure (chambers, tunnels)
+  - pheromone communication system
+created_at: '2026-04-29T22:08:28Z'
+dominant_constraints:
+  - individual ant cognitive capacity (very limited)
+  - resource availability in foraging perimeter
+  - genetic relatedness threshold for cooperative behavior
+emergent_properties:
+  - shortest-path discovery via pheromone optimization
+  - division of labor without centralized control
+  - colony-level "intelligence" exceeding individual cognition
+failure_modes:
+  - queen death (colony decline unless replacement queen)
+  - invasion by competitor colonies
+  - resource depletion in foraging perimeter
+  - parasitic exploitation (myrmecophiles, social parasites)
+id: sys-000016--ant-colony
+interaction_types:
+  - pheromone trail laying and following (stigmergy)
+  - trophallaxis (oral food exchange)
+  - tactile and chemical individual recognition
+  - colony-level division of labor
+  - inter-colony aggression at territory boundaries
+lifecycle_stage: maturity
+main_feedbacks:
+  - pheromone-trail amplification of successful foraging routes
+  - density-dependent task switching among workers
+  - queen-pheromone suppression of worker reproduction
+name: Ant colony
+origin: evolved
+primary_function: collectively forage, defend, and reproduce as a unit of 
+  selection
+priority: P0
+scales:
+  spatial:
+    - individual ant ~10^-3 m
+    - nest ~10^-1 to 10^0 m
+    - foraging perimeter ~10^1 to 10^2 m
+  temporal:
+    - individual ant lifespan ~weeks to months
+    - colony lifespan ~years to decades (queen-life)
+slug: ant-colony
+status: bootstrap-stub
+substrate: hundreds to millions of ant individuals + nest infrastructure
+summary: "Eusocial insect colony exhibiting reproductive division of labor\nbetween
+  sterile workers and reproductive queens (and, in some\nspecies, soldiers). Treated
+  as a unit of selection. Canonical\nexample of self-organized stigmergic coordination
+  through pheromone\ntrails and local interaction rules. Foundational for the\nsuperorganism
+  concept.\n"
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:superorganism
+updated_at: '2026-04-29T22:08:28Z'

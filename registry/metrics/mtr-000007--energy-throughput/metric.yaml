@@ -1,0 +1,22 @@
+applicability:
+  requires:
+    - identifiable-energy-input
+description: "Rate at which energy flows through the system to maintain\nfunction
+  — Chaisson's energy-rate density when normalized by\nmass. From metric ontology
+  §12.\n"
+directionality: context-dependent
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000007--energy-throughput
+maturity_level: L2
+name: Energy throughput
+scale_level: macro
+slug: energy-throughput
+status: bootstrap-stub
+unit: watts
+value_type: continuous
