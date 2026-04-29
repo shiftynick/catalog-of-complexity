@@ -1,0 +1,24 @@
+boundary:
+  description: Type-level biological archetype; refine boundary in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000535--health-insurance-system
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Health insurance system
+priority: P1
+scales: {}
+slug: health-insurance-system
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §19 (priority P1). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:healthcare-system
+  - system-class:financial-system
+updated_at: '2026-04-29T22:20:40Z'

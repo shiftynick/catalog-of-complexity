@@ -36,7 +36,7 @@ scales:
   temporal:
     - any (parametrically defined)
 slug: random-noise-field
-status: bootstrap-stub
+status: candidate
 substrate: spatial or temporal field of independent random variables
 summary: "A spatial or temporal field of independent random variables —\nGaussian
   white noise as canonical case. Boundary case for \"high\nentropy, no structure\"\

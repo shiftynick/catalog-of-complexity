@@ -63,7 +63,7 @@ scales:
     - developmental timescale ~10^5 to 10^9 s
     - organism lifespan ~10^7 to 10^9 s
 slug: multicellular-organism
-status: bootstrap-stub
+status: candidate
 substrate: differentiated eukaryotic cells with shared genome
 summary: "A coordinated colony of differentiated cells with a shared genome,\nseparated
   into specialized tissues, organs, and (in animals)\norgan systems. Independently

@@ -1,0 +1,24 @@
+boundary:
+  description: Type-level ecological archetype; refine boundary in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000214--boreal-forest
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Boreal forest
+priority: P1
+scales: {}
+slug: boreal-forest
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §8 (priority P1). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:ecological
+  - system-class:ecosystem
+  - system-class:forest-biome
+updated_at: '2026-04-29T22:20:40Z'

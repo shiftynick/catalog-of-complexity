@@ -45,7 +45,7 @@ scales:
   temporal:
     - cycle time ~10^5 to 10^7 s (days to months)
 slug: linear-supply-chain
-status: bootstrap-stub
+status: candidate
 substrate: sequential conversion pipeline with no redundancy
 summary: "A non-redundant, strictly sequential conversion pipeline —\nA -> B -> C
   -> D — without alternative routing, redundancy, or\nadaptive capacity. Boundary

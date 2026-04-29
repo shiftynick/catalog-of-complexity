@@ -40,7 +40,7 @@ scales:
     - collision frequency ~10^9 s^-1
     - relaxation to equilibrium ~10^-3 s
 slug: ideal-gas
-status: bootstrap-stub
+status: candidate
 substrate: large number of non-interacting point particles
 summary: "Large number (~Avogadro) of point particles with no interaction\nenergy,
   in thermodynamic equilibrium. Boundary case for \"many\nparts, weak interactions,

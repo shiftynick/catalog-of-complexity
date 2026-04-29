@@ -105,6 +105,7 @@ from coc.taxonomy import load_index  # noqa: E402
 from coc.yamlio import dump_yaml, load_yaml  # noqa: E402
 
 SEED_FILE = REPO_ROOT / "config" / "bootstrap_seed.yaml"
+SEED_GLOB = "bootstrap_seed*.yaml"  # picks up bootstrap_seed.yaml + bootstrap_seed_v2.yaml + future tiers
 
 SLUG_RE = re.compile(r"^[a-z0-9-]+$")
 
@@ -143,8 +144,13 @@ def next_id(folder: Path, prefix: str, slug: str) -> str:
     return f"{prefix}-{n:06d}--{slug}"
 
 
-def build_system_record(entry: dict, sys_id: str, ts: str) -> dict:
-    """Translate a seed entry into a system.yaml record (v0.2 shape)."""
+def build_system_record(entry: dict, sys_id: str, ts: str, default_status: str = "bootstrap-stub") -> dict:
+    """Translate a seed entry into a system.yaml record (v0.2 shape).
+
+    `default_status` is supplied per seed file (see seed file's top-level
+    `default_status` field). Entry-level `status` overrides; absence
+    falls back to the file-level default; final fallback is bootstrap-stub.
+    """
     domain = entry["domain"]
     classes = entry.get("classes", [])
     taxonomy_refs = [f"system-domain:{domain}"]
@@ -154,7 +160,7 @@ def build_system_record(entry: dict, sys_id: str, ts: str) -> dict:
         "id": sys_id,
         "slug": entry["slug"],
         "name": entry["name"],
-        "status": entry.get("status", "bootstrap-stub"),
+        "status": entry.get("status", default_status),
         "taxonomy_refs": taxonomy_refs,
         "boundary": entry["boundary"],
         "components": entry["components"],
@@ -195,14 +201,14 @@ def build_system_record(entry: dict, sys_id: str, ts: str) -> dict:
     return rec
 
 
-def build_metric_record(entry: dict, mtr_id: str) -> dict:
+def build_metric_record(entry: dict, mtr_id: str, default_status: str = "bootstrap-stub") -> dict:
     """Translate a seed entry into a metric.yaml record (v0.2 shape)."""
     rec: dict = {
         "id": mtr_id,
         "slug": entry["slug"],
         "name": entry["name"],
         "family": entry["family"],
-        "status": entry.get("status", "bootstrap-stub"),
+        "status": entry.get("status", default_status),
         "value_type": entry["value_type"],
         "description": entry["description"],
         "applicability": entry.get("applicability", {}),
@@ -243,20 +249,74 @@ def check_taxonomy(entry: dict, kind: str, index, where: str) -> list[str]:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Bulk-import catalog from bootstrap_seed.yaml")
+    ap = argparse.ArgumentParser(
+        description="Bulk-import catalog from config/bootstrap_seed*.yaml. "
+        "Reads all matching files; later files extend earlier ones (slug-level idempotent)."
+    )
     ap.add_argument("--apply", action="store_true", help="Write files (default is dry run)")
-    ap.add_argument("--seed", default=str(SEED_FILE), help="Path to bootstrap seed YAML")
+    ap.add_argument(
+        "--seed",
+        default=None,
+        help="Path to a single seed YAML (overrides the default config/bootstrap_seed*.yaml glob)",
+    )
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args()
 
-    seed_path = Path(args.seed)
-    if not seed_path.exists():
-        print(f"ERROR: seed file not found: {seed_path}", file=sys.stderr)
-        return 2
-    data = load_yaml(seed_path) or {}
-    systems = data.get("systems") or []
-    metrics = data.get("metrics") or []
-    print(f"Seed: {len(systems)} systems, {len(metrics)} metrics")
+    if args.seed:
+        seed_paths = [Path(args.seed)]
+        if not seed_paths[0].exists():
+            print(f"ERROR: seed file not found: {seed_paths[0]}", file=sys.stderr)
+            return 2
+    else:
+        seed_paths = sorted((REPO_ROOT / "config").glob(SEED_GLOB))
+        if not seed_paths:
+            print(f"ERROR: no seed files found (looked for config/{SEED_GLOB})", file=sys.stderr)
+            return 2
+
+    systems: list[dict] = []
+    metrics: list[dict] = []
+    # Track default status per seed file. Systems and metrics have distinct
+    # status enums (candidate is valid for systems, not metrics) so the seed
+    # file may declare them separately. Falls back to a single
+    # `default_status` (kept for back-compat), then to bootstrap-stub.
+    sys_default_status: dict[int, str] = {}
+    mtr_default_status: dict[int, str] = {}
+    for sp in seed_paths:
+        data = load_yaml(sp) or {}
+        sys_block = data.get("systems") or []
+        mtr_block = data.get("metrics") or []
+        legacy_ds = data.get("default_status", "bootstrap-stub")
+        ds_sys = data.get("default_system_status", legacy_ds)
+        ds_mtr = data.get("default_metric_status", "bootstrap-stub" if legacy_ds == "candidate" else legacy_ds)
+        for entry in sys_block:
+            sys_default_status[id(entry)] = ds_sys
+        for entry in mtr_block:
+            mtr_default_status[id(entry)] = ds_mtr
+        systems.extend(sys_block)
+        metrics.extend(mtr_block)
+        print(
+            f"Loaded {sp.relative_to(REPO_ROOT).as_posix()}: "
+            f"{len(sys_block)} systems (default={ds_sys}), "
+            f"{len(mtr_block)} metrics (default={ds_mtr})"
+        )
+    # Slug-level dedup (later occurrence loses; earlier file wins).
+    seen_sys: set[str] = set()
+    deduped_sys: list[dict] = []
+    for e in systems:
+        s = e.get("slug")
+        if s and s not in seen_sys:
+            seen_sys.add(s)
+            deduped_sys.append(e)
+    seen_mtr: set[str] = set()
+    deduped_mtr: list[dict] = []
+    for e in metrics:
+        s = e.get("slug")
+        if s and s not in seen_mtr:
+            seen_mtr.add(s)
+            deduped_mtr.append(e)
+    systems = deduped_sys
+    metrics = deduped_mtr
+    print(f"Seed (deduped): {len(systems)} systems, {len(metrics)} metrics")
 
     index = load_index()
     ts = now_iso()
@@ -281,7 +341,7 @@ def main() -> int:
             continue
 
         sys_id = next_id(REG_SYSTEMS, "sys", slug)
-        rec = build_system_record(entry, sys_id, ts)
+        rec = build_system_record(entry, sys_id, ts, default_status=sys_default_status.get(id(entry), "bootstrap-stub"))
         # Schema check before writing
         errs = validate_instance("system", rec)
         if errs:
@@ -321,7 +381,7 @@ def main() -> int:
             continue
 
         mtr_id = next_id(REG_METRICS, "mtr", slug)
-        rec = build_metric_record(entry, mtr_id)
+        rec = build_metric_record(entry, mtr_id, default_status=mtr_default_status.get(id(entry), "bootstrap-stub"))
         errs = validate_instance("metric", rec)
         if errs:
             for e in errs:

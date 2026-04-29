@@ -65,7 +65,7 @@ scales:
     - biosphere succession ~10^9 to 10^11 s
     - geological forcing ~10^14 s (millions of years)
 slug: earth-system
-status: bootstrap-stub
+status: candidate
 substrate: fully coupled biophysical-human-technological planetary system
 summary: "The fully coupled biophysical-human-technological system at\nplanetary scale,
   including climate, biosphere, oceans, ice,\neconomies, and infrastructure. Increasingly

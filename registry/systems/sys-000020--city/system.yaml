@@ -68,7 +68,7 @@ scales:
     - housing-stock turnover ~10^9 s (decades)
     - urban-form change ~10^10 s (centuries)
 slug: city
-status: bootstrap-stub
+status: candidate
 substrate: humans + built environment + infrastructure + institutions
 summary: "A dense human settlement with infrastructure, economy, and\ngovernance.
   Canonical urban-complexity object — exhibits\nuniversal scaling laws (West et al.)

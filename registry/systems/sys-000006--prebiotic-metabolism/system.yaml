@@ -52,7 +52,7 @@ scales:
     - reaction timescale ~10^-3 to 10^3 s
     - pool turnover ~hours to days
 slug: prebiotic-metabolism
-status: bootstrap-stub
+status: candidate
 substrate: small organic molecules in aqueous environment
 summary: "A reaction network in which every molecular species is produced by\nat least
   one reaction catalyzed by a member of the set, capable in\nprinciple of self-maintenance

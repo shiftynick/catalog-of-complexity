@@ -51,7 +51,7 @@ scales:
     - generation cycle of constituent species
     - trophic-cascade response ~years to decades
 slug: food-web
-status: bootstrap-stub
+status: candidate
 substrate: ecological community as a who-eats-whom graph
 summary: "Network representation of trophic (who-eats-whom) relationships\nin an ecological
   community. The classic graph object in ecology;\nsubstrate for connectance, motif,

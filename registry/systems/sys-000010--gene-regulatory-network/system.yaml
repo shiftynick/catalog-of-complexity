@@ -61,7 +61,7 @@ source_refs:
   - src-000013--the-regulatory-genome-gene-regulatory-networks-in-developmen
   - src-000014--an-introduction-to-systems-biology-design-principles-of-biol
   - src-000015--metabolic-stability-and-epigenesis-in-randomly-constructed-g
-status: bootstrap-stub
+status: candidate
 substrate: DNA + RNA + transcription factors + chromatin
 summary: "Within-cell graph of regulatory interactions among genes mediated by\ntranscription
   factors, microRNAs, long non-coding RNAs, and\nchromatin modifiers. Realizes developmental

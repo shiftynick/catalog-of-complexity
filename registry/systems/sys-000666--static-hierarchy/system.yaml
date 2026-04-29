@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level social archetype; spatial-and-functional boundary 
+    refined in profile-system upgrade.
+  type: mixed
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000666--static-hierarchy
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Static hierarchy
+priority: C
+scales: {}
+slug: static-hierarchy
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §25 (priority C). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:social
+  - system-class:bureaucratic-organization
+updated_at: '2026-04-29T22:20:40Z'

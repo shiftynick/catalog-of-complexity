@@ -53,7 +53,7 @@ source_refs:
   - src-000008--nist-atomic-spectra-database-nist-standard-reference-databas
   - src-000018--physics-of-atoms-and-molecules
   - src-000019--introduction-to-quantum-mechanics
-status: bootstrap-stub
+status: candidate
 substrate: nucleons and electrons bound by electromagnetism
 summary: "The set of all atomic species (~118 elements; thousands of\nisotopes) characterized
   by atomic number Z and bound electronic\nstructure. Quantum mechanics + Pauli exclusion

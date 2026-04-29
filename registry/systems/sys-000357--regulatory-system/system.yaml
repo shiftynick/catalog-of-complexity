@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level social archetype; spatial-and-functional boundary 
+    refined in profile-system upgrade.
+  type: mixed
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000357--regulatory-system
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Regulatory system
+priority: P1
+scales: {}
+slug: regulatory-system
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §13 (priority P1). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:social
+  - system-class:governance-system
+updated_at: '2026-04-29T22:20:40Z'

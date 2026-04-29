@@ -37,6 +37,14 @@ description: |
   Specific instances (e.g. C. elegans, NYSE, Apache Kafka) appear as
   canonical_examples inside type entries, not as their own entries.
 
+# v0.1 system entries are hand-authored with substantive boundary, components,
+# and scales — they land as `candidate` (awaiting review) so plan-backlog
+# Tier 3 (profile-system upgrade) does NOT pick them up. Metrics here are
+# stubs without rubrics so they remain `bootstrap-stub`. Individual entries
+# may override via their own `status:` field.
+default_system_status: candidate
+default_metric_status: bootstrap-stub
+
 systems:
   # ============================================================
   # SECTION A — Physical / cosmological substrate

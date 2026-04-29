@@ -69,7 +69,7 @@ scales:
     - training run ~10^4 to 10^7 s
     - model generation cycle ~10^7 s
 slug: ai-system
-status: bootstrap-stub
+status: candidate
 substrate: trained models + compute + data + deployment infrastructure
 summary: "A trained model plus its inference, evaluation, deployment, and\nfeedback
   infrastructure. Substrate of contemporary AI capabilities\nfrom foundation models

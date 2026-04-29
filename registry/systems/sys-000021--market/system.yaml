@@ -64,7 +64,7 @@ scales:
     - price discovery ~seconds to days
     - market regime ~years
 slug: market
-status: bootstrap-stub
+status: candidate
 substrate: dispersed transacting agents + price discovery mechanism
 summary: "Venue (physical or virtual) where dispersed participants transact,\nwith
   prices emerging from their aggregate actions. Substrate of\nmost modern economic

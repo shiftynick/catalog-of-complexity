@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level physical archetype; spatial boundary refined in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000663--two-body-orbital
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Two-body orbital system
+priority: C
+scales: {}
+slug: two-body-orbital
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §25 (priority C). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:physical
+  - system-class:stellar-system
+updated_at: '2026-04-29T22:20:40Z'

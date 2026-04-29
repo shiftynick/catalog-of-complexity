@@ -42,7 +42,7 @@ scales:
   temporal:
     - oscillation period T = 2 pi sqrt(L/g) ~10^0 s
 slug: simple-pendulum
-status: bootstrap-stub
+status: candidate
 substrate: rigid body in uniform gravity
 summary: "Two-body deterministic oscillator (point mass on rigid massless rod\nin
   uniform gravity). Boundary case for the catalog — exemplar of\n\"many parts not

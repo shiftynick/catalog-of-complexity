@@ -64,7 +64,7 @@ scales:
     - dispatch cycle ~10^2 to 10^3 s
     - capacity planning ~10^9 s (decades)
 slug: power-grid
-status: bootstrap-stub
+status: candidate
 substrate: synchronous AC generators + transmission + distribution + loads
 summary: "Synchronized electricity generation, transmission, and\ndistribution network
   with real-time supply-demand balance\nrequirements. Canonical example of tight-coupling,

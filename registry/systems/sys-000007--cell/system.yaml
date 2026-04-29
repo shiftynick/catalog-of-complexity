@@ -59,7 +59,7 @@ scales:
 slug: cell
 source_refs:
   - src-000012--molecular-biology-of-the-cell
-status: bootstrap-stub
+status: candidate
 substrate: lipids, proteins, nucleic acids, water, ions
 summary: "The smallest autonomous biological system: a bounded, internally\ncompartmentalized,
   self-replicating chemical reactor that\nmaintains itself far from equilibrium by

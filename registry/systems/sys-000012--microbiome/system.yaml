@@ -72,7 +72,7 @@ slug: microbiome
 source_refs:
   - src-000010--animals-in-a-bacterial-world-a-new-imperative-for-the-life-s
   - src-000011--the-application-of-ecological-theory-toward-an-understanding
-status: bootstrap-stub
+status: candidate
 substrate: multi-taxon microbial community in a host or environmental niche
 summary: "Type-level archetype for a multi-taxon microbial community\nresident in
   a defined niche — host tissue (gut, skin, oral\ncavity, root rhizosphere) or environmental

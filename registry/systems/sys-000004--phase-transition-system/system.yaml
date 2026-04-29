@@ -48,7 +48,7 @@ scales:
     - microscopic relaxation time
     - critical relaxation tau ~xi^z (diverges; critical slowing down)
 slug: phase-transition-system
-status: bootstrap-stub
+status: candidate
 substrate: many-body matter near a critical point
 summary: "Many-body system whose macroscopic state changes qualitatively\nat a critical
   value of a control parameter (temperature,\npressure, coupling strength). Continuous

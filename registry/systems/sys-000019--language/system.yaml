@@ -56,7 +56,7 @@ scales:
     - generational learning ~10^9 s (decades)
     - language change ~10^10 to 10^13 s (centuries to millennia)
 slug: language
-status: bootstrap-stub
+status: candidate
 substrate: shared symbolic conventions in a community of speakers
 summary: "A compositional symbolic communication system with grammar,\nlexicon, and
   pragmatic conventions, evolving in a community of\nspeakers. Substrate of cumulative

@@ -64,7 +64,7 @@ scales:
     - release cycle ~10^5 to 10^7 s
     - project lifespan ~10^8 to 10^9 s (months to decades)
 slug: open-source-ecosystem
-status: bootstrap-stub
+status: candidate
 substrate: package registries + maintainers + dependency graphs
 summary: "A community of interdependent software projects, package\nregistries, and
   maintainers producing openly-licensed software.\nCanonical example of self-organizing

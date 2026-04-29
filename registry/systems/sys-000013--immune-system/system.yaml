@@ -60,7 +60,7 @@ scales:
     - primary adaptive response ~days
     - memory persistence ~years to decades
 slug: immune-system
-status: bootstrap-stub
+status: candidate
 substrate: lymphoid and myeloid cells plus signaling molecules
 summary: "Cellular and molecular subsystem of an animal that discriminates\nself from
   non-self and responds to threats. Vertebrate adaptive\nimmunity adds clonal selection

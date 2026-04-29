@@ -58,7 +58,7 @@ slug: eukaryotic-cell
 source_refs:
   - src-000012--molecular-biology-of-the-cell
   - src-000016--origin-of-the-cell-nucleus-mitosis-and-sex-roles-of-intracel
-status: bootstrap-stub
+status: candidate
 substrate: lipid membranes, internal organelles, multipartite chromatin
 summary: "A cell with a true nucleus and membrane-bound organelles\n(mitochondria,
   ER, Golgi, often plastids), the product of\nsymbiogenesis between an archaeal host

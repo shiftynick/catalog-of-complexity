@@ -51,7 +51,7 @@ scales:
     - large-eddy turnover time L/U
     - dissipative scale time eta^2/nu
 slug: turbulent-fluid
-status: bootstrap-stub
+status: candidate
 substrate: gas or liquid in fluid mechanical regime
 summary: "Fluid flow at high Reynolds number where inertial forces dominate\nviscous
   forces and energy injected at large scales cascades through\na self-similar inertial

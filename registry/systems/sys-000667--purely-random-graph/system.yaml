@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level computational archetype; refine boundary in 
+    profile-system upgrade.
+  type: functional
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000667--purely-random-graph
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Purely random graph
+priority: C
+scales: {}
+slug: purely-random-graph
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §25 (priority C). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: boundary_case
+taxonomy_refs:
+  - system-domain:computational
+  - system-class:random-graph
+updated_at: '2026-04-29T22:20:40Z'

@@ -59,7 +59,7 @@ scales:
     - synaptic plasticity ~seconds to days
     - learning consolidation ~hours to years
 slug: nervous-system
-status: bootstrap-stub
+status: candidate
 substrate: neurons + glia + neurotransmitters
 summary: "Network of neurons (and supporting glia) that conducts and processes\nsignals
   across an animal body, enabling sensation, decision, and\naction on millisecond

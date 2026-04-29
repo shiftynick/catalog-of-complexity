@@ -1,0 +1,24 @@
+boundary:
+  description: Type-level social archetype; spatial-and-functional boundary 
+    refined in profile-system upgrade.
+  type: mixed
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000571--arms-race
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Arms race
+priority: P1
+scales: {}
+slug: arms-race
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §21 (priority P1). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:social
+  - system-class:conflict-system
+  - system-class:coevolutionary-system
+updated_at: '2026-04-29T22:20:40Z'

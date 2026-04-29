@@ -59,7 +59,7 @@ scales:
     - planetary year ~10^7 s
     - stellar main-sequence lifetime ~10^15-10^17 s (Gyr scale)
 slug: stellar-system
-status: bootstrap-stub
+status: candidate
 substrate: hydrogen, helium, heavier elements; gravitational binding
 summary: "Gravitationally bound assembly of one or more stars and orbiting\nbodies
   (planets, moons, asteroids, comets, dust). Powered by stellar\nfusion, structured

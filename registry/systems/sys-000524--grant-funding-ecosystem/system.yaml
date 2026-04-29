@@ -1,0 +1,24 @@
+boundary:
+  description: Type-level cognitive/epistemic archetype; refine boundary in 
+    profile-system upgrade.
+  type: functional
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000524--grant-funding-ecosystem
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Grant funding ecosystem
+priority: P2
+scales: {}
+slug: grant-funding-ecosystem
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §18 (priority P2). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:cognitive
+  - system-class:knowledge-system
+  - system-class:financial-system
+updated_at: '2026-04-29T22:20:40Z'

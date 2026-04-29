@@ -47,7 +47,7 @@ scales:
     - escapement tick ~10^0 s
     - mainspring discharge ~10^5 s (~day)
 slug: clockwork-mechanism
-status: bootstrap-stub
+status: candidate
 substrate: rigid mechanical components in deterministic engagement
 summary: "Precisely engineered chain of mechanical components — gears,\nescapement,
   mainspring, levers — operating deterministically.\nBoundary case for \"complicated,

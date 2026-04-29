@@ -1,0 +1,24 @@
+boundary:
+  description: Type-level computational archetype; refine boundary in 
+    profile-system upgrade.
+  type: functional
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000502--model-supply-chain
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: AI model supply chain
+priority: P2
+scales: {}
+slug: model-supply-chain
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §17 (priority P2). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:computational
+  - system-class:ai-system
+  - system-class:supply-chain
+updated_at: '2026-04-29T22:20:40Z'

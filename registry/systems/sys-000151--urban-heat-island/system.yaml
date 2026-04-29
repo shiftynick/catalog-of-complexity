@@ -1,0 +1,22 @@
+boundary:
+  description: Type-level ecological archetype; refine boundary in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000151--urban-heat-island
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Urban heat island system
+priority: P2
+scales: {}
+slug: urban-heat-island
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §6.2 (priority P2). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:ecological
+updated_at: '2026-04-29T22:20:40Z'

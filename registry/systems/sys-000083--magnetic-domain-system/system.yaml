@@ -1,0 +1,22 @@
+boundary:
+  description: Type-level physical archetype; spatial boundary refined in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000083--magnetic-domain-system
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Magnetic domain system
+priority: P1
+scales: {}
+slug: magnetic-domain-system
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §4.2 (priority P1). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:physical
+updated_at: '2026-04-29T22:20:40Z'

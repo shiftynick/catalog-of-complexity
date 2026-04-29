@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level biological archetype; refine boundary in 
+    profile-system upgrade.
+  type: spatial
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000195--speciation-system
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Speciation system
+priority: P0
+scales: {}
+slug: speciation-system
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §7.3 (priority P0). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: class
+taxonomy_refs:
+  - system-domain:biological
+  - system-class:speciation-system
+updated_at: '2026-04-29T22:20:40Z'

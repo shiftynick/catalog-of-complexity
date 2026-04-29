@@ -65,7 +65,7 @@ scales:
     - working-memory span ~10^0 s
     - episodic memory consolidation ~10^4 s
 slug: brain
-status: bootstrap-stub
+status: candidate
 substrate: dense neural tissue with vascular and glial support
 summary: "The most centralized portion of an animal nervous system, dense\nwith neurons
   and synapses, organized into functional regions and\n(in vertebrates) layered cortex.

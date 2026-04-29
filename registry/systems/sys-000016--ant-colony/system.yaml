@@ -60,7 +60,7 @@ scales:
     - individual ant lifespan ~weeks to months
     - colony lifespan ~years to decades (queen-life)
 slug: ant-colony
-status: bootstrap-stub
+status: candidate
 substrate: hundreds to millions of ant individuals + nest infrastructure
 summary: "Eusocial insect colony exhibiting reproductive division of labor\nbetween
   sterile workers and reproductive queens (and, in some\nspecies, soldiers). Treated

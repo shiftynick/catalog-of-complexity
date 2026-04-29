@@ -1,0 +1,23 @@
+boundary:
+  description: Type-level computational archetype; refine boundary in 
+    profile-system upgrade.
+  type: functional
+components:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+created_at: '2026-04-29T22:20:40Z'
+id: sys-000635--ising-model
+interaction_types:
+  - '[bootstrap-stub: pending profile-system upgrade]'
+name: Ising model
+priority: P3
+scales: {}
+slug: ising-model
+status: bootstrap-stub
+summary: Type-level archetype imported from 
+  docs/framework/02-candidate-systems-catalog.md §24 (priority P3). Bootstrap 
+  stub awaiting profile-system upgrade.
+system_kind: model
+taxonomy_refs:
+  - system-domain:computational
+  - system-class:ising-model
+updated_at: '2026-04-29T22:20:40Z'

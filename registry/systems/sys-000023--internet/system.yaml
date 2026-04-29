@@ -65,7 +65,7 @@ scales:
     - BGP convergence ~10^1 to 10^2 s
     - infrastructure investment ~10^9 s
 slug: internet
-status: bootstrap-stub
+status: candidate
 substrate: TCP/IP packet-switched internetwork
 summary: "The planet-scale interconnected packet-switched network of\nnetworks. Substrate
   of the World Wide Web, email, video\nstreaming, real-time communication, and most

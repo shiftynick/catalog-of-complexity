@@ -60,7 +60,7 @@ source_refs:
   - src-000005--the-large-scale-organization-of-metabolic-networks
   - src-000006--highly-accurate-genome-sequences-of-i-escherichia-coli-i-k-1
   - src-000007--the-complete-genome-sequence-of-i-escherichia-coli-i-k-12
-status: bootstrap-stub
+status: candidate
 substrate: enzymatic biochemistry within a cell or organelle
 summary: "Intracellular graph of biochemical reactions — metabolites as\nnodes, enzyme-catalyzed
   conversions as edges — collectively\nrealizing a cell's energy generation, biosynthetic

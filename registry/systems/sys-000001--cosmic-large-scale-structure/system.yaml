@@ -53,7 +53,7 @@ scales:
     - dynamical time of cluster ~10^16 s (Gyr)
     - age of universe ~4.4 x 10^17 s (13.8 Gyr)
 slug: cosmic-large-scale-structure
-status: bootstrap-stub
+status: candidate
 substrate: dark matter, baryonic matter, radiation
 summary: "Density-driven hierarchical organization of matter across megaparsec\nscales
   — the cosmic web of filaments, walls, voids, and clusters\narising from primordial
