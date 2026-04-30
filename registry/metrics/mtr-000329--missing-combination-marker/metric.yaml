@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether the system occupies a rare or 
+  theoretically-expected-but-empirically-empty cell of complexity space.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000329--missing-combination-marker
+maturity_level: L1
+name: Missing combination marker
+scale_level: macro
+slug: missing-combination-marker
+status: bootstrap-stub
+value_type: boolean

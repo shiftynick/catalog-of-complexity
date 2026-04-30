@@ -1,0 +1,18 @@
+applicability: {}
+description: Number of identified reinforcing loops in the system's causal 
+  diagram.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000111--positive-feedback-loop-count
+maturity_level: L1
+name: Positive feedback loop count
+scale_level: meso
+slug: positive-feedback-loop-count
+status: bootstrap-stub
+value_type: discrete

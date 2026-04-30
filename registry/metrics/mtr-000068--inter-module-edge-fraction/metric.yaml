@@ -1,0 +1,17 @@
+applicability: {}
+description: Share of edges that cross module boundaries; complement of 
+  intra-module fraction.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000068--inter-module-edge-fraction
+maturity_level: L2
+name: Inter-module edge fraction
+scale_level: meso
+slug: inter-module-edge-fraction
+status: bootstrap-stub
+value_type: continuous

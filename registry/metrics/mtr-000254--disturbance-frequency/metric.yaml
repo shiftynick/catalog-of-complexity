@@ -1,0 +1,16 @@
+applicability: {}
+description: Rate of shock occurrence.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000254--disturbance-frequency
+maturity_level: L2
+name: Disturbance frequency
+scale_level: macro
+slug: disturbance-frequency
+status: bootstrap-stub
+value_type: continuous

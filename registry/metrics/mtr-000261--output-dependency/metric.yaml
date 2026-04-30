@@ -1,0 +1,17 @@
+applicability: {}
+description: Number and strength of external systems depending on this system's 
+  outputs.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000261--output-dependency
+maturity_level: L1
+name: Output dependency
+scale_level: macro
+slug: output-dependency
+status: bootstrap-stub
+value_type: ordinal

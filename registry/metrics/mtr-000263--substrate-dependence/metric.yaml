@@ -1,0 +1,16 @@
+applicability: {}
+description: Reliance on a specific physical or informational base.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000263--substrate-dependence
+maturity_level: L0
+name: Substrate dependence
+scale_level: macro
+slug: substrate-dependence
+status: bootstrap-stub
+value_type: ordinal

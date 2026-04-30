@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of direct reports or dependents per controller.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000228--span-of-control
+maturity_level: L2
+name: Span of control
+scale_level: macro
+slug: span-of-control
+status: bootstrap-stub
+value_type: continuous

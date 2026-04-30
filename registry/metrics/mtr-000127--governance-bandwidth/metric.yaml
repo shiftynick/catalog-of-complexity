@@ -1,0 +1,17 @@
+applicability: {}
+description: Decision capacity of the control layer; how many decisions per unit
+  time it can process.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000127--governance-bandwidth
+maturity_level: L1
+name: Governance bandwidth
+scale_level: macro
+slug: governance-bandwidth
+status: bootstrap-stub
+value_type: ordinal

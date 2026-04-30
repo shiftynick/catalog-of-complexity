@@ -1,0 +1,15 @@
+applicability: {}
+description: Fraction of time the system is operational.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000266--availability
+maturity_level: L2
+name: Availability
+scale_level: macro
+slug: availability
+status: bootstrap-stub
+value_type: continuous

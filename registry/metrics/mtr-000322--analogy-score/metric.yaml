@@ -1,0 +1,15 @@
+applicability: {}
+description: Quantified functional similarity without shared origin.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000322--analogy-score
+maturity_level: L1
+name: Analogy score
+scale_level: macro
+slug: analogy-score
+status: bootstrap-stub
+value_type: continuous

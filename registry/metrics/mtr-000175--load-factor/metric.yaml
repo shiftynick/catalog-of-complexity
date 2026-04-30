@@ -1,0 +1,16 @@
+applicability: {}
+description: Current utilization divided by total capacity.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000175--load-factor
+maturity_level: L2
+name: Load factor
+scale_level: macro
+slug: load-factor
+status: bootstrap-stub
+value_type: continuous

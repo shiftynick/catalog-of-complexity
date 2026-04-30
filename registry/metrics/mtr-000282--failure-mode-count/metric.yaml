@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of distinct failure modes the system has exhibited or is 
+  theorized to exhibit.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000282--failure-mode-count
+maturity_level: L1
+name: Failure mode count
+scale_level: macro
+slug: failure-mode-count
+status: bootstrap-stub
+value_type: discrete

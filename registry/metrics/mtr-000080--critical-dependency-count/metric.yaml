@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of dependencies whose loss disables system function.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000080--critical-dependency-count
+maturity_level: L1
+name: Critical dependency count
+scale_level: meso
+slug: critical-dependency-count
+status: bootstrap-stub
+value_type: discrete

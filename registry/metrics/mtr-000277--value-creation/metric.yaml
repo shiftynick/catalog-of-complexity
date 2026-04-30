@@ -1,0 +1,15 @@
+applicability: {}
+description: Benefit produced per unit time.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000277--value-creation
+maturity_level: L1
+name: Value creation
+scale_level: macro
+slug: value-creation
+status: bootstrap-stub
+value_type: continuous

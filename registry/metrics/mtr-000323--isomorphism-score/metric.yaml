@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether two systems have the same structure under relabeling; 
+  graph-isomorphism approximation.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000323--isomorphism-score
+maturity_level: L2
+name: Isomorphism score
+scale_level: macro
+slug: isomorphism-score
+status: bootstrap-stub
+value_type: continuous

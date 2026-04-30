@@ -1,0 +1,15 @@
+applicability: {}
+description: Unused governance or coordination capacity.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000303--coordination-reserve
+maturity_level: L0
+name: Coordination reserve
+scale_level: macro
+slug: coordination-reserve
+status: bootstrap-stub
+value_type: ordinal

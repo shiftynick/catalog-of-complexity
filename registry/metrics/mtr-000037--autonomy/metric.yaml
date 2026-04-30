@@ -1,0 +1,17 @@
+applicability: {}
+description: Degree of independent action by components, holding environment 
+  fixed.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000037--autonomy
+maturity_level: L0
+name: Autonomy
+scale_level: micro
+slug: autonomy
+status: bootstrap-stub
+value_type: ordinal

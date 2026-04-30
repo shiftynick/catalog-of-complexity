@@ -1,0 +1,17 @@
+applicability: {}
+description: Macro model size divided by micro model size; high compression 
+  implies effective coarse-graining.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000144--compression-ratio
+maturity_level: L2
+name: Compression ratio
+scale_level: multi-scale
+slug: compression-ratio
+status: bootstrap-stub
+value_type: continuous

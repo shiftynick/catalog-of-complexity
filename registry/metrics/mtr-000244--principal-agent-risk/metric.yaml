@@ -1,0 +1,16 @@
+applicability: {}
+description: Risk of agents optimizing against system goals.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000244--principal-agent-risk
+maturity_level: L1
+name: Principal-agent risk
+scale_level: macro
+slug: principal-agent-risk
+status: bootstrap-stub
+value_type: ordinal

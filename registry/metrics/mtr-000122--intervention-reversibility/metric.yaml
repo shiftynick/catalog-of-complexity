@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether an intervention can be undone; crucial for risk management.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000122--intervention-reversibility
+maturity_level: L1
+name: Intervention reversibility
+scale_level: macro
+slug: intervention-reversibility
+status: bootstrap-stub
+value_type: ordinal

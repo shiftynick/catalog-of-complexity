@@ -1,0 +1,16 @@
+applicability: {}
+description: Cost to enforce rules and detect violations.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000236--enforcement-cost
+maturity_level: L1
+name: Enforcement cost
+scale_level: macro
+slug: enforcement-cost
+status: bootstrap-stub
+value_type: continuous

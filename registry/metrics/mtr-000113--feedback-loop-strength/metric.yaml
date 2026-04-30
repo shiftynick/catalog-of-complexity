@@ -1,0 +1,18 @@
+applicability: {}
+description: Gain of feedback per loop; how strongly the loop's output drives 
+  its input.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000113--feedback-loop-strength
+maturity_level: L2
+name: Feedback loop strength
+scale_level: meso
+slug: feedback-loop-strength
+status: bootstrap-stub
+value_type: continuous

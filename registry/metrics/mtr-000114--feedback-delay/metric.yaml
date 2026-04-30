@@ -1,0 +1,17 @@
+applicability: {}
+description: Time lag in feedback transmission; long delays destabilize control.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000114--feedback-delay
+maturity_level: L2
+name: Feedback delay
+scale_level: meso
+slug: feedback-delay
+status: bootstrap-stub
+value_type: continuous

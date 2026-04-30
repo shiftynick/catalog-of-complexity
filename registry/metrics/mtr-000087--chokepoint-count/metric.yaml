@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of critical bottlenecks whose capacity binds system 
+  throughput.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000087--chokepoint-count
+maturity_level: L1
+name: Chokepoint count
+scale_level: meso
+slug: chokepoint-count
+status: bootstrap-stub
+value_type: discrete

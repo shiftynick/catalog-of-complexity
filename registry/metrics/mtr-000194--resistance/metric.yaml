@@ -1,0 +1,17 @@
+applicability: {}
+description: Degree of initial performance loss under defined disturbance.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000194--resistance
+maturity_level: L2
+name: Resistance
+scale_level: macro
+slug: resistance
+status: bootstrap-stub
+value_type: continuous

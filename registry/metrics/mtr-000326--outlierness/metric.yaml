@@ -1,0 +1,15 @@
+applicability: {}
+description: Distance from known clusters; isolation-forest style anomaly score.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000326--outlierness
+maturity_level: L2
+name: Outlierness
+scale_level: macro
+slug: outlierness
+status: bootstrap-stub
+value_type: continuous

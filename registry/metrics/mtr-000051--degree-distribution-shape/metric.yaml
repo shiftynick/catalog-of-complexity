@@ -1,0 +1,17 @@
+applicability: {}
+description: 'Categorical tag: random, heavy-tailed, scale-free-like, lattice-like,
+  exponential, etc.'
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000051--degree-distribution-shape
+maturity_level: L1
+name: Degree distribution shape
+scale_level: meso
+slug: degree-distribution-shape
+status: bootstrap-stub
+value_type: categorical

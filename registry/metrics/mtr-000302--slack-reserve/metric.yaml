@@ -1,0 +1,15 @@
+applicability: {}
+description: Spare resources held against disturbance.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000302--slack-reserve
+maturity_level: L0
+name: Slack reserve
+scale_level: macro
+slug: slack-reserve
+status: bootstrap-stub
+value_type: ordinal

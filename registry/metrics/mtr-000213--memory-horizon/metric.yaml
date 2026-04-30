@@ -1,0 +1,17 @@
+applicability: {}
+description: How far back history influences current behavior.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000213--memory-horizon
+maturity_level: L1
+name: Memory horizon
+scale_level: macro
+slug: memory-horizon
+status: bootstrap-stub
+value_type: continuous

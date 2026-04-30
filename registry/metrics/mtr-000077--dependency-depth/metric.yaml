@@ -1,0 +1,16 @@
+applicability: {}
+description: Longest dependency chain in the system.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000077--dependency-depth
+maturity_level: L2
+name: Dependency depth
+scale_level: meso
+slug: dependency-depth
+status: bootstrap-stub
+value_type: discrete

@@ -1,0 +1,17 @@
+applicability: {}
+description: Number or scale of possible states; often log-scale due to 
+  combinatorial growth.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000088--state-space-size
+maturity_level: L1
+name: State-space size
+scale_level: macro
+slug: state-space-size
+status: bootstrap-stub
+value_type: continuous

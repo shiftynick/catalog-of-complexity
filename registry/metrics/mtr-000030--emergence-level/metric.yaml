@@ -1,0 +1,17 @@
+applicability: {}
+description: The scale (micro/meso/macro/multi-scale) at which the system's 
+  distinctive emergent properties appear.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000030--emergence-level
+maturity_level: L0
+name: Emergence level
+scale_level: multi-scale
+slug: emergence-level
+status: bootstrap-stub
+value_type: categorical

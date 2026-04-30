@@ -1,0 +1,16 @@
+applicability: {}
+description: Typical size of shocks.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000255--disturbance-severity
+maturity_level: L1
+name: Disturbance severity
+scale_level: macro
+slug: disturbance-severity
+status: bootstrap-stub
+value_type: ordinal

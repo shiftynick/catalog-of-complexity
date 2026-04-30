@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of edges controlled by the top-k highest-degree nodes 
+  (e.g. top 5%).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000052--hub-concentration
+maturity_level: L2
+name: Hub concentration
+scale_level: meso
+slug: hub-concentration
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: How much past state components retain and use to influence future 
+  behavior.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000038--memory-depth
+maturity_level: L1
+name: Memory depth
+scale_level: micro
+slug: memory-depth
+status: bootstrap-stub
+value_type: continuous

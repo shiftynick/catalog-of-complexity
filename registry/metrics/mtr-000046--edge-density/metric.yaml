@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of possible edges present (edges divided by N(N-1)/2 for 
+  undirected simple graphs).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000046--edge-density
+maturity_level: L2
+name: Edge density
+scale_level: meso
+slug: edge-density
+status: bootstrap-stub
+value_type: continuous

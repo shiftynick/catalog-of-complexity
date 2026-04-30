@@ -1,0 +1,16 @@
+applicability: {}
+description: Global ratio of closed triangles to connected triples.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000066--transitivity
+maturity_level: L2
+name: Transitivity
+scale_level: meso
+slug: transitivity
+status: bootstrap-stub
+value_type: continuous

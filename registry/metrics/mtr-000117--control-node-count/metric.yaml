@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of nodes capable of influencing system state through 
+  deliberate intervention.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000117--control-node-count
+maturity_level: L1
+name: Control node count
+scale_level: macro
+slug: control-node-count
+status: bootstrap-stub
+value_type: discrete

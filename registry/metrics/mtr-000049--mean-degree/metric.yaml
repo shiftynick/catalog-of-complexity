@@ -1,0 +1,16 @@
+applicability: {}
+description: Average number of connections per node.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000049--mean-degree
+maturity_level: L2
+name: Mean degree
+scale_level: meso
+slug: mean-degree
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,16 @@
+applicability: {}
+description: Ease of loosening or removing constraints.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000186--constraint-relaxability
+maturity_level: L0
+name: Constraint relaxability
+scale_level: macro
+slug: constraint-relaxability
+status: bootstrap-stub
+value_type: ordinal

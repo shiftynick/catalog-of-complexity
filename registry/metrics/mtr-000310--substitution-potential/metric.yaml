@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to replace components without loss of function.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000310--substitution-potential
+maturity_level: L0
+name: Substitution potential
+scale_level: macro
+slug: substitution-potential
+status: bootstrap-stub
+value_type: ordinal

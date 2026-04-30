@@ -1,0 +1,16 @@
+applicability: {}
+description: Distinct behavioral modes the system exhibits.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000094--regime-count
+maturity_level: L1
+name: Regime count
+scale_level: macro
+slug: regime-count
+status: bootstrap-stub
+value_type: discrete

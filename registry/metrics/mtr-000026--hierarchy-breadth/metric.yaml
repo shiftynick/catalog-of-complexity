@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of peer units per hierarchical level.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000026--hierarchy-breadth
+maturity_level: L1
+name: Hierarchy breadth
+scale_level: meso
+slug: hierarchy-breadth
+status: bootstrap-stub
+value_type: discrete

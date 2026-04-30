@@ -1,0 +1,16 @@
+applicability: {}
+description: Fraction of directed edges that are mutual.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000055--reciprocity
+maturity_level: L2
+name: Reciprocity
+scale_level: meso
+slug: reciprocity
+status: bootstrap-stub
+value_type: continuous

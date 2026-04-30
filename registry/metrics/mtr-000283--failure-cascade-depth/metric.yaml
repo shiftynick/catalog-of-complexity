@@ -1,0 +1,17 @@
+applicability: {}
+description: Average or maximum length of failure-propagation chains in observed
+  incidents.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000283--failure-cascade-depth
+maturity_level: L1
+name: Failure cascade depth
+scale_level: macro
+slug: failure-cascade-depth
+status: bootstrap-stub
+value_type: discrete

@@ -1,0 +1,15 @@
+applicability: {}
+description: Probability of successful operation under defined conditions.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000265--reliability
+maturity_level: L2
+name: Reliability
+scale_level: macro
+slug: reliability
+status: bootstrap-stub
+value_type: continuous

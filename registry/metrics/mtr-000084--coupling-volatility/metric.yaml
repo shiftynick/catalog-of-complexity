@@ -1,0 +1,17 @@
+applicability: {}
+description: How much the coupling structure changes over time (edge churn 
+  rate).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000084--coupling-volatility
+maturity_level: L1
+name: Coupling volatility
+scale_level: meso
+slug: coupling-volatility
+status: bootstrap-stub
+value_type: continuous

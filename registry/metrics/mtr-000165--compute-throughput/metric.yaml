@@ -1,0 +1,16 @@
+applicability: {}
+description: Computation (FLOPs, operations) consumed per unit time.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000165--compute-throughput
+maturity_level: L2
+name: Compute throughput
+scale_level: macro
+slug: compute-throughput
+status: bootstrap-stub
+value_type: continuous

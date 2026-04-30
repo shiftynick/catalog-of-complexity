@@ -1,0 +1,17 @@
+applicability: {}
+description: Mean inverse shortest-path distance; how efficiently information 
+  can traverse.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000062--global-efficiency
+maturity_level: L2
+name: Global efficiency
+scale_level: meso
+slug: global-efficiency
+status: bootstrap-stub
+value_type: continuous

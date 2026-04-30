@@ -1,0 +1,17 @@
+applicability: {}
+description: Whether macro-level causal models outperform micro-level ones for 
+  prediction or intervention; Hoel-style causal emergence score.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000031--macro-causal-informativeness
+maturity_level: L3
+name: Macro-causal informativeness
+scale_level: macro
+slug: macro-causal-informativeness
+status: bootstrap-stub
+value_type: continuous

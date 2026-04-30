@@ -1,0 +1,16 @@
+applicability: {}
+description: Unused capacity available for shock absorption.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000172--slack
+maturity_level: L1
+name: Slack
+scale_level: macro
+slug: slack
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Output disturbance divided by input disturbance; values >1 indicate
+  amplification.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000110--shock-amplification
+maturity_level: L2
+name: Shock amplification
+scale_level: macro
+slug: shock-amplification
+status: bootstrap-stub
+value_type: continuous

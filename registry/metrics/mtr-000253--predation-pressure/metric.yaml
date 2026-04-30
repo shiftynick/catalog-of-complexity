@@ -1,0 +1,16 @@
+applicability: {}
+description: Active hostile forces acting on the system.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000253--predation-pressure
+maturity_level: L1
+name: Predation / adversarial pressure
+scale_level: macro
+slug: predation-pressure
+status: bootstrap-stub
+value_type: ordinal

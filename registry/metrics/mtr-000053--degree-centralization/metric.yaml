@@ -1,0 +1,17 @@
+applicability: {}
+description: How star-like the network is; 0 = uniform connectivity, 1 = pure 
+  star.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000053--degree-centralization
+maturity_level: L2
+name: Degree centralization
+scale_level: meso
+slug: degree-centralization
+status: bootstrap-stub
+value_type: continuous

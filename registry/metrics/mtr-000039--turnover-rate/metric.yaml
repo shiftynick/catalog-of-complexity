@@ -1,0 +1,16 @@
+applicability: {}
+description: Replacement rate of components in the system per unit time.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000039--turnover-rate
+maturity_level: L2
+name: Turnover rate
+scale_level: micro
+slug: turnover-rate
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Ratio of macro time scale to micro time scale; large values imply 
+  slow drivers can be treated as parameters.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000025--scale-separation-ratio
+maturity_level: L2
+name: Scale separation ratio
+scale_level: multi-scale
+slug: scale-separation-ratio
+status: bootstrap-stub
+value_type: continuous

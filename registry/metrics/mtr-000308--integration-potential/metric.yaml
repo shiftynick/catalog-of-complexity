@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to merge with other systems while preserving function.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000308--integration-potential
+maturity_level: L0
+name: Integration potential
+scale_level: macro
+slug: integration-potential
+status: bootstrap-stub
+value_type: ordinal

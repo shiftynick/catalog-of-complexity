@@ -1,0 +1,16 @@
+applicability: {}
+description: Persistence of modes against perturbation.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000095--regime-stability
+maturity_level: L1
+name: Regime stability
+scale_level: macro
+slug: regime-stability
+status: bootstrap-stub
+value_type: ordinal

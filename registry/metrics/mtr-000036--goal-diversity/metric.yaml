@@ -1,0 +1,16 @@
+applicability: {}
+description: Diversity of objectives held by agents in the system.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000036--goal-diversity
+maturity_level: L1
+name: Goal diversity
+scale_level: micro
+slug: goal-diversity
+status: bootstrap-stub
+value_type: continuous

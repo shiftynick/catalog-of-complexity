@@ -1,0 +1,17 @@
+applicability: {}
+description: Count of three-node feedforward-loop motifs; common in regulatory 
+  networks.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000071--feedforward-loop-count
+maturity_level: L2
+name: Feedforward loop count
+scale_level: meso
+slug: feedforward-loop-count
+status: bootstrap-stub
+value_type: discrete

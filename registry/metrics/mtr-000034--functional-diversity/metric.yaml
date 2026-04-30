@@ -1,0 +1,16 @@
+applicability: {}
+description: Diversity of distinct roles or functions across components.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000034--functional-diversity
+maturity_level: L2
+name: Functional diversity
+scale_level: micro
+slug: functional-diversity
+status: bootstrap-stub
+value_type: continuous

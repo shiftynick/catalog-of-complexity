@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether outputs scale non-proportionally with inputs.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000099--nonlinearity
+maturity_level: L1
+name: Nonlinearity
+scale_level: macro
+slug: nonlinearity
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,16 @@
+applicability: {}
+description: Duration over which the system persists as a recognizable entity.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000023--temporal-extent
+maturity_level: L2
+name: Temporal extent
+scale_level: macro
+slug: temporal-extent
+status: bootstrap-stub
+value_type: continuous

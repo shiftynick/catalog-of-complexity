@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether local incentives support global outcomes.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000243--incentive-alignment
+maturity_level: L1
+name: Incentive alignment
+scale_level: macro
+slug: incentive-alignment
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Strength of repeating cycles; spectral peak height or 
+  autocorrelation peak at characteristic period.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000104--periodicity
+maturity_level: L2
+name: Periodicity
+scale_level: macro
+slug: periodicity
+status: bootstrap-stub
+value_type: continuous

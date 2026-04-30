@@ -1,0 +1,17 @@
+applicability: {}
+description: Resource cost of backups and alternatives; tradeoff against 
+  efficiency.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000173--redundancy-cost
+maturity_level: L1
+name: Redundancy cost
+scale_level: macro
+slug: redundancy-cost
+status: bootstrap-stub
+value_type: continuous

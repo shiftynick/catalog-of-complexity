@@ -1,0 +1,16 @@
+applicability: {}
+description: Time or cost to resolve conflicts.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000233--conflict-resolution-efficiency
+maturity_level: L1
+name: Conflict resolution efficiency
+scale_level: macro
+slug: conflict-resolution-efficiency
+status: bootstrap-stub
+value_type: ordinal

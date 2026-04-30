@@ -1,0 +1,17 @@
+applicability: {}
+description: Risk that unidentified couplings cause unexpected failure 
+  propagation.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000287--hidden-coupling-score
+maturity_level: L0
+name: Hidden coupling score
+scale_level: macro
+slug: hidden-coupling-score
+status: bootstrap-stub
+value_type: ordinal

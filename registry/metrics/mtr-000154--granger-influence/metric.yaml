@@ -1,0 +1,18 @@
+applicability: {}
+description: Predictive temporal influence; X Granger-causes Y if past X 
+  improves prediction of Y beyond past Y alone.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000154--granger-influence
+maturity_level: L2
+name: Granger influence
+scale_level: meso
+slug: granger-influence
+status: bootstrap-stub
+value_type: continuous

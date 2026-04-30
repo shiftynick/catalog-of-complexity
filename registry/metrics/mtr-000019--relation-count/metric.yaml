@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of edges, interactions, or dependencies in the interaction 
+  graph.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000019--relation-count
+maturity_level: L2
+name: Relation count
+scale_level: meso
+slug: relation-count
+status: bootstrap-stub
+value_type: discrete

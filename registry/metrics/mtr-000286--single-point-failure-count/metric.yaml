@@ -1,0 +1,16 @@
+applicability: {}
+description: Components whose loss causes severe system-wide failure.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000286--single-point-failure-count
+maturity_level: L1
+name: Single point of failure count
+scale_level: macro
+slug: single-point-failure-count
+status: bootstrap-stub
+value_type: discrete

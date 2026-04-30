@@ -1,0 +1,16 @@
+applicability: {}
+description: Similarity of two systems' developmental or historical 
+  trajectories.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000320--evolutionary-similarity
+maturity_level: L1
+name: Evolutionary similarity
+scale_level: macro
+slug: evolutionary-similarity
+status: bootstrap-stub
+value_type: continuous

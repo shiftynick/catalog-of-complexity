@@ -1,0 +1,16 @@
+applicability: {}
+description: Constraint imposed by the narrowest channel in the system.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000086--bottleneck-severity
+maturity_level: L1
+name: Bottleneck severity
+scale_level: meso
+slug: bottleneck-severity
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,18 @@
+applicability: {}
+description: Integral of performance over time after disruption divided by ideal
+  performance over the same interval.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000210--resilience-curve-area
+maturity_level: L2
+name: Resilience curve area
+scale_level: macro
+slug: resilience-curve-area
+status: bootstrap-stub
+value_type: continuous

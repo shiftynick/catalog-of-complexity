@@ -1,0 +1,16 @@
+applicability: {}
+description: Number and depth of relationships to other systems.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000262--ecological-embeddedness
+maturity_level: L0
+name: Ecological embeddedness
+scale_level: macro
+slug: ecological-embeddedness
+status: bootstrap-stub
+value_type: ordinal

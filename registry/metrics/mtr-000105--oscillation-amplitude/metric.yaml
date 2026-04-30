@@ -1,0 +1,16 @@
+applicability: {}
+description: Size of cycles in state variables.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000105--oscillation-amplitude
+maturity_level: L2
+name: Oscillation amplitude
+scale_level: macro
+slug: oscillation-amplitude
+status: bootstrap-stub
+value_type: continuous

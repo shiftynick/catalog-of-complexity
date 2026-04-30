@@ -1,0 +1,16 @@
+applicability: {}
+description: Human interpretability of system state and dynamics.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000126--legibility
+maturity_level: L0
+name: Legibility
+scale_level: macro
+slug: legibility
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,16 @@
+applicability: {}
+description: Coordination/maintenance cost divided by productive output.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000176--overhead-ratio
+maturity_level: L1
+name: Overhead ratio
+scale_level: macro
+slug: overhead-ratio
+status: bootstrap-stub
+value_type: continuous

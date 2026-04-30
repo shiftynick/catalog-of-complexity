@@ -1,0 +1,16 @@
+applicability: {}
+description: Share of nodes in the largest connected component.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000057--giant-component-fraction
+maturity_level: L2
+name: Giant component fraction
+scale_level: meso
+slug: giant-component-fraction
+status: bootstrap-stub
+value_type: continuous

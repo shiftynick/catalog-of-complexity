@@ -1,0 +1,16 @@
+applicability: {}
+description: How often the system transitions between behavioral modes.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000096--regime-switch-frequency
+maturity_level: L2
+name: Regime switch frequency
+scale_level: macro
+slug: regime-switch-frequency
+status: bootstrap-stub
+value_type: continuous

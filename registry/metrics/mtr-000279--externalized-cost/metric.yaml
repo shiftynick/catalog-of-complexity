@@ -1,0 +1,15 @@
+applicability: {}
+description: Costs imposed on entities outside the system.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000279--externalized-cost
+maturity_level: L1
+name: Externalized cost
+scale_level: macro
+slug: externalized-cost
+status: bootstrap-stub
+value_type: continuous

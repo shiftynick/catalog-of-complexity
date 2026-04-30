@@ -1,0 +1,16 @@
+applicability: {}
+description: Physical or logical size of the system.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000022--spatial-extent
+maturity_level: L2
+name: Spatial extent
+scale_level: macro
+slug: spatial-extent
+status: bootstrap-stub
+value_type: continuous

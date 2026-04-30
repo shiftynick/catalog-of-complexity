@@ -1,0 +1,17 @@
+applicability: {}
+description: How well lower-level details compress into higher-level units 
+  without loss of predictive value.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000029--coarse-grainability
+maturity_level: L1
+name: Coarse-grainability
+scale_level: multi-scale
+slug: coarse-grainability
+status: bootstrap-stub
+value_type: ordinal

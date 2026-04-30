@@ -1,0 +1,15 @@
+applicability: {}
+description: Variability around a target output (distinct from accuracy).
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000268--output-precision
+maturity_level: L2
+name: Output precision
+scale_level: macro
+slug: output-precision
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Length of typical causal chains in the system.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000148--causal-depth
+maturity_level: L1
+name: Causal depth
+scale_level: meso
+slug: causal-depth
+status: bootstrap-stub
+value_type: discrete

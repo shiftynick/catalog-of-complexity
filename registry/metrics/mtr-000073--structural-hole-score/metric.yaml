@@ -1,0 +1,17 @@
+applicability: {}
+description: "Burt's measure of brokerage: how much a node bridges otherwise disconnected
+  groups."
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000073--structural-hole-score
+maturity_level: L2
+name: Structural hole score
+scale_level: meso
+slug: structural-hole-score
+status: bootstrap-stub
+value_type: continuous

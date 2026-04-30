@@ -1,0 +1,16 @@
+applicability: {}
+description: Diversity of distinct behavior patterns observed across components.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000035--behavioral-diversity
+maturity_level: L1
+name: Behavioral diversity
+scale_level: micro
+slug: behavioral-diversity
+status: bootstrap-stub
+value_type: continuous

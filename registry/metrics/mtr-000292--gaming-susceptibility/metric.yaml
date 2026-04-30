@@ -1,0 +1,17 @@
+applicability: {}
+description: Likelihood that metrics or rules become targets that distort 
+  behavior; Goodhart-pressure proxy.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000292--gaming-susceptibility
+maturity_level: L0
+name: Gaming susceptibility
+scale_level: macro
+slug: gaming-susceptibility
+status: bootstrap-stub
+value_type: ordinal

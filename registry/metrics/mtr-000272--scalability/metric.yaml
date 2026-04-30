@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to grow without performance collapse.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000272--scalability
+maturity_level: L1
+name: Scalability
+scale_level: macro
+slug: scalability
+status: bootstrap-stub
+value_type: ordinal

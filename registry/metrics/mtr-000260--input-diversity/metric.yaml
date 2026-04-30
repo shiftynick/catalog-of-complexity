@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of distinct input sources.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000260--input-diversity
+maturity_level: L1
+name: Input diversity
+scale_level: macro
+slug: input-diversity
+status: bootstrap-stub
+value_type: ordinal

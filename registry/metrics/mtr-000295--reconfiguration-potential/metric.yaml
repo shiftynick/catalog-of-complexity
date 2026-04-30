@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to rearrange internal structure without loss of identity.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000295--reconfiguration-potential
+maturity_level: L0
+name: Reconfiguration potential
+scale_level: macro
+slug: reconfiguration-potential
+status: bootstrap-stub
+value_type: ordinal

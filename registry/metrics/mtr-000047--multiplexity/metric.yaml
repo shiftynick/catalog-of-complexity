@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of distinct relation types or layers in a multiplex network.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000047--multiplexity
+maturity_level: L1
+name: Multiplexity
+scale_level: meso
+slug: multiplexity
+status: bootstrap-stub
+value_type: discrete

@@ -1,0 +1,17 @@
+applicability: {}
+description: The scale (micro/meso/macro) where prediction or control is 
+  strongest for this system class.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000028--natural-modeling-scale
+maturity_level: L0
+name: Natural modeling scale
+scale_level: multi-scale
+slug: natural-modeling-scale
+status: bootstrap-stub
+value_type: categorical

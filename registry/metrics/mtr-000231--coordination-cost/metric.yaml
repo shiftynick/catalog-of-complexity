@@ -1,0 +1,16 @@
+applicability: {}
+description: Cost of aligning activity across components.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000231--coordination-cost
+maturity_level: L2
+name: Coordination cost
+scale_level: macro
+slug: coordination-cost
+status: bootstrap-stub
+value_type: continuous

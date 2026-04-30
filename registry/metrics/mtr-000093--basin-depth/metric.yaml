@@ -1,0 +1,17 @@
+applicability: {}
+description: Difficulty of escaping an attractor; perturbation magnitude 
+  required to leave.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000093--basin-depth
+maturity_level: L1
+name: Basin depth
+scale_level: macro
+slug: basin-depth
+status: bootstrap-stub
+value_type: ordinal

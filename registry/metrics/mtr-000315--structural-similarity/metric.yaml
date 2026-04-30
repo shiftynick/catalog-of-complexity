@@ -1,0 +1,15 @@
+applicability: {}
+description: Similarity of two systems' graph or topology representations.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000315--structural-similarity
+maturity_level: L2
+name: Structural similarity
+scale_level: macro
+slug: structural-similarity
+status: bootstrap-stub
+value_type: continuous

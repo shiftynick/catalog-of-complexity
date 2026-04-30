@@ -1,0 +1,17 @@
+applicability: {}
+description: Degree to which history constrains future possibilities; lock-in 
+  proxy.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000098--path-dependence
+maturity_level: L1
+name: Path dependence
+scale_level: macro
+slug: path-dependence
+status: bootstrap-stub
+value_type: ordinal

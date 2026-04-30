@@ -1,0 +1,16 @@
+applicability: {}
+description: Quantified deep structural similarity (shared origin or shared 
+  organizational principle).
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000321--homology-score
+maturity_level: L1
+name: Homology score
+scale_level: macro
+slug: homology-score
+status: bootstrap-stub
+value_type: continuous

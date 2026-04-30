@@ -1,0 +1,18 @@
+applicability: {}
+description: Difficulty of identifying the true causal structure from available 
+  data.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000159--causal-opacity
+maturity_level: L0
+name: Causal opacity
+scale_level: meso
+slug: causal-opacity
+status: bootstrap-stub
+value_type: ordinal

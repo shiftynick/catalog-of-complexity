@@ -1,0 +1,17 @@
+applicability: {}
+description: Availability of alternatives for components or links; high 
+  substitutability buffers against loss.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000081--substitutability
+maturity_level: L1
+name: Substitutability
+scale_level: meso
+slug: substitutability
+status: bootstrap-stub
+value_type: ordinal

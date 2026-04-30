@@ -1,0 +1,17 @@
+applicability: {}
+description: Rate of search of new possibilities.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000214--exploration-rate
+maturity_level: L1
+name: Exploration rate
+scale_level: macro
+slug: exploration-rate
+status: bootstrap-stub
+value_type: continuous

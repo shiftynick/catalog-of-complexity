@@ -1,0 +1,16 @@
+applicability: {}
+description: Narrowness of fit; complement of breadth.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000258--niche-specialization
+maturity_level: L1
+name: Niche specialization
+scale_level: macro
+slug: niche-specialization
+status: bootstrap-stub
+value_type: ordinal

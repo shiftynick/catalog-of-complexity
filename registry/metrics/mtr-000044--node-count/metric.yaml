@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of entities in the graph representation. May differ from 
+  component-count when components aggregate or split into multiple nodes.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000044--node-count
+maturity_level: L2
+name: Node count
+scale_level: meso
+slug: node-count
+status: bootstrap-stub
+value_type: discrete

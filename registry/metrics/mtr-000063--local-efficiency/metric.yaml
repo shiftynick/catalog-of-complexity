@@ -1,0 +1,17 @@
+applicability: {}
+description: Average global efficiency of subgraphs induced by each node's 
+  neighborhood; local fault tolerance proxy.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000063--local-efficiency
+maturity_level: L2
+name: Local efficiency
+scale_level: meso
+slug: local-efficiency
+status: bootstrap-stub
+value_type: continuous

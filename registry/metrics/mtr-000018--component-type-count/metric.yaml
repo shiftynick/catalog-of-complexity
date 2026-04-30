@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of distinct component classes.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000018--component-type-count
+maturity_level: L1
+name: Component type count
+scale_level: micro
+slug: component-type-count
+status: bootstrap-stub
+value_type: discrete

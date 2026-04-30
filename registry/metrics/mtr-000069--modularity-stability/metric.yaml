@@ -1,0 +1,17 @@
+applicability: {}
+description: Whether community partitions persist across time or perturbation; 
+  bootstrap-resampling agreement.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000069--modularity-stability
+maturity_level: L2
+name: Modularity stability
+scale_level: meso
+slug: modularity-stability
+status: bootstrap-stub
+value_type: continuous

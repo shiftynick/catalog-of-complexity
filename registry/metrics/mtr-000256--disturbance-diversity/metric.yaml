@@ -1,0 +1,16 @@
+applicability: {}
+description: Variety of distinct shock types.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000256--disturbance-diversity
+maturity_level: L1
+name: Disturbance diversity
+scale_level: macro
+slug: disturbance-diversity
+status: bootstrap-stub
+value_type: ordinal

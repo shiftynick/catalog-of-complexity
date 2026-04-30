@@ -1,0 +1,17 @@
+applicability: {}
+description: Robustness to loss of hubs or keystone nodes.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000208--targeted-attack-robustness
+maturity_level: L2
+name: Targeted attack robustness
+scale_level: macro
+slug: targeted-attack-robustness
+status: bootstrap-stub
+value_type: continuous

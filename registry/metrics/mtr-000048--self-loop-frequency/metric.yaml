@@ -1,0 +1,16 @@
+applicability: {}
+description: Fraction of nodes with reflexive (self-) edges.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000048--self-loop-frequency
+maturity_level: L2
+name: Self-loop frequency
+scale_level: meso
+slug: self-loop-frequency
+status: bootstrap-stub
+value_type: continuous

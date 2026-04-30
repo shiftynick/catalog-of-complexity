@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to absorb fluctuations in input or demand without state 
+  change.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000171--buffer-capacity
+maturity_level: L2
+name: Buffer capacity
+scale_level: macro
+slug: buffer-capacity
+status: bootstrap-stub
+value_type: continuous

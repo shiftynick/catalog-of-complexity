@@ -1,0 +1,16 @@
+applicability: {}
+description: Minimum fraction of nodes needed to observe system state.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000119--sensor-node-fraction
+maturity_level: L2
+name: Sensor node fraction
+scale_level: macro
+slug: sensor-node-fraction
+status: bootstrap-stub
+value_type: continuous

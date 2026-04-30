@@ -1,0 +1,17 @@
+applicability: {}
+description: Constraints that matter only in some regimes; activate under 
+  perturbation.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000183--latent-constraint-count
+maturity_level: L0
+name: Latent constraint count
+scale_level: macro
+slug: latent-constraint-count
+status: bootstrap-stub
+value_type: discrete

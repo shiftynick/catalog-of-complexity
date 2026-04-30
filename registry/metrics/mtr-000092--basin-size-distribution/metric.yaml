@@ -1,0 +1,17 @@
+applicability: {}
+description: How much of state space flows to each attractor; equal vs 
+  dominant-attractor patterns.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000092--basin-size-distribution
+maturity_level: L1
+name: Basin size distribution
+scale_level: macro
+slug: basin-size-distribution
+status: bootstrap-stub
+value_type: ordinal

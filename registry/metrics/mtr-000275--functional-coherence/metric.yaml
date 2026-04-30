@@ -1,0 +1,15 @@
+applicability: {}
+description: Degree to which outputs support each other rather than conflict.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000275--functional-coherence
+maturity_level: L0
+name: Functional coherence
+scale_level: macro
+slug: functional-coherence
+status: bootstrap-stub
+value_type: ordinal

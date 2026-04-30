@@ -1,0 +1,16 @@
+applicability: {}
+description: Average time between failures under defined operating conditions.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000284--mean-time-to-failure
+maturity_level: L2
+name: Mean time to failure
+scale_level: macro
+slug: mean-time-to-failure
+status: bootstrap-stub
+value_type: continuous

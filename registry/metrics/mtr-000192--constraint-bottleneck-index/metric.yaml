@@ -1,0 +1,16 @@
+applicability: {}
+description: How much constraints concentrate flow through narrow channels.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000192--constraint-bottleneck-index
+maturity_level: L1
+name: Constraint bottleneck index
+scale_level: macro
+slug: constraint-bottleneck-index
+status: bootstrap-stub
+value_type: continuous

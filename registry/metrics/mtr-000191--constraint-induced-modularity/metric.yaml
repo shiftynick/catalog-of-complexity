@@ -1,0 +1,17 @@
+applicability: {}
+description: Modularity of the system caused by constraint boundaries (vs 
+  intrinsic interaction structure).
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000191--constraint-induced-modularity
+maturity_level: L2
+name: Constraint-induced modularity
+scale_level: meso
+slug: constraint-induced-modularity
+status: bootstrap-stub
+value_type: continuous

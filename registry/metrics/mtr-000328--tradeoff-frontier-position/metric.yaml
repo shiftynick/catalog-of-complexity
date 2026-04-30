@@ -1,0 +1,16 @@
+applicability: {}
+description: Location relative to a Pareto frontier in a chosen 2-objective 
+  subspace.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000328--tradeoff-frontier-position
+maturity_level: L2
+name: Tradeoff frontier position
+scale_level: macro
+slug: tradeoff-frontier-position
+status: bootstrap-stub
+value_type: continuous

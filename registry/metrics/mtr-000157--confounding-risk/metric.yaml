@@ -1,0 +1,17 @@
+applicability: {}
+description: Likelihood of hidden common causes biasing observational inference.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000157--confounding-risk
+maturity_level: L0
+name: Confounding risk
+scale_level: meso
+slug: confounding-risk
+status: bootstrap-stub
+value_type: ordinal

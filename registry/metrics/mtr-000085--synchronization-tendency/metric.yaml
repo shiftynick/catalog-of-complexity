@@ -1,0 +1,17 @@
+applicability: {}
+description: Degree to which coupled components move in phase; Kuramoto order 
+  parameter or similar.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000085--synchronization-tendency
+maturity_level: L2
+name: Synchronization tendency
+scale_level: meso
+slug: synchronization-tendency
+status: bootstrap-stub
+value_type: continuous

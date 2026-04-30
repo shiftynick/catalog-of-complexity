@@ -1,0 +1,17 @@
+applicability: {}
+description: Degree of history-dependence in state transitions; bistability with
+  path-dependent endpoints.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000097--hysteresis
+maturity_level: L1
+name: Hysteresis
+scale_level: macro
+slug: hysteresis
+status: bootstrap-stub
+value_type: ordinal

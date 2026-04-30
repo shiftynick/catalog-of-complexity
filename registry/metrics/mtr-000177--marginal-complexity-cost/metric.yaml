@@ -1,0 +1,17 @@
+applicability: {}
+description: Added cost per added component or relation; sublinear vs 
+  superlinear scaling.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000177--marginal-complexity-cost
+maturity_level: L1
+name: Marginal complexity cost
+scale_level: macro
+slug: marginal-complexity-cost
+status: bootstrap-stub
+value_type: continuous

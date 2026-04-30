@@ -1,0 +1,16 @@
+applicability: {}
+description: Ability to update rules in response to changed conditions.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000245--governance-adaptability
+maturity_level: L0
+name: Governance adaptability
+scale_level: macro
+slug: governance-adaptability
+status: bootstrap-stub
+value_type: ordinal

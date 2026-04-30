@@ -1,0 +1,17 @@
+applicability: {}
+description: Directionality of influence; X-to-Y vs Y-to-X strength imbalance.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000147--causal-asymmetry
+maturity_level: L1
+name: Causal asymmetry
+scale_level: meso
+slug: causal-asymmetry
+status: bootstrap-stub
+value_type: continuous

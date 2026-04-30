@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of explicit rules per unit of activity or per actor.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000234--rule-density
+maturity_level: L2
+name: Rule density
+scale_level: macro
+slug: rule-density
+status: bootstrap-stub
+value_type: continuous

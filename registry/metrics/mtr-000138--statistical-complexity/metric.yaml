@@ -1,0 +1,16 @@
+applicability: {}
+description: Memory needed for optimal prediction; epsilon-machine state count.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000138--statistical-complexity
+maturity_level: L3
+name: Statistical complexity
+scale_level: multi-scale
+slug: statistical-complexity
+status: bootstrap-stub
+value_type: continuous

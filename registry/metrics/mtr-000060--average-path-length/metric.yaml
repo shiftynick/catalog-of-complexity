@@ -1,0 +1,16 @@
+applicability: {}
+description: Mean shortest-path distance between connected node pairs.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000060--average-path-length
+maturity_level: L2
+name: Average path length
+scale_level: meso
+slug: average-path-length
+status: bootstrap-stub
+value_type: continuous

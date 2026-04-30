@@ -1,0 +1,17 @@
+applicability: {}
+description: Disorder shifted from system to environment per unit time; required
+  for self-organization.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000169--entropy-export
+maturity_level: L2
+name: Entropy export
+scale_level: macro
+slug: entropy-export
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Rate of divergence of nearby trajectories; positive values indicate
+  chaos.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000101--lyapunov-exponent
+maturity_level: L3
+name: Lyapunov exponent
+scale_level: macro
+slug: lyapunov-exponent
+status: bootstrap-stub
+value_type: continuous

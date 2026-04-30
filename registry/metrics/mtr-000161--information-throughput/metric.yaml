@@ -1,0 +1,16 @@
+applicability: {}
+description: Bits processed per unit time.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000161--information-throughput
+maturity_level: L2
+name: Information throughput
+scale_level: macro
+slug: information-throughput
+status: bootstrap-stub
+value_type: continuous

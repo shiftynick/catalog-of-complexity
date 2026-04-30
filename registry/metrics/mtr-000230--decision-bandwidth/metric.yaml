@@ -1,0 +1,16 @@
+applicability: {}
+description: Number or complexity of decisions handled per unit time.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000230--decision-bandwidth
+maturity_level: L1
+name: Decision bandwidth
+scale_level: macro
+slug: decision-bandwidth
+status: bootstrap-stub
+value_type: continuous

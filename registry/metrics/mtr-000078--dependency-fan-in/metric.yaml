@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of upstream dependencies a node has, averaged or 
+  distribution.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000078--dependency-fan-in
+maturity_level: L2
+name: Dependency fan-in
+scale_level: meso
+slug: dependency-fan-in
+status: bootstrap-stub
+value_type: discrete

@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to shift work to automated processes.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000311--automation-potential
+maturity_level: L0
+name: Automation potential
+scale_level: macro
+slug: automation-potential
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,16 @@
+applicability: {}
+description: How accurately the system state can be targeted by intervention.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000123--control-precision
+maturity_level: L2
+name: Control precision
+scale_level: macro
+slug: control-precision
+status: bootstrap-stub
+value_type: continuous

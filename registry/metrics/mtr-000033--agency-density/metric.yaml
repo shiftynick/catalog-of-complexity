@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of components with autonomous action capacity. 
+  Distinguishes passive physical systems from strategic ones.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000033--agency-density
+maturity_level: L1
+name: Agency density
+scale_level: micro
+slug: agency-density
+status: bootstrap-stub
+value_type: continuous

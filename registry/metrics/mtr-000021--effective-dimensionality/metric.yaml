@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of dimensions needed to explain system variation, typically 
+  via PCA or manifold learning.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000021--effective-dimensionality
+maturity_level: L2
+name: Effective dimensionality
+scale_level: macro
+slug: effective-dimensionality
+status: bootstrap-stub
+value_type: continuous

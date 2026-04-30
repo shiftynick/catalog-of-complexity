@@ -1,0 +1,18 @@
+applicability: {}
+description: Whether better states are detectable from current state; landscape 
+  ruggedness inverse.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000220--fitness-gradient-clarity
+maturity_level: L0
+name: Fitness gradient clarity
+scale_level: macro
+slug: fitness-gradient-clarity
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of tracked variables required to specify the system's state 
+  for modeling purposes.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000020--state-variable-count
+maturity_level: L1
+name: State variable count
+scale_level: macro
+slug: state-variable-count
+status: bootstrap-stub
+value_type: discrete

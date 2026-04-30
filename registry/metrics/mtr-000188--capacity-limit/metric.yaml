@@ -1,0 +1,16 @@
+applicability: {}
+description: Throughput ceiling for a constrained channel or process.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000188--capacity-limit
+maturity_level: L2
+name: Capacity limit
+scale_level: macro
+slug: capacity-limit
+status: bootstrap-stub
+value_type: continuous

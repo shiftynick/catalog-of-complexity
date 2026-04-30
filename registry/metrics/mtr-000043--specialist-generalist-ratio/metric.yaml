@@ -1,0 +1,16 @@
+applicability: {}
+description: Ratio of narrow-function to broad-function components.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000043--specialist-generalist-ratio
+maturity_level: L1
+name: Specialist-generalist ratio
+scale_level: micro
+slug: specialist-generalist-ratio
+status: bootstrap-stub
+value_type: continuous

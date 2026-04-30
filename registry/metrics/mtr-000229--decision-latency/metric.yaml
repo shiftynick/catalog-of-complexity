@@ -1,0 +1,16 @@
+applicability: {}
+description: Time required to make a decision.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000229--decision-latency
+maturity_level: L2
+name: Decision latency
+scale_level: macro
+slug: decision-latency
+status: bootstrap-stub
+value_type: continuous

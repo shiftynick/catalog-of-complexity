@@ -1,0 +1,16 @@
+applicability: {}
+description: Unused byproducts generated per unit of useful output.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000168--waste-production
+maturity_level: L2
+name: Waste production
+scale_level: macro
+slug: waste-production
+status: bootstrap-stub
+value_type: continuous

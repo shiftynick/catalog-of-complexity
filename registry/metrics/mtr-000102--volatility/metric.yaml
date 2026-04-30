@@ -1,0 +1,17 @@
+applicability: {}
+description: Variance of system state over time; standard deviation of 
+  fluctuations.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000102--volatility
+maturity_level: L2
+name: Volatility
+scale_level: macro
+slug: volatility
+status: bootstrap-stub
+value_type: continuous

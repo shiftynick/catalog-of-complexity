@@ -1,0 +1,16 @@
+applicability: {}
+description: Similarity of two systems' time-series or state-trajectory 
+  behaviors.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000316--dynamic-similarity
+maturity_level: L2
+name: Dynamic similarity
+scale_level: macro
+slug: dynamic-similarity
+status: bootstrap-stub
+value_type: continuous

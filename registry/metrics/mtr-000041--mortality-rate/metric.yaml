@@ -1,0 +1,16 @@
+applicability: {}
+description: Rate of component disappearance.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000041--mortality-rate
+maturity_level: L2
+name: Mortality / attrition rate
+scale_level: micro
+slug: mortality-rate
+status: bootstrap-stub
+value_type: continuous

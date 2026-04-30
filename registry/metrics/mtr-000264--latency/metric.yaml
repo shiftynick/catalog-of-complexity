@@ -1,0 +1,15 @@
+applicability: {}
+description: Time from input to output for a typical operation.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000264--latency
+maturity_level: L2
+name: Latency
+scale_level: macro
+slug: latency
+status: bootstrap-stub
+value_type: continuous

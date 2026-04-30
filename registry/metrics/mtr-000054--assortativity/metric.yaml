@@ -1,0 +1,17 @@
+applicability: {}
+description: Whether similar-degree nodes connect to similar-degree nodes 
+  (Pearson correlation of edge endpoints' degrees).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000054--assortativity
+maturity_level: L2
+name: Assortativity
+scale_level: meso
+slug: assortativity
+status: bootstrap-stub
+value_type: continuous

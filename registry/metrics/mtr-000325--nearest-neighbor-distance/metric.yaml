@@ -1,0 +1,15 @@
+applicability: {}
+description: Distance to the most similar other system in the catalog.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000325--nearest-neighbor-distance
+maturity_level: L2
+name: Nearest neighbor distance
+scale_level: macro
+slug: nearest-neighbor-distance
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of levels of constraints over constraints 
+  (meta-constraints).
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000184--constraint-hierarchy-depth
+maturity_level: L0
+name: Constraint hierarchy depth
+scale_level: macro
+slug: constraint-hierarchy-depth
+status: bootstrap-stub
+value_type: discrete

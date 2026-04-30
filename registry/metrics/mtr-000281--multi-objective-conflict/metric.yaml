@@ -1,0 +1,15 @@
+applicability: {}
+description: Tension among the system's multiple functions.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000281--multi-objective-conflict
+maturity_level: L0
+name: Multi-objective conflict
+scale_level: macro
+slug: multi-objective-conflict
+status: bootstrap-stub
+value_type: ordinal

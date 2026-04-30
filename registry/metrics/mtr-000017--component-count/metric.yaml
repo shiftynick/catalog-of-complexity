@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of identifiable parts in the system. Counted at the coarsest
+  meaningful granularity.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000017--component-count
+maturity_level: L2
+name: Component count
+scale_level: micro
+slug: component-count
+status: bootstrap-stub
+value_type: discrete

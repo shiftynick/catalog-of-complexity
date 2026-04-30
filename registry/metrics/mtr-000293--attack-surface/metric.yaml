@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of exploitable vulnerabilities or interfaces accessible to 
+  an adversary.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000293--attack-surface
+maturity_level: L1
+name: Attack surface
+scale_level: macro
+slug: attack-surface
+status: bootstrap-stub
+value_type: discrete

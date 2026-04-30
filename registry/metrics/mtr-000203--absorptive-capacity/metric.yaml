@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to absorb disturbance without changing regime.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000203--absorptive-capacity
+maturity_level: L2
+name: Absorptive capacity
+scale_level: macro
+slug: absorptive-capacity
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Predictive accuracy retained after compression; key target for 
+  causal-emergence analysis.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000145--predictive-compression-gain
+maturity_level: L3
+name: Predictive compression gain
+scale_level: multi-scale
+slug: predictive-compression-gain
+status: bootstrap-stub
+value_type: continuous

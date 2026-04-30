@@ -1,0 +1,16 @@
+applicability: {}
+description: Range of environments under which the system can operate.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000257--niche-breadth
+maturity_level: L1
+name: Niche breadth
+scale_level: macro
+slug: niche-breadth
+status: bootstrap-stub
+value_type: ordinal

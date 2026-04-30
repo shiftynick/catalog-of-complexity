@@ -1,0 +1,17 @@
+applicability: {}
+description: Likelihood that the system is too optimized for past conditions to 
+  handle novelty.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000291--overfitting-risk
+maturity_level: L0
+name: Overfitting risk
+scale_level: macro
+slug: overfitting-risk
+status: bootstrap-stub
+value_type: ordinal

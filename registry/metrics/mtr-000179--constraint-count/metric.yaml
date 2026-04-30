@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of active constraints on the system's behavior.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000179--constraint-count
+maturity_level: L1
+name: Constraint count
+scale_level: macro
+slug: constraint-count
+status: bootstrap-stub
+value_type: discrete

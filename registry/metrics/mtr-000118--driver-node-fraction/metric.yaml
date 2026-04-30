@@ -1,0 +1,17 @@
+applicability: {}
+description: Minimum fraction of nodes needed to steer system dynamics 
+  (Liu-Slotine-Barabasi controllability).
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000118--driver-node-fraction
+maturity_level: L2
+name: Driver node fraction
+scale_level: macro
+slug: driver-node-fraction
+status: bootstrap-stub
+value_type: continuous

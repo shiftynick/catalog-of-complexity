@@ -1,0 +1,16 @@
+applicability: {}
+description: Stability of resource supply; coefficient of variation.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000250--resource-variability
+maturity_level: L2
+name: Resource variability
+scale_level: macro
+slug: resource-variability
+status: bootstrap-stub
+value_type: continuous

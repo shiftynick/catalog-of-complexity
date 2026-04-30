@@ -1,0 +1,16 @@
+applicability: {}
+description: Penalty incurred for exceeding a constraint.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000189--constraint-violation-cost
+maturity_level: L1
+name: Constraint violation cost
+scale_level: macro
+slug: constraint-violation-cost
+status: bootstrap-stub
+value_type: continuous

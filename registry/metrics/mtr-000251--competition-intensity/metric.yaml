@@ -1,0 +1,16 @@
+applicability: {}
+description: Strength of rival systems competing for shared resources.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000251--competition-intensity
+maturity_level: L1
+name: Competition intensity
+scale_level: macro
+slug: competition-intensity
+status: bootstrap-stub
+value_type: ordinal

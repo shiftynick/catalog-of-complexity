@@ -1,0 +1,17 @@
+applicability: {}
+description: Difference in outcome under alternate counterfactual conditions.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000153--counterfactual-sensitivity
+maturity_level: L2
+name: Counterfactual sensitivity
+scale_level: meso
+slug: counterfactual-sensitivity
+status: bootstrap-stub
+value_type: continuous

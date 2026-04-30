@@ -1,0 +1,16 @@
+applicability: {}
+description: Shared invariant behavior class (e.g. Ising 3D, KPZ); from §17 of 
+  the discovery framework.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000327--universality-class
+maturity_level: L1
+name: Universality class
+scale_level: macro
+slug: universality-class
+status: bootstrap-stub
+value_type: categorical

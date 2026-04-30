@@ -1,0 +1,17 @@
+applicability: {}
+description: Strength of influence between hierarchical levels (0 = independent 
+  levels; 5 = tightly coupled).
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000027--cross-scale-coupling
+maturity_level: L1
+name: Cross-scale coupling
+scale_level: multi-scale
+slug: cross-scale-coupling
+status: bootstrap-stub
+value_type: ordinal

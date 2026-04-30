@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to localize failure; prevents propagation.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000209--cascade-containment
+maturity_level: L1
+name: Cascade containment
+scale_level: macro
+slug: cascade-containment
+status: bootstrap-stub
+value_type: ordinal

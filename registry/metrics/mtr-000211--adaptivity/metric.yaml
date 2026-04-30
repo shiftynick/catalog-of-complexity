@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to change behavior in response to environment.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000211--adaptivity
+maturity_level: L1
+name: Adaptivity
+scale_level: macro
+slug: adaptivity
+status: bootstrap-stub
+value_type: ordinal

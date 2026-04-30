@@ -1,0 +1,17 @@
+applicability: {}
+description: 'Multiple semi-independent control centers; canonical example: federalism,
+  commons governance.'
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000227--polycentricity
+maturity_level: L1
+name: Polycentricity
+scale_level: macro
+slug: polycentricity
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Backup components, paths, or functions available.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000200--redundancy
+maturity_level: L1
+name: Redundancy
+scale_level: macro
+slug: redundancy
+status: bootstrap-stub
+value_type: ordinal

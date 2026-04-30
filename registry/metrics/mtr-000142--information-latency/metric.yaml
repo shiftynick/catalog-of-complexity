@@ -1,0 +1,16 @@
+applicability: {}
+description: Delay in information propagation across the system.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000142--information-latency
+maturity_level: L2
+name: Information latency
+scale_level: multi-scale
+slug: information-latency
+status: bootstrap-stub
+value_type: continuous

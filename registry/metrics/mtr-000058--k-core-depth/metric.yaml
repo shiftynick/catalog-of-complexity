@@ -1,0 +1,17 @@
+applicability: {}
+description: Maximum k for which a non-empty k-core exists; measures structural 
+  cohesion.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000058--k-core-depth
+maturity_level: L2
+name: k-core depth
+scale_level: meso
+slug: k-core-depth
+status: bootstrap-stub
+value_type: discrete

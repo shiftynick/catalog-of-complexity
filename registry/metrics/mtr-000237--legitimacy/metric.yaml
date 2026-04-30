@@ -1,0 +1,16 @@
+applicability: {}
+description: Acceptance of governance by participants.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000237--legitimacy
+maturity_level: L0
+name: Legitimacy
+scale_level: macro
+slug: legitimacy
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,15 @@
+applicability: {}
+description: Benefit minus cost or harm; can be negative.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000280--net-utility
+maturity_level: L1
+name: Net utility
+scale_level: macro
+slug: net-utility
+status: bootstrap-stub
+value_type: continuous

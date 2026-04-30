@@ -1,0 +1,17 @@
+applicability: {}
+description: How much past state helps predict future state; per-component 
+  memory contribution.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000133--active-information-storage
+maturity_level: L3
+name: Active information storage
+scale_level: multi-scale
+slug: active-information-storage
+status: bootstrap-stub
+value_type: continuous

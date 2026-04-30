@@ -1,0 +1,16 @@
+applicability: {}
+description: Distribution of decision power; complement of centralization.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000226--decentralization
+maturity_level: L1
+name: Decentralization
+scale_level: macro
+slug: decentralization
+status: bootstrap-stub
+value_type: continuous

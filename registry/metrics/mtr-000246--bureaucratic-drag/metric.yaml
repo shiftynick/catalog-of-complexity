@@ -1,0 +1,17 @@
+applicability: {}
+description: Delay or cost introduced by the governance layer relative to 
+  throughput.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000246--bureaucratic-drag
+maturity_level: L1
+name: Bureaucratic drag
+scale_level: macro
+slug: bureaucratic-drag
+status: bootstrap-stub
+value_type: continuous

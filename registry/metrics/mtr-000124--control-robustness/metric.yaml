@@ -1,0 +1,16 @@
+applicability: {}
+description: Whether control still works under noise or failure.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000124--control-robustness
+maturity_level: L2
+name: Control robustness
+scale_level: macro
+slug: control-robustness
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of confirmed causal links among components.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000146--causal-edge-count
+maturity_level: L1
+name: Causal edge count
+scale_level: meso
+slug: causal-edge-count
+status: bootstrap-stub
+value_type: discrete

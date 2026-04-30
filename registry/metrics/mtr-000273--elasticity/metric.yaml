@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to adjust capacity in response to changing demand.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000273--elasticity
+maturity_level: L1
+name: Elasticity
+scale_level: macro
+slug: elasticity
+status: bootstrap-stub
+value_type: ordinal

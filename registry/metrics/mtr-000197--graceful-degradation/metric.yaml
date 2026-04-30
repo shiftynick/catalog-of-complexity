@@ -1,0 +1,18 @@
+applicability: {}
+description: Whether failure is gradual versus abrupt; high values = gradual, 
+  low = cliff-edge.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000197--graceful-degradation
+maturity_level: L1
+name: Graceful degradation
+scale_level: macro
+slug: graceful-degradation
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of pre-disturbance function restored.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000195--recovery-completeness
+maturity_level: L2
+name: Recovery completeness
+scale_level: macro
+slug: recovery-completeness
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,16 @@
+applicability: {}
+description: Ability to scale up; may differ from `scalability` (which is 
+  realized) by capturing latent capacity.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000297--expansion-potential
+maturity_level: L0
+name: Expansion potential
+scale_level: macro
+slug: expansion-potential
+status: bootstrap-stub
+value_type: ordinal

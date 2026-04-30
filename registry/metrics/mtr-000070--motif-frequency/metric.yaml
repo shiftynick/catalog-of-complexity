@@ -1,0 +1,17 @@
+applicability: {}
+description: Frequency of recurring local subgraph patterns (e.g. feedforward 
+  loops, bifans) relative to a null model.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000070--motif-frequency
+maturity_level: L2
+name: Motif frequency
+scale_level: meso
+slug: motif-frequency
+status: bootstrap-stub
+value_type: continuous

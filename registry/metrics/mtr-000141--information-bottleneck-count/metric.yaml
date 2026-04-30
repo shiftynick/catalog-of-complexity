@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of points where information flow is compressed below the 
+  rate at which it is generated.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000141--information-bottleneck-count
+maturity_level: L1
+name: Information bottleneck count
+scale_level: multi-scale
+slug: information-bottleneck-count
+status: bootstrap-stub
+value_type: discrete

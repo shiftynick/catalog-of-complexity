@@ -1,0 +1,16 @@
+applicability: {}
+description: Availability of external partners or mutualisms.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000252--cooperation-availability
+maturity_level: L0
+name: Cooperation availability
+scale_level: macro
+slug: cooperation-availability
+status: bootstrap-stub
+value_type: ordinal

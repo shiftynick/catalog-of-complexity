@@ -1,0 +1,16 @@
+applicability: {}
+description: Ability to trace responsibility for decisions and outcomes.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000238--accountability
+maturity_level: L0
+name: Accountability
+scale_level: macro
+slug: accountability
+status: bootstrap-stub
+value_type: ordinal

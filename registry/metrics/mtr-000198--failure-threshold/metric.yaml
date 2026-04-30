@@ -1,0 +1,17 @@
+applicability: {}
+description: Disturbance level causing collapse or regime shift.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000198--failure-threshold
+maturity_level: L2
+name: Failure threshold
+scale_level: macro
+slug: failure-threshold
+status: bootstrap-stub
+value_type: continuous

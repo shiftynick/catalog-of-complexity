@@ -1,0 +1,15 @@
+applicability: {}
+description: Domain-specific fitness of output to need.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000269--quality
+maturity_level: L1
+name: Quality
+scale_level: macro
+slug: quality
+status: bootstrap-stub
+value_type: ordinal

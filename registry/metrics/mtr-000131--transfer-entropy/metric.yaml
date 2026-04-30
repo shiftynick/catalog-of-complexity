@@ -1,0 +1,17 @@
+applicability: {}
+description: Directed information flow from one variable to another, conditional
+  on the receiver's history.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000131--transfer-entropy
+maturity_level: L3
+name: Transfer entropy
+scale_level: multi-scale
+slug: transfer-entropy
+status: bootstrap-stub
+value_type: continuous

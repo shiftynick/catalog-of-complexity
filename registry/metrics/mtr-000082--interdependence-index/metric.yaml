@@ -1,0 +1,16 @@
+applicability: {}
+description: Composite measure of mutual reliance among components.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000082--interdependence-index
+maturity_level: L1
+name: Interdependence index
+scale_level: meso
+slug: interdependence-index
+status: bootstrap-stub
+value_type: continuous

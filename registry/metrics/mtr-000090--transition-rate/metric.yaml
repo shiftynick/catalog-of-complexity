@@ -1,0 +1,16 @@
+applicability: {}
+description: How quickly the system changes state.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000090--transition-rate
+maturity_level: L2
+name: Transition rate
+scale_level: macro
+slug: transition-rate
+status: bootstrap-stub
+value_type: continuous

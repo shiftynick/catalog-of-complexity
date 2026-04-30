@@ -1,0 +1,17 @@
+applicability: {}
+description: Rate of combining existing modules into new configurations.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000221--recombination-rate
+maturity_level: L1
+name: Recombination rate
+scale_level: macro
+slug: recombination-rate
+status: bootstrap-stub
+value_type: continuous

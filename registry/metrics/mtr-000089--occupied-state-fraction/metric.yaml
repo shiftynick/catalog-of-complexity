@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of possible states actually visited by the system over its
+  observed trajectory.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000089--occupied-state-fraction
+maturity_level: L2
+name: Occupied state fraction
+scale_level: macro
+slug: occupied-state-fraction
+status: bootstrap-stub
+value_type: continuous

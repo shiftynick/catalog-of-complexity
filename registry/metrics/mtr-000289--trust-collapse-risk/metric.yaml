@@ -1,0 +1,16 @@
+applicability: {}
+description: Likelihood that participants stop believing or cooperating.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000289--trust-collapse-risk
+maturity_level: L0
+name: Trust collapse risk
+scale_level: macro
+slug: trust-collapse-risk
+status: bootstrap-stub
+value_type: ordinal

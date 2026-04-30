@@ -1,0 +1,18 @@
+applicability: {}
+description: Multiple components performing the same role; preserves function 
+  under loss.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000201--functional-redundancy
+maturity_level: L2
+name: Functional redundancy
+scale_level: macro
+slug: functional-redundancy
+status: bootstrap-stub
+value_type: continuous

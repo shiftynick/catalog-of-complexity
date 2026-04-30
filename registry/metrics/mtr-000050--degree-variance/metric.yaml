@@ -1,0 +1,17 @@
+applicability: {}
+description: Variance of the degree distribution; high values indicate 
+  hub-and-spoke structure.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000050--degree-variance
+maturity_level: L2
+name: Degree variance
+scale_level: meso
+slug: degree-variance
+status: bootstrap-stub
+value_type: continuous

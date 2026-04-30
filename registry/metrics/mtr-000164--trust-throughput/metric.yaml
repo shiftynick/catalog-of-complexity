@@ -1,0 +1,17 @@
+applicability: {}
+description: Trust required to operate the system; degrades with violation, 
+  replenishes with reliability.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000164--trust-throughput
+maturity_level: L0
+name: Trust throughput
+scale_level: macro
+slug: trust-throughput
+status: bootstrap-stub
+value_type: continuous

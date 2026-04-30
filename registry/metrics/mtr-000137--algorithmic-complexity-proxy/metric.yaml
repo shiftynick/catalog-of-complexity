@@ -1,0 +1,17 @@
+applicability: {}
+description: Compressibility of system description; Lempel-Ziv-style 
+  approximation of Kolmogorov complexity.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000137--algorithmic-complexity-proxy
+maturity_level: L2
+name: Algorithmic complexity proxy
+scale_level: multi-scale
+slug: algorithmic-complexity-proxy
+status: bootstrap-stub
+value_type: continuous

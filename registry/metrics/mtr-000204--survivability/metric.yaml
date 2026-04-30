@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to persist through severe shock.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000204--survivability
+maturity_level: L1
+name: Survivability
+scale_level: macro
+slug: survivability
+status: bootstrap-stub
+value_type: ordinal

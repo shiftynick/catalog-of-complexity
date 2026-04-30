@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to mobilize resources under stress.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000206--resourcefulness
+maturity_level: L0
+name: Resourcefulness
+scale_level: macro
+slug: resourcefulness
+status: bootstrap-stub
+value_type: ordinal

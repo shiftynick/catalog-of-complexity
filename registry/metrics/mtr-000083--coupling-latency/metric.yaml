@@ -1,0 +1,16 @@
+applicability: {}
+description: Delay between cause and effect across a coupled link.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000083--coupling-latency
+maturity_level: L2
+name: Coupling latency
+scale_level: meso
+slug: coupling-latency
+status: bootstrap-stub
+value_type: continuous

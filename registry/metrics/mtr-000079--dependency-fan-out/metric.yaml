@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of downstream dependents a node has.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000079--dependency-fan-out
+maturity_level: L2
+name: Dependency fan-out
+scale_level: meso
+slug: dependency-fan-out
+status: bootstrap-stub
+value_type: discrete

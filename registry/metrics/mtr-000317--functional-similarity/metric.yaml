@@ -1,0 +1,16 @@
+applicability: {}
+description: Similarity of two systems' outputs or functions, regardless of 
+  implementation.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000317--functional-similarity
+maturity_level: L1
+name: Functional similarity
+scale_level: macro
+slug: functional-similarity
+status: bootstrap-stub
+value_type: continuous

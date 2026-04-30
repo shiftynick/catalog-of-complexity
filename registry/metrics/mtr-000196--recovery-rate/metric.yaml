@@ -1,0 +1,17 @@
+applicability: {}
+description: Slope of return to function after disturbance.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000196--recovery-rate
+maturity_level: L2
+name: Recovery rate
+scale_level: macro
+slug: recovery-rate
+status: bootstrap-stub
+value_type: continuous

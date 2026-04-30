@@ -1,0 +1,16 @@
+applicability: {}
+description: Ability to infer internal state from measurable outputs.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000125--observability
+maturity_level: L1
+name: Observability
+scale_level: macro
+slug: observability
+status: bootstrap-stub
+value_type: ordinal

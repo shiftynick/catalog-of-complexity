@@ -1,0 +1,16 @@
+applicability: {}
+description: Time from intervention to observable effect.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000121--intervention-latency
+maturity_level: L2
+name: Intervention latency
+scale_level: macro
+slug: intervention-latency
+status: bootstrap-stub
+value_type: continuous

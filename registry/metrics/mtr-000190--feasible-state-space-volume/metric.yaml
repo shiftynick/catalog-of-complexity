@@ -1,0 +1,16 @@
+applicability: {}
+description: Portion of total state space allowed by active constraints.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000190--feasible-state-space-volume
+maturity_level: L2
+name: Feasible state-space volume
+scale_level: macro
+slug: feasible-state-space-volume
+status: bootstrap-stub
+value_type: continuous

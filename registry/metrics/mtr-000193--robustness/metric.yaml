@@ -1,0 +1,17 @@
+applicability: {}
+description: Ability to maintain function under perturbation.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000193--robustness
+maturity_level: L1
+name: Robustness
+scale_level: macro
+slug: robustness
+status: bootstrap-stub
+value_type: ordinal

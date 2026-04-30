@@ -1,0 +1,17 @@
+applicability: {}
+description: Alternative ways to satisfy a requirement; affects evolvability 
+  under stress.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000187--constraint-substitutability
+maturity_level: L0
+name: Constraint substitutability
+scale_level: macro
+slug: constraint-substitutability
+status: bootstrap-stub
+value_type: ordinal

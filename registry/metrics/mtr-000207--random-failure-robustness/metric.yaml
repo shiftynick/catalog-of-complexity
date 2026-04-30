@@ -1,0 +1,17 @@
+applicability: {}
+description: Robustness to random component loss.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000207--random-failure-robustness
+maturity_level: L2
+name: Random failure robustness
+scale_level: macro
+slug: random-failure-robustness
+status: bootstrap-stub
+value_type: continuous

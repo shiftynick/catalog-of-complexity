@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of components whose removal has outsized effects on system 
+  function.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000042--keystone-component-count
+maturity_level: L1
+name: Keystone component count
+scale_level: meso
+slug: keystone-component-count
+status: bootstrap-stub
+value_type: discrete

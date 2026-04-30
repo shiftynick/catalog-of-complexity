@@ -1,0 +1,15 @@
+applicability: {}
+description: Latent capacity for failure propagation.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000306--cascade-potential
+maturity_level: L0
+name: Cascade potential
+scale_level: macro
+slug: cascade-potential
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Effort required to move the system to a target state from a given 
+  initial state.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000120--control-energy
+maturity_level: L2
+name: Control energy
+scale_level: macro
+slug: control-energy
+status: bootstrap-stub
+value_type: continuous

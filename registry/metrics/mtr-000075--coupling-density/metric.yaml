@@ -1,0 +1,17 @@
+applicability: {}
+description: Fraction of possible influence links that matter dynamically 
+  (distinct from edge density).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000075--coupling-density
+maturity_level: L1
+name: Coupling density
+scale_level: meso
+slug: coupling-density
+status: bootstrap-stub
+value_type: continuous

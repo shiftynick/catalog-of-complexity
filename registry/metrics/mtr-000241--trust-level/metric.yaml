@@ -1,0 +1,16 @@
+applicability: {}
+description: Confidence among components or agents.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000241--trust-level
+maturity_level: L0
+name: Trust level
+scale_level: macro
+slug: trust-level
+status: bootstrap-stub
+value_type: ordinal

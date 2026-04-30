@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to operate effectively in new contexts.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000299--generalization-potential
+maturity_level: L0
+name: Generalization potential
+scale_level: macro
+slug: generalization-potential
+status: bootstrap-stub
+value_type: ordinal

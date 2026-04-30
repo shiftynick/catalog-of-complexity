@@ -1,0 +1,18 @@
+applicability: {}
+description: Average change in outcome caused by a defined intervention 
+  (do-operator semantics).
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000152--intervention-effect-size
+maturity_level: L2
+name: Intervention effect size
+scale_level: meso
+slug: intervention-effect-size
+status: bootstrap-stub
+value_type: continuous

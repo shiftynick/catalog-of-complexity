@@ -1,0 +1,17 @@
+applicability: {}
+description: 'Local triangle density: probability that two neighbors of a node are
+  connected.'
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000065--clustering-coefficient
+maturity_level: L2
+name: Clustering coefficient
+scale_level: meso
+slug: clustering-coefficient
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,15 @@
+applicability: {}
+description: Speed of reaction to demand.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000274--responsiveness
+maturity_level: L2
+name: Responsiveness
+scale_level: macro
+slug: responsiveness
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,16 @@
+applicability: {}
+description: Spread between the system's fastest and slowest relevant processes.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: boundary-scale
+id: mtr-000024--time-scale-diversity
+maturity_level: L1
+name: Time-scale diversity
+scale_level: multi-scale
+slug: time-scale-diversity
+status: bootstrap-stub
+value_type: continuous

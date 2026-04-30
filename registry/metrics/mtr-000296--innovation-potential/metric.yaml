@@ -1,0 +1,15 @@
+applicability: {}
+description: Capacity to generate new viable forms.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000296--innovation-potential
+maturity_level: L0
+name: Innovation potential
+scale_level: macro
+slug: innovation-potential
+status: bootstrap-stub
+value_type: ordinal

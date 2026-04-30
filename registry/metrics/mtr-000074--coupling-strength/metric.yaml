@@ -1,0 +1,17 @@
+applicability: {}
+description: How strongly components affect each other; 0 = independent parts, 5
+  = strong mutual dependence.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000074--coupling-strength
+maturity_level: L1
+name: Coupling strength
+scale_level: meso
+slug: coupling-strength
+status: bootstrap-stub
+value_type: ordinal

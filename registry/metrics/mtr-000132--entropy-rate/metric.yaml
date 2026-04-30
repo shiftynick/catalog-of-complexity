@@ -1,0 +1,16 @@
+applicability: {}
+description: Long-run unpredictability per step of a stochastic process.
+estimation_methods:
+  - direct-computation
+  - estimator-from-empirical-frequencies
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: information
+id: mtr-000132--entropy-rate
+maturity_level: L2
+name: Entropy rate
+scale_level: multi-scale
+slug: entropy-rate
+status: bootstrap-stub
+value_type: continuous

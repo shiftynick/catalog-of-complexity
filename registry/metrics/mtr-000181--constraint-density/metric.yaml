@@ -1,0 +1,16 @@
+applicability: {}
+description: Constraints per component, relation, or process.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000181--constraint-density
+maturity_level: L1
+name: Constraint density
+scale_level: macro
+slug: constraint-density
+status: bootstrap-stub
+value_type: continuous

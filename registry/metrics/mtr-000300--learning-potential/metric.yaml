@@ -1,0 +1,15 @@
+applicability: {}
+description: Capacity to improve over time.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000300--learning-potential
+maturity_level: L0
+name: Learning potential
+scale_level: macro
+slug: learning-potential
+status: bootstrap-stub
+value_type: ordinal

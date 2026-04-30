@@ -1,0 +1,17 @@
+applicability: {}
+description: Number of decision-capable entities (subset of components that can 
+  choose, optimize, or model their environment).
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000032--agent-count
+maturity_level: L2
+name: Agent count
+scale_level: micro
+slug: agent-count
+status: bootstrap-stub
+value_type: discrete

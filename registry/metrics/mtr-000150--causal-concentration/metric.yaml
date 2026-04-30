@@ -1,0 +1,18 @@
+applicability: {}
+description: Whether few causes dominate; analogous to a Gini coefficient over 
+  causal-influence weights.
+estimation_methods:
+  - direct-computation
+  - causal-discovery-algorithm
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: causality
+id: mtr-000150--causal-concentration
+maturity_level: L1
+name: Causal concentration
+scale_level: meso
+slug: causal-concentration
+status: bootstrap-stub
+value_type: continuous

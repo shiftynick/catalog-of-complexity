@@ -1,0 +1,17 @@
+applicability: {}
+description: Speed of improvement from experience.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000212--learning-rate
+maturity_level: L2
+name: Learning rate
+scale_level: macro
+slug: learning-rate
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,16 @@
+applicability: {}
+description: Strength of dependency on the environment.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000259--environmental-coupling
+maturity_level: L1
+name: Environmental coupling
+scale_level: macro
+slug: environmental-coupling
+status: bootstrap-stub
+value_type: ordinal

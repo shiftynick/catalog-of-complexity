@@ -1,0 +1,16 @@
+applicability: {}
+description: Rate of creation of new similar components.
+estimation_methods:
+  - direct-enumeration
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: composition
+id: mtr-000040--reproduction-rate
+maturity_level: L2
+name: Reproduction / replication rate
+scale_level: micro
+slug: reproduction-rate
+status: bootstrap-stub
+value_type: continuous

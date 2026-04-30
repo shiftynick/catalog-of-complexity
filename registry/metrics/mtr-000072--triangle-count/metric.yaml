@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of triangles in the graph.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000072--triangle-count
+maturity_level: L2
+name: Triangle count
+scale_level: meso
+slug: triangle-count
+status: bootstrap-stub
+value_type: discrete

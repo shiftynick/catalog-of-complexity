@@ -1,0 +1,18 @@
+applicability: {}
+description: Ratio of positive to negative loop strength; reinforcing vs 
+  balancing dominance.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000115--feedback-polarity-balance
+maturity_level: L1
+name: Feedback polarity balance
+scale_level: meso
+slug: feedback-polarity-balance
+status: bootstrap-stub
+value_type: continuous

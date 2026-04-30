@@ -1,0 +1,17 @@
+applicability: {}
+description: Mutual vs one-way dependence; 0 = strictly directional, 5 = 
+  perfectly mutual.
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000076--coupling-symmetry
+maturity_level: L1
+name: Coupling symmetry
+scale_level: meso
+slug: coupling-symmetry
+status: bootstrap-stub
+value_type: ordinal

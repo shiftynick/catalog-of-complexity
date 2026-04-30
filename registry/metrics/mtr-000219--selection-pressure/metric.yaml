@@ -1,0 +1,17 @@
+applicability: {}
+description: Strength of filtering among variants.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000219--selection-pressure
+maturity_level: L1
+name: Selection pressure
+scale_level: macro
+slug: selection-pressure
+status: bootstrap-stub
+value_type: ordinal

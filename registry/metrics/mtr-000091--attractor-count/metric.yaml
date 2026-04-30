@@ -1,0 +1,16 @@
+applicability: {}
+description: Number of stable regimes the system can occupy.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000091--attractor-count
+maturity_level: L1
+name: Attractor count
+scale_level: macro
+slug: attractor-count
+status: bootstrap-stub
+value_type: discrete

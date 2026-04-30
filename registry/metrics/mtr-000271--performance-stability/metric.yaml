@@ -1,0 +1,15 @@
+applicability: {}
+description: Variance in output quality over time.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000271--performance-stability
+maturity_level: L2
+name: Stability of performance
+scale_level: macro
+slug: performance-stability
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,15 @@
+applicability: {}
+description: Benefit retained by the system relative to total value created.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000278--value-capture
+maturity_level: L1
+name: Value capture
+scale_level: macro
+slug: value-capture
+status: bootstrap-stub
+value_type: continuous

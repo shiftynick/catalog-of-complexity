@@ -1,0 +1,17 @@
+applicability: {}
+description: Likelihood that the system is dominated by a narrow subset of 
+  agents.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000290--capture-risk
+maturity_level: L0
+name: Capture risk
+scale_level: macro
+slug: capture-risk
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to simplify without major loss of function.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000298--compression-potential
+maturity_level: L0
+name: Compression potential
+scale_level: macro
+slug: compression-potential
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,17 @@
+applicability: {}
+description: Whether constraints conflict; 5 = fully compatible, 0 = mutually 
+  exclusive.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000185--constraint-compatibility
+maturity_level: L0
+name: Constraint compatibility
+scale_level: macro
+slug: constraint-compatibility
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,16 @@
+applicability: {}
+description: Cost to restore the system after damage.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000167--repair-cost
+maturity_level: L1
+name: Repair cost
+scale_level: macro
+slug: repair-cost
+status: bootstrap-stub
+value_type: continuous

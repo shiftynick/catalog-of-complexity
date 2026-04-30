@@ -1,0 +1,16 @@
+applicability: {}
+description: Human attention required to operate the system per unit time.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000163--attention-throughput
+maturity_level: L1
+name: Attention throughput
+scale_level: macro
+slug: attention-throughput
+status: bootstrap-stub
+value_type: continuous

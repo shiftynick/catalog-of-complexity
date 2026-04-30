@@ -1,0 +1,17 @@
+applicability: {}
+description: Power-law exponent in cost-vs-size scaling; West-style allometric 
+  scaling.
+estimation_methods:
+  - direct-measurement
+  - derived-from-energy-balance
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: throughput
+id: mtr-000178--scaling-cost-exponent
+maturity_level: L3
+name: Scaling cost exponent
+scale_level: macro
+slug: scaling-cost-exponent
+status: bootstrap-stub
+value_type: continuous

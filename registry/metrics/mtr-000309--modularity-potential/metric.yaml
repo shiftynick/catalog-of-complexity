@@ -1,0 +1,15 @@
+applicability: {}
+description: Ability to decompose into modules without loss of coherence.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000309--modularity-potential
+maturity_level: L0
+name: Modularity potential
+scale_level: macro
+slug: modularity-potential
+status: bootstrap-stub
+value_type: ordinal

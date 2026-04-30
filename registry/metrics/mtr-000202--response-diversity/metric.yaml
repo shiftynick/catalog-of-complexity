@@ -1,0 +1,17 @@
+applicability: {}
+description: Different ways components respond to the same disturbance.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000202--response-diversity
+maturity_level: L1
+name: Response diversity
+scale_level: macro
+slug: response-diversity
+status: bootstrap-stub
+value_type: continuous

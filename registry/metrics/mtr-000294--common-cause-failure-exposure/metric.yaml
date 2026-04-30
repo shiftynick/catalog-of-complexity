@@ -1,0 +1,16 @@
+applicability: {}
+description: Shared dependencies that fail together; correlated risk.
+estimation_methods:
+  - expert-estimate
+  - derived-from-historical-record
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: failure-mode
+id: mtr-000294--common-cause-failure-exposure
+maturity_level: L0
+name: Common-cause failure exposure
+scale_level: macro
+slug: common-cause-failure-exposure
+status: bootstrap-stub
+value_type: ordinal

@@ -1,0 +1,15 @@
+applicability: {}
+description: Performance against stated objective.
+estimation_methods:
+  - direct-measurement
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: function-performance
+id: mtr-000276--goal-achievement
+maturity_level: L1
+name: Goal achievement
+scale_level: macro
+slug: goal-achievement
+status: bootstrap-stub
+value_type: continuous

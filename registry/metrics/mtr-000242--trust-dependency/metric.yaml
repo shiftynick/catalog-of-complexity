@@ -1,0 +1,16 @@
+applicability: {}
+description: Degree the system requires trust to function.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000242--trust-dependency
+maturity_level: L0
+name: Trust dependency
+scale_level: macro
+slug: trust-dependency
+status: bootstrap-stub
+value_type: ordinal

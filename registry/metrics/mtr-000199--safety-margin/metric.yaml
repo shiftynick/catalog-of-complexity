@@ -1,0 +1,17 @@
+applicability: {}
+description: Distance from current operating point to failure threshold.
+estimation_methods:
+  - direct-measurement
+  - derived-from-recovery-curve
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: resilience
+id: mtr-000199--safety-margin
+maturity_level: L2
+name: Safety margin
+scale_level: macro
+slug: safety-margin
+status: bootstrap-stub
+value_type: continuous

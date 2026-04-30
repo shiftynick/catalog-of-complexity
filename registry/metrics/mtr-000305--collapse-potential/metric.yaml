@@ -1,0 +1,15 @@
+applicability: {}
+description: Latent instability; how close the system is to a regime shift.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000305--collapse-potential
+maturity_level: L0
+name: Collapse potential
+scale_level: macro
+slug: collapse-potential
+status: bootstrap-stub
+value_type: ordinal

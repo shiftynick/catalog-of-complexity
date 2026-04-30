@@ -1,0 +1,16 @@
+applicability: {}
+description: Constraints currently limiting behavior at this snapshot.
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000182--binding-constraint-count
+maturity_level: L1
+name: Binding constraint count
+scale_level: macro
+slug: binding-constraint-count
+status: bootstrap-stub
+value_type: discrete

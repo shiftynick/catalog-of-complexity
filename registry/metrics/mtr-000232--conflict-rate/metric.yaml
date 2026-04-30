@@ -1,0 +1,16 @@
+applicability: {}
+description: Frequency of incompatible actions or goals.
+estimation_methods:
+  - expert-estimate
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: governance
+id: mtr-000232--conflict-rate
+maturity_level: L2
+name: Conflict rate
+scale_level: macro
+slug: conflict-rate
+status: bootstrap-stub
+value_type: continuous

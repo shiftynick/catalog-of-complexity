@@ -1,0 +1,16 @@
+applicability: {}
+description: Small interventions that produce large effects; key for 
+  intervention design.
+estimation_methods:
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: potentials
+id: mtr-000304--control-leverage
+maturity_level: L0
+name: Control leverage
+scale_level: macro
+slug: control-leverage
+status: bootstrap-stub
+value_type: ordinal

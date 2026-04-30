@@ -1,0 +1,16 @@
+applicability: {}
+description: Availability of required inputs.
+estimation_methods:
+  - direct-measurement
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: environment
+id: mtr-000249--resource-abundance
+maturity_level: L1
+name: Resource abundance
+scale_level: macro
+slug: resource-abundance
+status: bootstrap-stub
+value_type: ordinal

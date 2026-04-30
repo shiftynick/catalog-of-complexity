@@ -1,0 +1,17 @@
+applicability: {}
+description: Persistence of previous state; high autocorrelation often signals 
+  critical slowing down.
+estimation_methods:
+  - direct-measurement
+  - derived-from-time-series
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: dynamics
+id: mtr-000103--autocorrelation
+maturity_level: L2
+name: Autocorrelation
+scale_level: macro
+slug: autocorrelation
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,17 @@
+applicability: {}
+description: 'Diversity of constraint kinds: physical, legal, social, computational,
+  energetic, institutional.'
+estimation_methods:
+  - expert-estimate
+  - derived-from-utilization-data
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: constraints
+id: mtr-000180--constraint-type-diversity
+maturity_level: L1
+name: Constraint type diversity
+scale_level: macro
+slug: constraint-type-diversity
+status: bootstrap-stub
+value_type: continuous

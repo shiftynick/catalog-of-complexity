@@ -1,0 +1,17 @@
+applicability: {}
+description: Ratio of clustering coefficient to path length, normalized against 
+  random-graph baseline (Watts-Strogatz).
+estimation_methods:
+  - direct-computation
+  - inferred-network
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: topology
+id: mtr-000064--small-world-coefficient
+maturity_level: L2
+name: Small-world coefficient
+scale_level: meso
+slug: small-world-coefficient
+status: bootstrap-stub
+value_type: continuous

@@ -1,0 +1,16 @@
+applicability: {}
+description: System type or class assigned by unsupervised clustering of the 
+  catalog's metric matrix.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000324--cluster-membership
+maturity_level: L2
+name: Cluster membership
+scale_level: macro
+slug: cluster-membership
+status: bootstrap-stub
+value_type: categorical

@@ -1,0 +1,17 @@
+applicability: {}
+description: Rate of random variation in the system's components or strategies.
+estimation_methods:
+  - direct-enumeration
+  - causal-loop-diagram-extraction
+  - expert-estimate
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: feedback-adaptation
+id: mtr-000218--mutation-rate
+maturity_level: L2
+name: Mutation rate
+scale_level: macro
+slug: mutation-rate
+status: bootstrap-stub
+value_type: continuous

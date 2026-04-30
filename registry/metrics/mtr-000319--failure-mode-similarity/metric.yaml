@@ -1,0 +1,16 @@
+applicability: {}
+description: Similarity of two systems' failure-mode profiles; key for 
+  cross-domain analogy by breakdown style.
+estimation_methods:
+  - direct-computation
+evidence_requirements:
+  minimum_source_count: 1
+  review_required: true
+family: comparative
+id: mtr-000319--failure-mode-similarity
+maturity_level: L1
+name: Failure mode similarity
+scale_level: macro
+slug: failure-mode-similarity
+status: bootstrap-stub
+value_type: continuous
