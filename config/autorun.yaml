@@ -1,34 +1,32 @@
-# Autonomous-run configuration.
+# Autonomous-run configuration — sweep model.
 #
 # Read by prompts/autonomous-run.md at the start of each scheduled
 # invocation. Edit this file (and commit) to change behavior. Changes
-# take effect on the next routine fire — no env vars, no Claude
-# Desktop / Codex desktop reconfiguration needed.
+# take effect on the next routine fire.
 
-# Master switch. When `true`, prompts/autonomous-run.md exits
-# immediately on entry without touching the queue, the registry, or
-# git. Use this while large hand-curation passes (schema v0.2
-# rollout, bulk bootstrap) are in flight so cron ticks don't race
-# the curator's edits. Flip back to `false` once the curated state
-# is committed and the queue is reseeded.
-#
-# Set 2026-04-29 during the framework v0.2 + bulk catalog bootstrap
-# (see docs/framework/, config/bootstrap_seed.yaml). Re-enable once
-# the seed lands and the phase switch (config/phase.yaml) reads
-# `metrics-fill`.
+# Master switch. When `true`, every scheduled invocation exits
+# immediately on entry — no preflight, no queue work, no git activity.
+# Use it to pause the scheduler during large hand-edits.
 disabled: true
 
-# How many Branch-A iterations a single scheduled invocation may run
-# before exiting. Each iteration is one full task (lease → execute →
-# retro → commit), so this directly controls catalog growth velocity
-# per cron tick. Higher = more tasks per cron tick + more tokens per
-# tick + faster wall-clock progress. Lower = cheaper per tick + slower
-# progress.
+# How many tasks one cron tick may emit + execute. Under the sweep
+# model each task is a single subject (one system or one metric) and
+# runs ~10-60 minutes wall-clock. 1 keeps each tick predictable; raise
+# to 2-3 if you want to drain the worklist faster and the scheduler
+# fires often enough to amortize context-loading.
 #
-# Clamped to [1, 10]. Set to 1 for the original single-task-per-tick
-# behavior. The batched mode amortizes the fixed cost of loading
-# AGENTS.md, the active skill, schemas, and taxonomy into the agent's
-# context — tasks 2..N within the same invocation pay near-zero
-# context-load cost, so batching is roughly token-cost-superlinear,
-# not linear: 5 tasks ≈ 2-3× the tokens of 1 task, not 5×.
-max_tasks_per_run: 5
+# Clamped to [1, 10].
+max_tasks_per_run: 1
+
+# Per-phase per-iteration soft budget (minutes wall-clock). The
+# autorun signals `status: blocked` with reason `budget_exceeded`
+# if a task takes longer; the next tick retries on the same subject
+# (observations are append-only, so partial work isn't wasted).
+#
+# matrix-fill is longer because fill-system-metrics produces 50-100
+# observations per task in one integrated pass.
+budgets:
+  system-profiling:    {soft_minutes: 30}
+  metric-definition:   {soft_minutes: 30}
+  matrix-fill:         {soft_minutes: 60}
+  analysis:            {soft_minutes: 60}

@@ -1,51 +1,98 @@
-# Project phase switch.
+# Project phase switch — sweep autorun model.
 #
-# Read by skills/plan-backlog/SKILL.md and prompts/autonomous-run.md
-# to gate which tiers of work fire on each scheduled invocation.
-# The catalog goes through clearly distinct phases of work; plan-backlog
-# tiers that make sense in one phase create noise in another.
+# Read by prompts/autonomous-run.md and src/coc/phase.py at the start
+# of every cron tick. Edit `current` and commit to change behavior;
+# alternatively, leave `auto_advance: true` and the autorun will flip
+# `current` automatically when each phase's worklist drains to zero.
 #
-# Edit `current` and commit to change behavior. Changes take effect on
-# the next autorun (assuming `disabled: false` in config/autorun.yaml).
+# Phase semantics (sequential left-to-right; one primary task type each):
 #
-# Phase semantics:
+#   system-profiling   — walk every bootstrap-stub system (P0-first then
+#                        round-robin across system-domains within each
+#                        priority bucket); upgrade each to status:
+#                        candidate via profile-system. Done when no
+#                        system has status: bootstrap-stub.
 #
-#   bootstrap     — catalog body is being seeded in bulk. plan-backlog
-#                   stays mostly idle; a `bootstrap` script under
-#                   scripts/ writes registry/systems/, registry/metrics/
-#                   from config/bootstrap_seed.yaml. Source debt and
-#                   review debt may still fire to keep the literature
-#                   side coherent. Discovery (scout-systems, coverage
-#                   expansion) is OFF.
+#   metric-definition  — walk every bootstrap-stub metric (L2 first then
+#                        L1 / L0 / L3+); upgrade each to status:
+#                        proposed (or canonical) via define-metrics.
+#                        Done when no metric has status: bootstrap-stub.
 #
-#   metrics-fill  — the catalog body exists; fill the system x metric
-#                   matrix. plan-backlog Tier 2 (observation debt)
-#                   becomes primary. Discovery is OFF — no new systems
-#                   are scouted; no new metrics are proposed beyond
-#                   stub upgrades.
+#   matrix-fill        — walk every candidate-or-profiled system and run
+#                        fill-system-metrics on it (one task per system,
+#                        all applicable metrics in one integrated pass).
+#                        Open-ended; advanced manually to `analysis`
+#                        when matrix density justifies cross-system
+#                        analysis.
 #
-#   discovery     — original mode, where scout-systems and coverage
-#                   expansion may extend the catalog. plan-backlog
-#                   Tiers 0/0.5/5 fire normally.
+#   analysis           — analyze-archetypes / clustering / hypothesis
+#                        generation. Human-promoted only; not
+#                        auto-dispatched by the worklist resolver.
 #
-#   analysis      — observation matrix is dense enough to support
-#                   analyze-archetypes and downstream. catalog growth
-#                   is paused; the queue carries primarily
-#                   analyze-archetypes and review-records tasks.
-current: bootstrap
+# Each cron tick also runs side channels (acquire-source, review-records,
+# apply-retros) opportunistically with phase-specific caps.
+current: system-profiling
 
-# Tier gating. When a tier's `phases` list does not contain `current`,
-# plan-backlog skips that tier's gap check entirely. The order of
-# tier evaluation in plan-backlog itself is unchanged; only firing
-# is gated.
-#
-# Tier numbers match skills/plan-backlog/SKILL.md "gap heuristic" steps.
-tier_gating:
-  "0":     [discovery]                           # bootstrap cold-start scout
-  "0.5":   [discovery]                           # priority seed
-  "0.75":  [bootstrap, metrics-fill, discovery]  # source debt
-  "1":     [bootstrap, metrics-fill, discovery, analysis]  # review debt
-  "2":     [metrics-fill, discovery]             # observation debt
-  "3":     [bootstrap, metrics-fill, discovery]  # profile debt (stub upgrade)
-  "4":     [metrics-fill, discovery]             # metric-rubric debt
-  "5":     [discovery]                           # coverage expansion
+# Auto-advance: flip `current` when the active phase's completion
+# predicate is satisfied. Disabled if false (manual edits only).
+auto_advance: true
+
+# Mapping from phase to the primary task type that fires under it.
+# autonomous-run.md uses this to dispatch tasks via the worklist
+# resolver. `analysis` is null because analyze-archetypes is
+# human-promoted, not auto-dispatched.
+phase_to_task_type:
+  system-profiling:  profile-system
+  metric-definition: define-metrics
+  matrix-fill:       fill-system-metrics
+  analysis:          null
+
+# Per-tick side-channel caps. Side channels run alongside the active
+# phase's primary type and are bounded so they can't flood. The
+# matrix-fill phase raises acquire-source to 10 because
+# fill-system-metrics emits many acquire-source manifests as it
+# encounters cited prefixed refs.
+side_channels:
+  system-profiling:
+    acquire-source: 3
+    review-records: 1
+  metric-definition:
+    acquire-source: 5
+    review-records: 1
+  matrix-fill:
+    acquire-source: 10
+    review-records: 1
+  analysis:
+    acquire-source: 3
+    review-records: 1
+
+# Auto-advance triggers per phase. `next: null` means terminal /
+# human-advanced. Predicates in `when` map to functions in src/coc/phase.py:
+#   zero_systems_at_bootstrap_stub
+#   zero_metrics_at_bootstrap_stub
+#   never
+phase_advance:
+  system-profiling:
+    next: metric-definition
+    when: zero_systems_at_bootstrap_stub
+  metric-definition:
+    next: matrix-fill
+    when: zero_metrics_at_bootstrap_stub
+  matrix-fill:
+    next: null
+    when: never
+  analysis:
+    next: null
+    when: never
+
+# Ordering policy for the worklist resolver. Documented here so curators
+# can see and override; the resolver in src/coc/worklist.py implements
+# these policies directly.
+worklist_ordering:
+  system_phases:
+    primary: priority         # P0 -> P1 -> P2 -> P3 -> C -> unset
+    secondary: domain-interleave  # round-robin across system-domains
+  metric_phase:
+    primary: maturity-level   # L2 -> L1 -> L0 -> L3 -> L4 -> L5
+    secondary: family
+    tertiary: slug

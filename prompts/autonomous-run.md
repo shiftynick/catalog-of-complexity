@@ -1,38 +1,29 @@
-# Autonomous Run
+# Autonomous Run — Sweep Model
 
 This is the master prompt fired on a schedule by Claude Code and OpenAI Codex.
-It is the **outer** prompt — it selects tasks, delegates execution via the
-task envelope, and runs a retrospective after each task.
+It walks a known finite worklist subject-by-subject under the active project
+phase, emitting one (or a few) tasks per cron tick, executing them through
+the task envelope, and auto-advancing the phase when each phase's worklist
+drains to zero.
 
-A single invocation of this prompt may execute up to
-**`max_tasks_per_run`** consecutive Branch-A iterations. Read the value
-from [config/autorun.yaml](../config/autorun.yaml) at the start of the
-invocation:
+The previous "Branch A loop / Branch B plan-backlog" model is gone.
+Replaced by:
 
-```bash
-uv run python -c "import yaml; from pathlib import Path; p = Path('config/autorun.yaml'); cfg = yaml.safe_load(p.read_text(encoding='utf-8')) if p.exists() else {}; n = int(cfg.get('max_tasks_per_run', 5) or 5); print(max(1, min(10, n)))"
-```
+  1. Master switch + preflight (unchanged)
+  2. **Worklist resolver** — read active phase, ask
+     `coc.worklist.next_worklist_items(phase, k)`, emit task manifests
+     via `coc.dispatch.emit_phase_task()`, promote to ready/
+  3. Branch A loop — lease, execute via task envelope, complete, retro,
+     commit (per-task semantics unchanged)
+  4. **Phase completion check** — after the last commit, ask
+     `coc.phase.phase_completion_check()`; if a next phase exists,
+     `advance_phase()` and append a `phase.advance` event in the same
+     commit
 
-Default 5 if the file is missing or the field is absent; clamp to
-[1, 10]. The `COC_max_tasks_per_run` environment variable, if set,
-takes precedence over the config-file value (useful for ad-hoc dev
-runs); in scheduled production routines (Claude Desktop / Codex
-desktop scheduler) the env var is unavailable and the config file is
-the only knob.
-
-The motivation for batching is amortization of fixed context-loading
-cost: AGENTS.md, the active skill SKILL.md, schemas, and taxonomy are
-loaded once into the agent's working context and reused across
-iterations within the same invocation, so per-task token cost drops
-sharply after the first.
-
-Each iteration is a **complete unit**: lease one task, execute it via the
-task envelope, write `run.json`, run the retrospective, and commit
-locally. Iterations are sequential, not parallel — parallelism across
-*invocations* is still fine; parallelism *within* an iteration is still
-not. The only thing that changes versus the single-task model is that the
-outer loop continues to the next iteration when one finishes cleanly,
-rather than exiting.
+`max_tasks_per_run` is read from `config/autorun.yaml` (default 1 under
+the sweep model — each task is a single subject with potentially many
+sub-units inside it; e.g. fill-system-metrics emits 50–100 observations
+per task).
 
 ---
 
@@ -45,27 +36,35 @@ You are beginning a scheduled autonomous run. You must:
    write a single event of kind `run.skipped` with reason
    `autorun_disabled` and stop. Do **not** validate, advance the queue,
    touch git, or call any skill. The flag exists so curators running
-   large hand-edits (schema rollouts, bulk bootstraps) can pause the
-   scheduler without reconfiguring it.
+   large hand-edits (schema rollouts, bulk bootstraps, phase-advance
+   migrations) can pause the scheduler without reconfiguring it.
 1. Read and obey [AGENTS.md](../AGENTS.md). Its "Non-negotiables", "Quality
    bar", and "Sensitive actions" sections govern everything below.
 2. Run preflight (§Preflight) **once**. Then resolve `max_tasks_per_run`
-   by reading [config/autorun.yaml](../config/autorun.yaml) (default 5,
+   by reading [config/autorun.yaml](../config/autorun.yaml) (default 1,
    clamp [1, 10]). `$COC_max_tasks_per_run` overrides the config file
    when set.
-3. Execute up to `max_tasks_per_run` Branch-A iterations (§Branches). Each
-   iteration is one task: lease → execute via task envelope → write
-   `run.json` → retrospective → commit. Move to the next iteration only
-   if the previous one ended cleanly *and* the queue still has work *and*
-   the per-invocation budget hasn't been exceeded (§Budget). The first
-   iteration that hits an empty `coc next` triggers Branch B (at most
-   once per invocation), after which the invocation exits.
-4. Each iteration's retrospective runs for every terminal state
-   (`done`, `review`, `blocked`, `failed`) until the cadence policy says
-   otherwise.
-5. Commit your changes locally only (`git commit`) **per iteration**. Do
-   not push, open PRs, or modify remotes. A human handles promotion.
-6. Stop when §Stop conditions apply. Do not ask clarifying questions
+3. Run the **Worklist resolver** (§Worklist). It reads the active phase
+   from `config/phase.yaml`, asks the resolver for the next K subjects,
+   and emits one task manifest per subject into `ops/tasks/inbox/`.
+   Promote them to `ready/` (call `coc advance` again or move directly).
+4. Execute up to `max_tasks_per_run` Branch-A iterations (§Branches).
+   Each iteration is one task: lease → execute via task envelope →
+   write `run.json` → retrospective → commit. Move to the next
+   iteration only if the previous one ended cleanly *and* the queue
+   still has work *and* the per-invocation budget hasn't been
+   exceeded (§Budget).
+5. Each iteration's retrospective runs for every terminal state
+   (`done`, `review`, `blocked`, `failed`) until the cadence policy
+   says otherwise (§Retrospective).
+6. After the last iteration's commit, run the **Phase completion check**
+   (§Phase advance). If a next phase exists, flip
+   `config/phase.yaml::current` to it, append a `phase.advance` event,
+   and amend that into a single trailing commit on the run.
+7. Commit your changes locally only (`git commit`) **per iteration**
+   plus optionally one trailing commit for phase advance. Do not push,
+   open PRs, or modify remotes. A human handles promotion.
+8. Stop when §Stop conditions apply. Do not ask clarifying questions
    during the run — an underspecified task resolves to `status: blocked`
    for that iteration only; the next iteration may still proceed.
 
@@ -73,149 +72,177 @@ You are beginning a scheduled autonomous run. You must:
 
 ## Preflight
 
-Before picking a branch, confirm environment health and advance the queue:
+Before the worklist resolver fires, confirm environment health and groom
+the queue:
 
-- `uv run coc validate` exits 0 on the repo as-is. If it already fails, abort
-  this run, write an event of kind `run.aborted` with the failure summary,
-  and do not touch the queue.
-- `git status --porcelain` is clean. If there are uncommitted changes from a
-  previous run, abort with `run.aborted` and note the dirty state — a human
-  must resolve before another autonomous run is safe.
+- `uv run coc validate` exits 0 on the repo as-is. If it already fails,
+  abort this run, write an event of kind `run.aborted` with the failure
+  summary, and do not touch the queue.
+- `git status --porcelain` is clean. If there are uncommitted changes
+  from a previous run, abort with `run.aborted` and note the dirty
+  state — a human must resolve before another autonomous run is safe.
 - `uv run coc advance` — first sweep `blocked/` for any task whose
-  `unblock` condition is now satisfied (`taxonomy-slug-exists` — the
-  named qualified slug resolves in `taxonomy/source/*.yaml`;
-  `task-complete` — the named task is in `done/`). Satisfied tasks are
-  moved `blocked/` → `ready/` with `lease.attempts` reset to 0 and a
-  `task.unblock` event appended. Then auto-promote any eligible `inbox/`
-  tasks to `ready/`. Eligible types: `scout-systems`, `profile-system`,
-  `define-metrics`, `extract-observations`, `review-records`,
-  `apply-retros`, `analyze-archetypes`, `acquire-source`. The command
-  enforces a per-type cap
-  (3 of any one type in `ready/`, with `review-records` tightened to 1
-  so the self-improvement loop can't starve catalog-growth types) so
-  runaway seeding is bounded. Types
-  that stay in `inbox/` awaiting human review: `materialize-warehouse`
-  and `build-release` — these publish artifacts (`warehouse/`,
-  `releases/`) a webUI prune can't easily retract. Everything else —
-  including `review-records` tasks that edit `taxonomy/` or `schemas/` —
-  auto-promotes. The autonomous policy treats the webUI prune workflow
-  plus `coc validate` as the post-hoc review mechanism.
-- **Tier-0.75 source-debt sweep** — execute only the Tier 0.75
-  procedure of [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md):
-  scan `ops/tasks/{inbox,ready,leased,running,blocked}/` for prefixed
-  `source_refs` (`doi:`, `arxiv:`, `url:`, `isbn:`) with no matching
-  `registry/sources/src-*/source.yaml`, emit up to 3 `acquire-source`
-  tasks into `ops/tasks/inbox/` per the skill's idempotency rule
-  (`"Source debt: <ref>."` note prefix) and `unblock` wiring for
-  blocked tasks, then `uv run coc validate ops/tasks/inbox/`. Skip the
-  pass when `len(ops/tasks/inbox/) >= 20` (the skill's default
-  `inbox_cap`). Do not write the skill's per-pass `plan-report` —
-  this run's report carries the summary. A validation failure here
-  aborts the run with `run.aborted` (per the validate-failure rule
-  above); no lease is taken. Running this in preflight (rather than
-  only in Branch B) keeps source-debt remediation cadence independent
-  of queue depth, so blocked profile-system / extract-observations
-  tasks are not stranded while Branch A drains other ready work.
+  `unblock` condition is now satisfied (`taxonomy-slug-exists` —
+  qualified slug resolves; `task-complete` — the named task is in
+  `done/`; `sources-resolved` — every entry in `source_refs` resolves
+  to a registered `src-*`). Satisfied tasks are moved
+  `blocked/` → `ready/` with `lease.attempts` reset to 0 and a
+  `task.unblock` event appended. Then auto-promote any eligible
+  `inbox/` tasks to `ready/` (per-type cap from
+  `coc advance`'s constants).
+- **Tier-0.75 source-debt sweep** — execute the source-debt portion of
+  [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md): scan
+  `ops/tasks/{inbox,ready,leased,running,blocked}/` for prefixed
+  `source_refs` with no matching `registry/sources/src-*/source.yaml`,
+  emit up to N `acquire-source` tasks into `ops/tasks/inbox/` (where
+  N is `coc.phase.side_channel_cap("acquire-source")` for the active
+  phase — 3 for system-profiling/metric-definition, 10 for
+  matrix-fill). Skip the sweep when `len(ops/tasks/inbox/) >= 20`.
 
-Preflight runs **once per invocation**, before any iteration begins. It
-is not re-run between iterations — `coc validate`/`git status` cleanliness
-between iterations is enforced by each iteration's own commit step, and
-`coc advance`/Tier-0.75 sweep at the start of every invocation is
-sufficient to keep the queue groomed across iterations within the same
-invocation (subsequent iterations consume the freshly-promoted ready/
-queue without re-running advance).
+Preflight runs **once per invocation**, before the worklist resolver.
 
-Record all four preflight steps' outputs in the **first iteration's**
-run report `notes`: the `coc validate` result, the `git status`
-cleanliness, the list of promoted task ids from `coc advance`, and the
-list of acquire-source task ids emitted by the Tier-0.75 sweep (or
-`none`). Subsequent iterations' run reports note `"preflight inherited
-from invocation start"` rather than repeating the four checks.
+Record preflight outputs in the **first iteration's** run report
+`notes`: validate result, git cleanliness, list of promoted task ids,
+and the list of acquire-source task ids emitted (or `none`).
+Subsequent iterations note `"preflight inherited from invocation start"`.
+
+---
+
+## Worklist resolver
+
+After preflight (and before the first Branch A iteration), emit fresh
+task manifests for the active phase:
+
+1. Read `config/phase.yaml::current`.
+2. Get the primary task type:
+   `coc.phase.phase_to_task_type(phase)`. If `None` (e.g. `analysis`
+   phase), skip dispatch — the resolver does not auto-seed analysis
+   tasks; humans promote those.
+3. Compute K = `max_tasks_per_run`.
+4. Query `coc.worklist.next_worklist_items(phase, K)` — returns a list
+   of subject ids in priority-then-domain-interleave (system phases) or
+   maturity-level (metric phase) order. May return fewer than K if the
+   worklist is shallower than K (or already drained).
+5. For each subject id, call
+   `coc.dispatch.emit_phase_task(phase, subject_id)`. The dispatcher
+   is **idempotent on (skill, subject)** — if a task is already in flight
+   for the same subject, it returns the existing task id instead of
+   emitting a duplicate. Newly-emitted manifests land in `ops/tasks/inbox/`
+   with `state: inbox`.
+6. After all K dispatches, run `uv run coc advance` once more to
+   promote the new manifests inbox → ready. Their per-type cap is
+   effectively unlimited under the sweep model (the active phase's
+   primary type drives the work; cap throttling applies only to side
+   channels via `side_channels:` in `config/phase.yaml`).
+
+Record in the first iteration's run report `notes`:
+- Active phase
+- Primary task type
+- K subjects requested
+- N tasks emitted (M idempotent skips)
+- Worklist size remaining after dispatch
 
 ---
 
 ## Branches
 
-### Branch A — Per-task iteration (queue non-empty)
+### Branch A — Per-task iteration
 
 Repeat the steps below until `max_tasks_per_run` is hit, or the queue
-empties (in which case Branch B fires once and the invocation exits),
-or a §Stop condition fires.
+empties (in which case the invocation exits — there is no Branch B
+under the sweep model), or a §Stop condition fires.
 
 1. `uv run coc next` — prints the highest-priority ready task id, or
-   exits 1 if the queue is empty. If exit 1: if no Branch-A iteration
-   has run in this invocation, fall through to Branch B; otherwise
-   (already produced ≥1 iteration's worth of work) exit cleanly.
-2. `uv run coc lease <task-id>` — claim it. Atomic move, no retry on
-   contention; if the lease fails, another agent got there first. Re-run
-   `coc next` once; if still contended, abort **this iteration** with
-   `run.aborted` and exit the invocation (do not start a new iteration
-   on a contended queue).
+   exits 1 if the queue is empty. If exit 1: exit the invocation
+   cleanly. (Empty queue post-resolver means worklist is fully drained
+   for this phase; phase advance will be triggered in step 7.)
+2. `uv run coc lease <task-id>` — claim it. Atomic move. If the lease
+   fails, another agent got there first. Re-run `coc next` once; if
+   still contended, abort **this iteration** with `run.aborted` and
+   exit the invocation (do not start a new iteration on a contended
+   queue).
 3. Read [prompts/task-envelope.md](./task-envelope.md). Fill its
-   placeholders from the leased task manifest and execute the envelope's
-   procedure exactly as written. The envelope handles writing the task's
-   outputs, `run.json`, and the terminal `coc complete` call.
+   placeholders from the leased task manifest and execute the
+   envelope's procedure exactly as written. The envelope handles
+   writing the task's outputs, `run.json`, and the terminal
+   `coc complete` call.
 4. Heartbeat at least once per `lease.ttl_minutes / 3` of wall-clock
-   work (so every 30 minutes at the default 90-min TTL):
-   `uv run coc heartbeat <task-id>`. Iterations that finish inside one
-   cadence window may legitimately emit zero heartbeats — `heartbeats:
-   0` in `run.json` is expected for sub-cadence iterations, not an
-   anomaly.
+   work.
 5. On `coc complete`, capture the terminal state for use in the
    retrospective.
 6. Proceed to §Retrospective for this iteration. Then commit (§Local
    commit) for this iteration.
-7. After commit succeeds: increment iteration count. If iteration count
-   < `max_tasks_per_run` and no §Stop condition fires, return to step 1.
-   Otherwise exit the invocation.
+7. After commit succeeds: increment iteration count. If iteration
+   count < `max_tasks_per_run` and the queue has more ready tasks
+   and no §Stop condition fires, return to step 1. Otherwise proceed
+   to §Phase advance.
 
-### Branch B — Empty queue (one-shot per invocation)
+### (No Branch B)
 
-The queue has no ready tasks. Run this branch at most **once per
-invocation**, regardless of how many Branch-A iterations preceded it.
+Under the sweep model the worklist resolver runs in preflight and
+seeds enough work for the iteration count, so the queue is never empty
+at the start of Branch A unless the active phase is fully drained.
+When the queue *is* empty post-resolver, the worklist size is zero
+and §Phase advance fires.
 
-1. Invoke the `plan-backlog` skill directly (no queue manifest — it is a
-   meta-skill, same status class as `retrospective`). Read
-   [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md).
-2. Its outputs: zero or more new task manifests written to
-   `ops/tasks/inbox/`. Promotion to `ready/` is not part of this branch —
-   the **next invocation's** preflight `coc advance` step picks up
-   auto-eligible manifests. (The current invocation does not loop back
-   to Branch A even if plan-backlog produced eligible manifests; that
-   would re-cross the preflight that already ran.) Types outside
-   `AUTO_PROMOTE_TYPES` (e.g. `materialize-warehouse`, `build-release`)
-   stay in `inbox/` until a human promotes them.
-3. Write a `run.json` with `task_id: null` (Branch B has no owning task),
-   `status: success`, and `outputs` listing any new manifests.
-4. Proceed to §Retrospective with `task_id: null` and
-   `skill: plan-backlog`. Then commit. Then exit the invocation.
+The legacy plan-backlog skill's tier hierarchy is gone. plan-backlog
+remains only for the source-debt sweep (Tier-0.75) embedded in
+preflight, and as a periodic apply-retros trigger (see
+[skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md)).
+
+---
+
+## Phase advance
+
+After the last Branch A iteration's commit, check whether the active
+phase is now complete:
+
+1. Call `coc.phase.phase_completion_check()`. Returns
+   `(next_phase, reason)`:
+   - `(None, ...)` — phase not yet complete, or auto-advance disabled,
+     or phase is terminal. Exit invocation cleanly; no extra commit.
+   - `(<next>, <why>)` — next phase exists and the completion
+     predicate is satisfied (e.g. zero systems remain at
+     bootstrap-stub).
+2. If a next phase is returned:
+   a. `coc.phase.advance_phase(next_phase)` — rewrites
+      `config/phase.yaml::current`.
+   b. Append a `phase.advance` event to `ops/events/run-events.jsonl`
+      with payload `{"from": <prev>, "to": <next>, "reason": <why>}`.
+   c. Stage `config/phase.yaml` and the appended event line.
+   d. Commit with message
+      `phase: advance <prev> → <next> (<reason>) [auto]`.
+3. Exit the invocation. The next cron tick will pick up the new
+   phase in preflight.
 
 ---
 
 ## Retrospective
 
-After the primary branch finishes, run the `retrospective` skill. Read
-[skills/retrospective/SKILL.md](../skills/retrospective/SKILL.md) — it is the
-authoritative procedure. Summary of inputs:
+After each iteration finishes, run the `retrospective` skill. Read
+[skills/retrospective/SKILL.md](../skills/retrospective/SKILL.md) — it
+is the authoritative procedure. Inputs:
 
-- `task_id` — the task just completed (or `null` for Branch B).
+- `task_id` — the task just completed.
 - `run_id` — the run id you used in `run.json`.
-- `skill` — the skill that was exercised (`plan-backlog` for Branch B).
+- `skill` — the skill that was exercised.
 - `outcome` — the terminal state returned by `coc complete`.
 
 The retro writes one file to `ops/retrospectives/YYYY/MM/DD/retro-<ulid>.md`
-and validates against `schemas/retrospective.schema.json`. It also appends a
-`run.end` event referencing the retro's path.
+and validates against `schemas/retrospective.schema.json`. It also
+appends a `run.end` event referencing the retro's path.
 
-### Retro cadence
+### Retro cadence (per phase)
 
-Default cadence: **every run** until retros stop producing actionable
-improvements. Specifically, retros run on every terminal state until a
-sustained window of ≥10 consecutive retros with `actionable: false`. After
-that, the cadence narrows to `blocked`/`failed` outcomes only — see
-"Retiring this skill" in `skills/retrospective/SKILL.md`.
+Default cadence: **every iteration** until retros stop producing
+actionable improvements. Retros are tracked **per active phase** —
+the "10 consecutive non-actionable → narrow cadence" rule resets when
+the phase advances, since system-profiling retros differ from
+matrix-fill retros and we want to learn separately.
 
-The cadence transition is itself a reviewable change: record it as a
+After 10 consecutive `actionable: false` retros within the same phase,
+narrow the cadence to `blocked`/`failed` outcomes only for that phase.
+The transition is itself a reviewable change: record it as a
 `review-records` task with a concrete edit to the skill's frontmatter.
 
 ---
@@ -228,55 +255,50 @@ validated:
 1. `uv run coc validate` — must exit 0.
 2. `git add` only the paths you actually wrote in this iteration. Never
    `git add -A` or `git add .`. The list is: task manifests moved by
-   `coc lease/complete`, the run report, any registry edits the envelope
-   produced, the retro file, and any new inbox manifests from a proposal.
-3. `git commit -m "<task-type>(<task-id>): <terse summary> [auto]"` — the
-   `[auto]` suffix marks the commit as agent-produced so a reviewer can
-   filter. **One commit per iteration**, not one commit per invocation.
+   `coc lease/complete`, the run report, any registry edits the
+   envelope produced, the retro file, and any new inbox manifests
+   from a proposal.
+3. `git commit -m "<task-type>(<task-id>): <terse summary> [auto]"` —
+   the `[auto]` suffix marks the commit as agent-produced. **One
+   commit per iteration**, plus optionally one trailing
+   `phase: advance ...` commit per invocation.
 4. Do not push. Do not force. Do not amend.
 
 If the commit fails (pre-commit hook, signing, etc.), do not bypass.
-Capture the failure in the iteration's retro `blockers` list, leave the
-working tree as-is for human resolution, **and exit the invocation**
-without starting a new iteration. A dirty working tree fails the next
-invocation's preflight, so chaining further iterations on top of an
-uncommitted failure would compound the damage.
+Capture the failure in the iteration's retro `blockers` list, leave
+the working tree as-is for human resolution, **and exit the invocation**
+without starting a new iteration.
 
 ---
 
 ## Stop conditions
 
-Two layers: **iteration-level** stop conditions only end the current
-iteration (the loop may continue to the next), and **invocation-level**
-stop conditions end the whole batch.
-
 ### Iteration-level (current iteration ends; loop may continue)
 
 - The task's `coc complete` has returned a terminal state and the
-  retrospective is written. Commit, then proceed to the next iteration
-  (§Branches Branch A step 7) if budget and counts allow.
+  retrospective is written. Commit, then proceed to the next iteration.
 - A "Block or fail when" clause in the active skill applies. Use
   `status: blocked` in `run.json` and still run the retrospective —
   blocks are exactly the iterations where retros are most valuable.
   Then commit and proceed.
 
 Underspecified task manifests resolve to `blocked`, not to clarifying
-questions. Ambiguity is a proposal for improvement, not a conversation.
+questions.
 
 ### Invocation-level (whole invocation ends, no further iterations)
 
-- Iteration count has reached `max_tasks_per_run`. Exit cleanly.
+- Iteration count has reached `max_tasks_per_run`. Run §Phase advance,
+  then exit cleanly.
 - The per-invocation soft budget has been exceeded (§Budget). Finish
-  the current iteration's commit, then exit.
-- `coc next` returned exit 1 *and* Branch B has run this invocation.
-  Exit cleanly.
+  the current iteration's commit, run §Phase advance, then exit.
+- `coc next` returned exit 1 *after* the worklist resolver ran. Run
+  §Phase advance, exit cleanly.
 - Preflight failed. Write the abort event, do not touch the queue.
-- A non-negotiable from AGENTS.md would be violated by the next action
-  in any iteration.
+- A non-negotiable from AGENTS.md would be violated by the next action.
 - The lease could not be reclaimed after one retry (contention). Write
   the abort event and exit. Do not start a new iteration.
-- The current iteration's commit failed. Leave the dirty tree for human
-  resolution and exit (per §Local commit).
+- The current iteration's commit failed. Leave the dirty tree for
+  human resolution and exit (per §Local commit).
 
 ---
 
@@ -284,62 +306,62 @@ questions. Ambiguity is a proposal for improvement, not a conversation.
 
 Two budgets: **per-iteration** and **per-invocation**.
 
-**Per-iteration soft budget**: 30 minutes of wall-clock execution after
-the lease is claimed, excluding the retrospective. If a single iteration
-crosses this, finish the current step, set `status: blocked` with a
-`budget_exceeded` reason in `notes`, run the retrospective, commit, and
-exit the invocation (do not start a new iteration on top of a
-budget-exceeded one — the failure mode is usually structural and will
-recur).
+**Per-iteration soft budget**: read from
+`config/autorun.yaml::budgets.<phase>.soft_minutes`. Defaults: 30 for
+system-profiling and metric-definition, 60 for matrix-fill. If a
+single iteration crosses this, finish the current step, set
+`status: blocked` with `budget_exceeded` in `notes`, run the
+retrospective, commit, and exit the invocation.
 
-**Per-invocation soft budget**: `max_tasks_per_run × 15` minutes of
-wall-clock total (default 75 minutes for the default of 5 iterations).
-If the cumulative wall-clock across iterations crosses this, finish the
-current iteration's commit and exit the invocation, even if the
-iteration count is below `max_tasks_per_run`. The 15-min/iteration
-average reflects the expectation that batched iterations are faster
-than single-task runs because skills/schemas/taxonomy are cached in
-agent context — pure-task wall-clock for a typical iteration runs 2–10
-minutes once the fixed load cost is amortized.
+**Per-invocation soft budget**: `max_tasks_per_run × 90` minutes
+wall-clock total. Default 90 minutes for one iteration. If exceeded,
+finish the current iteration's commit and exit, even if the iteration
+count is below `max_tasks_per_run`.
 
-Record both in `run.json` so the watchdog and retrospectives have evidence:
+Record both in `run.json`:
 
 ```json
 {
   "heartbeats": 2,
   "budget": {
-    "minutes_allotted": 30,
-    "minutes_elapsed": 18.4,
+    "minutes_allotted": 60,
+    "minutes_elapsed": 41.4,
     "exceeded": false
   }
 }
 ```
 
-When `exceeded: true`, add a short `reason` string (e.g.
-`"slow-literature-fetch"`, `"external-api-rate-limit"`). Populate
-`heartbeats` from the number of `task.heartbeat` events you appended
-during this run — the watchdog (`uv run coc requeue`) uses them to
-distinguish live-but-slow runs from crashed ones when deciding whether to
-reap a stale lease.
+When `exceeded: true`, add a short `reason` string. Populate
+`heartbeats` from the number of `task.heartbeat` events appended.
 
 ### Watchdog contract
 
-A separate scheduler (not this run) periodically invokes
-`uv run coc requeue`. It moves any task in `leased/` whose
-`lease.last_heartbeat` is older than `lease.ttl_minutes` back to `ready/`
-(or to `failed/` once `attempts >= max_attempts`). To avoid being reaped
-mid-run, heartbeat at least once every `ttl_minutes / 3` wall-clock
-minutes. With the default 90-minute TTL, that means at least every 30
-minutes.
+A separate scheduler periodically invokes `uv run coc requeue`. It
+moves any task in `leased/` whose `lease.last_heartbeat` is older
+than `lease.ttl_minutes` back to `ready/` (or to `failed/` once
+`attempts >= max_attempts`). To avoid being reaped mid-run, heartbeat
+at least once every `ttl_minutes / 3` wall-clock minutes.
 
 ---
 
 ## References
 
 - [AGENTS.md](../AGENTS.md) — operating model and non-negotiables.
-- [prompts/task-envelope.md](./task-envelope.md) — inner per-task contract.
+- [config/phase.yaml](../config/phase.yaml) — active phase + auto-advance
+  triggers + side-channel caps.
+- [config/autorun.yaml](../config/autorun.yaml) — master switch +
+  per-phase budgets + max_tasks_per_run.
+- [src/coc/phase.py](../src/coc/phase.py) — phase state machinery.
+- [src/coc/worklist.py](../src/coc/worklist.py) — subject resolver.
+- [src/coc/dispatch.py](../src/coc/dispatch.py) — task-manifest
+  emitter per phase.
+- [prompts/task-envelope.md](./task-envelope.md) — inner per-task
+  contract.
 - [skills/retrospective/SKILL.md](../skills/retrospective/SKILL.md) —
-  post-run assessment procedure.
-- [schemas/run.schema.json](../schemas/run.schema.json) — run report shape.
-- [schemas/retrospective.schema.json](../schemas/retrospective.schema.json) —
-  retro frontmatter shape.
+  post-iteration assessment procedure.
+- [skills/plan-backlog/SKILL.md](../skills/plan-backlog/SKILL.md) —
+  source-debt sweep (preflight) + apply-retros trigger.
+- [schemas/run.schema.json](../schemas/run.schema.json) — run report
+  shape.
+- [schemas/retrospective.schema.json](../schemas/retrospective.schema.json)
+  — retro frontmatter shape.

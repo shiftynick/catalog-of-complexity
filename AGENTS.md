@@ -133,7 +133,7 @@ stale leases.
 Agents read all three in order before acting. The task manifest overrides
 skill defaults; the skill overrides AGENTS.md silence.
 
-## Autonomous runs
+## Autonomous runs — sweep model
 
 Scheduled runs (driven by Claude Code and Codex desktop schedulers) start
 from [prompts/autonomous-run.md](prompts/autonomous-run.md).
@@ -142,37 +142,57 @@ from [prompts/autonomous-run.md](prompts/autonomous-run.md).
 top-level `disabled` boolean. When `true`, every scheduled invocation
 exits immediately on entry — no preflight, no queue work, no git
 activity. Use it to pause the scheduler during large hand-curation
-passes (schema rollouts, bulk bootstraps) without reconfiguring the
-desktop routine.
+passes (schema rollouts, bulk bootstraps, phase-advance migrations)
+without reconfiguring the desktop routine.
 
-One scheduled invocation runs preflight once and then executes up to
-`max_tasks_per_run` consecutive Branch-A iterations. The value is read
-from [config/autorun.yaml](config/autorun.yaml) (default 5, clamp [1, 10]);
-edit that file to change scheduling behavior — no env var or scheduler
-reconfiguration needed. Each iteration is a complete unit — one task via
-`coc next`/`coc lease`, delegate execution to
-`prompts/task-envelope.md`, invoke the `retrospective` skill, then commit
-locally with `[auto]` suffix. Batching within an invocation amortizes the
-fixed cost of loading AGENTS.md, the active skill, schemas, and taxonomy:
-subsequent iterations within the same invocation reuse the agent's
-already-loaded context, so per-task token spend drops sharply after the
-first. Pushes remain human-driven — see "Sensitive actions".
+The sweep model: each cron tick reads the active phase from
+`config/phase.yaml`, asks `coc.worklist.next_worklist_items(phase, K)`
+for the next K subjects (in priority-then-domain-interleave order for
+system phases, maturity-level order for the metric phase), emits one
+task manifest per subject via `coc.dispatch.emit_phase_task()`, executes
+them via the task envelope, runs a retrospective per iteration, commits
+per iteration, and on the last iteration's commit checks
+`coc.phase.phase_completion_check()` — if the phase's worklist is now
+empty, the autorun flips `current` to the next phase and writes a
+`phase.advance` event in a trailing commit.
 
-Retro cadence is "every run" by default and narrows to
-`blocked`/`failed`-only once ≥10 consecutive retros report
-`actionable: false`. The transition is itself a reviewable change.
+`max_tasks_per_run` defaults to 1 (clamp [1, 10]) — under the sweep
+model each task is a single subject and may run 30–60 minutes
+wall-clock (e.g. fill-system-metrics produces 50–100 observations in
+one integrated pass).
+
+**The previous "Branch A loop / Branch B plan-backlog tier walk" model
+is gone.** The 8-tier hierarchy (Tier 0 / 0.5 / 1 / 2 / 3 / 4 / 5)
+moved into the worklist resolver as a single phase-driven query;
+plan-backlog shrinks to (1) source-debt sweep embedded in preflight
+and (2) periodic apply-retros trigger.
+
+Retros run "every iteration" by default, **per-phase**: the "10
+consecutive non-actionable → narrow cadence" rule resets at each
+phase advance because system-profiling retros differ from matrix-fill
+retros and we want to learn separately.
 
 ### Project phase
 
-`config/phase.yaml` carries a `current` value that gates which
-plan-backlog tiers fire on each invocation. Phases are
-`bootstrap` (catalog body being seeded by hand from
-`config/bootstrap_seed.yaml`; discovery off), `metrics-fill`
-(observation matrix is the goal; no new systems or metrics scouted),
-`discovery` (legacy mode, all tiers available), and `analysis`
-(catalog frozen for cross-system work). See `config/phase.yaml` for
-the full tier-gating matrix and `coc.phase` for the helper functions
-that read it.
+`config/phase.yaml::current` is one of:
+
+- `system-profiling` — walk every `bootstrap-stub` system, P0 first
+  then domain-interleave, upgrade each to status `candidate` via
+  `profile-system`. Done when zero systems remain at `bootstrap-stub`.
+- `metric-definition` — walk every `bootstrap-stub` metric, L2 first
+  then L1 / L0 / L3+, upgrade each to status `proposed` (or
+  `canonical`) via `define-metrics`. Done when zero metrics remain.
+- `matrix-fill` — walk every candidate-or-profiled system and run
+  `fill-system-metrics` on it (one task per system, all applicable
+  metrics in one integrated pass). Open-ended; advanced manually to
+  `analysis` when matrix density justifies cross-system analysis.
+- `analysis` — `analyze-archetypes` / clustering / hypothesis
+  generation. Human-promoted only; not auto-dispatched.
+
+Auto-advance triggers and side-channel caps are documented in
+`config/phase.yaml`. Helper functions live in `coc.phase` —
+`current_phase()`, `phase_to_task_type()`, `side_channel_cap()`,
+`phase_completion_check()`, `advance_phase()`.
 
 ### Autonomy policy (what promotes without human review)
 
@@ -209,7 +229,15 @@ escalations.
 - `scout-systems` — discover candidate systems and candidate metrics.
 - `define-metrics` — curate metric definitions, rubrics, applicability rules.
 - `profile-system` — define a system's boundary, components, scales, taxonomy.
-- `extract-observations` — fill system–metric values with evidence and confidence.
+- `extract-observations` — fill a single (system, metric) cell or small
+  batch with evidence and confidence. Used for one-off / manual curation;
+  the matrix-fill phase uses `fill-system-metrics` instead.
+- `fill-system-metrics` — primary task type for the `matrix-fill` phase.
+  One task per system; walks the metric registry, classifies each
+  metric as extracted / skipped_undefined / blocked_source_not_acquired,
+  appends 50–100 observations across many metric-family files in one
+  git commit. Does NOT block the whole task on missing sources; emits
+  acquire-source tasks and continues.
 - `review-records` — schema, provenance, citation, methodological checks.
 - `materialize-warehouse` — rebuild Parquet, DuckDB, release snapshots.
 - `analyze-archetypes` — clustering, graph building, hypothesis generation
@@ -223,8 +251,11 @@ escalations.
   writes to `registry/sources/*/raw/`. plan-backlog Tier 0.75 feeds it.
 - `retrospective` *(status: postrun)* — post-task assessment invoked by
   `prompts/autonomous-run.md` after every task, not queue-driven.
-- `plan-backlog` *(status: postrun)* — empty-queue branch of the autonomous
-  run; inspects registry coverage and proposes new inbox manifests.
+- `plan-backlog` *(status: postrun)* — under the sweep model, two narrow
+  responsibilities only: (1) source-debt sweep embedded in every cron
+  tick's preflight; (2) periodic apply-retros trigger fired every K
+  retros. The legacy 8-tier hierarchy moved to `coc.worklist` +
+  `coc.dispatch`; no `plan-backlog` task type exists.
 
 Each skill directory is self-contained. Read `skills/<name>/SKILL.md` before
 starting work of that type.

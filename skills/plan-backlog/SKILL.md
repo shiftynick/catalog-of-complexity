@@ -1,355 +1,115 @@
 ---
 name: plan-backlog
-description: Empty-queue branch of the autonomous run. Inspects registry coverage and existing task states, then proposes zero or more new task manifests into ops/tasks/inbox/ so the next scheduled run has productive work. Does not promote manifests to ready/ — that remains a human or review-records decision. Invoked directly by prompts/autonomous-run.md; not dispatched from the queue.
+description: Two narrow responsibilities under the sweep autorun model — (1) source-debt sweep, embedded in every cron tick's preflight, that scans for prefixed `source_refs` (`doi:`, `arxiv:`, `url:`, `isbn:`) lacking a matching `registry/sources/src-*` and emits `acquire-source` task manifests; (2) periodic `apply-retros` trigger, fired every K new retrospectives. The legacy 8-tier hierarchy is gone — phase-driven catalog growth is now handled by `prompts/autonomous-run.md` via `coc.worklist` + `coc.dispatch`. plan-backlog is no longer queue-dispatched and no `plan-backlog` task type exists.
 status: postrun
 inputs:
-  - 'run_id — id of the current run (used for the plan-report path).'
+  - 'sweep_kind — "source-debt" or "apply-retros". Defaults to "source-debt" when called from preflight.'
   - 'inbox_cap — maximum pending inbox manifests before treating the backlog as saturated. Default 20.'
 outputs:
-  - 'Zero or more ops/tasks/inbox/tsk-YYYYMMDD-NNNNNN.yaml proposals — valid against schemas/task.schema.json with state: inbox.'
-  - 'ops/runs/YYYY/MM/DD/<run-id>/plan-report.md summarising the coverage scoreboard and what was proposed or skipped.'
+  - 'For source-debt: zero or more `ops/tasks/inbox/tsk-YYYYMMDD-NNNNNN.yaml` `acquire-source` manifests.'
+  - 'For apply-retros: zero or one `ops/tasks/inbox/tsk-...` `apply-retros` manifest.'
 stop_conditions:
-  - 'Inbox already holds at least inbox_cap manifests — emit no new proposals, record saturation in the plan-report.'
-  - 'A coverage gap was selected, the corresponding proposal was written, and coc validate accepts the new manifest(s).'
-  - 'No coverage gap found after scanning all registry folders — write a plan-report marked saturated and exit.'
+  - 'Inbox already holds at least `inbox_cap` manifests — emit nothing.'
+  - 'Sweep completed; emitted manifests validate against `schemas/task.schema.json`.'
 ---
 
 ## When to use
 
-This skill runs only when [`coc next`](../../src/coc/cli.py) reports an empty
-`ops/tasks/ready/` queue during an autonomous run. It is invoked directly by
-[prompts/autonomous-run.md](../../prompts/autonomous-run.md) — do not create
-queue manifests of type `plan-backlog`; no such task type exists.
+Two embeddings, both invoked directly from `prompts/autonomous-run.md`:
 
-Use this skill to:
+1. **Source-debt sweep** — runs in every preflight (before the
+   worklist resolver fires). Scans active task manifests and emits
+   acquire-source tasks for any cited prefixed ref not yet
+   registered. Bounded by the active phase's `acquire-source` side-
+   channel cap (`coc.phase.side_channel_cap("acquire-source")`):
+   3 in system-profiling/metric-definition, 10 in matrix-fill, 3
+   in analysis.
+2. **Apply-retros trigger** — runs at the end of preflight when the
+   number of new retros since the last apply-retros run exceeds K
+   (default K=25). Emits a single apply-retros task into inbox/.
+   The apply-retros skill consumes unprocessed retros and clusters
+   `proposed_improvements` into review-records tasks.
 
-- Surface the next most-valuable work when the queue is idle.
-- Translate registry coverage gaps into concrete task manifests.
-- Keep the queue seeded so scheduled runs never stall on an empty queue.
+Do **not** use this skill to:
 
-Do **not** use this skill to promote tasks from `inbox/` to `ready/`, edit
-canonical records, or touch `registry/sources/*/raw/`. Those are out of
-scope and covered by `review-records` and by human gatekeeping.
+- Promote tasks from `inbox/` to `ready/` — that is `coc advance`.
+- Edit canonical records — those are out of scope and covered by
+  `review-records` and human gatekeeping.
+- Touch `registry/sources/*/raw/`.
+- Walk the catalog growth tiers (Tier 0 / 0.5 / 1 / 2 / 3 / 4 / 5
+  from the legacy version) — those responsibilities moved to the
+  worklist resolver in `coc.worklist` and the autonomous-run prompt.
 
-## Preconditions
+## Source-debt sweep procedure
 
-- `ops/tasks/ready/` is empty (otherwise Branch A of the autonomous run
-  should have fired).
-- `registry/` exists and `coc validate` passed in the run's preflight step.
-- Taxonomy exports are current; if not, the plan-report should note the
-  staleness and propose an `export-taxonomy` follow-up rather than propose
-  skill tasks that depend on it.
+1. Determine the cap N for this tick:
+   `coc.phase.side_channel_cap("acquire-source")`. If
+   `len(ops/tasks/inbox/) >= 20`, exit early — the backlog is
+   saturated.
+2. Walk every task manifest under
+   `ops/tasks/{inbox,ready,leased,running,blocked}/`. For each
+   manifest's `source_refs`, identify entries using prefixed forms
+   (`doi:`, `arxiv:`, `url:`, `isbn:`). Skip entries already
+   registered as `src-*`.
+3. Build the candidate set: each unique unregistered prefixed ref
+   plus the list of tasks referencing it.
+4. **Idempotency:** skip a ref if any task under `ops/tasks/` already
+   has `notes` starting with `"Source debt: <ref>."`.
+5. For up to N remaining refs, emit one `acquire-source` task each
+   with:
+   - `source_refs: [<ref>]`
+   - `notes: "Source debt: <ref>. Referenced by <tsk-id>[, <tsk-id>...]."`
+   - Standard task-manifest fields (allocated id, state: inbox,
+     priority: normal, lease ttl 60 min, max attempts 2, valid
+     output_targets per the acquire-source skill).
+6. **Unblock wiring** for blocked tasks whose ref is being acquired:
+   set the blocked task's `unblock` field to
+   `{kind: task-complete, task_id: <acquire-tsk-id>}` (or
+   `{kind: sources-resolved}` when the blocked task references
+   multiple refs and that schema kind exists). Edit the blocked
+   manifest in place; do not move it out of `blocked/`. The next
+   `coc advance` sweep flips it once the unblock fires.
+7. `uv run coc validate ops/tasks/inbox/`.
 
-## Procedure
+## Apply-retros trigger procedure
 
-1. Load the coverage scoreboard — cheap reads only:
-   - Count systems by `status` (`candidate`, `validated`, `superseded`).
-   - Count metrics by `status` and whether each has a rubric file.
-   - Count observations per system from `registry/observations/**/*.jsonl`.
-   - Count pending manifests per state under `ops/tasks/{inbox,blocked,review}/`.
-2. Compare against the saturation cap:
-   - If `len(inbox) >= inbox_cap`, skip all proposal emission — write only
-     the plan-report with `status: saturated`.
-3. Note the preflight unblock sweep: `coc advance` already called
-   `sweep_blocked()` before this skill ran. Tasks with an `unblock` field
-   whose condition is now satisfied (taxonomy slug present, upstream task
-   complete) have already been moved `blocked/` → `ready/` with attempts
-   reset. If the sweep produced any unblocks, Branch A would have fired
-   instead of this branch — so reaching plan-backlog means either no
-   blocked tasks had satisfied conditions, or there were none with an
-   `unblock` field. Do not re-invent the sweep here; blocked tasks
-   without an `unblock` field stay blocked until a human or a targeted
-   `review-records` task unsticks them.
-4. **Phase gate.** Read [config/phase.yaml](../../config/phase.yaml).
-   Each tier below has a `phases` list; if the current phase is not in
-   that list, **skip the tier entirely** (do not even compute its
-   gap). Defaults are documented in `config/phase.yaml` and exposed via
-   `coc.phase.tier_fires(tier)`. Phase semantics: `bootstrap` (catalog
-   body being seeded by hand — discovery off), `metrics-fill`
-   (observation matrix is the goal), `discovery` (legacy mode, all
-   tiers available), `analysis` (catalog frozen for cross-system work).
-5. Apply the gap heuristic, in priority order. Stop after the first
-   tier that **fires** (passes the phase gate *and* produces at least
-   one proposal):
-   0. **Bootstrap** — if `registry/systems/` has zero entries *and* there
-      are fewer than 2 `scout-systems` tasks across `inbox/ + ready/`,
-      emit **one `scout-systems` task per zero-count `system-domain`** up
-      to `max_scouts_per_run: 3`, each with `Budget: 2 candidate systems`
-      in `notes` (see Domain rotation below). Tier 0 fires only during
-      true cold-start; once the registry has any system, later tiers
-      take over.
-   0.5. **Priority seed** — consume unfulfilled entries from
-      [config/priority-systems.yaml](../../config/priority-systems.yaml)
-      top-down. An entry is *fulfilled* when either
-      `registry/systems/sys-*--<slug>/` exists or any task manifest under
-      `ops/tasks/` carries `notes` beginning with
-      `"Priority seed: <slug>."`. For the next up to 3 unfulfilled
-      entries, emit a `scout-systems` task with `topic: <entry.name>`,
-      `domain_hint: <entry.domain>`, and
-      `notes: "Priority seed: <slug>. Target system-domain:<domain>.
-      Budget: 1 candidate system."`.
-
-      **Pre-check the candidate class slug.** If the entry carries the
-      optional `class_hint` field (e.g. `class_hint: atomic-system`),
-      verify it resolves in `taxonomy/source/system-classes.yaml`. If
-      it does **not** resolve:
-
-      1. Emit a `review-records` task in the **same plan-backlog pass**
-         proposing the class addition (target
-         `taxonomy/source/system-classes.yaml`, `notes` starting with
-         `"Taxonomy gap: system-class:<class_hint>. Referenced by
-         priority seed <slug>."`).
-      2. Add an `unblock` field to the `scout-systems` task tying it to
-         the taxonomy gap:
-         ```yaml
-         unblock:
-           kind: taxonomy-slug-exists
-           taxonomy_ref: system-class:<class_hint>
-         ```
-         The auto-unblock sweep (`coc advance`) will move the scout
-         back to `ready/` once the review-records task lands the slug.
-      3. Idempotency on the paired review-records task: skip emission
-         if any task under `ops/tasks/` already has `notes` starting
-         with `"Taxonomy gap: system-class:<class_hint>."`.
-
-      When `class_hint` is absent (the legacy default), behave exactly
-      as before — emit the scout, let it discover the taxonomy gap and
-      block itself if needed. This pre-check is forward-compatible:
-      curators can opt into it per priority-seed entry, and entries
-      without `class_hint` lose nothing.
-
-      Cap of 3 matches the auto-promote per-type ready cap on
-      `scout-systems`. This tier fires regardless of registry size
-      (not just at cold-start) and takes priority over Tier 3's
-      profile debt so curated picks complete before organic
-      expansion; it yields to Tier 1's review debt because reviewer
-      backlog is time-sensitive. See Priority seed file below for the
-      entry schema.
-   0.75. **Source debt** — scan task manifests under
-      `ops/tasks/{inbox,ready,leased,running,blocked}/` for
-      `source_refs` entries using prefixed forms (`doi:`, `arxiv:`,
-      `url:`, `isbn:`). The inclusion of `blocked/` is critical:
-      profile-system and extract-observations tasks block on
-      `source-not-acquired` precisely when their prefixed refs aren't
-      registered yet, so blocked tasks are the highest-signal source
-      of acquisition demand. Skipping `blocked/` causes plan-backlog
-      to seed new scouts laterally instead of unblocking known stuck
-      work — the empirical failure mode that motivated this tier
-      expansion.
-
-      For each unique ref with no matching
-      `registry/sources/src-*/source.yaml` (by doi / arxiv id / isbn /
-      url), emit one `acquire-source` task with that single ref in
-      `source_refs` and `notes: "Source debt: <ref>. Referenced by
-      <tsk-id>[, <tsk-id>...]."` listing every task that references
-      it. Cap at 3 per run (matches the auto-promote per-type ready
-      cap).
-
-      **Unblock wiring for blocked tasks.** When a blocked task's
-      prefixed ref has an acquire-source task emitted in the same
-      pass, set the blocked task's `unblock` field to:
-      ```yaml
-      unblock:
-        kind: task-complete
-        task_id: <acquire-source-tsk-id>
-      ```
-      so `coc advance`'s sweep moves the blocked task back to ready/
-      once the acquisition lands. Use `dump_yaml` (or the equivalent
-      append) on the blocked manifest in place — do **not** move the
-      file out of `blocked/`; the state field stays `blocked` until
-      the sweep flips it.
-
-      **Multi-source caveat.** A blocked task with N missing prefixed
-      refs can only carry one `unblock` condition under the current
-      schema (`taxonomy-slug-exists` | `task-complete`). When N > 1,
-      wire the unblock to the **last** acquire-source task emitted in
-      this pass for that blocked task; once it lands, the blocked
-      task moves to ready/, the skill re-runs, sees any still-missing
-      refs, and re-blocks on `source-not-acquired`. The next
-      plan-backlog pass picks up the remainder. This converges in at
-      most ⌈N / 3⌉ plan-backlog passes (cap is 3 acquire-source
-      tasks per pass). A future review-records task may add a
-      `sources-resolved` unblock kind that fires when *all* of a
-      task's `source_refs` resolve, eliminating the loop.
-
-      Idempotency: skip a ref if any task under `ops/tasks/` already
-      has `notes` starting with `"Source debt: <ref>."`. Blocked-task
-      `unblock` field writes are also idempotent: if the blocked task
-      already has an `unblock` pointing to a still-pending
-      acquire-source task, leave it alone (overwriting would orphan
-      the wiring without benefit).
-
-      This tier fires before the catalog tiers below so downstream
-      tasks find their sources already registered when they run.
-   1. **Review debt** — any record with `review_state: proposed` older than
-      14 days → emit one `review-records` task per distinct reviewer target
-      (system, metric, or observation batch). `auto-validated` records do
-      **not** trigger this tier on their own; they're considered usable
-      until the webUI prune tool flags them or a separate sweep of
-      auto-validated batches is scheduled.
-   2. **Observation debt** — any system with `status` in (`candidate`,
-      `profiled`) and zero observations against its declared metrics →
-      emit one `extract-observations` task per (system, metric-family)
-      pair, cap 5 per run. **Do not** target `bootstrap-stub` systems
-      here — they lack substantive boundary/components/scales and any
-      observations against them would be ill-grounded; route those
-      through Tier 3 first to upgrade them.
-   3. **Profile debt** — bootstrap-stub upgrade. Any system with
-      `status: bootstrap-stub` (the v0.2 long-tail import marker) →
-      emit one `profile-system` task per system, cap 3 per run. The
-      task's `notes` should cite the catalog source section from the
-      stub's existing `summary` so the upgrading agent has the
-      provenance pointer. profile-system runs in upgrade mode against
-      these stubs and rewrites `system.yaml` in place, raising status
-      to `candidate`. Order entries by priority (P0 before P1 before
-      P2 before P3) so the most foundational archetypes upgrade first.
-      *Legacy fallback:* if any `candidate` system is missing required
-      fields (`boundary`, `components`, `interaction_types`, `scales`) —
-      which should not happen post-v0.2 but might in edge cases — also
-      emit a profile-system task for it.
-   4. **Metric debt** — bootstrap-stub upgrade. Any metric with
-      `status: bootstrap-stub` (or a `candidate` metric without a
-      rubric file, the legacy case) → emit one `define-metrics` task
-      per metric, cap 3 per run. The metric's `family` taxonomy ref
-      and existing `description` give the upgrading agent the seed
-      content; the task fills in `rubric.md`, populates worked examples,
-      sets `scale_level` and `maturity_level`, and tightens
-      `applicability` rules. Promote status from `bootstrap-stub` to
-      `proposed` (or directly `canonical` if the metric is a textbook
-      standard).
-   5. **Coverage expansion** — if the top tiers are all empty, emit
-      `scout-systems` tasks for the under-covered `system-domain` slugs:
-      one per slug in the bottom half of the coverage histogram, capped
-      at `max_scouts_per_run: 3`, each with `Budget: 2 candidate systems`
-      in `notes`. Fanning across multiple domains avoids the lock-in
-      where one scout's 5-candidate budget dominates several subsequent
-      autoruns with a single domain before rotation can resume. If only
-      one domain is under-covered, emit a single scout with `Budget: 3`.
-6. For each proposal, generate a task manifest with:
-   - `id` — `tsk-YYYYMMDD-NNNNNN` where the `NNNNNN` suffix is the next
-     unused number for that date across all `ops/tasks/` subdirectories.
-   - `state: inbox`, `priority: normal`, `lease: {ttl_minutes: 90, max_attempts: 1}`.
-   - `output_targets` and `acceptance_tests` — pull the canonical shape
-     from the target skill's SKILL.md. Do not fabricate acceptance tests.
-   - `notes` — one sentence naming the gap this proposal fills, e.g.
-     "Covers observation-debt gap: sys-000123 has zero observations against
-     metric-family:dynamics."
-7. Write the plan-report to
-   `ops/runs/YYYY/MM/DD/<run-id>/plan-report.md` with sections:
-   - **Active phase** — value of `current_phase()` and which tiers were
-     gated off by the phase gate.
-   - **Scoreboard** — counts from step 1 as a table.
-   - **Gap selected** — which tier fired and why.
-   - **Proposals emitted** — list of task ids + one-line rationale.
-   - **Skipped** — lower-priority tiers that had gaps but were not acted on.
-8. Validate: `uv run coc validate ops/tasks/inbox/`. If any proposal fails
-   validation, delete it, record the failure in the plan-report under
-   **Errors**, and fall through to `status: blocked` for the run.
-
-## Output shape
-
-- Task manifests — valid against
-  [schemas/task.schema.json](../../schemas/task.schema.json) with
-  `state: inbox`.
-- Plan-report — a markdown file with the four sections above. No YAML
-  frontmatter; this is a free-form run artifact, not a canonical record.
-
-## Domain rotation
-
-Tier 0 (bootstrap) and Tier 5 (coverage expansion) both need to pick one
-or more `system-domain` slugs to scout. Use this rule:
-
-1. For each slug listed in
-   [taxonomy/source/system-domains.yaml](../../taxonomy/source/system-domains.yaml),
-   count matching `taxonomy_refs: [system-domain:<slug>]` entries across
-   `registry/systems/*/system.yaml`. Call this the coverage histogram.
-2. Select the under-covered slugs: all zero-count slugs for Tier 0, or
-   the bottom half of the histogram for Tier 5 (slugs whose count is at
-   or below the median). Order them ascending by count; tie-break on
-   slug order (the order they appear in `system-domains.yaml`).
-3. Emit one scout task per selected slug, capped at `max_scouts_per_run`
-   (default 3) to stay within the auto-promote per-type cap on
-   `scout-systems`. Each scout's `notes` hint names its target slug and
-   the budget override, e.g. `notes: "Coverage-expansion Tier 5. Target
-   system-domain:technological. Budget: 2 candidate systems."`.
-
-This yields an *interleaved* rotation: a single plan-backlog run seeds
-scouts across multiple thin domains simultaneously, so the subsequent
-profile-system drain alternates between domains rather than burning
-through one domain's candidates for several iterations before jumping.
-
-## Priority seed file
-
-[config/priority-systems.yaml](../../config/priority-systems.yaml) is a
-hand-curated, ordered list of systems the maintainer wants profiled
-before organic coverage expansion. It's the taste-injection point for
-the catalog: edit the file to change what scouts run next.
-
-**Entry shape** (root-level YAML list):
-
-```yaml
-- name: Human social systems        # passed to scout-systems as topic
-  slug: human-social-system         # idempotency key vs. registry slug tail
-  domain: social                    # resolves against taxonomy/source/system-domains.yaml
-  class_hint: language-community    # optional; pre-checked against system-classes.yaml
-  notes: optional extra scoping context
-```
-
-The `class_hint` field is optional. When present, plan-backlog Tier
-0.5 verifies it resolves against
-`taxonomy/source/system-classes.yaml` before emitting the scout.
-Unresolved hints trigger a paired `review-records` taxonomy-proposal
-task and an `unblock` condition on the scout (see Tier 0.5 above) so
-the scout auto-resumes once the slug lands. Omit `class_hint` for
-priority seeds where the candidate class isn't known up front — the
-scout will discover it and block self-identifyingly if a gap exists.
-
-**Fulfillment check** (Tier 0.5 skip logic): an entry is considered
-done when any of the following holds —
-
-- `registry/systems/sys-*--<slug>/` directory exists, or
-- any `ops/tasks/**/*.yaml` has `notes` starting with
-  `"Priority seed: <slug>."` (covers in-flight scout/profile tasks
-  seeded from this list; prevents double-emission across runs).
-
-Re-ordering entries reprioritizes; deleting an entry stops future
-re-emission; re-adding a deleted entry after its system has been
-removed from `registry/systems/` re-queues it.
-
-**Validation**: the domain slug must resolve against
-`taxonomy/source/system-domains.yaml`. Entries that fail resolution are
-skipped (logged in the plan-report's **Skipped** section) rather than
-blocking the run — the rest of the list should still make progress.
+1. Count retros under `ops/retrospectives/` whose `created_at` is
+   newer than the most recent `apply-retros` task's `created_at`
+   (or all retros if no apply-retros task has ever run).
+2. If count < K (default 25), exit early.
+3. Emit one `apply-retros` task with:
+   - `output_targets: ["ops/tasks/inbox/", "ops/runs/"]`
+   - `notes: "Auto-fired after <count> new retros since last apply-retros."`
+4. `uv run coc validate ops/tasks/inbox/`.
 
 ## Block or fail when
 
-- `coc validate` fails on a proposal you wrote. Delete it (do not leave
-  malformed YAML in `inbox/`), record the failure, block the run.
-- The selected gap would require inventing a taxonomy slug. Skip to the
-  next tier; do not invent.
-- No tier fires *and* the inbox already holds `inbox_cap` items — exit
-  `status: success` with a saturated-queue note. This is the healthy idle
-  state, not a block.
+- `coc validate` fails on a proposal you wrote. Delete it, record
+  the failure in the run report, abort preflight with `run.aborted`.
+- The selected ref would require a registry/sources schema change.
+  Skip it; record in the run report.
 
 ## Retiring this skill
 
-Plan-backlog is load-bearing only while the catalog is small enough that the
-queue can run dry. Once the ready queue rarely reaches zero across a
-sustained window (≥20 consecutive runs enter Branch A), the cost of running
-this skill's scoreboard outweighs the benefit. At that point, flip `status`
-to `disabled` and rely on human and `review-records` curation to keep the
-queue seeded.
+Once the source-debt backlog stays consistently empty for ≥20
+consecutive ticks, the source-debt sweep can be retired (acquire-source
+tasks would be emitted only by skills that explicitly cite
+unregistered refs, e.g. fill-system-metrics during matrix-fill).
+The apply-retros trigger remains useful indefinitely.
 
 ## References
 
 - [AGENTS.md](../../AGENTS.md) — sensitive actions, quality bar.
-- [prompts/autonomous-run.md](../../prompts/autonomous-run.md) — Branch B
-  caller.
-- [schemas/task.schema.json](../../schemas/task.schema.json) — manifest
-  contract for every proposal emitted.
-- [skills/scout-systems/SKILL.md](../scout-systems/SKILL.md),
-  [skills/define-metrics/SKILL.md](../define-metrics/SKILL.md),
-  [skills/profile-system/SKILL.md](../profile-system/SKILL.md),
-  [skills/extract-observations/SKILL.md](../extract-observations/SKILL.md),
-  [skills/review-records/SKILL.md](../review-records/SKILL.md) — sources of
-  truth for `output_targets` and `acceptance_tests` when proposing.
+- [prompts/autonomous-run.md](../../prompts/autonomous-run.md) —
+  preflight caller for both responsibilities.
+- [src/coc/phase.py](../../src/coc/phase.py) — `side_channel_cap()`
+  for the active phase's acquire-source budget.
+- [src/coc/worklist.py](../../src/coc/worklist.py),
+  [src/coc/dispatch.py](../../src/coc/dispatch.py) — where the
+  catalog-growth tiers went.
+- [schemas/task.schema.json](../../schemas/task.schema.json) —
+  manifest contract for emitted proposals.
+- [skills/acquire-source/SKILL.md](../acquire-source/SKILL.md) —
+  consumer of the source-debt sweep's output.
+- [skills/apply-retros/SKILL.md](../apply-retros/SKILL.md) — consumer
+  of the periodic trigger.
