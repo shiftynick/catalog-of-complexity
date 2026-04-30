@@ -1,0 +1,18 @@
+id: tsk-20260501-999001
+type: fill-system-metrics
+skill: fill-system-metrics
+state: ready
+system_id: sys-000007--cell
+output_targets:
+  - registry/observations/sys-000007--cell/
+  - registry/sources/
+  - ops/tasks/inbox/
+acceptance_tests:
+  - "every applicable metric is classified as extracted, skipped_undefined, or blocked_source_not_acquired"
+  - "every extracted observation carries run_id and produced_by_task_id (v0.3 fields)"
+  - "every blocked_source_not_acquired entry has a paired acquire-source task in ops/tasks/inbox/ (or an existing one)"
+  - "no observation overwrites a prior row in place; all writes are append-only"
+lease:
+  ttl_minutes: 60
+  max_attempts: 2
+created_at: '2026-05-01T00:00:00Z'

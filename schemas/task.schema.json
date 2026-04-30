@@ -28,6 +28,7 @@
         "define-metrics",
         "profile-system",
         "extract-observations",
+        "fill-system-metrics",
         "review-records",
         "materialize-warehouse",
         "build-release",

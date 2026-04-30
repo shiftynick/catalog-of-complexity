@@ -1,0 +1,19 @@
+scenario: Fill all applicable metrics for sys-000007--cell in one task
+description: >
+  Walks the metric registry against the cell archetype, classifies each
+  metric as extracted / skipped_undefined / blocked_source_not_acquired,
+  appends observations across many metric-family files, and emits
+  acquire-source tasks for cited prefixed refs not yet registered.
+  Replaces the per-(system, metric-family) shape of extract-observations
+  for matrix-fill phase. The golden asserts the integrated-pass
+  invariants hold.
+assertions:
+  - result.status == 'success'
+  - "result.notes contains 'extracted='"
+  - "result.notes contains 'applicable_metrics='"
+  - "every observation in result.outputs has run_id matching the task's run_id"
+  - "every observation has produced_by_task_id matching the task id"
+  - "len(observations_extracted) >= 10"
+  - "every observation.value_kind in ('direct','derived','proxy','simulation','expert_estimate','undefined')"
+  - "no observation row was rewritten in place (append-only invariant)"
+  - "for each acquire-source task emitted, notes startswith 'Source debt:'"

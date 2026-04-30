@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://catalog-of-complexity.org/schemas/observation.schema.json",
   "title": "Observation",
-  "description": "A system-metric assertion with evidence. One per line in JSONL files. v0.2 — adds uncertainty (lower/upper/CI), assumptions[], normalized_value, scale_level (docs/framework/03 §2, §28).",
+  "description": "A system-metric assertion with evidence. One per line in JSONL files. v0.2 — adds uncertainty (lower/upper/CI), assumptions[], normalized_value, scale_level (docs/framework/03 §2, §28). v0.3 — adds run_id and produced_by_task_id for batch traceability under the sweep autorun model where one fill-system-metrics task may emit 50-100 observations.",
   "type": "object",
   "required": [
     "observation_id",
@@ -115,6 +115,16 @@
       "enum": ["proposed", "auto-validated", "validated", "superseded", "rejected"],
       "description": "Lifecycle state of this observation. 'proposed' is the cautious entry state (agent is unsure, wants human eyes). 'auto-validated' is the default agent-written state: the agent judges the record acceptable for downstream use but has not received explicit human sign-off. 'validated' requires human or review-records agent sign-off. 'superseded' means replaced by a later observation. 'rejected' means disqualified with rationale."
     },
-    "observed_at": { "type": "string", "format": "date-time" }
+    "observed_at": { "type": "string", "format": "date-time" },
+    "run_id": {
+      "type": "string",
+      "pattern": "^run-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Optional. The autonomous run that produced this observation. Lets fill-system-metrics output be queried as a coherent batch (one task → many observations). v0.3."
+    },
+    "produced_by_task_id": {
+      "type": "string",
+      "pattern": "^tsk-[0-9]{8}-[0-9]{6}$",
+      "description": "Optional. The task whose execution wrote this observation. Used for audit and re-extraction queries. v0.3."
+    }
   }
 }
