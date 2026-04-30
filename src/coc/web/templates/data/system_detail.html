@@ -3,9 +3,31 @@
 {% block content %}
 <p class="muted"><a href="{{ request.url_for('data_systems_list') }}">← Systems</a></p>
 <h1>{{ system.name }}</h1>
-<p class="mono dim">{{ system.id }}{% if system.status %} &middot; <span class="badge">{{ system.status }}</span>{% endif %}</p>
+<p class="mono dim">
+  {{ system.id }}
+  {% if system.status %} &middot; <span class="badge">{{ system.status }}</span>{% endif %}
+  {% if system.priority %} &middot; <span class="badge">priority: {{ system.priority }}</span>{% endif %}
+  {% if system.system_kind %} &middot; <span class="badge">{{ system.system_kind }}</span>{% endif %}
+  {% if system.origin %} &middot; <span class="badge">origin: {{ system.origin }}</span>{% endif %}
+  {% if system.lifecycle_stage %} &middot; <span class="badge">{{ system.lifecycle_stage }}</span>{% endif %}
+</p>
 
 {% if system.summary %}<p>{{ system.summary }}</p>{% endif %}
+
+{% if system.primary_function %}
+<div class="panel">
+  <dl class="kv">
+    <dt>Primary function</dt><dd>{{ system.primary_function }}</dd>
+    {% if system.substrate %}<dt>Substrate</dt><dd>{{ system.substrate }}</dd>{% endif %}
+  </dl>
+</div>
+{% elif system.substrate %}
+<div class="panel">
+  <dl class="kv">
+    <dt>Substrate</dt><dd>{{ system.substrate }}</dd>
+  </dl>
+</div>
+{% endif %}
 
 <div class="panel">
   <dl class="kv">
@@ -18,6 +40,7 @@
     <dt>Boundary</dt>
     <dd>
       {% if system.boundary_type %}<span class="badge">{{ system.boundary_type }}</span>{% endif %}
+      {% if system.boundary_clarity %}<span class="badge">clarity: {{ system.boundary_clarity }}</span>{% endif %}
       {% if system.boundary_description %}<div class="muted">{{ system.boundary_description }}</div>{% endif %}
     </dd>
     {% if system.components %}
@@ -50,6 +73,47 @@
     {% if system.updated_at %}<dt>Updated</dt><dd class="mono">{{ system.updated_at }}</dd>{% endif %}
   </dl>
 </div>
+
+{% set has_dynamics = system.main_feedbacks or system.dominant_constraints or system.emergent_properties or system.failure_modes or system.primary_resources %}
+{% if has_dynamics %}
+<h2>Dynamics</h2>
+<div class="panel">
+  <dl class="kv">
+    {% if system.primary_resources %}
+    <dt>Primary resources</dt>
+    <dd><ul class="chips">{% for r in system.primary_resources %}<li>{{ r }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.dominant_constraints %}
+    <dt>Dominant constraints</dt>
+    <dd><ul>{% for c in system.dominant_constraints %}<li>{{ c }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.main_feedbacks %}
+    <dt>Main feedbacks</dt>
+    <dd><ul>{% for f in system.main_feedbacks %}<li>{{ f }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.emergent_properties %}
+    <dt>Emergent properties</dt>
+    <dd><ul>{% for e in system.emergent_properties %}<li>{{ e }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+    {% if system.failure_modes %}
+    <dt>Failure modes</dt>
+    <dd><ul>{% for f in system.failure_modes %}<li>{{ f }}</li>{% endfor %}</ul></dd>
+    {% endif %}
+  </dl>
+</div>
+{% endif %}
+
+{% if system.canonical_examples %}
+<h2>Canonical examples ({{ system.canonical_examples|length }})</h2>
+<div class="panel">
+  <dl class="kv">
+    {% for ex in system.canonical_examples %}
+    <dt>{{ ex.name }}</dt>
+    <dd>{% if ex.note %}{{ ex.note }}{% else %}<span class="dim">—</span>{% endif %}</dd>
+    {% endfor %}
+  </dl>
+</div>
+{% endif %}
 
 <h2>Observations ({{ observations|length }})</h2>
 {% if observations %}

@@ -6,6 +6,8 @@
 <p class="mono dim">{{ metric.id }}
   {% if metric.family %} &middot; <span class="badge">{{ metric.family }}</span>{% endif %}
   {% if metric.status %} &middot; <span class="badge">{{ metric.status }}</span>{% endif %}
+  {% if metric.maturity_level %} &middot; <span class="badge">maturity: {{ metric.maturity_level }}</span>{% endif %}
+  {% if metric.scale_level %} &middot; <span class="badge">scale: {{ metric.scale_level }}</span>{% endif %}
 </p>
 
 {% if metric.description %}<p>{{ metric.description }}</p>{% endif %}

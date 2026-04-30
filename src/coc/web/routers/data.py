@@ -122,6 +122,13 @@ def system_detail(request: Request, system_id: str) -> HTMLResponse:
             "scales_spatial",
             "scales_temporal",
             "source_refs",
+            # v0.2 periodic-table facets
+            "main_feedbacks",
+            "dominant_constraints",
+            "emergent_properties",
+            "failure_modes",
+            "primary_resources",
+            "canonical_examples",
         ],
     )
     observations = query(
