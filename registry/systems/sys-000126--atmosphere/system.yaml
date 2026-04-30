@@ -1,23 +1,119 @@
 boundary:
-  description: Type-level ecological archetype; refine boundary in 
-    profile-system upgrade.
+  description: "The gravitationally retained gaseous envelope surrounding a\nplanetary body, bounded below by the solid or liquid surface\n(lithosphere/hydrosphere/cryosphere) and above by a fuzzy\ntransition to space where particle density falls toward the\ninterplanetary medium and free molecular flow dominates\n(Earth's exosphere/Karman line ~100 km is a conventional\nupper marker, not a sharp interface).\n"
   type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Earth's atmosphere
+    note: N2/O2-dominated, biotically modified, four-layer thermal structure;
+      canonical case for life-coupled atmospheres.
+  - name: Venus's atmosphere
+    note: ~92 bar CO2-dominated runaway-greenhouse case; ~735 K surface
+      temperature, sulfuric-acid clouds.
+  - name: Mars's atmosphere
+    note: ~6 mbar CO2-dominated thin atmosphere; canonical low-pressure
+      escape-driven case.
+  - name: Titan's atmosphere
+    note: N2-dominated with CH4 hydrocarbon cycle; canonical icy-moon
+      atmosphere with active volatile cycle.
+  - name: Jupiter's atmosphere
+    note: H2/He-dominated gas-giant atmosphere; canonical deep, banded
+      circulation case with no solid lower boundary.
 components:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - gas mixture (planet-specific; e.g. N2/O2/H2O/CO2 for Earth, ~CO2 for
+    Venus and Mars, H2/He for gas giants)
+  - aerosols and particulates (dust, sulfates, sea salt, organic haze,
+    cloud droplets and ice crystals)
+  - thermal layers structured by temperature/composition gradients
+    (troposphere, stratosphere, mesosphere, thermosphere, exosphere on
+    Earth)
+  - radiatively active trace gases (H2O, CO2, CH4, O3, N2O on Earth)
+  - charged-species ionosphere coupled to the magnetosphere
+  - large-scale circulation cells (Hadley, Ferrel, Polar on Earth)
+  - boundary-layer turbulent surface-coupling region
 created_at: '2026-04-29T22:20:40Z'
+dominant_constraints:
+  - solar energy input + planetary albedo (radiative forcing)
+  - gravitational binding vs. thermal escape (escape velocity)
+  - bulk composition and condensable inventory
+  - planetary rotation rate (Coriolis structure of circulation)
+  - hydrostatic balance (vertical pressure structure)
+emergent_properties:
+  - weather (mesoscale and synoptic patterns)
+  - climate zones and latitudinal heat redistribution
+  - large-scale circulation cells and jet streams
+  - atmospheric chemistry steady states (e.g. ozone layer, methane
+    lifetime)
+  - global teleconnections (e.g. ENSO-like coupled modes)
+failure_modes:
+  - atmospheric escape / hydrodynamic blow-off (loss of light volatiles)
+  - runaway greenhouse (positive water-vapor / CO2 feedback driving
+    surface temperature to vapor saturation; canonical Venus pathway)
+  - snowball / icehouse collapse (ice-albedo runaway to planet-wide
+    glaciation)
+  - ozone-layer depletion (catalytic destruction of stratospheric O3 by
+    halogen radicals)
+  - composition shift driven by biospheric or anthropogenic forcing
+    (e.g. Great Oxidation Event, contemporary CO2 rise)
 id: sys-000126--atmosphere
 interaction_types:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - radiative transfer (absorption, scattering, emission across the
+    solar and thermal-IR spectrum)
+  - convective and advective transport of heat, momentum, and tracers
+  - phase changes of condensable species (evaporation, condensation,
+    sublimation, freezing) with associated latent-heat release
+  - photochemistry and gas-phase chemistry
+  - gravitational settling and turbulent mixing
+  - exchange with ocean / biosphere / lithosphere / cryosphere
+    (e.g. air-sea gas exchange, transpiration, weathering, volcanism)
+  - atmospheric escape to space (Jeans, hydrodynamic, charge-exchange)
+lifecycle_stage: maturity
+main_feedbacks:
+  - water-vapor / temperature feedback (positive on Earth, runaway on
+    early Venus)
+  - ice / snow albedo feedback (positive)
+  - cloud-radiation feedback (sign and magnitude depend on cloud type
+    and altitude)
+  - carbon-cycle / silicate-weathering thermostat (negative, long
+    timescale)
+  - vegetation-atmosphere feedback (evapotranspiration, albedo)
+  - ozone-temperature coupling in the stratosphere
 name: Atmosphere
+origin: hybrid
+primary_function: maintain a gravitationally bound gaseous envelope that
+  redistributes incoming stellar energy across a planetary surface,
+  buffers surface conditions, and mediates exchange of volatiles and
+  energy among surface reservoirs and space
 priority: P0
-scales: {}
+scales:
+  spatial:
+    - turbulent eddies ~10^-3 to 10^2 m
+    - planetary boundary layer ~10^3 m
+    - synoptic weather systems ~10^5 to 10^6 m
+    - planetary circulation cells ~10^7 m
+    - vertical extent (Earth troposphere to exobase) ~10^4 to 10^5 m
+  temporal:
+    - turbulent dissipation ~10^0 to 10^2 s
+    - diurnal cycle ~10^5 s
+    - synoptic weather ~10^5 to 10^6 s
+    - seasonal cycle ~10^7 s
+    - climate variability ~10^7 to 10^9 s
+    - geological / compositional evolution ~10^13 to 10^17 s
 slug: atmosphere
-status: bootstrap-stub
-summary: Type-level archetype imported from 
-  docs/framework/02-candidate-systems-catalog.md §6.2 (priority P0). Bootstrap 
-  stub awaiting profile-system upgrade.
+status: candidate
+substrate: gases (planet-specific composition) plus suspended aerosols,
+  cloud particles, and trace ionized species
+summary: "The gravitationally retained gaseous envelope of a planetary\nbody:
+  a stratified, radiatively-driven fluid system that\nredistributes stellar energy
+  across the surface, mediates\nexchange of volatiles among solid, liquid, and space
+  reservoirs,\nand sets the pressure-temperature-composition regime in which\nsurface
+  processes (including life, where present) occur.\n"
 system_kind: class
 taxonomy_refs:
   - system-domain:ecological
   - system-class:geosphere
-updated_at: '2026-04-29T22:20:40Z'
+updated_at: '2026-04-30T15:13:00Z'
+primary_resources:
+  - incoming stellar (solar) radiation
+  - planetary internal heat and outgassing fluxes
+  - condensable volatile inventory (H2O, CO2, N2, CH4, etc.)
+  - angular momentum from planetary rotation
