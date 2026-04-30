@@ -7,7 +7,12 @@
 # Master switch. When `true`, every scheduled invocation exits
 # immediately on entry — no preflight, no queue work, no git activity.
 # Use it to pause the scheduler during large hand-edits.
-disabled: true
+#
+# Re-enabled 2026-04-30 after sweep autorun model landed
+# (commits c7861ac, 768e051). Active phase: system-profiling
+# (639 bootstrap-stub systems pending upgrade, P0-first then domain
+# round-robin).
+disabled: false
 
 # How many tasks one cron tick may emit + execute. Under the sweep
 # model each task is a single subject (one system or one metric) and
