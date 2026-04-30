@@ -1,23 +1,182 @@
 boundary:
-  description: Type-level ecological archetype; refine boundary in 
-    profile-system upgrade.
+  description: "The set of all frozen-water and other-volatile-ice reservoirs at and
+    near a planetary surface — continental ice sheets, glaciers and ice caps, sea
+    ice, lake and river ice, ice shelves, seasonal snow cover, and ground ice
+    (permafrost, ice-cemented regolith) — together with the firn / snow-to-ice
+    transition zone. Bounded operationally by the freezing-point isotherm of the
+    dominant volatile (water on Earth and Mars; water ± ammonia / methane /
+    nitrogen ices on outer-solar-system bodies) and by the energy balance that
+    sustains the solid phase. Distinguished from the hydrosphere (liquid /
+    vapour water reservoirs) and from the lithosphere (mineral solids) by phase
+    and by the active mass-balance coupling to atmosphere and ocean.\n"
   type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Earth's modern cryosphere
+    note: ~10% of land area covered by glaciers and ice sheets (~26 × 10^6 km^3
+      of ice, dominated by Antarctica and Greenland); seasonal Northern
+      Hemisphere snow cover ~50 × 10^6 km^2; Arctic sea ice ~14 × 10^6 km^2 at
+      March maximum; permafrost ~22 × 10^6 km^2. Canonical Cenozoic-glaciation
+      reference state.
+  - name: Last Glacial Maximum cryosphere (~21 ka)
+    note: Northern-hemisphere ice sheets (Laurentide, Cordilleran, Fennoscandian)
+      added ~50 × 10^6 km^3 of land ice; sea level ~120 m lower than present;
+      canonical full-glacial state.
+  - name: Snowball / Slushball Earth cryosphere (Cryogenian, ~720–635 Ma)
+    note: Hypothesised near-global ice cover driven by runaway ice-albedo
+      feedback; canonical bifurcation / runaway-tipping state for the
+      cryosphere as a system.
+  - name: Mars's polar caps and subsurface ice
+    note: Permanent CO2-water ice north and south polar caps (~3 × 10^6 km^3
+      water-equivalent in the residual caps; massive subsurface H2O and CO2
+      ice deposits); canonical mixed-volatile, low-pressure cryosphere.
+  - name: Europa's outer ice shell
+    note: ~10–30 km thick water-ice shell over a probable subsurface liquid
+      ocean; canonical icy-moon cryosphere coupled to a habitable
+      sub-ice ocean.
+  - name: Titan's surface ices and methane cryosphere
+    note: Water-ice crust at ~94 K plus a hydrocarbon (methane / ethane) cycle
+      with surface lakes and seas; canonical multi-volatile cryosphere on a
+      thick-atmosphere icy moon.
 components:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - continental ice sheets (Antarctica ~26.5 × 10^6 km^3, Greenland ~2.85 ×
+    10^6 km^3 on Earth)
+  - mountain glaciers and ice caps (~158,000 catalogued on Earth; ~0.16 ×
+    10^6 km^3)
+  - ice shelves (floating extensions of grounded ice sheets — e.g. Ross, Ronne,
+    Filchner on Earth; ~1.5 × 10^6 km^2)
+  - sea ice (perennial and seasonal floating ice; ~14 × 10^6 km^2 Arctic
+    March maximum, ~18 × 10^6 km^2 Antarctic September maximum on Earth)
+  - seasonal snow cover (~50 × 10^6 km^2 Northern-Hemisphere winter peak on
+    Earth)
+  - permafrost and ground ice (continuous and discontinuous; ~22 × 10^6 km^2
+    NH on Earth; massive ice wedges, pingos, ice-cemented regolith)
+  - lake and river ice (seasonal; ~600 × 10^3 lakes freeze annually on Earth)
+  - firn / snow-to-ice transition zone (intermediate-density layer above ice
+    sheets and glaciers)
+  - non-water surface ices on icy bodies (CO2 caps on Mars; CH4, N2, NH3 ices
+    on outer-solar-system surfaces)
 created_at: '2026-04-29T22:20:40Z'
+dominant_constraints:
+  - planetary energy balance (insolation × albedo + atmospheric and ocean heat
+    flux)
+  - air and ocean temperature distribution
+  - precipitation supply (snow accumulation; depends on atmospheric circulation
+    and moisture sources)
+  - bed topography and grounding-line geometry (controls marine-ice-sheet
+    stability)
+  - gravitational driving stress and ice rheology (Glen flow law)
+  - mass conservation (accumulation balanced by melt + sublimation + calving +
+    discharge)
+  - phase-equilibrium constraints set by the dominant volatile's triple point
+emergent_properties:
+  - planetary albedo regulation (snow/clean ice albedo ≳0.8 vs. ocean ~0.06)
+  - glacial–interglacial bistability and ice-age climate states
+  - sea-level coupling to terrestrial ice mass balance (~3 mm/yr present global
+    rise; ~120 m glacial–interglacial range)
+  - long-term climate archive (ice-core δ18O, δD, gas-inclusion CO2/CH4
+    records spanning ~800 kyr on Earth)
+  - bipolar climate seesaw (hemispheric coupling via thermohaline circulation
+    and sea-ice extent)
+  - distinct cryospheric biosphere (psychrophiles in sea ice, snow, glaciers,
+    permafrost; cold-adapted megafauna in polar regions)
+  - ocean stratification through brine rejection during sea-ice formation
+    (drives deep-water formation)
+failure_modes:
+  - marine-ice-sheet instability (positive feedback retreat on retrograde beds;
+    West Antarctic Ice Sheet pathway)
+  - ice-shelf disintegration via hydrofracture (Larsen B-style collapse)
+  - runaway deglaciation / interglacial overshoot (loss of grounded ice past
+    geometric tipping points)
+  - mountain-glacier extinction (low-altitude, low-latitude glaciers vanishing
+    on decadal–centennial timescales)
+  - sea-ice loss to a seasonally or perennially ice-free state (Arctic
+    "blue-ocean-event" pathway)
+  - permafrost thaw cascade (thermokarst, abrupt thaw; releases stored C as
+    CO2 and CH4)
+  - snowball-Earth runaway (ice-albedo feedback driving planet-wide
+    glaciation; opposite tipping direction)
 id: sys-000130--cryosphere
 interaction_types:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - radiative coupling (high albedo for snow / clean ice; lower for old / wet
+    / dust-darkened surfaces)
+  - latent-heat exchange via melt, freeze, sublimation, deposition
+  - gravitational flow (glacier and ice-sheet creep; ice-shelf advection;
+    calving at marine margins)
+  - basal sliding and subglacial hydrology (water-pressure-modulated flow,
+    subglacial lakes and channels)
+  - mechanical coupling with substrate (glacial isostasy; lithospheric flexure
+    under and after ice-sheet loading)
+  - thermal and mechanical coupling with the ocean (ice-shelf basal melt;
+    sea-ice formation / breakup; brine rejection driving deep-water formation)
+  - mass exchange with the atmosphere (snowfall, sublimation, blowing-snow
+    redistribution)
+  - mass exchange with the hydrosphere (meltwater runoff, calving icebergs,
+    sea-ice freeze/melt)
+  - biogeochemical exchange (gas and aerosol entrapment in ice; microbial
+    activity in cold environments; carbon storage in permafrost soils)
+lifecycle_stage: senescence
+main_feedbacks:
+  - ice-albedo feedback (positive — warming drives melt or retreat, which
+    lowers albedo, raising absorbed shortwave and accelerating warming)
+  - meltwater–surface-elevation feedback (positive — surface lowering brings
+    ice into warmer air, accelerating melt; Greenland-style)
+  - marine-ice-sheet instability (positive — retrograde-bed grounding-line
+    retreat self-amplifies)
+  - sea-ice insulation feedback (negative on ocean–atmosphere heat exchange
+    — intact sea ice insulates warm ocean from cold atmosphere; loss exposes
+    ocean and accelerates regional warming)
+  - cloud–cryosphere radiative feedback (mixed sign; polar low cloud cover
+    couples to sea-ice and snow cover)
+  - permafrost–carbon feedback (positive on global scale — thaw releases
+    CO2 and CH4, driving further atmospheric warming)
+  - glacial silicate-weathering feedback (negative, geological timescale
+    — glacier expansion or retreat modulates rock comminution and CO2
+    drawdown)
 name: Cryosphere
+origin: natural
+primary_function: maintain the frozen-water (and, on cold worlds, frozen
+  volatile) reservoir of a planetary surface — regulating planetary albedo,
+  storing fresh water on multi-millennial timescales, modulating sea level
+  and ocean stratification, and acting as the dominant slow-response component
+  of the climate system
+primary_resources:
+  - precipitation supply (snowfall accumulation)
+  - solar / orbital energy modulation (insolation pattern; Milankovitch
+    forcing)
+  - net longwave radiative loss to space (the "cold" the cryosphere requires)
+  - liquid water and brine from melt and basal melt (released to hydrosphere)
 priority: P0
-scales: {}
+scales:
+  spatial:
+    - ice / snow crystal ~10^-3 m
+    - firn column / melt pond ~10^0 to 10^2 m
+    - mountain glacier ~10^3 to 10^5 m
+    - ice shelf ~10^5 to 10^6 m
+    - continental ice sheet ~10^6 to 10^7 m
+    - hemispheric snow / sea-ice cover ~10^7 m
+  temporal:
+    - diurnal melt–freeze ~10^5 s
+    - seasonal cycle ~10^7 s
+    - decadal mass-balance variability ~10^8 to 10^9 s
+    - ice-sheet response / readjustment ~10^11 to 10^13 s (millennia)
+    - glacial–interglacial cycles ~10^11 to 10^12 s (~40–100 kyr)
+    - cryosphere existence on Earth ~10^14 to 10^15 s (~3 Gy intermittent;
+      current Cenozoic glaciation ~34 Ma)
 slug: cryosphere
-status: bootstrap-stub
-summary: Type-level archetype imported from 
-  docs/framework/02-candidate-systems-catalog.md §6.2 (priority P0). Bootstrap 
-  stub awaiting profile-system upgrade.
+status: candidate
+substrate: water ice (and on cold worlds, water plus CO2 / CH4 / N2 / NH3
+  ices) — including snow, firn, glacier and sheet ice, sea ice, ice shelves,
+  ground ice and ice-cemented regolith — together with entrained sediment,
+  brine, and trapped gas
+summary: "Type-level archetype imported from\ndocs/framework/02-candidate-systems-catalog.md
+  §6.2 (priority P0).\nUpgraded by profile-system on 2026-04-30: the\nfrozen-volatile
+  envelope of a planetary surface — ice sheets,\nglaciers, sea ice, ice shelves, snow
+  cover, ground ice and\npermafrost — that regulates planetary albedo, stores fresh\nwater
+  on multi-millennial timescales, modulates sea level and\nocean stratification, and
+  archives past climate.\n"
 system_kind: class
 taxonomy_refs:
   - system-domain:ecological
   - system-class:geosphere
-updated_at: '2026-04-29T22:20:40Z'
+updated_at: '2026-04-30T23:10:00Z'
