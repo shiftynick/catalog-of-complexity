@@ -29,7 +29,24 @@ Do **not** use this skill to define new metrics or profile new systems — use `
 ## Preconditions
 
 - `system_id` and every `metric_id` already exist in the registry.
-- Every `src-*` id in `source_refs` already has `source.yaml` and raw/parsed content on disk. If any entry uses a prefixed form (`doi:`, `arxiv:`, `url:`) that isn't yet registered, **block** the task with reason `source-not-acquired`. `plan-backlog` Tier 0.75 owns acquisition — it will queue an `acquire-source` task on the next run. Do not fabricate a `src-*` id and do not attempt to fetch inline.
+- The **system's status** is `candidate` or `profiled` — substantive
+  enough to ground observations. **Block** with reason
+  `system-not-profiled` if the status is `bootstrap-stub`: the entry
+  is a placeholder and any observation extracted against it would be
+  ill-grounded. plan-backlog Tier 3 (profile debt) owns the upgrade;
+  the autorun will route the stub through `profile-system` first.
+- The **metric's status** is `proposed` or `canonical` — has a
+  populated rubric. **Block** with reason `metric-not-defined` if the
+  status is `bootstrap-stub`: the rubric is a placeholder and the
+  measurement procedure isn't repeatable. plan-backlog Tier 4 owns
+  the upgrade.
+- Every `src-*` id in `source_refs` already has `source.yaml` and
+  raw/parsed content on disk. If any entry uses a prefixed form
+  (`doi:`, `arxiv:`, `url:`) that isn't yet registered, **block**
+  the task with reason `source-not-acquired`. `plan-backlog` Tier
+  0.75 owns acquisition — it will queue an `acquire-source` task on
+  the next run. Do not fabricate a `src-*` id and do not attempt to
+  fetch inline.
 
 ## Procedure
 
@@ -52,8 +69,36 @@ Do **not** use this skill to define new metrics or profile new systems — use `
    - Assign `confidence`: 0.0-1.0 based on source quality, derivation distance, and sample size. See rubric in [qc/evals/](../../qc/evals/) (Phase 9).
 4. Append an evidence entry per citation to `registry/sources/<src>/evidence.jsonl`:
    - `evidence_id: evi-<8-hex>`, `source_id`, `locator` (page, section, line, or DOI fragment), `excerpt` (verbatim quote or paraphrase with citation).
-5. Append an observation entry to `registry/observations/<system>/<topic>.jsonl` (create a new topic file if needed — use the metric family as the topic name):
-   - `observation_id: obs-<8-hex>`, `system_id`, `metric_id`, value fields, `value_kind`, `unit`, `confidence`, `evidence_refs: [evi-*, ...]`, `review_state: auto-validated` (default — use `proposed` only if you specifically want a human pass before the record counts), `observed_at` (date the source reports the value, not the date you extracted it).
+5. Append an observation entry to
+   `registry/observations/<system>/<topic>.jsonl` (create a new topic
+   file if needed — use the metric family as the topic name):
+   - Required: `observation_id: obs-<8-hex>`, `system_id`, `metric_id`,
+     `value_kind`, `confidence`, `source_refs`, `evidence_refs`,
+     `review_state: auto-validated` (default — use `proposed` only if
+     you specifically want a human pass before the record counts).
+   - Optional but recommended (v0.2 facets):
+     - `value` and `unit` for numeric/textual measurements.
+     - `normalized_value` if the metric defines a normalization
+       strategy and you can apply it (e.g. z-score against a domain
+       distribution).
+     - `uncertainty` — `{type, lower?, upper?, note?}`. `type` is one
+       of `range | ci-95 | ci-90 | ci-68 | stdev | iqr | qualitative`.
+       Distinct from `confidence` (which scores trust in the
+       source/derivation); `uncertainty` is the quantitative spread
+       around the value itself.
+     - `assumptions` — list of interpretive assumptions used to derive
+       the value (e.g. "edges represent active dependencies", "weights
+       normalized to [0,1]"). Critical for cross-system comparability.
+     - `scale_level` — `micro | meso | macro | multi-scale`. Should be
+       consistent with the metric's declared `scale_level`; observations
+       may legitimately drill in (e.g. a macro-level metric reported at
+       meso scope for a specific subsystem).
+     - `temporal_context` and `spatial_context` — `{label, start?, end?}`
+       for the observed period / region.
+     - `method` — short string describing the computational or
+       observational method used.
+     - `observed_at` — ISO-8601 date the source reports the value, not
+       the date you extracted it.
 6. Run `uv run coc validate registry/observations/<system>/` and `uv run coc validate registry/sources/<src>/`.
 7. Append a run report listing: (system, metric, value, confidence, evidence_refs) tuples and any pairs skipped with rationale.
 

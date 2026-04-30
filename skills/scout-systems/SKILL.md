@@ -78,9 +78,10 @@ parenthetical.
 ```yaml
 acceptance_tests:
   - At least one profile-system task manifest is written to ops/tasks/inbox/
-    for a <domain>-domain candidate, each carrying >=1 source_ref and
-    naming a candidate system-domain / system-class slug pair that resolves
-    against taxonomy/source/.
+    for a <domain>-domain candidate, naming a candidate system-domain /
+    system-class slug pair that resolves against taxonomy/source/.
+    `source_refs` is optional for type-level archetype proposals and may
+    be empty (per AGENTS.md "What counts as a system worth cataloging").
   - A scout-report.md is written under
     ops/runs/YYYY/MM/DD/<run-id>/scout-report.md with sections Accepted,
     Rejected, Taxonomy gaps, and Sources consulted.

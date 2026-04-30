@@ -187,14 +187,36 @@ scope and covered by `review-records` and by human gatekeeping.
       **not** trigger this tier on their own; they're considered usable
       until the webUI prune tool flags them or a separate sweep of
       auto-validated batches is scheduled.
-   2. **Observation debt** — any `validated` system with zero observations
-      against its declared metrics → emit one `extract-observations` task
-      per (system, metric-family) pair, cap 5 per run.
-   3. **Profile debt** — any `candidate` system without a completed profile
-      (`boundary`, `components`, `interaction_types`, `scales` all set) →
-      emit one `profile-system` task per system, cap 3 per run.
-   4. **Metric debt** — any `candidate` metric without a rubric file → emit
-      one `define-metrics` task per metric, cap 3 per run.
+   2. **Observation debt** — any system with `status` in (`candidate`,
+      `profiled`) and zero observations against its declared metrics →
+      emit one `extract-observations` task per (system, metric-family)
+      pair, cap 5 per run. **Do not** target `bootstrap-stub` systems
+      here — they lack substantive boundary/components/scales and any
+      observations against them would be ill-grounded; route those
+      through Tier 3 first to upgrade them.
+   3. **Profile debt** — bootstrap-stub upgrade. Any system with
+      `status: bootstrap-stub` (the v0.2 long-tail import marker) →
+      emit one `profile-system` task per system, cap 3 per run. The
+      task's `notes` should cite the catalog source section from the
+      stub's existing `summary` so the upgrading agent has the
+      provenance pointer. profile-system runs in upgrade mode against
+      these stubs and rewrites `system.yaml` in place, raising status
+      to `candidate`. Order entries by priority (P0 before P1 before
+      P2 before P3) so the most foundational archetypes upgrade first.
+      *Legacy fallback:* if any `candidate` system is missing required
+      fields (`boundary`, `components`, `interaction_types`, `scales`) —
+      which should not happen post-v0.2 but might in edge cases — also
+      emit a profile-system task for it.
+   4. **Metric debt** — bootstrap-stub upgrade. Any metric with
+      `status: bootstrap-stub` (or a `candidate` metric without a
+      rubric file, the legacy case) → emit one `define-metrics` task
+      per metric, cap 3 per run. The metric's `family` taxonomy ref
+      and existing `description` give the upgrading agent the seed
+      content; the task fills in `rubric.md`, populates worked examples,
+      sets `scale_level` and `maturity_level`, and tightens
+      `applicability` rules. Promote status from `bootstrap-stub` to
+      `proposed` (or directly `canonical` if the metric is a textbook
+      standard).
    5. **Coverage expansion** — if the top tiers are all empty, emit
       `scout-systems` tasks for the under-covered `system-domain` slugs:
       one per slug in the bottom half of the coverage histogram, capped

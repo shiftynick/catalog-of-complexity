@@ -19,15 +19,39 @@ stop_conditions:
 
 ## When to use
 
-Use this skill when a metric that `extract-observations` or `scout-systems` needs does not yet exist in `registry/metrics/`, or when an existing metric's rubric has gaps that block repeatable extraction.
+Use this skill in two trigger modes:
+
+1. **New metric** — a metric that `extract-observations` or
+   `scout-systems` needs does not yet exist in `registry/metrics/`.
+   Allocate a fresh `mtr-NNNNNN` id; write canonical definition,
+   rubric, worked examples.
+2. **Stub upgrade** — bootstrap v0.1 imported 16 metric stubs (one per
+   metric-family) at `status: bootstrap-stub` with placeholder
+   rubrics. plan-backlog Tier 4 (metric debt, gated to `bootstrap` and
+   `metrics-fill` phases) emits `define-metrics` tasks for these.
+   Reuse the existing `mtr-*` id; rewrite `metric.yaml`; create
+   `rubric.md` and `examples.yaml`; promote status from
+   `bootstrap-stub` to `proposed` (or `canonical` if textbook-standard).
+
+Also trigger when an existing metric's rubric has gaps that block
+repeatable extraction (review-records flag).
 
 Do **not** use this skill to record measurements — that is `extract-observations`. Do **not** use it to propose new metric families (taxonomy changes go through `taxonomy-proposal` tasks).
 
 ## Preconditions
 
 - `family_slug` resolves in `taxonomy/source/metric-families.yaml`.
-- The next free `mtr-NNNNNN` ID has been determined: `ls registry/metrics | sort | tail -1`, then increment.
-- `candidate_description` is substantive (>= 1 paragraph).
+  v0.2 expanded the families to 16 (added causality, constraints,
+  governance, environment, function-performance, failure-mode,
+  potentials, comparative).
+- For **new** mode: no `registry/metrics/mtr-*--<slug>/` exists; allocate
+  the next free `mtr-NNNNNN` ID: `ls registry/metrics | sort | tail -1`,
+  then increment.
+- For **upgrade** mode: exactly one `registry/metrics/mtr-*--<slug>/`
+  exists with `status: bootstrap-stub`; reuse its id and `family`.
+- `candidate_description` is substantive (>= 1 paragraph). For upgrade
+  mode the existing stub's `description` field provides the seed
+  content.
 
 ## Procedure
 
@@ -37,11 +61,37 @@ Do **not** use this skill to record measurements — that is `extract-observatio
    - Units / dimensionless status.
    - Known applicability boundaries (value domain, system classes where it fails, common pitfalls).
    - Typical observed ranges.
-3. Draft `metric.yaml` with all required fields from [metric.schema.json](../../schemas/metric.schema.json):
-   - `id`, `slug`, `name`, `status: active`.
-   - `taxonomy_refs` including `metric-family:*` and optionally `system-class:*` for restricted applicability.
-   - `definition`, `unit`, `value_kind`, `applicability` (object with `required_system_properties`, `undefined_when`, `cautions`).
-   - `created_at`, `updated_at`.
+3. Draft `metric.yaml` with all required fields from
+   [metric.schema.json](../../schemas/metric.schema.json):
+   - `id`, `slug`, `name`, `status` — `proposed` for new entries
+     (awaiting review) or `canonical` for textbook-standard metrics
+     where the rubric is well established. **Upgrade mode:** if a
+     `bootstrap-stub` metric record already exists for this slug,
+     reuse its `id` and rewrite `metric.yaml` in place, promoting
+     status to `proposed` (or `canonical` if textbook-standard).
+   - `family` — `metric-family:*` slug.
+   - `description`, `value_type`, `unit`, `directionality`,
+     `applicability` (object with `requires`, `excludes`).
+   - `estimation_methods` (array, ≥1).
+   - **v0.2 facets** — populate where meaningful:
+     - `scale_level` — `micro | meso | macro | multi-scale`. The level
+       of description the metric applies to. Examples: component-count
+       is `micro`, modularity is `meso`, energy-throughput is `macro`,
+       Bar-Yam multiscale-complexity is `multi-scale`.
+     - `maturity_level` — `L0 | L1 | L2 | L3 | L4 | L5`. Maturity ladder
+       from docs/framework/03-metric-ontology.md §22. L0 qualitative
+       tag, L1 ordinal score, L2 direct numeric, L3 computed from
+       data/model, L4 validated predictive, L5 cross-domain invariant
+       candidate. Bootstrap-stub metrics typically sit at L0–L1; a
+       full define-metrics pass with rubric and 3+ worked examples
+       can promote to L2 or L3.
+     - `normalization` — object with `strategy` field (e.g.
+       `raw-and-zscore`, `domain-typical-normalization`,
+       `none`). Optional but recommended.
+   - `evidence_requirements` — `{minimum_source_count: integer,
+     review_required: boolean}`. Default
+     `{minimum_source_count: 1, review_required: true}` for proposed;
+     bump `minimum_source_count: 2-3` for canonical.
 4. Draft `rubric.md` — the measurement procedure a reviewer would follow. Include:
    - Operational steps (what data you need, how to compute).
    - 3+ worked examples across domains.
