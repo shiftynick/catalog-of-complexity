@@ -1,24 +1,119 @@
 boundary:
-  description: Type-level ecological archetype; refine boundary in 
-    profile-system upgrade.
+  description: The thin envelope at and near Earth's surface inhabited by life —
+    from a few kilometers into the lithosphere (deep subsurface microbes) up
+    through the troposphere (aerosolized microbes, migrating birds), bounded
+    operationally by where active biological metabolism occurs and is coupled
+    to atmosphere/ocean/crust through biogeochemical cycling. Distinguished from
+    individual ecosystems by being the global integral, and from the broader
+    Earth-system by excluding the technosphere and the deep mantle.
   type: spatial
+boundary_clarity: fuzzy
+canonical_examples:
+  - name: Archean microbial biosphere (~3.5–2.5 Ga)
+    note: Anoxic prokaryotic mats and stromatolites; canonical pre-oxygen
+      biosphere state.
+  - name: Proterozoic post-GOE biosphere (~2.4 Ga–541 Ma)
+    note: Oxygenic photosynthesis spreads, eukaryotes emerge; biosphere
+      transitions to oxidizing chemistry, sets stage for complex life.
+  - name: Phanerozoic multicellular biosphere (541 Ma–present)
+    note: Modern complex biosphere with macroscopic plants and animals;
+      canonical reference state for present-day ecology and biogeochemistry.
+  - name: Holocene biosphere (~12 ka–present)
+    note: Stable interglacial baseline biosphere of recorded human history;
+      reference state for "natural" planetary boundaries.
 components:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - all living organisms (microbes, plants, animals, fungi) — ~10^30 cells,
+    ~550 Gt C standing biomass
+  - microbial communities (oceanic, soil, deep-subsurface, host-associated)
+  - vegetation cover (forests, grasslands, phytoplankton)
+  - decomposer networks (fungi, bacteria) returning organic matter to
+    inorganic pools
+  - the dead organic carbon pool (soils, sediments, dissolved organic carbon)
+  - life-mediated atmospheric components (O2, much of N2O, CH4)
+  - biogeochemical fluxes coupling biota to geospheres (carbon, nitrogen,
+    sulfur, phosphorus, oxygen)
 created_at: '2026-04-29T22:20:40Z'
+dominant_constraints:
+  - solar energy input (~1.7 x 10^17 W incident; ~100 PgC/yr net primary
+    production)
+  - water availability (liquid-water envelope)
+  - nutrient stoichiometry (Redfield ratios; N, P, Fe limitations)
+  - thermodynamic and kinetic limits on metabolism
+  - planetary boundaries (Rockström framework — nine biospheric/Earth-system
+    boundaries)
+emergent_properties:
+  - global biogeochemical cycles (carbon, nitrogen, oxygen, water)
+  - oxygenic atmosphere maintained far from chemical equilibrium
+  - homeostatic-like regulation of climate and ocean chemistry over geologic
+    time (Gaia-style feedbacks)
+  - planetary-scale biodiversity gradients (latitudinal, vertical,
+    biome-level)
+  - resilience and tipping behavior at biome and planetary scales
+failure_modes:
+  - mass extinction (Big Five plus current sixth) — runaway biodiversity loss
+  - regime shift / tipping cascades (Amazon dieback, coral collapse, boreal
+    forest dieback)
+  - biogeochemical disruption (carbon-cycle imbalance, nitrogen saturation,
+    ocean acidification)
+  - oxygen depletion / anoxia (Phanerozoic ocean anoxic events)
+  - planetary-boundary transgression triggering nonlinear biospheric response
+  - cryosphere-coupled habitat loss (deglaciation, permafrost release)
 id: sys-000129--biosphere
 interaction_types:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - photosynthesis and respiration (primary energy capture and release)
+  - biogeochemical cycling (carbon, nitrogen, phosphorus, sulfur, oxygen,
+    water)
+  - trophic interactions integrated across all ecosystems
+  - climate-vegetation coupling (albedo, evapotranspiration, transpiration)
+  - microbial mediation of redox chemistry at the planetary scale
+  - cross-domain coupling with atmosphere, ocean, lithosphere, cryosphere
+lifecycle_stage: senescence
+main_feedbacks:
+  - photosynthesis–CO2 drawdown (negative feedback on greenhouse warming over
+    geological time)
+  - vegetation–albedo–climate feedback
+  - microbial decomposition–temperature feedback (positive, accelerates
+    carbon release as warming proceeds)
+  - oxygenic-photosynthesis self-amplification (oxygen rise enables aerobic
+    eukaryotes that further restructure biogeochemistry)
+  - biodiversity–productivity feedback (BEF relationships at planetary
+    integration)
+  - Gaia-style biotic regulation of atmospheric/ocean chemistry (contested
+    strength; established mechanism)
 name: Biosphere
+origin: evolved
+primary_function: integrate all of Earth's life into a planetary-scale system
+  that captures solar energy, drives global biogeochemical cycles, and
+  maintains atmospheric/oceanic chemistry far from abiotic equilibrium
+primary_resources:
+  - solar energy
+  - water
+  - nutrients (C, N, P, S, Fe and other trace elements)
+  - genetic information (the global gene pool)
+  - habitat (the bounded liquid-water envelope)
 priority: P0
-scales: {}
+scales:
+  spatial:
+    - cellular metabolism ~10^-6 to 10^-5 m
+    - organism ~10^-3 to 10^2 m
+    - ecosystem / biome ~10^3 to 10^7 m
+    - planetary envelope ~10^7 m (Earth's radius scale)
+    - vertical extent ~10^4 m (deep crust microbes to upper troposphere)
+  temporal:
+    - microbial generations ~10^3 to 10^4 s
+    - succession dynamics ~10^9 to 10^10 s
+    - biogeochemical cycle turnover ~10^8 to 10^11 s (carbon ~10^11 s in
+      slow pool)
+    - evolutionary radiations ~10^14 to 10^15 s
+    - biosphere age (since first life) ~10^17 s (~3.5–3.8 Gy)
 slug: biosphere
-status: bootstrap-stub
-summary: Type-level archetype imported from 
-  docs/framework/02-candidate-systems-catalog.md §6.2 (priority P0). Bootstrap 
-  stub awaiting profile-system upgrade.
+status: candidate
+substrate: all of Earth's living matter coupled to its abiotic
+  envelope (atmosphere, hydrosphere, surface lithosphere, cryosphere)
+summary: "Type-level archetype imported from \ndocs/framework/02-candidate-systems-catalog.md \xA76.2 (priority P0). \nUpgraded by profile-system on 2026-04-30: the planetary-scale\nintegrated community of all living organisms coupled to the\ngeospheres through biogeochemical flows. Genuinely singular at\nEarth scale; canonical examples are temporal states/epochs.\n"
 system_kind: class
 taxonomy_refs:
   - system-domain:ecological
   - system-class:biosphere
   - system-class:geosphere
-updated_at: '2026-04-29T22:20:40Z'
+updated_at: '2026-04-30T22:08:00Z'
