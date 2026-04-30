@@ -13,8 +13,10 @@
         <option value="{{ s }}" {% if review_state == s %}selected{% endif %}>{{ s }}</option>
       {% endfor %}
     </select>
+    <input type="text" name="run_id" value="{{ run_id }}" placeholder="run_id">
+    <input type="text" name="produced_by_task_id" value="{{ produced_by_task_id }}" placeholder="task_id">
     <button type="submit">filter</button>
-    {% if system_id or metric_id or review_state %}
+    {% if system_id or metric_id or review_state or run_id or produced_by_task_id %}
       <a class="muted" href="{{ request.url_for('data_observations_list') }}">clear</a>
     {% endif %}
   </form>
@@ -24,7 +26,7 @@
 
 <table>
   <thead>
-    <tr><th>Observation</th><th>System</th><th>Metric</th><th>Value</th><th>Kind</th><th>Conf.</th><th>Review</th><th>Observed</th></tr>
+    <tr><th>Observation</th><th>System</th><th>Metric</th><th>Value</th><th>Norm.</th><th>Kind</th><th>Scale</th><th>Method</th><th>Conf.</th><th>Temporal</th><th>Spatial</th><th>Review</th><th>Run</th><th>Observed</th></tr>
   </thead>
   <tbody>
     {% for r in rows %}
@@ -33,9 +35,15 @@
       <td><a href="{{ request.url_for('data_system_detail', system_id=r.system_id) }}">{{ r.system_id }}</a></td>
       <td><a href="{{ request.url_for('data_metric_detail', metric_id=r.metric_id) }}">{{ r.metric_id }}</a></td>
       <td class="mono">{{ r.value_numeric if r.value_numeric is not none else r.value_text }}{% if r.unit %} <span class="dim">{{ r.unit }}</span>{% endif %}</td>
+      <td class="mono">{{ r.normalized_value if r.normalized_value is not none else '' }}</td>
       <td>{{ r.value_kind or '' }}</td>
+      <td>{% if r.scale_level %}<span class="badge">{{ r.scale_level }}</span>{% endif %}</td>
+      <td class="truncate">{{ r.method or '' }}</td>
       <td class="mono">{{ r.confidence }}</td>
+      <td class="truncate">{{ r.temporal_label or '' }}</td>
+      <td class="truncate">{{ r.spatial_label or '' }}</td>
       <td>{% if r.review_state %}<span class="badge">{{ r.review_state }}</span>{% endif %}</td>
+      <td class="mono truncate">{% if r.run_id %}<a href="{{ request.url_for('data_observations_list') }}?run_id={{ r.run_id }}">{{ r.run_id[:12] }}…</a>{% endif %}</td>
       <td class="mono">{{ r.observed_at or '' }}</td>
     </tr>
     {% endfor %}

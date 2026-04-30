@@ -57,8 +57,15 @@ OBSERVATIONS_SCHEMA = pa.schema(
         ("value_text", pa.string()),
         ("value_boolean", pa.bool_()),
         ("unit", pa.string()),
+        ("normalized_value", pa.float64()),
         ("value_kind", pa.string()),
         ("confidence", pa.float64()),
+        ("uncertainty_type", pa.string()),
+        ("uncertainty_lower", pa.float64()),
+        ("uncertainty_upper", pa.float64()),
+        ("uncertainty_note", pa.string()),
+        ("assumptions", pa.string()),
+        ("scale_level", pa.string()),
         ("method", pa.string()),
         ("source_refs", pa.string()),
         ("evidence_refs", pa.string()),
@@ -66,6 +73,8 @@ OBSERVATIONS_SCHEMA = pa.schema(
         ("spatial_label", pa.string()),
         ("review_state", pa.string()),
         ("observed_at", pa.string()),
+        ("run_id", pa.string()),
+        ("produced_by_task_id", pa.string()),
     ]
 )
 
@@ -213,6 +222,7 @@ def _load_observations() -> list[dict]:
                 value_boolean = value if isinstance(value, bool) else None
                 temporal = obj.get("temporal_context") or {}
                 spatial = obj.get("spatial_context") or {}
+                uncertainty = obj.get("uncertainty") or {}
                 rows.append(
                     {
                         "observation_id": obj.get("observation_id"),
@@ -222,8 +232,16 @@ def _load_observations() -> list[dict]:
                         "value_text": value_text,
                         "value_boolean": value_boolean,
                         "unit": obj.get("unit"),
+                        # v0.2 fields
+                        "normalized_value": obj.get("normalized_value"),
                         "value_kind": obj.get("value_kind"),
                         "confidence": obj.get("confidence"),
+                        "uncertainty_type": uncertainty.get("type"),
+                        "uncertainty_lower": uncertainty.get("lower"),
+                        "uncertainty_upper": uncertainty.get("upper"),
+                        "uncertainty_note": uncertainty.get("note"),
+                        "assumptions": json.dumps(obj.get("assumptions", []) or []),
+                        "scale_level": obj.get("scale_level"),
                         "method": obj.get("method"),
                         "source_refs": json.dumps(obj.get("source_refs", []) or []),
                         "evidence_refs": json.dumps(obj.get("evidence_refs", []) or []),
@@ -231,6 +249,9 @@ def _load_observations() -> list[dict]:
                         "spatial_label": spatial.get("label"),
                         "review_state": obj.get("review_state"),
                         "observed_at": obj.get("observed_at"),
+                        # v0.3 sweep-autorun batch traceability
+                        "run_id": obj.get("run_id"),
+                        "produced_by_task_id": obj.get("produced_by_task_id"),
                     }
                 )
     return rows

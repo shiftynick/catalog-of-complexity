@@ -55,7 +55,7 @@ def data_index(request: Request) -> HTMLResponse:
     latest = query(
         """
         SELECT observation_id, system_id, metric_id, value_numeric, value_text,
-               unit, confidence, review_state, observed_at
+               unit, value_kind, confidence, review_state, observed_at
         FROM observations
         ORDER BY observed_at DESC NULLS LAST
         LIMIT 10
@@ -76,6 +76,8 @@ def systems_list(
     request: Request,
     q: str | None = Query(default=None),
     domain: str | None = Query(default=None),
+    priority: str | None = Query(default=None),
+    status: str | None = Query(default=None),
 ) -> HTMLResponse:
     if not warehouse_available():
         return _render(request, "data/warehouse_missing.html", {})
@@ -88,9 +90,15 @@ def systems_list(
     if domain:
         where.append("taxonomy_refs LIKE ?")
         params.append(f'%"system-domain:{domain}"%')
+    if priority:
+        where.append("priority = ?")
+        params.append(priority)
+    if status:
+        where.append("status = ?")
+        params.append(status)
     rows = query(
         f"""
-        SELECT id, slug, name, status, summary, taxonomy_refs
+        SELECT id, slug, name, status, priority, summary, taxonomy_refs
         FROM systems
         WHERE {' AND '.join(where)}
         ORDER BY name ASC
@@ -98,10 +106,23 @@ def systems_list(
         params,
     )
     rows = [decode_json_columns(r, ["taxonomy_refs"]) for r in rows]
+    statuses = [
+        r["status"]
+        for r in query(
+            "SELECT DISTINCT status FROM systems WHERE status IS NOT NULL ORDER BY 1"
+        )
+    ]
     return _render(
         request,
         "data/systems_list.html",
-        {"rows": rows, "q": q or "", "domain": domain or ""},
+        {
+            "rows": rows,
+            "q": q or "",
+            "domain": domain or "",
+            "priority": priority or "",
+            "status": status or "",
+            "statuses": statuses,
+        },
     )
 
 
@@ -155,6 +176,8 @@ def system_detail(request: Request, system_id: str) -> HTMLResponse:
 def metrics_list(
     request: Request,
     family: str | None = Query(default=None),
+    maturity: str | None = Query(default=None),
+    scale: str | None = Query(default=None),
 ) -> HTMLResponse:
     if not warehouse_available():
         return _render(request, "data/warehouse_missing.html", {})
@@ -163,9 +186,16 @@ def metrics_list(
     if family:
         where.append("family = ?")
         params.append(family)
+    if maturity:
+        where.append("maturity_level = ?")
+        params.append(maturity)
+    if scale:
+        where.append("scale_level = ?")
+        params.append(scale)
     rows = query(
         f"""
-        SELECT id, slug, name, family, status, value_type, unit, directionality
+        SELECT id, slug, name, family, status, value_type, unit, directionality,
+               maturity_level, scale_level
         FROM metrics
         WHERE {' AND '.join(where)}
         ORDER BY family, name
@@ -176,10 +206,32 @@ def metrics_list(
         r["family"]
         for r in query("SELECT DISTINCT family FROM metrics WHERE family IS NOT NULL ORDER BY 1")
     ]
+    maturities = [
+        r["maturity_level"]
+        for r in query(
+            "SELECT DISTINCT maturity_level FROM metrics "
+            "WHERE maturity_level IS NOT NULL ORDER BY 1"
+        )
+    ]
+    scales = [
+        r["scale_level"]
+        for r in query(
+            "SELECT DISTINCT scale_level FROM metrics "
+            "WHERE scale_level IS NOT NULL ORDER BY 1"
+        )
+    ]
     return _render(
         request,
         "data/metrics_list.html",
-        {"rows": rows, "families": families, "family": family or ""},
+        {
+            "rows": rows,
+            "families": families,
+            "family": family or "",
+            "maturities": maturities,
+            "maturity": maturity or "",
+            "scales": scales,
+            "scale": scale or "",
+        },
     )
 
 
@@ -217,6 +269,8 @@ def observations_list(
     system_id: str | None = Query(default=None),
     metric_id: str | None = Query(default=None),
     review_state: str | None = Query(default=None),
+    run_id: str | None = Query(default=None),
+    produced_by_task_id: str | None = Query(default=None),
 ) -> HTMLResponse:
     if not warehouse_available():
         return _render(request, "data/warehouse_missing.html", {})
@@ -226,6 +280,8 @@ def observations_list(
         ("system_id", system_id),
         ("metric_id", metric_id),
         ("review_state", review_state),
+        ("run_id", run_id),
+        ("produced_by_task_id", produced_by_task_id),
     ):
         if val:
             where.append(f"{col} = ?")
@@ -233,7 +289,9 @@ def observations_list(
     rows = query(
         f"""
         SELECT observation_id, system_id, metric_id, value_numeric, value_text,
-               unit, value_kind, confidence, review_state, observed_at
+               unit, normalized_value, value_kind, confidence, scale_level,
+               method, temporal_label, spatial_label, review_state, observed_at,
+               run_id, produced_by_task_id
         FROM observations
         WHERE {' AND '.join(where)}
         ORDER BY observed_at DESC NULLS LAST
@@ -257,6 +315,8 @@ def observations_list(
             "system_id": system_id or "",
             "metric_id": metric_id or "",
             "review_state": review_state or "",
+            "run_id": run_id or "",
+            "produced_by_task_id": produced_by_task_id or "",
         },
     )
 

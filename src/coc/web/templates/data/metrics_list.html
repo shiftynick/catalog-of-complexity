@@ -11,15 +11,27 @@
         <option value="{{ f }}" {% if family == f %}selected{% endif %}>{{ f }}</option>
       {% endfor %}
     </select>
+    <select name="maturity">
+      <option value="">all maturity</option>
+      {% for m in maturities %}
+        <option value="{{ m }}" {% if maturity == m %}selected{% endif %}>{{ m }}</option>
+      {% endfor %}
+    </select>
+    <select name="scale">
+      <option value="">all scales</option>
+      {% for s in scales %}
+        <option value="{{ s }}" {% if scale == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
     <button type="submit">filter</button>
-    {% if family %}<a class="muted" href="{{ request.url_for('data_metrics_list') }}">clear</a>{% endif %}
+    {% if family or maturity or scale %}<a class="muted" href="{{ request.url_for('data_metrics_list') }}">clear</a>{% endif %}
   </form>
 </div>
 
 <p class="muted">{{ rows|length }} metric(s)</p>
 
 <table>
-  <thead><tr><th>ID</th><th>Name</th><th>Family</th><th>Status</th><th>Type</th><th>Unit</th><th>Direction</th></tr></thead>
+  <thead><tr><th>ID</th><th>Name</th><th>Family</th><th>Status</th><th>Maturity</th><th>Scale</th><th>Type</th><th>Unit</th><th>Direction</th></tr></thead>
   <tbody>
     {% for r in rows %}
     <tr>
@@ -27,6 +39,8 @@
       <td>{{ r.name }}</td>
       <td>{% if r.family %}<span class="badge">{{ r.family }}</span>{% endif %}</td>
       <td>{% if r.status %}<span class="badge">{{ r.status }}</span>{% endif %}</td>
+      <td>{% if r.maturity_level %}<span class="badge">{{ r.maturity_level }}</span>{% endif %}</td>
+      <td>{% if r.scale_level %}<span class="badge">{{ r.scale_level }}</span>{% endif %}</td>
       <td>{{ r.value_type or '' }}</td>
       <td class="mono">{{ r.unit or '' }}</td>
       <td>{{ r.directionality or '' }}</td>

@@ -12,20 +12,33 @@
         <option value="{{ d }}" {% if domain == d %}selected{% endif %}>{{ d }}</option>
       {% endfor %}
     </select>
+    <select name="priority">
+      <option value="">all priorities</option>
+      {% for p in ['P0','P1','P2','P3','C'] %}
+        <option value="{{ p }}" {% if priority == p %}selected{% endif %}>{{ p }}</option>
+      {% endfor %}
+    </select>
+    <select name="status">
+      <option value="">all statuses</option>
+      {% for s in statuses %}
+        <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
     <button type="submit">filter</button>
-    {% if q or domain %}<a class="muted" href="{{ request.url_for('data_systems_list') }}">clear</a>{% endif %}
+    {% if q or domain or priority or status %}<a class="muted" href="{{ request.url_for('data_systems_list') }}">clear</a>{% endif %}
   </form>
 </div>
 
 <p class="muted">{{ rows|length }} system(s)</p>
 
 <table>
-  <thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Taxonomy</th><th>Summary</th></tr></thead>
+  <thead><tr><th>ID</th><th>Name</th><th>Priority</th><th>Status</th><th>Taxonomy</th><th>Summary</th></tr></thead>
   <tbody>
     {% for r in rows %}
     <tr>
       <td class="mono"><a href="{{ request.url_for('data_system_detail', system_id=r.id) }}">{{ r.id }}</a></td>
       <td>{{ r.name }}</td>
+      <td>{% if r.priority %}<span class="badge">{{ r.priority }}</span>{% endif %}</td>
       <td>{% if r.status %}<span class="badge">{{ r.status }}</span>{% endif %}</td>
       <td>
         <ul class="chips">
