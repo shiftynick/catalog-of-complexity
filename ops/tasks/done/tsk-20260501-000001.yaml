@@ -1,0 +1,32 @@
+acceptance_tests:
+  - 'system.yaml validates against schemas/system.schema.json with status: candidate'
+  - all taxonomy refs resolve
+  - boundary, components, interaction_types, scales populated with specifics 
+    (not bootstrap-stub placeholders)
+  - '>=4 of the 9 v0.2 structural facets populated (system_kind, substrate, origin,
+    boundary_clarity, primary_function, lifecycle_stage, main_feedbacks, dominant_constraints,
+    emergent_properties, failure_modes, primary_resources)'
+  - canonical_examples lists >=3 instances OR notes.md justifies why the type is
+    genuinely singular
+created_at: '2026-05-01T00:05:56Z'
+id: tsk-20260501-000001
+lease:
+  attempts: 1
+  last_heartbeat: '2026-05-01T00:06:38Z'
+  leased_at: '2026-05-01T00:06:02Z'
+  leased_by: Shiftor/52336
+  max_attempts: 2
+  ttl_minutes: 60
+notes: 'Phase: system-profiling. Stub upgrade for sys-000211--ecological-niche. Domain:
+  ecological. Classes: niche-system. Source provenance from existing summary: Type-level
+  archetype imported from docs/framework/02-candidate-systems-catalog.md §8 (priority
+  P0). Bootstrap stub awaiting profile-system upgrade.'
+output_targets:
+  - registry/systems/sys-000211--ecological-niche/system.yaml
+  - registry/systems/sys-000211--ecological-niche/notes.md
+  - registry/systems/sys-000211--ecological-niche/links.yaml
+priority: normal
+skill: profile-system
+state: done
+system_id: sys-000211--ecological-niche
+type: profile-system

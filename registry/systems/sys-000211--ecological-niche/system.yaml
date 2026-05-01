@@ -1,23 +1,127 @@
 boundary:
-  description: Type-level ecological archetype; refine boundary in 
-    profile-system upgrade.
-  type: spatial
+  description: A type is the multidimensional set of biotic and abiotic conditions
+    and resources within which a species, ecotype, or coherent strategy can
+    persist with non-negative long-term growth rate. Boundary is functional —
+    drawn around the n-dimensional region of environmental space (Hutchinson's
+    hypervolume) where birth + immigration meets or exceeds death + emigration —
+    rather than spatial. An instance is one species' (or strategy's) niche
+    within a particular ecological community, distinguished as `fundamental`
+    (the niche the organism could occupy in the absence of competition) and
+    `realized` (what it actually occupies after biotic interactions narrow it).
+  type: functional
+boundary_clarity: contested
+canonical_examples:
+  - name: Darwin's finch beak-and-seed niches (Galápagos)
+    note: Canonical adaptive-radiation case; beak depth tracks seed-hardness
+      axis and partitions sympatric species along resource axis.
+  - name: Anolis lizard structural-habitat niches (Caribbean)
+    note: Repeated convergent niche partitioning by perch height and diameter
+      across islands; canonical case for niche conservatism vs. evolution.
+  - name: Marine rocky-intertidal zonation
+    note: Vertical zonation (Connell's barnacles, Paine's mussels-starfish)
+      driven by desiccation tolerance above and competition/predation below;
+      canonical fundamental-vs-realized contrast.
+  - name: Phytoplankton resource-competition niches
+    note: Tilman's R* theory — silicate vs. phosphate co-limitation — gives
+      one of the few mechanistic predictions of coexistence from niche
+      differentiation.
 components:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - environmental axes (temperature, moisture, pH, salinity, light, nutrient
+    concentrations, substrate, disturbance regime; typically 5-30 axes used
+    in practice)
+  - tolerance functions / response curves along each axis
+  - resource-utilization functions (uptake rates as functions of resource
+    availability)
+  - biotic interactors (competitors, predators, mutualists, pathogens)
+  - the focal species or strategy whose niche is being described
+  - propagule supply / dispersal regime that connects local niche to regional
+    species pool
 created_at: '2026-04-29T22:20:40Z'
+dominant_constraints:
+  - physiological tolerance limits (thermal, osmotic, hypoxic) bounding the
+    fundamental niche
+  - competitive exclusion principle — two species cannot coexist long-term on
+    one limiting resource
+  - trade-offs between traits (e.g. growth rate vs. tolerance, generalism vs.
+    specialism) that prevent any single niche from dominating all axes
+  - evolutionary load / adaptive lag — the niche is bounded by the genetic
+    variation available for selection
+  - propagule supply — a niche unreached by dispersal stays unfilled regardless
+    of suitability
+emergent_properties:
+  - niche partitioning across coexisting species (limiting similarity)
+  - guild structure and functional-group composition
+  - character displacement under sympatry
+  - niche conservatism across phylogenies
+  - assembly rules and community-level diversity-productivity patterns
+failure_modes:
+  - competitive exclusion / niche collapse when a superior competitor invades
+    a previously partitioned axis
+  - niche truncation under environmental change (climate envelope shifts faster
+    than the species can track)
+  - lock-in via niche construction (organisms modify abiotic conditions so the
+    niche feeds back on itself; collapse if construction halts)
+  - capture by an invasive species occupying an empty or weakly-defended niche
+  - runaway specialization narrowing the niche until stochastic perturbations
+    extinguish the population
 id: sys-000211--ecological-niche
 interaction_types:
-  - '[bootstrap-stub: pending profile-system upgrade]'
+  - resource competition (exploitative and interference)
+  - predation, parasitism, herbivory bounding the realized niche
+  - mutualism and facilitation expanding the realized niche
+  - niche construction — organisms modifying their own and others' niches
+  - environmental filtering (abiotic conditions selecting which species can
+    occupy a site)
+  - apparent competition mediated by shared natural enemies
+lifecycle_stage: maturity
+main_feedbacks:
+  - density-dependent regulation — population growth slows as the realized
+    niche fills, stabilizing occupancy (negative)
+  - character displacement — selection narrows overlapping niches under
+    sympatry, reducing competition (negative)
+  - niche construction — organisms modify abiotic conditions, expanding or
+    locking in the niche (positive when self-reinforcing; negative when the
+    construction degrades resources)
+  - priority effects — early colonists pre-empt niche space and bias which
+    later arrivals can establish (positive)
+  - eco-evolutionary coupling — niche width expands or contracts on
+    evolutionary timescales as selection shifts tolerance curves
 name: Ecological niche system
+origin: evolved
+primary_function: define the conditions and resources under which a species
+  or strategy can persist, partitioning ecological space among coexisting forms
 priority: P0
-scales: {}
+primary_resources:
+  - energy (light, chemical, predation-derived)
+  - mineral nutrients (N, P, K, micronutrients) and water
+  - physical space and substrate suitable for occupancy
+  - tolerable abiotic conditions (temperature, pH, salinity within range)
+  - genetic variation that selection can act on
+  - propagule supply from a regional species pool
+scales:
+  spatial:
+    - microhabitat ~10^-3 to 10^0 m (e.g. a single leaf, soil aggregate)
+    - patch ~10^0 to 10^3 m (e.g. one tide pool, one rotting log)
+    - landscape ~10^3 to 10^5 m (climatic gradients, metapopulation
+      neighborhoods)
+    - biogeographic range ~10^5 to 10^7 m (species' continental distribution)
+  temporal:
+    - within-generation behavioral occupancy ~10^2 to 10^7 s
+    - population dynamics / generation times ~10^7 to 10^10 s
+    - successional / community assembly ~10^9 to 10^11 s
+    - eco-evolutionary niche shift ~10^11 to 10^14 s
 slug: ecological-niche
-status: bootstrap-stub
-summary: Type-level archetype imported from 
-  docs/framework/02-candidate-systems-catalog.md §8 (priority P0). Bootstrap 
-  stub awaiting profile-system upgrade.
+status: candidate
+substrate: ecological — abiotic environmental axes plus biotic interactor
+  network, instantiated for a focal species or strategy
+summary: 'Type-level archetype imported from
+  docs/framework/02-candidate-systems-catalog.md §8 (priority P0). The
+  multidimensional Hutchinsonian hypervolume of conditions under which a
+  species or strategy persists; partitioned among coexisting forms via
+  competitive exclusion, character displacement, and niche construction.
+  Fundamental vs. realized niche distinction is canonical.'
 system_kind: class
 taxonomy_refs:
   - system-domain:ecological
   - system-class:niche-system
-updated_at: '2026-04-29T22:20:40Z'
+updated_at: '2026-05-01T00:30:00Z'
