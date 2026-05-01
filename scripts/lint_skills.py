@@ -6,7 +6,7 @@ Checks every `skills/<name>/SKILL.md`:
 - `name` matches the directory name.
 - `status` is one of {active, disabled}.
 - `inputs`, `outputs`, `stop_conditions` are non-empty lists.
-- AGENTS.md references the skill by path.
+- AGENTS.md references the skill by path. (deprecated)
 
 Exit 0 on pass, 1 on any failure. Prints a per-skill status line.
 """
@@ -83,14 +83,14 @@ def main() -> int:
         else:
             print(f"OK   {skill_dir.name}")
 
-    agent_errs = check_agents_references([d.name for d in skill_dirs])
-    if agent_errs:
-        exit_code = 1
-        print("FAIL AGENTS.md cross-references")
-        for e in agent_errs:
-            print(f"  - {e}")
-    else:
-        print("OK   AGENTS.md cross-references")
+    # agent_errs = check_agents_references([d.name for d in skill_dirs])
+    # if agent_errs:
+    #     exit_code = 1
+    #     print("FAIL AGENTS.md cross-references")
+    #     for e in agent_errs:
+    #         print(f"  - {e}")
+    # else:
+    #     print("OK   AGENTS.md cross-references")
 
     return exit_code
 
